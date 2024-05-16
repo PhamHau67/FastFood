@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="CSDL_FastFood3_table">
+  <DataContextMoniker Name="/CSDL_FastFood3_tableDataContext" />
+  <nestedChildShapes>
+    <classShape Id="a4afd742-1aa2-4113-ace7-7bc3117f84e5" absoluteBounds="2.5, 1.125, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/CSDL_FastFood3_tableDataContext/TAI_KHOAN" />
+      <nestedChildShapes>
+        <elementListCompartment Id="15e5d62d-dc55-4543-b9e1-fa69752a410f" absoluteBounds="2.515, 1.585, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

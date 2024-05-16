@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CSDL_FastFood3_table" Class="CSDL_FastFood3_tableDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=LOVELYPOPPY\THUNHAT;Initial Catalog=CSDL_FastFood3_table;Integrated Security=True;Encrypt=True;Trust Server Certificate=True" SettingsObjectName="DuAnMau.Properties.Settings" SettingsPropertyName="CSDL_FastFood3_tableConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.TAI_KHOAN" Member="TAI_KHOANs">
+    <Type Name="TAI_KHOAN">
+      <Column Name="MaTaiKhoan" Type="System.String" DbType="Char(7) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ID_TaiKhoan" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="MatKhau" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="MaNhanVien" Type="System.String" DbType="Char(7)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

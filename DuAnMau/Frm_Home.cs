@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace DuAnMau
 {
-    public partial class Home : Form
+    public partial class Frm_Home : Form
     {
-        public Home()
+        public Frm_Home()
         {
             InitializeComponent();
         }

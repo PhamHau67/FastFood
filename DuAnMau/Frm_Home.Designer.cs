@@ -1,6 +1,6 @@
 ﻿namespace DuAnMau
 {
-    partial class Home
+    partial class Frm_Home
     {
         /// <summary>
         /// Required designer variable.

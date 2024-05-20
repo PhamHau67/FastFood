@@ -47,15 +47,15 @@ namespace DuAnMau
                                  vt.TenVaiTro
                              };
 
-                dgv_Accout.DataSource = ListAc.ToList();
+                dgv_Account.DataSource = ListAc.ToList();
 
                 // Đổi Tiếng Việt
-                dgv_Accout.Columns["MaTaiKhoan"].HeaderText = "Mã Tài Khoản";
-                dgv_Accout.Columns["TenTaiKhoan"].HeaderText = "Tên Tài Khoản";
-                dgv_Accout.Columns["MatKhau"].HeaderText = "Mật Khẩu";
-                dgv_Accout.Columns["MaNhanVien"].HeaderText = "Mã Nhân Viên";
-                dgv_Accout.Columns["Gmail"].HeaderText = "Gmail";
-                dgv_Accout.Columns["TenVaiTro"].HeaderText = "Vai Trò";
+                dgv_Account.Columns["MaTaiKhoan"].HeaderText = "Mã Tài Khoản";
+                dgv_Account.Columns["TenTaiKhoan"].HeaderText = "Tên Tài Khoản";
+                dgv_Account.Columns["MatKhau"].HeaderText = "Mật Khẩu";
+                dgv_Account.Columns["MaNhanVien"].HeaderText = "Mã Nhân Viên";
+                dgv_Account.Columns["Gmail"].HeaderText = "Gmail";
+                dgv_Account.Columns["TenVaiTro"].HeaderText = "Vai Trò";
 
 
             }
@@ -66,7 +66,7 @@ namespace DuAnMau
             if (e.RowIndex >= 0)
             {
                 // lấy dữ liệu từ click vào các biến
-                DataGridViewRow row = dgv_Accout.Rows[e.RowIndex];
+                DataGridViewRow row = dgv_Account.Rows[e.RowIndex];
                 string accountID = row.Cells["MaTaiKhoan"].Value.ToString();
                 string username = row.Cells["TenTaiKhoan"].Value.ToString();
                 string password = row.Cells["MatKhau"].Value.ToString();
@@ -308,15 +308,15 @@ namespace DuAnMau
                 if (resultList.Count > 0)
                 {
 
-                    dgv_Accout.DataSource = resultList;
+                    dgv_Account.DataSource = resultList;
 
 
-                    dgv_Accout.Columns["MaTaiKhoan"].HeaderText = "Mã Tài Khoản";
-                    dgv_Accout.Columns["TenTaiKhoan"].HeaderText = "Tên Tài Khoản";
-                    dgv_Accout.Columns["MatKhau"].HeaderText = "Mật Khẩu";
-                    dgv_Accout.Columns["MaNhanVien"].HeaderText = "Mã Nhân Viên";
-                    dgv_Accout.Columns["Gmail"].HeaderText = "Gmail";
-                    dgv_Accout.Columns["TenVaiTro"].HeaderText = "Vai Trò";
+                    dgv_Account.Columns["MaTaiKhoan"].HeaderText = "Mã Tài Khoản";
+                    dgv_Account.Columns["TenTaiKhoan"].HeaderText = "Tên Tài Khoản";
+                    dgv_Account.Columns["MatKhau"].HeaderText = "Mật Khẩu";
+                    dgv_Account.Columns["MaNhanVien"].HeaderText = "Mã Nhân Viên";
+                    dgv_Account.Columns["Gmail"].HeaderText = "Gmail";
+                    dgv_Account.Columns["TenVaiTro"].HeaderText = "Vai Trò";
 
 
                     MessageBox.Show($"Tìm thấy {resultList.Count} dữ liệu. \nlưu ý: dữ liệu tài khoản không thể tìm dựa trên mật khẩu. \tNếu bank muốn tiếp tục truy xuất thông tin hãy làm mới trang. ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);

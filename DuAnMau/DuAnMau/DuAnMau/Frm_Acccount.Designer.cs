@@ -38,7 +38,6 @@
             this.grb_chucNang = new System.Windows.Forms.GroupBox();
             this.txt_Password = new System.Windows.Forms.TextBox();
             this.cbx_Role = new System.Windows.Forms.ComboBox();
-            this.txt_AccountID = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txt_Username = new System.Windows.Forms.TextBox();
             this.txt_EmployeeID = new System.Windows.Forms.TextBox();
@@ -47,13 +46,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.dgv_Accout = new System.Windows.Forms.DataGridView();
+            this.dgv_Account = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.grp_thongTin = new System.Windows.Forms.GroupBox();
+            this.txt_AccountID = new Guna.UI2.WinForms.Guna2TextBox();
             this.grp_timKiem.SuspendLayout();
             this.grb_chucNang.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_Accout)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Account)).BeginInit();
             this.grp_thongTin.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -171,15 +171,6 @@
             this.cbx_Role.Size = new System.Drawing.Size(297, 24);
             this.cbx_Role.TabIndex = 4;
             // 
-            // txt_AccountID
-            // 
-            this.txt_AccountID.Location = new System.Drawing.Point(120, 21);
-            this.txt_AccountID.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txt_AccountID.Multiline = true;
-            this.txt_AccountID.Name = "txt_AccountID";
-            this.txt_AccountID.Size = new System.Drawing.Size(297, 31);
-            this.txt_AccountID.TabIndex = 2;
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -250,19 +241,19 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Tên Tài Khoản";
             // 
-            // dgv_Accout
+            // dgv_Account
             // 
-            this.dgv_Accout.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgv_Accout.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllHeaders;
-            this.dgv_Accout.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_Accout.Location = new System.Drawing.Point(402, 222);
-            this.dgv_Accout.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.dgv_Accout.Name = "dgv_Accout";
-            this.dgv_Accout.RowHeadersWidth = 51;
-            this.dgv_Accout.RowTemplate.Height = 24;
-            this.dgv_Accout.Size = new System.Drawing.Size(1036, 558);
-            this.dgv_Accout.TabIndex = 9;
-            this.dgv_Accout.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_Accout_CellClick);
+            this.dgv_Account.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgv_Account.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllHeaders;
+            this.dgv_Account.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_Account.Location = new System.Drawing.Point(402, 222);
+            this.dgv_Account.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dgv_Account.Name = "dgv_Account";
+            this.dgv_Account.RowHeadersWidth = 51;
+            this.dgv_Account.RowTemplate.Height = 24;
+            this.dgv_Account.Size = new System.Drawing.Size(1036, 558);
+            this.dgv_Account.TabIndex = 9;
+            this.dgv_Account.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_Accout_CellClick);
             // 
             // panel1
             // 
@@ -285,9 +276,9 @@
             // 
             // grp_thongTin
             // 
+            this.grp_thongTin.Controls.Add(this.txt_AccountID);
             this.grp_thongTin.Controls.Add(this.txt_Password);
             this.grp_thongTin.Controls.Add(this.cbx_Role);
-            this.grp_thongTin.Controls.Add(this.txt_AccountID);
             this.grp_thongTin.Controls.Add(this.label6);
             this.grp_thongTin.Controls.Add(this.txt_Username);
             this.grp_thongTin.Controls.Add(this.label5);
@@ -306,6 +297,27 @@
             this.grp_thongTin.TabStop = false;
             this.grp_thongTin.Text = "Thông tin tài khoản";
             // 
+            // txt_AccountID
+            // 
+            this.txt_AccountID.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txt_AccountID.DefaultText = "";
+            this.txt_AccountID.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txt_AccountID.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txt_AccountID.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txt_AccountID.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txt_AccountID.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txt_AccountID.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txt_AccountID.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txt_AccountID.Location = new System.Drawing.Point(120, 17);
+            this.txt_AccountID.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txt_AccountID.Name = "txt_AccountID";
+            this.txt_AccountID.PasswordChar = '\0';
+            this.txt_AccountID.PlaceholderText = "Mã tài khoản";
+            this.txt_AccountID.SelectedText = "";
+            this.txt_AccountID.ShadowDecoration.BorderRadius = 9;
+            this.txt_AccountID.Size = new System.Drawing.Size(297, 31);
+            this.txt_AccountID.TabIndex = 5;
+            // 
             // Frm_Acccount
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -313,7 +325,7 @@
             this.ClientSize = new System.Drawing.Size(1440, 884);
             this.Controls.Add(this.grp_timKiem);
             this.Controls.Add(this.grb_chucNang);
-            this.Controls.Add(this.dgv_Accout);
+            this.Controls.Add(this.dgv_Account);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.grp_thongTin);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -323,7 +335,7 @@
             this.grp_timKiem.ResumeLayout(false);
             this.grp_timKiem.PerformLayout();
             this.grb_chucNang.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_Accout)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Account)).EndInit();
             this.grp_thongTin.ResumeLayout(false);
             this.grp_thongTin.PerformLayout();
             this.ResumeLayout(false);
@@ -342,7 +354,6 @@
         private System.Windows.Forms.GroupBox grb_chucNang;
         private System.Windows.Forms.TextBox txt_Password;
         private System.Windows.Forms.ComboBox cbx_Role;
-        private System.Windows.Forms.TextBox txt_AccountID;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txt_Username;
         private System.Windows.Forms.TextBox txt_EmployeeID;
@@ -351,9 +362,10 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DataGridView dgv_Accout;
+        private System.Windows.Forms.DataGridView dgv_Account;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.GroupBox grp_thongTin;
+        private Guna.UI2.WinForms.Guna2TextBox txt_AccountID;
     }
 }

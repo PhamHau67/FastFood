@@ -87,7 +87,7 @@ namespace DuAnMau
         private void btn_add_Click(object sender, EventArgs e)
         {
             // thêm dữ liệu
-            DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn thêm dữ liệu này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult result = MessageBox.Show("Are you sure you want to add data?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
             {

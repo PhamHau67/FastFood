@@ -58,6 +58,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FastFoodDB.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Frm_employeeManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_employeeManager.Designer.cs">
+      <DependentUpon>Frm_employeeManager.cs</DependentUpon>
+    </Compile>
     <Compile Include="Frm_login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +84,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Frm_employeeManager.resx">
+      <DependentUpon>Frm_employeeManager.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Frm_login.resx">
       <DependentUpon>Frm_login.cs</DependentUpon>
     </EmbeddedResource>

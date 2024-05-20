@@ -37,10 +37,13 @@ namespace DuAnMau
                 dt.Columns.Add("Ngày đăng kí");
                 dt.Columns.Add("Gmail");
                 dt.Columns.Add("Trạng thái");
+                dt.Columns.Add("GioiTinhText", typeof(string));
                 foreach (var item in query)
                 {
-                    dt.Rows.Add(item.MaNhanVien, item.TenNhanVien, item.CCCD, item.MaBoPhan, item.MaVaiTro, item.NgaySinh, item.GioiTinh, item.SDT, item.NgayDangKi, item.Gmail, item.TrangThai); ;
+                    string gioiTinhText = (bool)item.GioiTinh ? "Nam" : "Nữ";
+                    dt.Rows.Add(item.MaNhanVien, item.TenNhanVien, item.CCCD, item.MaBoPhan, item.MaVaiTro, item.NgaySinh, gioiTinhText, item.SDT, item.NgayDangKi, item.Gmail, item.TrangThai);
                 }
+
                 dgv_staff.DataSource = dt;
             }
         }

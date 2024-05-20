@@ -211,10 +211,11 @@
             // 
             // lbl_IDStaff
             // 
+            this.lbl_IDStaff.AutoSize = true;
             this.lbl_IDStaff.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_IDStaff.Location = new System.Drawing.Point(60, 372);
             this.lbl_IDStaff.Name = "lbl_IDStaff";
-            this.lbl_IDStaff.Size = new System.Drawing.Size(75, 20);
+            this.lbl_IDStaff.Size = new System.Drawing.Size(108, 20);
             this.lbl_IDStaff.TabIndex = 15;
             this.lbl_IDStaff.Text = "Mã nhân viên";
             // 

@@ -24,9 +24,7 @@ namespace DuAnMau
         }
 
         public void LoadData_lstv()
-        {
-            
-            lstv_HoaDon.Columns.Add("Số bàn"); // Cột cho số bàn
+        {           
             lstv_HoaDon.Columns.Add("Số bàn", 70); // Cột cho số bàn
             lstv_HoaDon.Columns.Add("Tên món", 150); // Cột cho tên món ăn
             lstv_HoaDon.Columns.Add("Số lượng", 70); // Cột cho số lượng

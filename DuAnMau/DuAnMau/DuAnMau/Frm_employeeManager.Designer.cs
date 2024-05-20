@@ -54,8 +54,8 @@
             this.rdo_StillWorking = new System.Windows.Forms.RadioButton();
             this.rdo_Leave = new System.Windows.Forms.RadioButton();
             this.grp_Find = new System.Windows.Forms.GroupBox();
-            this.txt_Find = new Guna.UI2.WinForms.Guna2TextBox();
             this.btn_Find = new Guna.UI2.WinForms.Guna2Button();
+            this.txt_Find = new Guna.UI2.WinForms.Guna2TextBox();
             this.btn_Add = new Guna.UI2.WinForms.Guna2Button();
             this.btn_Update = new Guna.UI2.WinForms.Guna2Button();
             this.btn_Refresh = new Guna.UI2.WinForms.Guna2Button();
@@ -219,6 +219,7 @@
             // 
             // dgv_staff
             // 
+            this.dgv_staff.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgv_staff.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_staff.Location = new System.Drawing.Point(12, 12);
             this.dgv_staff.Name = "dgv_staff";
@@ -226,6 +227,7 @@
             this.dgv_staff.RowTemplate.Height = 24;
             this.dgv_staff.Size = new System.Drawing.Size(1095, 343);
             this.dgv_staff.TabIndex = 4;
+            this.dgv_staff.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_staff_CellClick);
             // 
             // txt_CCCD
             // 
@@ -421,6 +423,22 @@
             this.grp_Find.TabStop = false;
             this.grp_Find.Text = "Tìm kiếm nhân viên";
             // 
+            // btn_Find
+            // 
+            this.btn_Find.BorderRadius = 15;
+            this.btn_Find.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btn_Find.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btn_Find.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btn_Find.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btn_Find.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.btn_Find.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btn_Find.ForeColor = System.Drawing.Color.White;
+            this.btn_Find.Location = new System.Drawing.Point(307, 33);
+            this.btn_Find.Name = "btn_Find";
+            this.btn_Find.Size = new System.Drawing.Size(96, 48);
+            this.btn_Find.TabIndex = 1;
+            this.btn_Find.Text = "Tìm kiếm";
+            // 
             // txt_Find
             // 
             this.txt_Find.BorderRadius = 20;
@@ -441,22 +459,6 @@
             this.txt_Find.SelectedText = "";
             this.txt_Find.Size = new System.Drawing.Size(272, 48);
             this.txt_Find.TabIndex = 0;
-            // 
-            // btn_Find
-            // 
-            this.btn_Find.BorderRadius = 15;
-            this.btn_Find.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btn_Find.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btn_Find.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btn_Find.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btn_Find.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.btn_Find.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btn_Find.ForeColor = System.Drawing.Color.White;
-            this.btn_Find.Location = new System.Drawing.Point(307, 33);
-            this.btn_Find.Name = "btn_Find";
-            this.btn_Find.Size = new System.Drawing.Size(96, 48);
-            this.btn_Find.TabIndex = 1;
-            this.btn_Find.Text = "Tìm kiếm";
             // 
             // btn_Add
             // 

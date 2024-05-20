@@ -27,9 +27,10 @@ namespace DuAnMau
         {
             
             lstv_HoaDon.Columns.Add("Số bàn"); // Cột cho số bàn
-            lstv_HoaDon.Columns.Add("Tên món"); // Cột cho tên món ăn
-            lstv_HoaDon.Columns.Add("Số lượng"); // Cột cho số lượng
-            lstv_HoaDon.Columns.Add("Giá"); // Cột cho giá
+            lstv_HoaDon.Columns.Add("Số bàn", 70); // Cột cho số bàn
+            lstv_HoaDon.Columns.Add("Tên món", 150); // Cột cho tên món ăn
+            lstv_HoaDon.Columns.Add("Số lượng", 70); // Cột cho số lượng
+            lstv_HoaDon.Columns.Add("Giá", 100); // Cột cho giá
             //lstv_HoaDon.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);                       
             lstv_HoaDon.Columns[0].Width = (int)(lstv_HoaDon.Width * 0.25); ; // Tự động điều chỉnh kích thước cột số bàn
             lstv_HoaDon.Columns[1].Width = (int)(lstv_HoaDon.Width * 0.25); ; // Tự động điều chỉnh kích thước cột tên món
@@ -313,7 +314,6 @@ namespace DuAnMau
                 }
             }
         }
-
         private void timer1_Tick(object sender, EventArgs e)
         {
             lbl_time.Text = DateTime.Now.ToLongTimeString();

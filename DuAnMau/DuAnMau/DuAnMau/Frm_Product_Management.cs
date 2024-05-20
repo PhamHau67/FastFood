@@ -27,22 +27,22 @@ namespace DuAnMau
             {
                 //Viết câu lệnh truy vấn và join bảng
                 var ListPr = from sp in db.SANPHAMs
-                             
+
                              join ncc in db.NHACUNGCAPs on sp.MaNhaCungCap equals ncc.MaNhaCungCap
-                             
+
                              select new
                              {
-                                sp.MaSanPham,
-                                sp.TenSanPham,
-                                sp.LoaiSanPham,
-                                sp.DonVi,
-                                sp.MoTaSanPham,
-                                sp.Tien,
-                                sp.SoLuong,
-                                sp.SoLuongConLai,
-                                sp.NSX,
-                                sp.HSD,
-                                 TrangThai = sp.TrangThai ? "Đang còn" : "Đã hết", 
+                                 sp.MaSanPham,
+                                 sp.TenSanPham,
+                                 sp.LoaiSanPham,
+                                 sp.DonVi,
+                                 sp.MoTaSanPham,
+                                 sp.Tien,
+                                 sp.SoLuong,
+                                 sp.SoLuongConLai,
+                                 sp.NSX,
+                                 sp.HSD,
+                                 TrangThai = sp.TrangThai ? "Đang còn" : "Đã hết",
                                  ncc.TenNhaCungCap
                              };
 
@@ -67,6 +67,28 @@ namespace DuAnMau
         private void dgv_Product_CellClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void dgv_Product_CellClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                // Lấy dữ liệu từ click vào các biến
+                DataGridViewRow row = dgv_Product.Rows[e.RowIndex];
+
+
+                txt_pr_Name.Text = row.Cells["TenSanPham"].Value.ToString();
+                txt_pr_Type.Text = row.Cells["LoaiSanPham"].Value.ToString();
+                txt_pr_Unit.Text = row.Cells["DonVi"].Value.ToString();
+                txt_pr_Description.Text = row.Cells["MoTaSanPham"].Value.ToString();
+                txt_pr_Money.Text = row.Cells["Tien"].Value.ToString();
+                txt_pr_Quantity.Text = row.Cells["SoLuong"].Value.ToString();
+                txt_pr_Quantity_Remaining.Text = row.Cells["SoLuongConLai"].Value.ToString();
+                dtp_pr_DateOfManufacture.Value = Convert.ToDateTime(row.Cells["NSX"].Value);
+                dtp_Expiration_Date.Value = Convert.ToDateTime(row.Cells["HSD"].Value);
+
+                txt__pr_Supplier_ID.Text = row.Cells["TenNhaCungCap"].Value.ToString();
+            }
         }
     }
 }

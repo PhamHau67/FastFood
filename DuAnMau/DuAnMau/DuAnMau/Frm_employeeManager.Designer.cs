@@ -61,8 +61,10 @@
             this.btn_Refresh = new Guna.UI2.WinForms.Guna2Button();
             this.btn_Delete = new Guna.UI2.WinForms.Guna2Button();
             this.btn_Export = new Guna.UI2.WinForms.Guna2Button();
+            this.pan_gentle = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_staff)).BeginInit();
             this.grp_Find.SuspendLayout();
+            this.pan_gentle.SuspendLayout();
             this.SuspendLayout();
             // 
             // txt_NameStaff
@@ -209,11 +211,10 @@
             // 
             // lbl_IDStaff
             // 
-            this.lbl_IDStaff.AutoSize = true;
             this.lbl_IDStaff.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_IDStaff.Location = new System.Drawing.Point(60, 372);
             this.lbl_IDStaff.Name = "lbl_IDStaff";
-            this.lbl_IDStaff.Size = new System.Drawing.Size(108, 20);
+            this.lbl_IDStaff.Size = new System.Drawing.Size(75, 20);
             this.lbl_IDStaff.TabIndex = 15;
             this.lbl_IDStaff.Text = "Mã nhân viên";
             // 
@@ -311,7 +312,7 @@
             // 
             this.rdo_Male.AutoSize = true;
             this.rdo_Male.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdo_Male.Location = new System.Drawing.Point(440, 585);
+            this.rdo_Male.Location = new System.Drawing.Point(31, 47);
             this.rdo_Male.Name = "rdo_Male";
             this.rdo_Male.Size = new System.Drawing.Size(65, 24);
             this.rdo_Male.TabIndex = 22;
@@ -323,7 +324,7 @@
             // 
             this.rdo_Female.AutoSize = true;
             this.rdo_Female.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdo_Female.Location = new System.Drawing.Point(549, 585);
+            this.rdo_Female.Location = new System.Drawing.Point(132, 47);
             this.rdo_Female.Name = "rdo_Female";
             this.rdo_Female.Size = new System.Drawing.Size(51, 24);
             this.rdo_Female.TabIndex = 23;
@@ -540,6 +541,15 @@
             this.btn_Export.TabIndex = 27;
             this.btn_Export.Text = "Xuất file excel";
             // 
+            // pan_gentle
+            // 
+            this.pan_gentle.Controls.Add(this.rdo_Female);
+            this.pan_gentle.Controls.Add(this.rdo_Male);
+            this.pan_gentle.Location = new System.Drawing.Point(409, 538);
+            this.pan_gentle.Name = "pan_gentle";
+            this.pan_gentle.Size = new System.Drawing.Size(217, 100);
+            this.pan_gentle.TabIndex = 29;
+            // 
             // Frm_employeeManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -555,8 +565,6 @@
             this.Controls.Add(this.txt_PhoneNumber);
             this.Controls.Add(this.rdo_Leave);
             this.Controls.Add(this.rdo_StillWorking);
-            this.Controls.Add(this.rdo_Female);
-            this.Controls.Add(this.rdo_Male);
             this.Controls.Add(this.dtp_SignUpDay);
             this.Controls.Add(this.dtp_Birthday);
             this.Controls.Add(this.txt_IDRole);
@@ -576,10 +584,13 @@
             this.Controls.Add(this.lbl_NameStaff);
             this.Controls.Add(this.lbl_IDStaff);
             this.Controls.Add(this.dgv_staff);
+            this.Controls.Add(this.pan_gentle);
             this.Name = "Frm_employeeManager";
             this.Text = "Frm_employeeManager";
             ((System.ComponentModel.ISupportInitialize)(this.dgv_staff)).EndInit();
             this.grp_Find.ResumeLayout(false);
+            this.pan_gentle.ResumeLayout(false);
+            this.pan_gentle.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -620,5 +631,6 @@
         private Guna.UI2.WinForms.Guna2Button btn_Refresh;
         private Guna.UI2.WinForms.Guna2Button btn_Delete;
         private Guna.UI2.WinForms.Guna2Button btn_Export;
+        private System.Windows.Forms.Panel pan_gentle;
     }
 }

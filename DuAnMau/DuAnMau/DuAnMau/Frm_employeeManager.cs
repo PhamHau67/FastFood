@@ -44,21 +44,7 @@ namespace DuAnMau
                 dgv_staff.DataSource = dt;
             }
         }
-        private void dgv_staff_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            if (e.ColumnIndex == dgv_staff.Columns["Giới tính"].Index && e.Value != null)
-            {
-                bool gioiTinh = (bool)e.Value;
-                e.Value = gioiTinh ? "Nam" : "Nữ";
-                e.FormattingApplied = true;
-            }
-            if (e.ColumnIndex == dgv_staff.Columns["Trạng thái"].Index && e.Value != null)
-            {
-                bool trangThai = (bool)e.Value;
-                e.Value = trangThai ? "Đang làm việc" : "Đã nghỉ làm";
-                e.FormattingApplied = true;
-            }
-        }
+        
         private void dgv_staff_CellClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -77,12 +63,9 @@ namespace DuAnMau
                     rdo_Male.Checked = isMale;
                     rdo_Female.Checked = !isMale;
                 }
-
                 txt_PhoneNumber.Text = row.Cells["Số điện thoại"].Value.ToString();
                 dtp_SignUpDay.Value = DateTime.Parse(row.Cells["Ngày đăng kí"].Value.ToString());
                 txt_Gmail.Text = row.Cells["Gmail"].Value.ToString();
-
-                // Kiểm tra trạng thái
                 bool stillWorking;
                 if (bool.TryParse(row.Cells["Trạng thái"].Value.ToString(), out stillWorking))
                 {

@@ -37,13 +37,12 @@ namespace DuAnMau
                 dt.Columns.Add("Ngày đăng kí");
                 dt.Columns.Add("Gmail");
                 dt.Columns.Add("Trạng thái");
-                dt.Columns.Add("GioiTinhText", typeof(string));
                 foreach (var item in query)
                 {
-                    string gioiTinhText = (bool)item.GioiTinh ? "Nam" : "Nữ";
-                    dt.Rows.Add(item.MaNhanVien, item.TenNhanVien, item.CCCD, item.MaBoPhan, item.MaVaiTro, item.NgaySinh, gioiTinhText, item.SDT, item.NgayDangKi, item.Gmail, item.TrangThai);
+                    string trangThai = (bool)item.TrangThai ? "Đang đi làm" : "Đã nghỉ làm";
+                    string gioiTinh = (bool)item.GioiTinh ? "Nam" : "Nữ";
+                    dt.Rows.Add(item.MaNhanVien, item.TenNhanVien, item.CCCD, item.MaBoPhan, item.MaVaiTro, item.NgaySinh, gioiTinh, item.SDT, item.NgayDangKi, item.Gmail, trangThai);
                 }
-
                 dgv_staff.DataSource = dt;
             }
         }
@@ -75,6 +74,46 @@ namespace DuAnMau
                     rdo_StillWorking.Checked = stillWorking;
                     rdo_Leave.Checked = !stillWorking;
                 }
+            }
+        }
+
+        private void btn_Add_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var db = new DataClasses1DataContext(_con))
+                {
+                    // Tạo một đối tượng NHAN_VIEN mới và gán các giá trị từ các điều khiển trên form
+                    NHAN_VIEN newEmployee = new NHAN_VIEN
+                    {
+                        MaNhanVien = txt_IDStaff.Text,
+                        TenNhanVien = txt_NameStaff.Text,
+                        CCCD = txt_CCCD.Text,
+                        MaBoPhan = txt_IDDepartment.Text,
+                        MaVaiTro = txt_IDRole.Text,
+                        NgaySinh = dtp_Birthday.Value,
+                        GioiTinh = rdo_Male.Checked, // true nếu rdo_Male được chọn, ngược lại là false
+                        SDT = txt_PhoneNumber.Text,
+                        NgayDangKi = dtp_SignUpDay.Value,
+                        Gmail = txt_Gmail.Text,
+                        TrangThai = rdo_StillWorking.Checked // true nếu rdo_StillWorking được chọn, ngược lại là false
+                    };
+
+                    // Thêm nhân viên mới vào cơ sở dữ liệu
+                    db.NHAN_VIENs.InsertOnSubmit(newEmployee);
+                    db.SubmitChanges();
+
+                    // Hiển thị MessageBox thông báo khi thêm thành công
+                    MessageBox.Show("Nhân viên đã được thêm thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Sau khi thêm vào cơ sở dữ liệu, cập nhật DataGridView
+                    Load_dgv_manager(); // Gọi lại phương thức Load_dgv_manager để tải lại dữ liệu
+                }
+            }
+            catch (Exception ex)
+            {
+                // Hiển thị MessageBox thông báo khi xảy ra lỗi
+                MessageBox.Show("Thêm nhân viên thất bại!\nLỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

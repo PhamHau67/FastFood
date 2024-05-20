@@ -223,11 +223,11 @@
             // 
             this.dgv_staff.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgv_staff.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_staff.Location = new System.Drawing.Point(12, 12);
+            this.dgv_staff.Location = new System.Drawing.Point(12, 1);
             this.dgv_staff.Name = "dgv_staff";
             this.dgv_staff.RowHeadersWidth = 51;
             this.dgv_staff.RowTemplate.Height = 24;
-            this.dgv_staff.Size = new System.Drawing.Size(1095, 343);
+            this.dgv_staff.Size = new System.Drawing.Size(1077, 343);
             this.dgv_staff.TabIndex = 4;
             this.dgv_staff.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_staff_CellClick);
             // 
@@ -477,6 +477,7 @@
             this.btn_Add.Size = new System.Drawing.Size(96, 45);
             this.btn_Add.TabIndex = 27;
             this.btn_Add.Text = "Thêm";
+            this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
             // btn_Update
             // 

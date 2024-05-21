@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -45,6 +45,7 @@
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1001\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
@@ -99,16 +100,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FastFoodDB.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FastFoodDB.dbml</DependentUpon>
-    </Compile>
-    <Compile Include="Frm_revenueMangament.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Frm_revenueMangament.Designer.cs">
-      <DependentUpon>Frm_revenueMangament.cs</DependentUpon>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Resources\Remove-bg.ai_1715328413429.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Ga123.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FastFoodDB.designer.cs" />
+    <Compile Include="FastFoodDB1.designer.cs" />
     <Compile Include="Frm_Account.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,23 +127,17 @@
     <Compile Include="Frm_employeeManager.Designer.cs">
       <DependentUpon>Frm_employeeManager.cs</DependentUpon>
     </Compile>
-    <Compile Include="Frm_homeOrders.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Frm_homeOrders.Designer.cs">
-      <DependentUpon>Frm_homeOrders.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Frm_login.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Frm_login.Designer.cs">
-      <DependentUpon>Frm_login.cs</DependentUpon>
-    </Compile>
     <Compile Include="Frm_home.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Frm_home.Designer.cs">
       <DependentUpon>Frm_home.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_homeOrders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_homeOrders.Designer.cs">
+      <DependentUpon>Frm_homeOrders.cs</DependentUpon>
     </Compile>
     <Compile Include="Frm_leader.cs">
       <SubType>Form</SubType>
@@ -145,84 +145,60 @@
     <Compile Include="Frm_leader.Designer.cs">
       <DependentUpon>Frm_leader.cs</DependentUpon>
     </Compile>
+    <Compile Include="Frm_login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_login.Designer.cs">
+      <DependentUpon>Frm_login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_order.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_order.Designer.cs">
+      <DependentUpon>Frm_order.cs</DependentUpon>
+    </Compile>
     <Compile Include="Frm_Product_Management.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Frm_Product_Management.Designer.cs">
       <DependentUpon>Frm_Product_Management.cs</DependentUpon>
-    <Compile Include="Frm_Order.cs">
+    </Compile>
+    <Compile Include="Frm_revenueMangament.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Frm_Order.Designer.cs">
-      <DependentUpon>Frm_Order.cs</DependentUpon>
+    <Compile Include="Frm_revenueMangament.Designer.cs">
+      <DependentUpon>Frm_revenueMangament.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Frm_revenueMangament.resx">
-      <DependentUpon>Frm_revenueMangament.cs</DependentUpon>
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="Frm_Account.resx">
       <DependentUpon>Frm_Account.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Frm_employeeManager.resx">
       <DependentUpon>Frm_employeeManager.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Frm_homeOrders.resx">
-      <DependentUpon>Frm_homeOrders.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Frm_login.resx">
-      <DependentUpon>Frm_login.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Frm_home.resx">
       <DependentUpon>Frm_home.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_homeOrders.resx">
+      <DependentUpon>Frm_homeOrders.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Frm_leader.resx">
       <DependentUpon>Frm_leader.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Frm_login.resx">
+      <DependentUpon>Frm_login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_order.resx">
+      <DependentUpon>Frm_order.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Frm_Product_Management.resx">
       <DependentUpon>Frm_Product_Management.cs</DependentUpon>
-    <EmbeddedResource Include="Frm_Order.resx">
-      <DependentUpon>Frm_Order.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
+    <EmbeddedResource Include="Frm_revenueMangament.resx">
+      <DependentUpon>Frm_revenueMangament.cs</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <None Include="FastFoodDB.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>FastFoodDB.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="FastFoodDB.dbml.layout">
-      <DependentUpon>FastFoodDB.dbml</DependentUpon>
-    </None>
-    <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Remove-bg.ai_1715328413429.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Ga123.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

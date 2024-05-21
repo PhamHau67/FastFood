@@ -8,13 +8,40 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.Linq;
+using System.Data.SqlClient;
 
 namespace DuAnMau
 {
     public partial class Frm_employeeManager : Form
     {
+        private bool IsValidName(string name)
+        {
+            return !name.Any(char.IsDigit);
+        }
+        private bool IsValidCCCD(string cccd)
+        {
+            int value;
+            return !string.IsNullOrWhiteSpace(cccd) && int.TryParse(cccd, out value) && value >= 0;
+        }
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        private bool IsValidPhoneNumber(string phoneNumber)
+        {
+            int value;
+            return !string.IsNullOrWhiteSpace(phoneNumber) && int.TryParse(phoneNumber, out value) && value >= 0;
+        }
         private string _con = "Data Source=DESKTOP-R9SVLJT\\HUNG;Initial Catalog=FastFoodDB;Integrated Security=True";
-        public Frm_employeeManager()
+        public Frm_employeeManager(string maNhanVien)
         {
             InitializeComponent();
             Load_dgv_manager();
@@ -81,9 +108,43 @@ namespace DuAnMau
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(txt_NameStaff.Text) || !IsValidName(txt_NameStaff.Text))
+                {
+                    MessageBox.Show("Vui lòng nhập tên nhân viên hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(txt_CCCD.Text) || !IsValidCCCD(txt_CCCD.Text))
+                {
+                    MessageBox.Show("Vui lòng nhập số CCCD hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (dtp_Birthday.Value >= dtp_SignUpDay.Value)
+                {
+                    MessageBox.Show("Ngày sinh phải nhỏ hơn ngày đăng kí!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (!rdo_Male.Checked && !rdo_Female.Checked)
+                {
+                    MessageBox.Show("Vui lòng chọn giới tính!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (!rdo_StillWorking.Checked && !rdo_Leave.Checked)
+                {
+                    MessageBox.Show("Vui lòng chọn trạng thái!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(txt_Gmail.Text) || !IsValidEmail(txt_Gmail.Text))
+                {
+                    MessageBox.Show("Vui lòng nhập địa chỉ Gmail hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(txt_PhoneNumber.Text) || !IsValidPhoneNumber(txt_PhoneNumber.Text))
+                {
+                    MessageBox.Show("Vui lòng nhập số điện thoại hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 using (var db = new DataClasses1DataContext(_con))
                 {
-                    // Tạo một đối tượng NHAN_VIEN mới và gán các giá trị từ các điều khiển trên form
                     NHAN_VIEN newEmployee = new NHAN_VIEN
                     {
                         MaNhanVien = txt_IDStaff.Text,
@@ -92,28 +153,136 @@ namespace DuAnMau
                         MaBoPhan = txt_IDDepartment.Text,
                         MaVaiTro = txt_IDRole.Text,
                         NgaySinh = dtp_Birthday.Value,
-                        GioiTinh = rdo_Male.Checked, // true nếu rdo_Male được chọn, ngược lại là false
+                        GioiTinh = rdo_Male.Checked,
                         SDT = txt_PhoneNumber.Text,
                         NgayDangKi = dtp_SignUpDay.Value,
                         Gmail = txt_Gmail.Text,
-                        TrangThai = rdo_StillWorking.Checked // true nếu rdo_StillWorking được chọn, ngược lại là false
+                        TrangThai = rdo_StillWorking.Checked
                     };
-
-                    // Thêm nhân viên mới vào cơ sở dữ liệu
                     db.NHAN_VIENs.InsertOnSubmit(newEmployee);
                     db.SubmitChanges();
-
-                    // Hiển thị MessageBox thông báo khi thêm thành công
                     MessageBox.Show("Nhân viên đã được thêm thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    // Sau khi thêm vào cơ sở dữ liệu, cập nhật DataGridView
-                    Load_dgv_manager(); // Gọi lại phương thức Load_dgv_manager để tải lại dữ liệu
+                    Load_dgv_manager();
                 }
             }
             catch (Exception ex)
             {
-                // Hiển thị MessageBox thông báo khi xảy ra lỗi
-                MessageBox.Show("Thêm nhân viên thất bại!\nLỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Thêm nhân viên thất bại!Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+
+        private void btn_Update_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(txt_NameStaff.Text) || !IsValidName(txt_NameStaff.Text))
+                {
+                    MessageBox.Show("Vui lòng nhập tên nhân viên hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(txt_CCCD.Text) || !IsValidCCCD(txt_CCCD.Text))
+                {
+                    MessageBox.Show("Vui lòng nhập số CCCD hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (dtp_Birthday.Value >= dtp_SignUpDay.Value)
+                {
+                    MessageBox.Show("Ngày sinh phải nhỏ hơn ngày đăng kí!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (!rdo_Male.Checked && !rdo_Female.Checked)
+                {
+                    MessageBox.Show("Vui lòng chọn giới tính!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (!rdo_StillWorking.Checked && !rdo_Leave.Checked)
+                {
+                    MessageBox.Show("Vui lòng chọn trạng thái!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(txt_Gmail.Text) || !IsValidEmail(txt_Gmail.Text))
+                {
+                    MessageBox.Show("Vui lòng nhập địa chỉ Gmail hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(txt_PhoneNumber.Text) || !IsValidPhoneNumber(txt_PhoneNumber.Text))
+                {
+                    MessageBox.Show("Vui lòng nhập số điện thoại hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                using (var db = new DataClasses1DataContext(_con))
+                {
+                    var query = from nv in db.NHAN_VIENs
+                                where nv.MaNhanVien == txt_IDStaff.Text
+                                select nv;
+                    NHAN_VIEN nvToUpdate = query.SingleOrDefault();
+
+                    if (nvToUpdate != null)
+                    {
+                        nvToUpdate.TenNhanVien = txt_NameStaff.Text;
+                        nvToUpdate.CCCD = txt_CCCD.Text;
+                        nvToUpdate.MaBoPhan = txt_IDDepartment.Text;
+                        nvToUpdate.MaVaiTro = txt_IDRole.Text;
+                        nvToUpdate.NgaySinh = dtp_Birthday.Value;
+                        nvToUpdate.GioiTinh = rdo_Male.Checked;
+                        nvToUpdate.SDT = txt_PhoneNumber.Text;
+                        nvToUpdate.NgayDangKi = dtp_SignUpDay.Value;
+                        nvToUpdate.Gmail = txt_Gmail.Text;
+                        nvToUpdate.TrangThai = rdo_StillWorking.Checked;
+                        db.SubmitChanges();
+                        Load_dgv_manager();
+                        MessageBox.Show("Cập nhật nhân viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không tìm thấy nhân viên cần cập nhật!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Có lỗi xảy ra khi cập nhật nhân viên: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btn_Delete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgv_staff.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Vui lòng chọn một nhân viên để xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa nhân viên này không?", "Xác nhận Xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    using (var db = new DataClasses1DataContext(_con))
+                    {
+                        var query = from nv in db.NHAN_VIENs
+                                    where nv.MaNhanVien == txt_IDStaff.Text
+                                    select nv;
+                        NHAN_VIEN employeeToDelete = query.SingleOrDefault();
+                        if (employeeToDelete != null)
+                        {
+                            db.NHAN_VIENs.DeleteOnSubmit(employeeToDelete);
+                            db.SubmitChanges();
+                            Load_dgv_manager();
+                            MessageBox.Show("Nhân viên đã được xóa thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không tìm thấy nhân viên cần xóa!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Có lỗi xảy ra: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

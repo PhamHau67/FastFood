@@ -16,5 +16,18 @@ namespace DuAnMau
         {
             InitializeComponent();
         }
+
+        private void btn_exit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btn_logout_Click(object sender, EventArgs e)
+        {
+            Frm_login loginForm = new Frm_login();
+            loginForm.ClearCredentials(); 
+            loginForm.Show();
+            this.Close();
+        }
     }
 }

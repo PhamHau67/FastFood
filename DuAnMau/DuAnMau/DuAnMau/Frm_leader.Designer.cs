@@ -30,17 +30,18 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_leader));
             this.gn_home = new Guna.UI2.WinForms.Guna2Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.lbl_admin = new System.Windows.Forms.Label();
             this.btn_exit = new Guna.UI2.WinForms.Guna2Button();
             this.btn_logout = new Guna.UI2.WinForms.Guna2Button();
-            this.btn_back = new Guna.UI2.WinForms.Guna2Button();
             this.btn_warehouse = new Guna.UI2.WinForms.Guna2Button();
             this.btn_home = new Guna.UI2.WinForms.Guna2Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lbl_admin = new System.Windows.Forms.Label();
             this.guna2CirclePictureBox1 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.gn_home.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // gn_home
@@ -48,7 +49,6 @@
             this.gn_home.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(209)))), ((int)(((byte)(152)))));
             this.gn_home.Controls.Add(this.btn_exit);
             this.gn_home.Controls.Add(this.btn_logout);
-            this.gn_home.Controls.Add(this.btn_back);
             this.gn_home.Controls.Add(this.btn_warehouse);
             this.gn_home.Controls.Add(this.btn_home);
             this.gn_home.Controls.Add(this.panel1);
@@ -57,25 +57,6 @@
             this.gn_home.Name = "gn_home";
             this.gn_home.Size = new System.Drawing.Size(321, 900);
             this.gn_home.TabIndex = 1;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.lbl_admin);
-            this.panel1.Controls.Add(this.guna2CirclePictureBox1);
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(321, 141);
-            this.panel1.TabIndex = 0;
-            // 
-            // lbl_admin
-            // 
-            this.lbl_admin.AutoSize = true;
-            this.lbl_admin.Font = new System.Drawing.Font("Segoe Script", 13.8F);
-            this.lbl_admin.Location = new System.Drawing.Point(152, 62);
-            this.lbl_admin.Name = "lbl_admin";
-            this.lbl_admin.Size = new System.Drawing.Size(124, 36);
-            this.lbl_admin.TabIndex = 1;
-            this.lbl_admin.Text = "LEADER";
             // 
             // btn_exit
             // 
@@ -87,13 +68,13 @@
             this.btn_exit.Font = new System.Drawing.Font("Segoe UI Emoji", 13.8F, System.Drawing.FontStyle.Bold);
             this.btn_exit.ForeColor = System.Drawing.Color.Black;
             this.btn_exit.Image = ((System.Drawing.Image)(resources.GetObject("btn_exit.Image")));
-            this.btn_exit.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btn_exit.ImageSize = new System.Drawing.Size(30, 30);
-            this.btn_exit.Location = new System.Drawing.Point(147, 838);
+            this.btn_exit.Location = new System.Drawing.Point(189, 818);
             this.btn_exit.Name = "btn_exit";
             this.btn_exit.Size = new System.Drawing.Size(53, 59);
             this.btn_exit.TabIndex = 5;
             this.btn_exit.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btn_exit.Click += new System.EventHandler(this.btn_exit_Click);
             // 
             // btn_logout
             // 
@@ -105,31 +86,13 @@
             this.btn_logout.Font = new System.Drawing.Font("Segoe UI Emoji", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_logout.ForeColor = System.Drawing.Color.Black;
             this.btn_logout.Image = ((System.Drawing.Image)(resources.GetObject("btn_logout.Image")));
-            this.btn_logout.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btn_logout.ImageSize = new System.Drawing.Size(30, 30);
-            this.btn_logout.Location = new System.Drawing.Point(265, 838);
+            this.btn_logout.Location = new System.Drawing.Point(262, 818);
             this.btn_logout.Name = "btn_logout";
             this.btn_logout.Size = new System.Drawing.Size(53, 59);
             this.btn_logout.TabIndex = 4;
             this.btn_logout.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            // 
-            // btn_back
-            // 
-            this.btn_back.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btn_back.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btn_back.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btn_back.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btn_back.FillColor = System.Drawing.Color.Transparent;
-            this.btn_back.Font = new System.Drawing.Font("Segoe UI Emoji", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_back.ForeColor = System.Drawing.Color.Black;
-            this.btn_back.Image = ((System.Drawing.Image)(resources.GetObject("btn_back.Image")));
-            this.btn_back.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btn_back.ImageSize = new System.Drawing.Size(30, 30);
-            this.btn_back.Location = new System.Drawing.Point(206, 838);
-            this.btn_back.Name = "btn_back";
-            this.btn_back.Size = new System.Drawing.Size(53, 59);
-            this.btn_back.TabIndex = 3;
-            this.btn_back.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btn_logout.Click += new System.EventHandler(this.btn_logout_Click);
             // 
             // btn_warehouse
             // 
@@ -169,6 +132,25 @@
             this.btn_home.Text = "      HOME";
             this.btn_home.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.lbl_admin);
+            this.panel1.Controls.Add(this.guna2CirclePictureBox1);
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(321, 141);
+            this.panel1.TabIndex = 0;
+            // 
+            // lbl_admin
+            // 
+            this.lbl_admin.AutoSize = true;
+            this.lbl_admin.Font = new System.Drawing.Font("Segoe Script", 13.8F);
+            this.lbl_admin.Location = new System.Drawing.Point(152, 62);
+            this.lbl_admin.Name = "lbl_admin";
+            this.lbl_admin.Size = new System.Drawing.Size(124, 36);
+            this.lbl_admin.TabIndex = 1;
+            this.lbl_admin.Text = "LEADER";
+            // 
             // guna2CirclePictureBox1
             // 
             this.guna2CirclePictureBox1.FillColor = System.Drawing.Color.Transparent;
@@ -182,19 +164,33 @@
             this.guna2CirclePictureBox1.TabIndex = 0;
             this.guna2CirclePictureBox1.TabStop = false;
             // 
-            // Leader
+            // pictureBox1
+            // 
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(321, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(1119, 900);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
+            // 
+            // Frm_leader
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1440, 900);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.gn_home);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Leader";
+            this.Name = "Frm_leader";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Leader";
             this.gn_home.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -204,11 +200,11 @@
         private Guna.UI2.WinForms.Guna2Panel gn_home;
         private Guna.UI2.WinForms.Guna2Button btn_exit;
         private Guna.UI2.WinForms.Guna2Button btn_logout;
-        private Guna.UI2.WinForms.Guna2Button btn_back;
         private Guna.UI2.WinForms.Guna2Button btn_warehouse;
         private Guna.UI2.WinForms.Guna2Button btn_home;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lbl_admin;
         private Guna.UI2.WinForms.Guna2CirclePictureBox guna2CirclePictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

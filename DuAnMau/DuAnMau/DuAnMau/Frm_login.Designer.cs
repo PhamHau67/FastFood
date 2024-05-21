@@ -35,7 +35,7 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.lbl_error = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.btn_pass = new Guna.UI2.WinForms.Guna2TextBox();
+            this.txt_pass = new Guna.UI2.WinForms.Guna2TextBox();
             this.txt_user = new Guna.UI2.WinForms.Guna2TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -121,30 +121,30 @@
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Forgot password?";
             // 
-            // btn_pass
+            // txt_pass
             // 
-            this.btn_pass.BackColor = System.Drawing.Color.Transparent;
-            this.btn_pass.BorderRadius = 15;
-            this.btn_pass.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.btn_pass.DefaultText = "";
-            this.btn_pass.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.btn_pass.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.btn_pass.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.btn_pass.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.btn_pass.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.btn_pass.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btn_pass.ForeColor = System.Drawing.Color.Black;
-            this.btn_pass.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.btn_pass.IconLeft = ((System.Drawing.Image)(resources.GetObject("btn_pass.IconLeft")));
-            this.btn_pass.IconLeftSize = new System.Drawing.Size(30, 30);
-            this.btn_pass.Location = new System.Drawing.Point(196, 207);
-            this.btn_pass.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btn_pass.Name = "btn_pass";
-            this.btn_pass.PasswordChar = '*';
-            this.btn_pass.PlaceholderText = "Enter Password";
-            this.btn_pass.SelectedText = "";
-            this.btn_pass.Size = new System.Drawing.Size(299, 51);
-            this.btn_pass.TabIndex = 18;
+            this.txt_pass.BackColor = System.Drawing.Color.Transparent;
+            this.txt_pass.BorderRadius = 15;
+            this.txt_pass.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txt_pass.DefaultText = "";
+            this.txt_pass.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txt_pass.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txt_pass.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txt_pass.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txt_pass.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txt_pass.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txt_pass.ForeColor = System.Drawing.Color.Black;
+            this.txt_pass.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txt_pass.IconLeft = ((System.Drawing.Image)(resources.GetObject("txt_pass.IconLeft")));
+            this.txt_pass.IconLeftSize = new System.Drawing.Size(30, 30);
+            this.txt_pass.Location = new System.Drawing.Point(196, 207);
+            this.txt_pass.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txt_pass.Name = "txt_pass";
+            this.txt_pass.PasswordChar = '*';
+            this.txt_pass.PlaceholderText = "Enter Password";
+            this.txt_pass.SelectedText = "";
+            this.txt_pass.Size = new System.Drawing.Size(299, 51);
+            this.txt_pass.TabIndex = 18;
             // 
             // txt_user
             // 
@@ -180,7 +180,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(633, 685);
             this.Controls.Add(this.txt_user);
-            this.Controls.Add(this.btn_pass);
+            this.Controls.Add(this.txt_pass);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.lbl_error);
             this.Controls.Add(this.pictureBox2);
@@ -207,7 +207,7 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label lbl_error;
         private System.Windows.Forms.LinkLabel linkLabel1;
-        private Guna.UI2.WinForms.Guna2TextBox btn_pass;
+        private Guna.UI2.WinForms.Guna2TextBox txt_pass;
         private Guna.UI2.WinForms.Guna2TextBox txt_user;
     }
 }

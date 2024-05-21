@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
             this.dgv_Product = new System.Windows.Forms.DataGridView();
             this.txt_pr_Name = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -68,16 +67,6 @@
             this.guna2Panel2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(209)))), ((int)(((byte)(152)))));
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(393, 884);
-            this.panel1.TabIndex = 9;
-            // 
             // dgv_Product
             // 
             this.dgv_Product.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
@@ -86,11 +75,11 @@
             this.dgv_Product.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgv_Product.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_Product.GridColor = System.Drawing.Color.White;
-            this.dgv_Product.Location = new System.Drawing.Point(399, 0);
+            this.dgv_Product.Location = new System.Drawing.Point(52, 16);
             this.dgv_Product.Name = "dgv_Product";
             this.dgv_Product.RowHeadersWidth = 51;
             this.dgv_Product.RowTemplate.Height = 24;
-            this.dgv_Product.Size = new System.Drawing.Size(1035, 433);
+            this.dgv_Product.Size = new System.Drawing.Size(1013, 433);
             this.dgv_Product.TabIndex = 13;
             this.dgv_Product.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_Product_CellClick_1);
             // 
@@ -196,7 +185,7 @@
             this.txt_pr_Quantity.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txt_pr_Quantity.ForeColor = System.Drawing.Color.Black;
             this.txt_pr_Quantity.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txt_pr_Quantity.Location = new System.Drawing.Point(861, 175);
+            this.txt_pr_Quantity.Location = new System.Drawing.Point(851, 175);
             this.txt_pr_Quantity.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_pr_Quantity.Name = "txt_pr_Quantity";
             this.txt_pr_Quantity.PasswordChar = '\0';
@@ -220,7 +209,7 @@
             this.txt_pr_Unit.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txt_pr_Unit.ForeColor = System.Drawing.Color.Black;
             this.txt_pr_Unit.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txt_pr_Unit.Location = new System.Drawing.Point(861, 93);
+            this.txt_pr_Unit.Location = new System.Drawing.Point(845, 94);
             this.txt_pr_Unit.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_pr_Unit.Name = "txt_pr_Unit";
             this.txt_pr_Unit.PasswordChar = '\0';
@@ -247,7 +236,7 @@
             this.guna2HtmlLabel5.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel5.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel5.ForeColor = System.Drawing.Color.Black;
-            this.guna2HtmlLabel5.Location = new System.Drawing.Point(861, 146);
+            this.guna2HtmlLabel5.Location = new System.Drawing.Point(851, 146);
             this.guna2HtmlLabel5.Name = "guna2HtmlLabel5";
             this.guna2HtmlLabel5.Size = new System.Drawing.Size(187, 22);
             this.guna2HtmlLabel5.TabIndex = 15;
@@ -283,9 +272,9 @@
             this.grp_product_Information.CustomBorderThickness = new System.Windows.Forms.Padding(0, 35, 0, 0);
             this.grp_product_Information.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.grp_product_Information.ForeColor = System.Drawing.Color.Black;
-            this.grp_product_Information.Location = new System.Drawing.Point(399, 439);
+            this.grp_product_Information.Location = new System.Drawing.Point(12, 455);
             this.grp_product_Information.Name = "grp_product_Information";
-            this.grp_product_Information.Size = new System.Drawing.Size(1035, 332);
+            this.grp_product_Information.Size = new System.Drawing.Size(1092, 314);
             this.grp_product_Information.TabIndex = 16;
             this.grp_product_Information.Text = "Product Information";
             // 
@@ -304,9 +293,9 @@
             this.cbx_Supplier_ID.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.cbx_Supplier_ID.ForeColor = System.Drawing.Color.Black;
             this.cbx_Supplier_ID.ItemHeight = 30;
-            this.cbx_Supplier_ID.Location = new System.Drawing.Point(334, 174);
+            this.cbx_Supplier_ID.Location = new System.Drawing.Point(334, 165);
             this.cbx_Supplier_ID.Name = "cbx_Supplier_ID";
-            this.cbx_Supplier_ID.Size = new System.Drawing.Size(176, 36);
+            this.cbx_Supplier_ID.Size = new System.Drawing.Size(233, 36);
             this.cbx_Supplier_ID.TabIndex = 17;
             this.cbx_Supplier_ID.SelectedIndexChanged += new System.EventHandler(this.cbx_Supplier_ID_SelectedIndexChanged);
             // 
@@ -317,7 +306,7 @@
             this.dtp_pr_DateOfManufacture.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(135)))), ((int)(((byte)(67)))));
             this.dtp_pr_DateOfManufacture.FocusedColor = System.Drawing.SystemColors.Control;
             this.dtp_pr_DateOfManufacture.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.dtp_pr_DateOfManufacture.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.dtp_pr_DateOfManufacture.ForeColor = System.Drawing.Color.Black;
             this.dtp_pr_DateOfManufacture.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtp_pr_DateOfManufacture.Location = new System.Drawing.Point(227, 269);
             this.dtp_pr_DateOfManufacture.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
@@ -334,7 +323,7 @@
             this.dtp_Expiration_Date.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(135)))), ((int)(((byte)(67)))));
             this.dtp_Expiration_Date.FocusedColor = System.Drawing.SystemColors.Control;
             this.dtp_Expiration_Date.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.dtp_Expiration_Date.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.dtp_Expiration_Date.ForeColor = System.Drawing.Color.Black;
             this.dtp_Expiration_Date.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtp_Expiration_Date.Location = new System.Drawing.Point(601, 268);
             this.dtp_Expiration_Date.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
@@ -359,7 +348,7 @@
             this.txt_pr_Quantity_Remaining.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txt_pr_Quantity_Remaining.ForeColor = System.Drawing.Color.Black;
             this.txt_pr_Quantity_Remaining.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txt_pr_Quantity_Remaining.Location = new System.Drawing.Point(952, 175);
+            this.txt_pr_Quantity_Remaining.Location = new System.Drawing.Point(942, 175);
             this.txt_pr_Quantity_Remaining.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_pr_Quantity_Remaining.Name = "txt_pr_Quantity_Remaining";
             this.txt_pr_Quantity_Remaining.PasswordChar = '\0';
@@ -374,7 +363,7 @@
             this.guna2HtmlLabel2.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel2.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel2.ForeColor = System.Drawing.Color.Black;
-            this.guna2HtmlLabel2.Location = new System.Drawing.Point(952, 146);
+            this.guna2HtmlLabel2.Location = new System.Drawing.Point(942, 146);
             this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
             this.guna2HtmlLabel2.Size = new System.Drawing.Size(268, 22);
             this.guna2HtmlLabel2.TabIndex = 15;
@@ -513,7 +502,7 @@
             this.guna2HtmlLabel8.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel8.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel8.ForeColor = System.Drawing.Color.Black;
-            this.guna2HtmlLabel8.Location = new System.Drawing.Point(861, 64);
+            this.guna2HtmlLabel8.Location = new System.Drawing.Point(845, 65);
             this.guna2HtmlLabel8.Name = "guna2HtmlLabel8";
             this.guna2HtmlLabel8.Size = new System.Drawing.Size(156, 22);
             this.guna2HtmlLabel8.TabIndex = 15;
@@ -605,7 +594,7 @@
             this.guna2Panel1.Controls.Add(this.btn_repair);
             this.guna2Panel1.FillColor = System.Drawing.Color.Transparent;
             this.guna2Panel1.ForeColor = System.Drawing.Color.Transparent;
-            this.guna2Panel1.Location = new System.Drawing.Point(399, 777);
+            this.guna2Panel1.Location = new System.Drawing.Point(37, 779);
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(542, 95);
             this.guna2Panel1.TabIndex = 17;
@@ -631,7 +620,7 @@
             this.guna2Panel2.Controls.Add(this.txt_Search);
             this.guna2Panel2.FillColor = System.Drawing.Color.Transparent;
             this.guna2Panel2.ForeColor = System.Drawing.Color.Transparent;
-            this.guna2Panel2.Location = new System.Drawing.Point(964, 777);
+            this.guna2Panel2.Location = new System.Drawing.Point(613, 779);
             this.guna2Panel2.Name = "guna2Panel2";
             this.guna2Panel2.Size = new System.Drawing.Size(470, 95);
             this.guna2Panel2.TabIndex = 17;
@@ -680,11 +669,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1440, 884);
+            this.ClientSize = new System.Drawing.Size(1119, 900);
             this.Controls.Add(this.guna2Panel2);
             this.Controls.Add(this.guna2Panel1);
             this.Controls.Add(this.dgv_Product);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.grp_product_Information);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Frm_Product_Management";
@@ -699,8 +687,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.DataGridView dgv_Product;
         private Guna.UI2.WinForms.Guna2TextBox txt_pr_Name;
         private Guna.UI2.WinForms.Guna2HtmlLabel lbl_pr_Money;

@@ -14,7 +14,7 @@ namespace DuAnMau
 {
     public partial class Frm_Account : Form
     {
-        string strConn = "Data Source=RUDEUS\\VVH;Initial Catalog=FastFoodDB;Integrated Security=True;";
+        string strConn = @"Data Source=LOVELYPOPPY\THUNHAT;Initial Catalog=FastFoodDB;Integrated Security=True;";
         Dictionary<string, string> roleMapping = new Dictionary<string, string>
         {
             { "Quản lý", "VT001" },

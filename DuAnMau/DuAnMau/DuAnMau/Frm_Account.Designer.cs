@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
             this.grp_product_Information = new Guna.UI2.WinForms.Guna2GroupBox();
             this.cbx_Role = new Guna.UI2.WinForms.Guna2ComboBox();
             this.txt_Password = new Guna.UI2.WinForms.Guna2TextBox();
+            this.txt_AccountID = new Guna.UI2.WinForms.Guna2TextBox();
             this.txt_Username = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2HtmlLabel4 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.txt_Gmail = new Guna.UI2.WinForms.Guna2TextBox();
@@ -41,7 +41,6 @@
             this.lbl_pr_Money = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.dgv_Account = new System.Windows.Forms.DataGridView();
-            this.txt_AccountID = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2HtmlLabel6 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.txt_Search = new Guna.UI2.WinForms.Guna2TextBox();
@@ -56,16 +55,6 @@
             this.guna2Panel2.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(209)))), ((int)(((byte)(152)))));
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(393, 837);
-            this.panel1.TabIndex = 10;
             // 
             // grp_product_Information
             // 
@@ -86,9 +75,9 @@
             this.grp_product_Information.CustomBorderThickness = new System.Windows.Forms.Padding(0, 35, 0, 0);
             this.grp_product_Information.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.grp_product_Information.ForeColor = System.Drawing.Color.Black;
-            this.grp_product_Information.Location = new System.Drawing.Point(399, 468);
+            this.grp_product_Information.Location = new System.Drawing.Point(4, 468);
             this.grp_product_Information.Name = "grp_product_Information";
-            this.grp_product_Information.Size = new System.Drawing.Size(1018, 256);
+            this.grp_product_Information.Size = new System.Drawing.Size(1106, 256);
             this.grp_product_Information.TabIndex = 17;
             this.grp_product_Information.Text = "Account Information";
             // 
@@ -111,9 +100,9 @@
             "Quản lý",
             "Nhân viên",
             "ADMIN"});
-            this.cbx_Role.Location = new System.Drawing.Point(403, 193);
+            this.cbx_Role.Location = new System.Drawing.Point(430, 193);
             this.cbx_Role.Name = "cbx_Role";
-            this.cbx_Role.Size = new System.Drawing.Size(159, 36);
+            this.cbx_Role.Size = new System.Drawing.Size(247, 36);
             this.cbx_Role.TabIndex = 17;
             // 
             // txt_Password
@@ -133,7 +122,7 @@
             this.txt_Password.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txt_Password.ForeColor = System.Drawing.Color.Black;
             this.txt_Password.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txt_Password.Location = new System.Drawing.Point(403, 103);
+            this.txt_Password.Location = new System.Drawing.Point(430, 103);
             this.txt_Password.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_Password.Name = "txt_Password";
             this.txt_Password.PasswordChar = '\0';
@@ -142,6 +131,33 @@
             this.txt_Password.SelectedText = "";
             this.txt_Password.Size = new System.Drawing.Size(176, 35);
             this.txt_Password.TabIndex = 14;
+            // 
+            // txt_AccountID
+            // 
+            this.txt_AccountID.Animated = true;
+            this.txt_AccountID.AutoRoundedCorners = true;
+            this.txt_AccountID.BackColor = System.Drawing.Color.Transparent;
+            this.txt_AccountID.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txt_AccountID.DefaultText = "";
+            this.txt_AccountID.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txt_AccountID.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txt_AccountID.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txt_AccountID.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txt_AccountID.FillColor = System.Drawing.Color.WhiteSmoke;
+            this.txt_AccountID.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txt_AccountID.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txt_AccountID.ForeColor = System.Drawing.Color.Black;
+            this.txt_AccountID.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txt_AccountID.Location = new System.Drawing.Point(794, 51);
+            this.txt_AccountID.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txt_AccountID.Name = "txt_AccountID";
+            this.txt_AccountID.PasswordChar = '\0';
+            this.txt_AccountID.PlaceholderForeColor = System.Drawing.Color.White;
+            this.txt_AccountID.PlaceholderText = "";
+            this.txt_AccountID.SelectedText = "";
+            this.txt_AccountID.Size = new System.Drawing.Size(0, 0);
+            this.txt_AccountID.TabIndex = 14;
+            this.txt_AccountID.Visible = false;
             // 
             // txt_Username
             // 
@@ -176,7 +192,7 @@
             this.guna2HtmlLabel4.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel4.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel4.ForeColor = System.Drawing.Color.Black;
-            this.guna2HtmlLabel4.Location = new System.Drawing.Point(403, 63);
+            this.guna2HtmlLabel4.Location = new System.Drawing.Point(430, 63);
             this.guna2HtmlLabel4.Name = "guna2HtmlLabel4";
             this.guna2HtmlLabel4.Size = new System.Drawing.Size(176, 22);
             this.guna2HtmlLabel4.TabIndex = 15;
@@ -221,7 +237,7 @@
             this.txt_EmployeeID.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txt_EmployeeID.ForeColor = System.Drawing.Color.Black;
             this.txt_EmployeeID.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txt_EmployeeID.Location = new System.Drawing.Point(710, 103);
+            this.txt_EmployeeID.Location = new System.Drawing.Point(837, 151);
             this.txt_EmployeeID.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_EmployeeID.Name = "txt_EmployeeID";
             this.txt_EmployeeID.PasswordChar = '\0';
@@ -248,7 +264,7 @@
             this.lbl_Supplier_ID.BackColor = System.Drawing.Color.Transparent;
             this.lbl_Supplier_ID.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Supplier_ID.ForeColor = System.Drawing.Color.Black;
-            this.lbl_Supplier_ID.Location = new System.Drawing.Point(403, 164);
+            this.lbl_Supplier_ID.Location = new System.Drawing.Point(430, 164);
             this.lbl_Supplier_ID.Name = "lbl_Supplier_ID";
             this.lbl_Supplier_ID.Size = new System.Drawing.Size(208, 22);
             this.lbl_Supplier_ID.TabIndex = 15;
@@ -260,7 +276,7 @@
             this.lbl_pr_Money.BackColor = System.Drawing.Color.Transparent;
             this.lbl_pr_Money.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_pr_Money.ForeColor = System.Drawing.Color.Black;
-            this.lbl_pr_Money.Location = new System.Drawing.Point(710, 63);
+            this.lbl_pr_Money.Location = new System.Drawing.Point(837, 111);
             this.lbl_pr_Money.Name = "lbl_pr_Money";
             this.lbl_pr_Money.Size = new System.Drawing.Size(176, 22);
             this.lbl_pr_Money.TabIndex = 15;
@@ -286,40 +302,13 @@
             this.dgv_Account.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgv_Account.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_Account.GridColor = System.Drawing.Color.White;
-            this.dgv_Account.Location = new System.Drawing.Point(399, 3);
+            this.dgv_Account.Location = new System.Drawing.Point(4, 3);
             this.dgv_Account.Name = "dgv_Account";
             this.dgv_Account.RowHeadersWidth = 51;
             this.dgv_Account.RowTemplate.Height = 24;
-            this.dgv_Account.Size = new System.Drawing.Size(1018, 459);
+            this.dgv_Account.Size = new System.Drawing.Size(1106, 459);
             this.dgv_Account.TabIndex = 18;
             this.dgv_Account.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_Account_CellClick);
-            // 
-            // txt_AccountID
-            // 
-            this.txt_AccountID.Animated = true;
-            this.txt_AccountID.AutoRoundedCorners = true;
-            this.txt_AccountID.BackColor = System.Drawing.Color.Transparent;
-            this.txt_AccountID.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txt_AccountID.DefaultText = "";
-            this.txt_AccountID.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.txt_AccountID.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.txt_AccountID.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txt_AccountID.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txt_AccountID.FillColor = System.Drawing.Color.WhiteSmoke;
-            this.txt_AccountID.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txt_AccountID.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.txt_AccountID.ForeColor = System.Drawing.Color.Black;
-            this.txt_AccountID.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txt_AccountID.Location = new System.Drawing.Point(794, 51);
-            this.txt_AccountID.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txt_AccountID.Name = "txt_AccountID";
-            this.txt_AccountID.PasswordChar = '\0';
-            this.txt_AccountID.PlaceholderForeColor = System.Drawing.Color.White;
-            this.txt_AccountID.PlaceholderText = "";
-            this.txt_AccountID.SelectedText = "";
-            this.txt_AccountID.Size = new System.Drawing.Size(0, 0);
-            this.txt_AccountID.TabIndex = 14;
-            this.txt_AccountID.Visible = false;
             // 
             // guna2Panel2
             // 
@@ -330,7 +319,7 @@
             this.guna2Panel2.Controls.Add(this.txt_Search);
             this.guna2Panel2.FillColor = System.Drawing.Color.Transparent;
             this.guna2Panel2.ForeColor = System.Drawing.Color.Transparent;
-            this.guna2Panel2.Location = new System.Drawing.Point(947, 730);
+            this.guna2Panel2.Location = new System.Drawing.Point(640, 733);
             this.guna2Panel2.Name = "guna2Panel2";
             this.guna2Panel2.Size = new System.Drawing.Size(470, 95);
             this.guna2Panel2.TabIndex = 19;
@@ -387,7 +376,7 @@
             this.guna2Panel1.Controls.Add(this.btn_repair);
             this.guna2Panel1.FillColor = System.Drawing.Color.Transparent;
             this.guna2Panel1.ForeColor = System.Drawing.Color.Transparent;
-            this.guna2Panel1.Location = new System.Drawing.Point(399, 730);
+            this.guna2Panel1.Location = new System.Drawing.Point(12, 733);
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(542, 95);
             this.guna2Panel1.TabIndex = 20;
@@ -482,12 +471,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1422, 837);
+            this.ClientSize = new System.Drawing.Size(1119, 900);
             this.Controls.Add(this.guna2Panel2);
             this.Controls.Add(this.guna2Panel1);
             this.Controls.Add(this.dgv_Account);
             this.Controls.Add(this.grp_product_Information);
-            this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Frm_Account";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -501,8 +489,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel panel1;
         private Guna.UI2.WinForms.Guna2GroupBox grp_product_Information;
         private Guna.UI2.WinForms.Guna2ComboBox cbx_Role;
         private Guna.UI2.WinForms.Guna2TextBox txt_Password;

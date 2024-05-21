@@ -64,5 +64,20 @@ namespace DuAnMau
         {
             OpenChildForm(new Frm_Order());
         }
+
+        private void btn_account_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new Frm_Account());
+        }
+
+        private void btn_emplyess_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new Frm_employeeManager());
+        }
+
+        private void btn_product_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new Frm_Product_Management());
+        }
     }
 }

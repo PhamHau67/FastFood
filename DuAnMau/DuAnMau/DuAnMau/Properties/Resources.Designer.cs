@@ -59,25 +59,5 @@ namespace DuAnMau.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Ga123 {
-            get {
-                object obj = ResourceManager.GetObject("Ga123", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Remove_bg_ai_1715328413429 {
-            get {
-                object obj = ResourceManager.GetObject("Remove-bg.ai_1715328413429", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
     }
 }

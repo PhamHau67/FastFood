@@ -40,8 +40,8 @@ namespace DuAnMau
             int value;
             return !string.IsNullOrWhiteSpace(phoneNumber) && int.TryParse(phoneNumber, out value) && value >= 0;
         }
-        private string _con = "Data Source=DESKTOP-R9SVLJT\\HUNG;Initial Catalog=FastFoodDB;Integrated Security=True";
-        public Frm_employeeManager(string maNhanVien)
+        private string _con = @"Data Source=LOVELYPOPPY\THUNHAT;Initial Catalog=FastFoodDB;Integrated Security=True;";
+        public Frm_employeeManager()
         {
             InitializeComponent();
             Load_dgv_manager();

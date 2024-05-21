@@ -8,7 +8,7 @@ namespace DuAnMau
 {
     public partial class Frm_Order : Form
     {
-        private string conn = "Data Source=DESKTOP-F5INLQE\\HAU;Initial Catalog=FastFoodDB;Integrated Security=True;";
+        private string conn = @"Data Source=LOVELYPOPPY\THUNHAT;Initial Catalog=FastFoodDB;Integrated Security=True;";
 
         public Frm_Order()
         {

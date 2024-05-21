@@ -39,6 +39,9 @@
             this.lbl_admin = new System.Windows.Forms.Label();
             this.guna2CirclePictureBox1 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btn_account = new Guna.UI2.WinForms.Guna2Button();
+            this.btn_emplyess = new Guna.UI2.WinForms.Guna2Button();
+            this.btn_product = new Guna.UI2.WinForms.Guna2Button();
             this.gn_home.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox1)).BeginInit();
@@ -48,6 +51,9 @@
             // gn_home
             // 
             this.gn_home.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(209)))), ((int)(((byte)(152)))));
+            this.gn_home.Controls.Add(this.btn_product);
+            this.gn_home.Controls.Add(this.btn_emplyess);
+            this.gn_home.Controls.Add(this.btn_account);
             this.gn_home.Controls.Add(this.btn_revenue);
             this.gn_home.Controls.Add(this.btn_exit);
             this.gn_home.Controls.Add(this.btn_logout);
@@ -196,6 +202,63 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
+            // btn_account
+            // 
+            this.btn_account.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btn_account.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btn_account.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btn_account.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btn_account.FillColor = System.Drawing.Color.Transparent;
+            this.btn_account.Font = new System.Drawing.Font("Segoe UI Emoji", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_account.ForeColor = System.Drawing.Color.Black;
+            this.btn_account.Image = ((System.Drawing.Image)(resources.GetObject("btn_account.Image")));
+            this.btn_account.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btn_account.ImageSize = new System.Drawing.Size(30, 30);
+            this.btn_account.Location = new System.Drawing.Point(4, 415);
+            this.btn_account.Name = "btn_account";
+            this.btn_account.Size = new System.Drawing.Size(312, 71);
+            this.btn_account.TabIndex = 7;
+            this.btn_account.Text = "    ACCOUNT";
+            this.btn_account.Click += new System.EventHandler(this.btn_account_Click);
+            // 
+            // btn_emplyess
+            // 
+            this.btn_emplyess.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btn_emplyess.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btn_emplyess.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btn_emplyess.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btn_emplyess.FillColor = System.Drawing.Color.Transparent;
+            this.btn_emplyess.Font = new System.Drawing.Font("Segoe UI Emoji", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_emplyess.ForeColor = System.Drawing.Color.Black;
+            this.btn_emplyess.Image = ((System.Drawing.Image)(resources.GetObject("btn_emplyess.Image")));
+            this.btn_emplyess.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btn_emplyess.ImageSize = new System.Drawing.Size(30, 30);
+            this.btn_emplyess.Location = new System.Drawing.Point(6, 502);
+            this.btn_emplyess.Name = "btn_emplyess";
+            this.btn_emplyess.Size = new System.Drawing.Size(312, 71);
+            this.btn_emplyess.TabIndex = 8;
+            this.btn_emplyess.Text = "    EMPLYEE MANAGER";
+            this.btn_emplyess.Click += new System.EventHandler(this.btn_emplyess_Click);
+            // 
+            // btn_product
+            // 
+            this.btn_product.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btn_product.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btn_product.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btn_product.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btn_product.FillColor = System.Drawing.Color.Transparent;
+            this.btn_product.Font = new System.Drawing.Font("Segoe UI Emoji", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_product.ForeColor = System.Drawing.Color.Black;
+            this.btn_product.Image = ((System.Drawing.Image)(resources.GetObject("btn_product.Image")));
+            this.btn_product.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btn_product.ImageSize = new System.Drawing.Size(30, 30);
+            this.btn_product.Location = new System.Drawing.Point(9, 601);
+            this.btn_product.Name = "btn_product";
+            this.btn_product.Size = new System.Drawing.Size(312, 71);
+            this.btn_product.TabIndex = 9;
+            this.btn_product.Text = "    PRODUCT MANAGER";
+            this.btn_product.Click += new System.EventHandler(this.btn_product_Click);
+            // 
             // Frm_home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -229,5 +292,8 @@
         private Guna.UI2.WinForms.Guna2Button btn_exit;
         private Guna.UI2.WinForms.Guna2Button btn_revenue;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private Guna.UI2.WinForms.Guna2Button btn_account;
+        private Guna.UI2.WinForms.Guna2Button btn_emplyess;
+        private Guna.UI2.WinForms.Guna2Button btn_product;
     }
 }

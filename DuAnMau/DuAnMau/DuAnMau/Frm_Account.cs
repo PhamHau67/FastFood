@@ -2,31 +2,30 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Security.Policy;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DuAnMau
 {
-    public partial class Frm_Acccount : Form
+    public partial class Frm_Account : Form
     {
         string strConn = "Data Source=RUDEUS\\VVH;Initial Catalog=FastFoodDB;Integrated Security=True;";
-        // Phân loại mã vai trò
         Dictionary<string, string> roleMapping = new Dictionary<string, string>
         {
-            { "Quản lí", "VT001" },
+            { "Quản lý", "VT001" },
             { "Nhân viên", "VT002" },
-            { "Admin", "VT003" }
+            { "ADMIN", "VT003" }
         };
-        public Frm_Acccount()
+        public Frm_Account()
         {
-            SqlDataAdapter _adt = null;
+            
             InitializeComponent();
             LoadData_Dgv();
-            SqlConnection _conn = null;
         }
         public void LoadData_Dgv()
         {
@@ -61,7 +60,7 @@ namespace DuAnMau
             }
         }
 
-        private void dgv_Accout_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dgv_Account_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
@@ -91,11 +90,18 @@ namespace DuAnMau
 
             if (result == DialogResult.Yes)
             {
-                using (var db = new DataClasses1DataContext(strConn))
+                try
                 {
-                    try
+                    using (var db = new DataClasses1DataContext(strConn))
                     {
-                        string accountID = txt_AccountID.Text.Trim();
+                        Random random = new Random();
+                        string newID;
+
+                        do
+                        {
+                            newID = "TK" + random.Next(100, 999).ToString();
+                        } while (db.TAI_KHOANs.Any(sp => sp.MaTaiKhoan == newID));
+
                         string username = txt_Username.Text.Trim();
                         string password = txt_Password.Text.Trim();
                         string employeeID = txt_EmployeeID.Text.Trim();
@@ -106,35 +112,64 @@ namespace DuAnMau
                             string.IsNullOrEmpty(employeeID) || string.IsNullOrEmpty(gmail) ||
                             string.IsNullOrEmpty(roleName))
                         {
-                            MessageBox.Show("Vui lòng điền đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show("Please complete all information!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
-                        // check coi nhân viên có nhân viên nào có mã này ko
-                        var existingEmployee = db.NHAN_VIENs.FirstOrDefault(nv => nv.MaNhanVien == employeeID);
-                        if (existingEmployee == null)
+                        // Check tên tài khoản tồn tại chưa
+                        ////cách thông thường
+                        //var ck_user = (from tk in db.TAI_KHOANs
+                        //                        where tk.TenTaiKhoan == username
+                        //                        select tk).FirstOrDefault();
+
+                        //if (ck_user != null)
+                        //{
+                        //    MessageBox.Show("Tên tài khoản này đã tồn tại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        //    return;
+                        //}
+                        // Check tên tài khoản tồn tại chưa
+                        /// dùng lamda
+                        var ck_user = db.TAI_KHOANs.FirstOrDefault(tk => tk.TenTaiKhoan == username);
+                        if (ck_user != null)
                         {
-                            MessageBox.Show("Mã nhân viên không tồn tại trong danh sách!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show("This username already exists!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
-                        // Sau đó kiểm tra xem nhân viên đã có tài khoản chưa
-                        var existingAccount = db.TAI_KHOANs.FirstOrDefault(tk => tk.MaNhanVien == employeeID);
-                        if (existingAccount != null)
+                        //check gmail
+                        var ck_gmail = db.NHAN_VIENs.FirstOrDefault(nv => nv.Gmail == gmail);
+                        if (ck_gmail != null)
                         {
-                            MessageBox.Show("Nhân viên này đã có tài khoản!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            return;
-                        }
-                        // kiểm tra xem có vai trò này không
-                        var existingRole = db.VAITROs.FirstOrDefault(vt => vt.TenVaiTro == roleName);
-                        if (existingRole == null)
-                        {
-                            MessageBox.Show("Vai trò không tồn tại trong danh sách!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show("This Gmail is already in use!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
 
-                        // Thực hiện thêm dữ liệu vào bản tài khoản khi đã check xong các lỗi 
+                        // Check mã nhân viên coi nhân viên tồn tại không
+                        var existingEmployee = db.NHAN_VIENs.FirstOrDefault(nv => nv.MaNhanVien == employeeID);
+                        if (existingEmployee == null)
+                        {
+                            MessageBox.Show("Employee ID does not exist in the list!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        // ckech nhân viên thêm tài khoản đzx tunwgf có tài khoản chưa
+                        var existingAccount = db.TAI_KHOANs.FirstOrDefault(tk => tk.MaNhanVien == employeeID);
+                        if (existingAccount != null)
+                        {
+                            MessageBox.Show("This employee already has an account!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        // Check vai trò có tồn tại không
+                        var existingRole = db.VAITROs.FirstOrDefault(vt => vt.TenVaiTro == roleName);
+                        if (existingRole == null)
+                        {
+                            MessageBox.Show("Role does not exist in the list!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        // add tài khoản dựa vào mã chạy ramdom
                         var newAccount = new TAI_KHOAN
                         {
-                            MaTaiKhoan = accountID,
+                            MaTaiKhoan = newID,
                             TenTaiKhoan = username,
                             MatKhau = password,
                             MaNhanVien = employeeID
@@ -150,25 +185,27 @@ namespace DuAnMau
                         db.SubmitChanges();
 
                         LoadData_Dgv();
-                        MessageBox.Show("Thêm tài khoản thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Đã xảy ra lỗi khi thêm tài khoản: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Account added successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred while adding the account: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
+            
         }
 
         private void btn_repair_Click(object sender, EventArgs e)
         {
-            // chức năng sửa dữ liệu
-            using (var db = new DataClasses1DataContext(strConn))
-            {
-                DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn sữa dữ liệu?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult result = MessageBox.Show("Are you sure you want to update this Account?", "Confirm Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                if (result == DialogResult.Yes)
+            if (result == DialogResult.Yes)
+            {
+                // chức năng sửa dữ liệu
+                using (var db = new DataClasses1DataContext(strConn))
                 {
+
                     try
                     {
                         string accountID = txt_AccountID.Text.Trim();
@@ -179,52 +216,52 @@ namespace DuAnMau
                         string roleName = cbx_Role.Text.Trim();
 
                         // Kiểm tra xem tài khoản có tồn tại trong bảng tài khoản hay không
-                        var accountToUpdate = db.TAI_KHOANs.FirstOrDefault(tk => tk.MaTaiKhoan == accountID);
-                        if (accountToUpdate == null)
+                        var upDateAC = db.TAI_KHOANs.FirstOrDefault(tk => tk.MaTaiKhoan == accountID);
+                        if (upDateAC == null)
                         {
-                            MessageBox.Show("Không tìm thấy tài khoản để cập nhật!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show("Account not found for update!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
 
                         // Cập nhật thông tin tài khoản
-                        accountToUpdate.TenTaiKhoan = username;
-                        accountToUpdate.MatKhau = password;
-                        accountToUpdate.MaNhanVien = employeeID;
+                        upDateAC.TenTaiKhoan = username;
+                        upDateAC.MatKhau = password;
+                        upDateAC.MaNhanVien = employeeID;
 
                         // Lấy mã vai trò từ dictionary
-                        string roleCode;
-                        if (!roleMapping.TryGetValue(roleName, out roleCode))
+                        string roleID;
+                        if (!roleMapping.TryGetValue(roleName, out roleID))
                         {
-                            MessageBox.Show("Vai trò không tồn tại trong danh sách!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show("Role does not exist in the list!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
 
                         // Cập nhật thông tin nhân viên và vai trò
-                        var employeeToUpdate = db.NHAN_VIENs.FirstOrDefault(nv => nv.MaNhanVien == employeeID);
-                        if (employeeToUpdate != null)
+                        var upDateNV = db.NHAN_VIENs.FirstOrDefault(nv => nv.MaNhanVien == employeeID);
+                        if (upDateNV != null)
                         {
                             // Chỉ cập nhật mã vai trò nếu vai trò mới khác với vai trò hiện tại
-                            if (employeeToUpdate.MaVaiTro != roleCode)
+                            if (upDateNV.MaVaiTro != roleID)
                             {
-                                employeeToUpdate.MaVaiTro = roleCode; // Cập nhật mã vai trò cho nhân viên
+                                upDateNV.MaVaiTro = roleID; // Cập nhật mã vai trò cho nhân viên
                             }
-                            employeeToUpdate.Gmail = gmail; // Luôn cập nhật Gmail
+                            upDateNV.Gmail = gmail; // Luôn cập nhật Gmail
                         }
 
                         db.SubmitChanges();
 
                         LoadData_Dgv();
-                        MessageBox.Show("Cập nhật thông tin tài khoản thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Update product successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Đã xảy ra lỗi khi cập nhật thông tin tài khoản: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("An error occurred while updating data: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
         }
 
-        private void btn_delete_Click(object sender, EventArgs e)
+        private void btn_del_Click(object sender, EventArgs e)
         {
             using (var db = new DataClasses1DataContext(strConn))
             {
@@ -236,7 +273,7 @@ namespace DuAnMau
                     var accountToDelete = db.TAI_KHOANs.FirstOrDefault(tk => tk.MaTaiKhoan == accountID);
                     if (accountToDelete == null)
                     {
-                        MessageBox.Show("Không tìm thấy tài khoản để xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Account not found for deletion!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
 
@@ -244,19 +281,19 @@ namespace DuAnMau
                     db.SubmitChanges();
 
                     LoadData_Dgv();
-                    MessageBox.Show("Xóa tài khoản thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Account deleted successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Đã xảy ra lỗi khi xóa tài khoản: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("An error occurred while deleting the account: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
-        private void btn_refresh_Click(object sender, EventArgs e)
+        private void btn_refesh_Click(object sender, EventArgs e)
         {
             // chức năng refresh
-            DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn làm mới?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult result = MessageBox.Show("Are you sure you want to refresh?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
             {
@@ -270,62 +307,27 @@ namespace DuAnMau
             }
         }
 
-        private void btn_search_Click(object sender, EventArgs e)
+        private void txt_Search_TextChanged(object sender, EventArgs e)
         {
-            string searchText = txt_search.Text.Trim().ToLower();
-
-            if (string.IsNullOrEmpty(searchText))
-            {
-
-                LoadData_Dgv();
-                return;
-            }
-
             using (var db = new DataClasses1DataContext(strConn))
             {
+                var keyword = txt_Search.Text.Trim();
 
-                var searchResults = from tk in db.TAI_KHOANs
-                                    join nv in db.NHAN_VIENs on tk.MaNhanVien equals nv.MaNhanVien
-                                    join vt in db.VAITROs on nv.MaVaiTro equals vt.MaVaiTro
-                                    where tk.MaTaiKhoan.ToLower().Contains(searchText) ||
-                                          tk.TenTaiKhoan.ToLower().Contains(searchText) ||
-                                          tk.MatKhau.ToLower().Contains(searchText) ||
-                                          nv.MaNhanVien.ToLower().Contains(searchText) ||
-                                          nv.Gmail.ToLower().Contains(searchText) ||
-                                          vt.TenVaiTro.ToLower().Contains(searchText)
-                                    select new
-                                    {
-                                        tk.MaTaiKhoan,
-                                        tk.TenTaiKhoan,
-                                        tk.MatKhau,
-                                        nv.MaNhanVien,
-                                        nv.Gmail,
-                                        vt.TenVaiTro
-                                    };
-
-                var resultList = searchResults.ToList();
-
-                if (resultList.Count > 0)
-                {
-
-                    dgv_Account.DataSource = resultList;
-
-
-                    dgv_Account.Columns["MaTaiKhoan"].HeaderText = "Mã Tài Khoản";
-                    dgv_Account.Columns["TenTaiKhoan"].HeaderText = "Tên Tài Khoản";
-                    dgv_Account.Columns["MatKhau"].HeaderText = "Mật Khẩu";
-                    dgv_Account.Columns["MaNhanVien"].HeaderText = "Mã Nhân Viên";
-                    dgv_Account.Columns["Gmail"].HeaderText = "Gmail";
-                    dgv_Account.Columns["TenVaiTro"].HeaderText = "Vai Trò";
-
-
-                    MessageBox.Show($"Tìm thấy {resultList.Count} dữ liệu. \nlưu ý: dữ liệu tài khoản không thể tìm dựa trên mật khẩu. \tNếu bank muốn tiếp tục truy xuất thông tin hãy làm mới trang. ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-
-                    MessageBox.Show("Không tìm thấy dữ liệu nào.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                var TimAc = from tk in db.TAI_KHOANs
+                            
+                            join nv in db.NHAN_VIENs on tk.MaNhanVien equals nv.MaNhanVien
+                            join vt in db.VAITROs on nv.MaVaiTro equals vt.MaVaiTro
+                            where tk.TenTaiKhoan.Contains(keyword) || tk.MatKhau.Contains(keyword) || nv.Gmail.Contains(keyword) || vt.TenVaiTro.Contains(keyword)
+                            select new
+                            {
+                                tk.MaTaiKhoan,
+                                tk.TenTaiKhoan,
+                                tk.MatKhau,
+                                nv.MaNhanVien,
+                                nv.Gmail,
+                                vt.TenVaiTro
+                            };
+                dgv_Account.DataSource = TimAc.ToList();
             }
         }
     }

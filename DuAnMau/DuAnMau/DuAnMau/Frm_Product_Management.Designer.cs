@@ -61,7 +61,6 @@
             this.guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2HtmlLabel6 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.btn_Search = new Guna.UI2.WinForms.Guna2Button();
             this.txt_Search = new Guna.UI2.WinForms.Guna2TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Product)).BeginInit();
             this.grp_product_Information.SuspendLayout();
@@ -574,6 +573,7 @@
             this.btn_repair.Size = new System.Drawing.Size(105, 30);
             this.btn_repair.TabIndex = 16;
             this.btn_repair.Text = "Repair";
+            this.btn_repair.Click += new System.EventHandler(this.btn_repair_Click);
             // 
             // btn_del
             // 
@@ -628,7 +628,6 @@
             this.guna2Panel2.BorderRadius = 10;
             this.guna2Panel2.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dot;
             this.guna2Panel2.Controls.Add(this.guna2HtmlLabel6);
-            this.guna2Panel2.Controls.Add(this.btn_Search);
             this.guna2Panel2.Controls.Add(this.txt_Search);
             this.guna2Panel2.FillColor = System.Drawing.Color.Transparent;
             this.guna2Panel2.ForeColor = System.Drawing.Color.Transparent;
@@ -648,23 +647,6 @@
             this.guna2HtmlLabel6.Size = new System.Drawing.Size(176, 22);
             this.guna2HtmlLabel6.TabIndex = 17;
             this.guna2HtmlLabel6.Text = "Search Product";
-            // 
-            // btn_Search
-            // 
-            this.btn_Search.AutoRoundedCorners = true;
-            this.btn_Search.BorderRadius = 14;
-            this.btn_Search.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btn_Search.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btn_Search.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btn_Search.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btn_Search.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(135)))), ((int)(((byte)(67)))));
-            this.btn_Search.Font = new System.Drawing.Font("Times New Roman", 10.8F);
-            this.btn_Search.ForeColor = System.Drawing.Color.Black;
-            this.btn_Search.Location = new System.Drawing.Point(359, 51);
-            this.btn_Search.Name = "btn_Search";
-            this.btn_Search.Size = new System.Drawing.Size(105, 30);
-            this.btn_Search.TabIndex = 16;
-            this.btn_Search.Text = "Search";
             // 
             // txt_Search
             // 
@@ -690,8 +672,9 @@
             this.txt_Search.PlaceholderForeColor = System.Drawing.Color.White;
             this.txt_Search.PlaceholderText = "";
             this.txt_Search.SelectedText = "";
-            this.txt_Search.Size = new System.Drawing.Size(333, 35);
+            this.txt_Search.Size = new System.Drawing.Size(439, 35);
             this.txt_Search.TabIndex = 14;
+            this.txt_Search.TextChanged += new System.EventHandler(this.txt_Search_TextChanged);
             // 
             // Frm_Product_Management
             // 
@@ -747,7 +730,6 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel3;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel2;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel6;
-        private Guna.UI2.WinForms.Guna2Button btn_Search;
         private Guna.UI2.WinForms.Guna2TextBox txt_Search;
         private Guna.UI2.WinForms.Guna2ComboBox cbx_Supplier_ID;
         private Guna.UI2.WinForms.Guna2TextBox txt_Supplier_Name;

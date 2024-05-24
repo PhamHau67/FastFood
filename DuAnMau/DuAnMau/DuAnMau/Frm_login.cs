@@ -16,7 +16,7 @@ namespace DuAnMau
         {
             InitializeComponent();
         }
-        string conn = @"Data Source=LOVELYPOPPY\THUNHAT;Initial Catalog=FastFoodDB;Integrated Security=True;";
+        string conn = "Data Source=DESKTOP-F5INLQE\\HAU;Initial Catalog=FastFoodDB;Integrated Security=True;";
        
         private void pictureBox2_Click(object sender, EventArgs e)
         {
@@ -42,7 +42,7 @@ namespace DuAnMau
                 var user = db.TAI_KHOANs.SingleOrDefault(u => u.TenTaiKhoan == username && u.MatKhau == password);
                 if (user != null)
                 {
-                    lbl_error.Text = "";
+                    lbl_error.Text = "Password or username error!";
                     if (username == "admin")
                     {
                         Frm_home frm_Home = new Frm_home(); 

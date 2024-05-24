@@ -14,7 +14,7 @@ namespace DuAnMau
 {
     public partial class Frm_Product_Management : Form
     {
-        string strConn = @"Data Source=LOVELYPOPPY\THUNHAT;Initial Catalog=FastFoodDB;Integrated Security=True;";
+        string strConn = "Data Source=DESKTOP-F5INLQE\\HAU;Initial Catalog=FastFoodDB;Integrated Security=True;";
         public Frm_Product_Management()
         {
 

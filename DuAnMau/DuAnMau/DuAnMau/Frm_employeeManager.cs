@@ -21,7 +21,7 @@ namespace DuAnMau
         private bool IsValidCCCD(string cccd)
         {
             int value;
-            return !string.IsNullOrWhiteSpace(cccd) && int.TryParse(cccd, out value) && value >= 0;
+            return !string.IsNullOrWhiteSpace(cccd) && int.TryParse(cccd, out value) && value >= 0; /*chua hoan thien*/
         }
         private bool IsValidEmail(string email)
         {
@@ -40,7 +40,7 @@ namespace DuAnMau
             int value;
             return !string.IsNullOrWhiteSpace(phoneNumber) && int.TryParse(phoneNumber, out value) && value >= 0;
         }
-        private string _con = @"Data Source=LOVELYPOPPY\THUNHAT;Initial Catalog=FastFoodDB;Integrated Security=True;";
+        private string _con = "Data Source=DESKTOP-F5INLQE\\HAU;Initial Catalog=FastFoodDB;Integrated Security=True;";
         public Frm_employeeManager()
         {
             InitializeComponent();

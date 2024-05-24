@@ -15,8 +15,11 @@ namespace DuAnMau
         public Frm_home()
         {
             InitializeComponent();
+            
+
         }
         private Form currentFormChild;
+        
         private void OpenChildForm(Form childForm)
         {
             if (currentFormChild != null)
@@ -79,5 +82,9 @@ namespace DuAnMau
         {
             OpenChildForm(new Frm_Product_Management());
         }
+
+        
+
+        
     }
 }

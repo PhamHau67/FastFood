@@ -65,7 +65,7 @@
             this.dgv_revenue.RowTemplate.Height = 24;
             this.dgv_revenue.Size = new System.Drawing.Size(423, 477);
             this.dgv_revenue.TabIndex = 0;
-            this.dgv_revenue.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_revenue_CellContentClick);
+            this.dgv_revenue.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_revenue_CellClick);
             // 
             // label1
             // 

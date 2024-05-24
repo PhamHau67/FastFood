@@ -19,7 +19,7 @@ namespace DuAnMau
             InitializeComponent();
             Loadatadgv();
         }
-        string conn = @"Data Source=LOVELYPOPPY\THUNHAT;Initial Catalog=FastFoodDB;Integrated Security=True;";
+        string conn = "Data Source=DESKTOP-F5INLQE\\HAU;Initial Catalog=FastFoodDB;Integrated Security=True;";
         public void Loadatadgv()
         {
             using (var db = new DataClasses1DataContext(conn))
@@ -63,8 +63,7 @@ namespace DuAnMau
         {
 
         }
-
-        private void dgv_revenue_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgv_revenue_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
@@ -73,7 +72,7 @@ namespace DuAnMau
                 txt_idProduct.Text = row.Cells["ID Product"].Value.ToString();
                 txt_amount.Text = row.Cells["Amount"].Value.ToString();
                 txt_total.Text = row.Cells["Total product value"].Value.ToString();
-                txt_price.Text = Convert.ToInt32(row.Cells["Price"].Value).ToString("N0");
+                txt_price.Text = row.Cells["Price"].Value.ToString();
             }
         }
 
@@ -187,5 +186,7 @@ namespace DuAnMau
                 }
             }
         }
+
+        
     }
 }

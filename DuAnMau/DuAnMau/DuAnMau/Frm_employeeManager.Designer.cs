@@ -227,7 +227,7 @@
             this.dgv_staff.Name = "dgv_staff";
             this.dgv_staff.RowHeadersWidth = 51;
             this.dgv_staff.RowTemplate.Height = 24;
-            this.dgv_staff.Size = new System.Drawing.Size(1077, 343);
+            this.dgv_staff.Size = new System.Drawing.Size(1085, 343);
             this.dgv_staff.TabIndex = 4;
             this.dgv_staff.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_staff_CellClick);
             // 

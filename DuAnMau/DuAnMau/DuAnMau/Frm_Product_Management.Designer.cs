@@ -490,9 +490,9 @@
             this.lbl_Expiration_Date.BackColor = System.Drawing.Color.Transparent;
             this.lbl_Expiration_Date.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Expiration_Date.ForeColor = System.Drawing.Color.Black;
-            this.lbl_Expiration_Date.Location = new System.Drawing.Point(403, 268);
+            this.lbl_Expiration_Date.Location = new System.Drawing.Point(474, 268);
             this.lbl_Expiration_Date.Name = "lbl_Expiration_Date";
-            this.lbl_Expiration_Date.Size = new System.Drawing.Size(284, 22);
+            this.lbl_Expiration_Date.Size = new System.Drawing.Size(213, 22);
             this.lbl_Expiration_Date.TabIndex = 15;
             this.lbl_Expiration_Date.Text = "Expiration Date:";
             // 

@@ -54,7 +54,6 @@
             this.rdo_StillWorking = new System.Windows.Forms.RadioButton();
             this.rdo_Leave = new System.Windows.Forms.RadioButton();
             this.grp_Find = new System.Windows.Forms.GroupBox();
-            this.btn_Find = new Guna.UI2.WinForms.Guna2Button();
             this.txt_Find = new Guna.UI2.WinForms.Guna2TextBox();
             this.btn_Add = new Guna.UI2.WinForms.Guna2Button();
             this.btn_Update = new Guna.UI2.WinForms.Guna2Button();
@@ -115,9 +114,9 @@
             this.lbl_Status.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Status.Location = new System.Drawing.Point(789, 547);
             this.lbl_Status.Name = "lbl_Status";
-            this.lbl_Status.Size = new System.Drawing.Size(84, 20);
+            this.lbl_Status.Size = new System.Drawing.Size(57, 20);
             this.lbl_Status.TabIndex = 5;
-            this.lbl_Status.Text = "Trạng thái";
+            this.lbl_Status.Text = "Status";
             // 
             // lbl_Gmail
             // 
@@ -135,9 +134,9 @@
             this.lbl_SignUpDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_SignUpDay.Location = new System.Drawing.Point(789, 372);
             this.lbl_SignUpDay.Name = "lbl_SignUpDay";
-            this.lbl_SignUpDay.Size = new System.Drawing.Size(105, 20);
+            this.lbl_SignUpDay.Size = new System.Drawing.Size(136, 20);
             this.lbl_SignUpDay.TabIndex = 7;
-            this.lbl_SignUpDay.Text = "Ngày đăng kí";
+            this.lbl_SignUpDay.Text = "Registration date";
             // 
             // lbl_PhoneNumber
             // 
@@ -145,9 +144,9 @@
             this.lbl_PhoneNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_PhoneNumber.Location = new System.Drawing.Point(422, 641);
             this.lbl_PhoneNumber.Name = "lbl_PhoneNumber";
-            this.lbl_PhoneNumber.Size = new System.Drawing.Size(106, 20);
+            this.lbl_PhoneNumber.Size = new System.Drawing.Size(117, 20);
             this.lbl_PhoneNumber.TabIndex = 8;
-            this.lbl_PhoneNumber.Text = "Số điện thoại";
+            this.lbl_PhoneNumber.Text = "Phone number";
             // 
             // lbl_Gentle
             // 
@@ -155,9 +154,9 @@
             this.lbl_Gentle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Gentle.Location = new System.Drawing.Point(422, 547);
             this.lbl_Gentle.Name = "lbl_Gentle";
-            this.lbl_Gentle.Size = new System.Drawing.Size(71, 20);
+            this.lbl_Gentle.Size = new System.Drawing.Size(58, 20);
             this.lbl_Gentle.TabIndex = 9;
-            this.lbl_Gentle.Text = "Giới tính";
+            this.lbl_Gentle.Text = "Gentle";
             // 
             // lbl_IDDepartment
             // 
@@ -165,9 +164,9 @@
             this.lbl_IDDepartment.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_IDDepartment.Location = new System.Drawing.Point(60, 641);
             this.lbl_IDDepartment.Name = "lbl_IDDepartment";
-            this.lbl_IDDepartment.Size = new System.Drawing.Size(96, 20);
+            this.lbl_IDDepartment.Size = new System.Drawing.Size(138, 20);
             this.lbl_IDDepartment.TabIndex = 10;
-            this.lbl_IDDepartment.Text = "Mã bộ phận";
+            this.lbl_IDDepartment.Text = "Department code";
             // 
             // lbl_Birthday
             // 
@@ -175,9 +174,9 @@
             this.lbl_Birthday.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Birthday.Location = new System.Drawing.Point(422, 462);
             this.lbl_Birthday.Name = "lbl_Birthday";
-            this.lbl_Birthday.Size = new System.Drawing.Size(83, 20);
+            this.lbl_Birthday.Size = new System.Drawing.Size(71, 20);
             this.lbl_Birthday.TabIndex = 11;
-            this.lbl_Birthday.Text = "Ngày sinh";
+            this.lbl_Birthday.Text = "Birthday";
             // 
             // lbl_CCCD
             // 
@@ -185,9 +184,9 @@
             this.lbl_CCCD.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_CCCD.Location = new System.Drawing.Point(60, 547);
             this.lbl_CCCD.Name = "lbl_CCCD";
-            this.lbl_CCCD.Size = new System.Drawing.Size(58, 20);
+            this.lbl_CCCD.Size = new System.Drawing.Size(99, 20);
             this.lbl_CCCD.TabIndex = 12;
-            this.lbl_CCCD.Text = "CCCD";
+            this.lbl_CCCD.Text = "Citizen card";
             // 
             // lbl_IDRole
             // 
@@ -195,9 +194,9 @@
             this.lbl_IDRole.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_IDRole.Location = new System.Drawing.Point(422, 372);
             this.lbl_IDRole.Name = "lbl_IDRole";
-            this.lbl_IDRole.Size = new System.Drawing.Size(83, 20);
+            this.lbl_IDRole.Size = new System.Drawing.Size(84, 20);
             this.lbl_IDRole.TabIndex = 13;
-            this.lbl_IDRole.Text = "Mã vai trò";
+            this.lbl_IDRole.Text = "Role code";
             // 
             // lbl_NameStaff
             // 
@@ -205,9 +204,9 @@
             this.lbl_NameStaff.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_NameStaff.Location = new System.Drawing.Point(60, 462);
             this.lbl_NameStaff.Name = "lbl_NameStaff";
-            this.lbl_NameStaff.Size = new System.Drawing.Size(113, 20);
+            this.lbl_NameStaff.Size = new System.Drawing.Size(90, 20);
             this.lbl_NameStaff.TabIndex = 14;
-            this.lbl_NameStaff.Text = "Tên nhân viên";
+            this.lbl_NameStaff.Text = "Staff name";
             // 
             // lbl_IDStaff
             // 
@@ -215,9 +214,9 @@
             this.lbl_IDStaff.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_IDStaff.Location = new System.Drawing.Point(60, 372);
             this.lbl_IDStaff.Name = "lbl_IDStaff";
-            this.lbl_IDStaff.Size = new System.Drawing.Size(108, 20);
+            this.lbl_IDStaff.Size = new System.Drawing.Size(66, 20);
             this.lbl_IDStaff.TabIndex = 15;
-            this.lbl_IDStaff.Text = "Mã nhân viên";
+            this.lbl_IDStaff.Text = "ID Staff";
             // 
             // dgv_staff
             // 
@@ -301,7 +300,7 @@
             this.dtp_Birthday.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.dtp_Birthday.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.dtp_Birthday.Format = System.Windows.Forms.DateTimePickerFormat.Long;
-            this.dtp_Birthday.Location = new System.Drawing.Point(409, 498);
+            this.dtp_Birthday.Location = new System.Drawing.Point(409, 486);
             this.dtp_Birthday.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
             this.dtp_Birthday.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
             this.dtp_Birthday.Name = "dtp_Birthday";
@@ -315,10 +314,10 @@
             this.rdo_Male.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rdo_Male.Location = new System.Drawing.Point(31, 47);
             this.rdo_Male.Name = "rdo_Male";
-            this.rdo_Male.Size = new System.Drawing.Size(65, 24);
+            this.rdo_Male.Size = new System.Drawing.Size(66, 24);
             this.rdo_Male.TabIndex = 22;
             this.rdo_Male.TabStop = true;
-            this.rdo_Male.Text = "Nam";
+            this.rdo_Male.Text = "Male";
             this.rdo_Male.UseVisualStyleBackColor = true;
             // 
             // rdo_Female
@@ -327,10 +326,10 @@
             this.rdo_Female.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rdo_Female.Location = new System.Drawing.Point(132, 47);
             this.rdo_Female.Name = "rdo_Female";
-            this.rdo_Female.Size = new System.Drawing.Size(51, 24);
+            this.rdo_Female.Size = new System.Drawing.Size(85, 24);
             this.rdo_Female.TabIndex = 23;
             this.rdo_Female.TabStop = true;
-            this.rdo_Female.Text = "Nữ";
+            this.rdo_Female.Text = "Female";
             this.rdo_Female.UseVisualStyleBackColor = true;
             // 
             // txt_PhoneNumber
@@ -396,10 +395,10 @@
             this.rdo_StillWorking.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rdo_StillWorking.Location = new System.Drawing.Point(782, 585);
             this.rdo_StillWorking.Name = "rdo_StillWorking";
-            this.rdo_StillWorking.Size = new System.Drawing.Size(119, 24);
+            this.rdo_StillWorking.Size = new System.Drawing.Size(91, 24);
             this.rdo_StillWorking.TabIndex = 22;
             this.rdo_StillWorking.TabStop = true;
-            this.rdo_StillWorking.Text = "Đang đi làm";
+            this.rdo_StillWorking.Text = "Working";
             this.rdo_StillWorking.UseVisualStyleBackColor = true;
             // 
             // rdo_Leave
@@ -408,38 +407,21 @@
             this.rdo_Leave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rdo_Leave.Location = new System.Drawing.Point(925, 585);
             this.rdo_Leave.Name = "rdo_Leave";
-            this.rdo_Leave.Size = new System.Drawing.Size(119, 24);
+            this.rdo_Leave.Size = new System.Drawing.Size(61, 24);
             this.rdo_Leave.TabIndex = 23;
             this.rdo_Leave.TabStop = true;
-            this.rdo_Leave.Text = "Đã nghỉ làm";
+            this.rdo_Leave.Text = "Quit";
             this.rdo_Leave.UseVisualStyleBackColor = true;
             // 
             // grp_Find
             // 
-            this.grp_Find.Controls.Add(this.btn_Find);
             this.grp_Find.Controls.Add(this.txt_Find);
             this.grp_Find.Location = new System.Drawing.Point(24, 741);
             this.grp_Find.Name = "grp_Find";
             this.grp_Find.Size = new System.Drawing.Size(427, 100);
             this.grp_Find.TabIndex = 26;
             this.grp_Find.TabStop = false;
-            this.grp_Find.Text = "Tìm kiếm nhân viên";
-            // 
-            // btn_Find
-            // 
-            this.btn_Find.BorderRadius = 15;
-            this.btn_Find.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btn_Find.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btn_Find.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btn_Find.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btn_Find.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.btn_Find.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btn_Find.ForeColor = System.Drawing.Color.White;
-            this.btn_Find.Location = new System.Drawing.Point(307, 33);
-            this.btn_Find.Name = "btn_Find";
-            this.btn_Find.Size = new System.Drawing.Size(96, 48);
-            this.btn_Find.TabIndex = 1;
-            this.btn_Find.Text = "Tìm kiếm";
+            this.grp_Find.Text = "Finding staff";
             // 
             // txt_Find
             // 
@@ -459,8 +441,9 @@
             this.txt_Find.PasswordChar = '\0';
             this.txt_Find.PlaceholderText = "Nhập mã hoặc tên nhân viên cần tìm";
             this.txt_Find.SelectedText = "";
-            this.txt_Find.Size = new System.Drawing.Size(272, 48);
+            this.txt_Find.Size = new System.Drawing.Size(390, 48);
             this.txt_Find.TabIndex = 0;
+            this.txt_Find.TextChanged += new System.EventHandler(this.txt_Find_TextChanged);
             // 
             // btn_Add
             // 
@@ -476,7 +459,7 @@
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(96, 45);
             this.btn_Add.TabIndex = 27;
-            this.btn_Add.Text = "Thêm";
+            this.btn_Add.Text = "Add";
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
             // btn_Update
@@ -493,7 +476,7 @@
             this.btn_Update.Name = "btn_Update";
             this.btn_Update.Size = new System.Drawing.Size(96, 45);
             this.btn_Update.TabIndex = 28;
-            this.btn_Update.Text = "Sửa";
+            this.btn_Update.Text = "Update";
             this.btn_Update.Click += new System.EventHandler(this.btn_Update_Click);
             // 
             // btn_Refresh
@@ -510,7 +493,8 @@
             this.btn_Refresh.Name = "btn_Refresh";
             this.btn_Refresh.Size = new System.Drawing.Size(96, 45);
             this.btn_Refresh.TabIndex = 28;
-            this.btn_Refresh.Text = "Làm mới";
+            this.btn_Refresh.Text = "Refresh";
+            this.btn_Refresh.Click += new System.EventHandler(this.btn_Refresh_Click);
             // 
             // btn_Delete
             // 
@@ -526,7 +510,7 @@
             this.btn_Delete.Name = "btn_Delete";
             this.btn_Delete.Size = new System.Drawing.Size(96, 45);
             this.btn_Delete.TabIndex = 28;
-            this.btn_Delete.Text = "Xóa";
+            this.btn_Delete.Text = "Delete";
             this.btn_Delete.Click += new System.EventHandler(this.btn_Delete_Click);
             // 
             // btn_Export
@@ -543,7 +527,8 @@
             this.btn_Export.Name = "btn_Export";
             this.btn_Export.Size = new System.Drawing.Size(139, 48);
             this.btn_Export.TabIndex = 27;
-            this.btn_Export.Text = "Xuất file excel";
+            this.btn_Export.Text = "Export excel";
+            this.btn_Export.Click += new System.EventHandler(this.btn_Export_Click);
             // 
             // pan_gentle
             // 
@@ -629,7 +614,6 @@
         private System.Windows.Forms.RadioButton rdo_Leave;
         private System.Windows.Forms.GroupBox grp_Find;
         private Guna.UI2.WinForms.Guna2TextBox txt_Find;
-        private Guna.UI2.WinForms.Guna2Button btn_Find;
         private Guna.UI2.WinForms.Guna2Button btn_Add;
         private Guna.UI2.WinForms.Guna2Button btn_Update;
         private Guna.UI2.WinForms.Guna2Button btn_Refresh;

@@ -12,6 +12,7 @@ using System.Data.SqlClient;
 using ClosedXML.Excel;
 using System.Runtime.InteropServices;
 using Excel = Microsoft.Office.Interop.Excel;
+using System.Text.RegularExpressions;
 
 namespace DuAnMau
 {
@@ -91,7 +92,8 @@ namespace DuAnMau
         {
             try
             {
-                
+                if (!ValidateFields())
+                    return;
                 using (var db = new DataClasses1DataContext(_con))
                 {
                     NHAN_VIEN newEmployee = new NHAN_VIEN
@@ -126,7 +128,8 @@ namespace DuAnMau
         {
             try
             {
-
+                if (!ValidateFields())
+                    return;
                 using (var db = new DataClasses1DataContext(_con))
                 {
                     var query = from nv in db.NHAN_VIENs
@@ -295,6 +298,118 @@ namespace DuAnMau
                             };
                 dgv_staff.DataSource = findnv.ToList();
             }
+        }
+        private bool ValidateEmployeeID(string id)
+        {
+            Regex regex = new Regex(@"^NV\d{3}$");
+            return regex.IsMatch(id);
+        }
+
+        private bool ValidateDepartmentID(string id)
+        {
+            Regex regex = new Regex(@"^BP\d{3}$");
+            return regex.IsMatch(id);
+        }
+
+        private bool ValidateRoleID(string id)
+        {
+            Regex regex = new Regex(@"^VT\d{3}$");
+            return regex.IsMatch(id);
+        }
+
+        private bool ValidateCCCD(string cccd)
+        {
+            if (cccd.Any(char.IsLetter) || Convert.ToInt32(cccd) < 0)
+                return false;
+            return true;
+        }
+
+        private bool ValidatePhoneNumber(string phoneNumber)
+        {
+            if (phoneNumber.Any(char.IsLetter) || Convert.ToInt64(phoneNumber) < 0)
+                return false;
+            return true;
+        }
+
+        private bool ValidateEmail(string email)
+        {
+            if (!email.EndsWith("@gmail.com"))
+                return false;
+            return true;
+        }
+
+        private bool ValidateGenderAndStatus()
+        {
+            return (rdo_Male.Checked || rdo_Female.Checked) && (rdo_StillWorking.Checked || rdo_Leave.Checked);
+        }
+
+        private bool ValidateDateOfBirthAndSignUpDate(DateTime dateOfBirth, DateTime signUpDate)
+        {
+            return dateOfBirth <= signUpDate;
+        }
+        private bool ValidateName(string name)
+        {
+            Regex regex = new Regex(@"\d");
+            return !regex.IsMatch(name);
+        }
+
+        private bool ValidateFields()
+        {
+            if (!ValidateName(txt_NameStaff.Text))
+            {
+                MessageBox.Show("Tên nhân viên không được chứa số!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (!ValidateEmployeeID(txt_IDStaff.Text))
+            {
+                MessageBox.Show("Mã nhân viên không đúng định dạng (NVxxx)!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (!ValidateDepartmentID(txt_IDDepartment.Text))
+            {
+                MessageBox.Show("Mã bộ phận không đúng định dạng (BPxxx)!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (!ValidateRoleID(txt_IDRole.Text))
+            {
+                MessageBox.Show("Mã vai trò không đúng định dạng (VTxxx)!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (!ValidateCCCD(txt_CCCD.Text))
+            {
+                MessageBox.Show("CCCD không được nhập kí tự và số âm!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (!ValidatePhoneNumber(txt_PhoneNumber.Text))
+            {
+                MessageBox.Show("Số điện thoại không được nhập kí tự và số âm!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (!ValidateEmail(txt_Gmail.Text))
+            {
+                MessageBox.Show("Email không hợp lệ! Phải có định dạng '@gmail.com'", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (!ValidateGenderAndStatus())
+            {
+                MessageBox.Show("Giới tính hoặc trạng thái không được bỏ trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (!ValidateDateOfBirthAndSignUpDate(dtp_Birthday.Value, dtp_SignUpDay.Value))
+            {
+                MessageBox.Show("Ngày sinh không được sau ngày đăng kí!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            return true;
         }
     }
 }

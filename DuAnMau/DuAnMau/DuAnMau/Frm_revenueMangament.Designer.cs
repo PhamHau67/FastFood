@@ -32,7 +32,6 @@
             this.dgv_revenue = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btn_search = new Guna.UI2.WinForms.Guna2Button();
             this.txt_search = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txt_price = new System.Windows.Forms.TextBox();
@@ -81,7 +80,6 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.btn_search);
             this.groupBox1.Controls.Add(this.txt_search);
             this.groupBox1.Location = new System.Drawing.Point(15, 116);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
@@ -92,32 +90,14 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Search";
             // 
-            // btn_search
-            // 
-            this.btn_search.BackColor = System.Drawing.Color.Transparent;
-            this.btn_search.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.btn_search.BorderRadius = 20;
-            this.btn_search.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btn_search.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btn_search.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btn_search.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btn_search.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(99)))), ((int)(((byte)(59)))));
-            this.btn_search.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.btn_search.ForeColor = System.Drawing.Color.Gold;
-            this.btn_search.Location = new System.Drawing.Point(260, 38);
-            this.btn_search.Name = "btn_search";
-            this.btn_search.Size = new System.Drawing.Size(133, 40);
-            this.btn_search.TabIndex = 8;
-            this.btn_search.Text = "SEARCH";
-            this.btn_search.Click += new System.EventHandler(this.btn_search_Click);
-            // 
             // txt_search
             // 
             this.txt_search.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.txt_search.Location = new System.Drawing.Point(18, 40);
             this.txt_search.Name = "txt_search";
-            this.txt_search.Size = new System.Drawing.Size(226, 38);
+            this.txt_search.Size = new System.Drawing.Size(398, 38);
             this.txt_search.TabIndex = 0;
+            this.txt_search.TextChanged += new System.EventHandler(this.txt_search_TextChanged_1);
             // 
             // groupBox2
             // 
@@ -295,7 +275,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox txt_search;
         private System.Windows.Forms.GroupBox groupBox2;
-        private Guna.UI2.WinForms.Guna2Button btn_search;
         private System.Windows.Forms.TextBox txt_price;
         private System.Windows.Forms.TextBox txt_total;
         private System.Windows.Forms.TextBox txt_amount;

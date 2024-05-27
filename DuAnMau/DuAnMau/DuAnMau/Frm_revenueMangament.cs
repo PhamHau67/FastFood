@@ -19,7 +19,7 @@ namespace DuAnMau
             InitializeComponent();
             Loadatadgv();
         }
-        string conn = "Data Source=DESKTOP-F5INLQE\\HAU;Initial Catalog=FastFoodDB;Integrated Security=True;";
+        string conn = "Data Source=LOVELYPOPPY\\THUNHAT;Initial Catalog=FastFoodDB;Integrated Security=True;";
         public void Loadatadgv()
         {
             using (var db = new DataClasses1DataContext(conn))
@@ -150,43 +150,26 @@ namespace DuAnMau
             }
         }
 
-        private void btn_search_Click(object sender, EventArgs e)
+
+        private void txt_search_TextChanged_1(object sender, EventArgs e)
         {
-            // Kiểm tra xem DataGridView có dòng dữ liệu nào không
-            if (dgv_revenue.RowCount <= 0)
+            using (var db = new DataClasses1DataContext(conn))
             {
-                MessageBox.Show("There is no search information");
-            }
-            else
-            {
-                // Lấy chuỗi tìm kiếm từ TextBox
-                string tim = txt_search.Text.Trim();
-
-                // Kết nối đến cơ sở dữ liệu
-                using (var db = new DataClasses1DataContext(conn))
-                {
-                    // Thực hiện tìm kiếm trong cơ sở dữ liệu
-                    var timKiem = from chitiet in db.CHITIET_HOADONs
-                                  join sanpham in db.SANPHAMs on chitiet.MaSanPham equals sanpham.MaSanPham
-                                  where chitiet.MaSanPham.Contains(tim) ||
-                                        sanpham.TenSanPham.Contains(tim)
-                                  select new
-                                  {
-                                      sanpham.TenSanPham,
-                                      chitiet.MaSanPham,
-                                      chitiet.SoLuong,
-                                      chitiet.TongGiaTriSanPham,
-                                      chitiet.DonGia
-                                  };
-                    // Hiển thị kết quả tìm kiếm trong DataGridView
-                    dgv_revenue.DataSource = timKiem;
-
-                    // Cập nhật các thay đổi vào cơ sở dữ liệu
-                    db.SubmitChanges();
-                }
+                var key = txt_search.Text.Trim();
+                //kết nối linQ
+                var timKiem = from chitiet in db.CHITIET_HOADONs
+                              join sanpham in db.SANPHAMs on chitiet.MaSanPham equals sanpham.MaSanPham
+                              where chitiet.MaSanPham.Contains(key) || sanpham.TenSanPham.Contains(key) // dùng linq(where) truy xuất dữ liệu chưa keywrod
+                              select new // gọi các dữ liệu cần đổ ra
+                              {
+                                  sanpham.TenSanPham,
+                                  chitiet.MaSanPham,
+                                  chitiet.SoLuong,
+                                  chitiet.TongGiaTriSanPham,
+                                  chitiet.DonGia
+                              };
+                dgv_revenue.DataSource = timKiem.ToList();
             }
         }
-
-        
     }
 }

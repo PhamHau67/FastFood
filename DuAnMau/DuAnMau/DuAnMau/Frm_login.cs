@@ -83,6 +83,16 @@ namespace DuAnMau
             txt_user.Text = "";
             txt_pass.Text = "";
         }
-
+       
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.Close();
+            Frm_forgotPassword1 frm_ForgotPassword1 = new Frm_forgotPassword1();
+            frm_ForgotPassword1.TopLevel = false;
+            frm_ForgotPassword1.FormBorderStyle = FormBorderStyle.None;
+            frm_ForgotPassword1.Dock = DockStyle.Fill;
+            frm_ForgotPassword1.BringToFront();
+            frm_ForgotPassword1.Show();
+        }
     }
 }

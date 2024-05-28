@@ -111,6 +111,7 @@
             this.btn_order.Size = new System.Drawing.Size(315, 71);
             this.btn_order.TabIndex = 2;
             this.btn_order.Text = "    ORDER";
+            this.btn_order.Click += new System.EventHandler(this.btn_order_Click);
             // 
             // btn_home
             // 

@@ -411,5 +411,10 @@ namespace DuAnMau
 
             return true;
         }
+
+        private void Frm_employeeManager_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

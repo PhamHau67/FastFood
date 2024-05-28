@@ -167,6 +167,12 @@
     <Compile Include="Frm_Account.Designer.cs">
       <DependentUpon>Frm_Account.cs</DependentUpon>
     </Compile>
+    <Compile Include="Frm_activityHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_activityHistory.Designer.cs">
+      <DependentUpon>Frm_activityHistory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Frm_employeeManager.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -230,6 +236,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Frm_Account.resx">
       <DependentUpon>Frm_Account.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_activityHistory.resx">
+      <DependentUpon>Frm_activityHistory.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Frm_employeeManager.resx">
       <DependentUpon>Frm_employeeManager.cs</DependentUpon>

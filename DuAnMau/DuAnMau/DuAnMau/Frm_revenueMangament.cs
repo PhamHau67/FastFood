@@ -52,7 +52,7 @@ namespace DuAnMau
                     row["ID Product"] = item.MaSanPham;
                     row["Amount"] = item.SoLuong;
                     row["Total product value"] = item.TongGiaTriSanPham;
-                    row["Price"] = item.DonGia.ToString();
+                    row["Price"] = item.DonGia.ToString("N0");
                     dt.Rows.Add(row);
                 }
 

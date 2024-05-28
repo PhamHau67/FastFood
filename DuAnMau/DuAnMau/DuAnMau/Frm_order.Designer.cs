@@ -32,17 +32,12 @@
             this.pn_Menu = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2Panel5 = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2HtmlLabel6 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2HtmlLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2HtmlLabel4 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
             this.lbl_time = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lbl_odernow = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.txt_TableNumber = new Guna.UI2.WinForms.Guna2TextBox();
-            this.Nud_quantity = new Guna.UI2.WinForms.Guna2NumericUpDown();
-            this.Cbo_dish = new Guna.UI2.WinForms.Guna2ComboBox();
             this.Cbo_Type = new Guna.UI2.WinForms.Guna2ComboBox();
-            this.btn_add = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.txt_change = new Guna.UI2.WinForms.Guna2TextBox();
             this.txt_price = new Guna.UI2.WinForms.Guna2TextBox();
@@ -58,10 +53,15 @@
             this.btn_Pay = new Guna.UI2.WinForms.Guna2Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
+            this.btn_add = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2HtmlLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.Nud_quantity = new Guna.UI2.WinForms.Guna2NumericUpDown();
+            this.guna2HtmlLabel4 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.Cbo_dish = new Guna.UI2.WinForms.Guna2ComboBox();
             this.pn_Menu.SuspendLayout();
             this.guna2Panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Nud_quantity)).BeginInit();
             this.guna2Panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Nud_quantity)).BeginInit();
             this.SuspendLayout();
             // 
             // pn_Menu
@@ -104,28 +104,6 @@
             this.guna2HtmlLabel6.Size = new System.Drawing.Size(127, 33);
             this.guna2HtmlLabel6.TabIndex = 9;
             this.guna2HtmlLabel6.Text = "Type";
-            // 
-            // guna2HtmlLabel5
-            // 
-            this.guna2HtmlLabel5.AutoSize = false;
-            this.guna2HtmlLabel5.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel5.Location = new System.Drawing.Point(43, 368);
-            this.guna2HtmlLabel5.Name = "guna2HtmlLabel5";
-            this.guna2HtmlLabel5.Size = new System.Drawing.Size(127, 33);
-            this.guna2HtmlLabel5.TabIndex = 8;
-            this.guna2HtmlLabel5.Text = "Quantity";
-            // 
-            // guna2HtmlLabel4
-            // 
-            this.guna2HtmlLabel4.AutoSize = false;
-            this.guna2HtmlLabel4.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel4.Location = new System.Drawing.Point(43, 286);
-            this.guna2HtmlLabel4.Name = "guna2HtmlLabel4";
-            this.guna2HtmlLabel4.Size = new System.Drawing.Size(127, 33);
-            this.guna2HtmlLabel4.TabIndex = 7;
-            this.guna2HtmlLabel4.Text = "Product";
             // 
             // guna2Panel3
             // 
@@ -189,45 +167,6 @@
             this.txt_TableNumber.Size = new System.Drawing.Size(260, 36);
             this.txt_TableNumber.TabIndex = 4;
             // 
-            // Nud_quantity
-            // 
-            this.Nud_quantity.BackColor = System.Drawing.Color.Transparent;
-            this.Nud_quantity.BorderRadius = 15;
-            this.Nud_quantity.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.Nud_quantity.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.Nud_quantity.Location = new System.Drawing.Point(191, 365);
-            this.Nud_quantity.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Nud_quantity.Maximum = new decimal(new int[] {
-            200,
-            0,
-            0,
-            0});
-            this.Nud_quantity.Minimum = new decimal(new int[] {
-            200,
-            0,
-            0,
-            -2147483648});
-            this.Nud_quantity.Name = "Nud_quantity";
-            this.Nud_quantity.Size = new System.Drawing.Size(106, 36);
-            this.Nud_quantity.TabIndex = 3;
-            this.Nud_quantity.UpDownButtonFillColor = System.Drawing.Color.LemonChiffon;
-            // 
-            // Cbo_dish
-            // 
-            this.Cbo_dish.BackColor = System.Drawing.Color.Transparent;
-            this.Cbo_dish.BorderRadius = 15;
-            this.Cbo_dish.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.Cbo_dish.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.Cbo_dish.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.Cbo_dish.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.Cbo_dish.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Cbo_dish.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
-            this.Cbo_dish.ItemHeight = 30;
-            this.Cbo_dish.Location = new System.Drawing.Point(190, 283);
-            this.Cbo_dish.Name = "Cbo_dish";
-            this.Cbo_dish.Size = new System.Drawing.Size(260, 36);
-            this.Cbo_dish.TabIndex = 2;
-            // 
             // Cbo_Type
             // 
             this.Cbo_Type.BackColor = System.Drawing.Color.Transparent;
@@ -244,23 +183,6 @@
             this.Cbo_Type.Size = new System.Drawing.Size(260, 36);
             this.Cbo_Type.TabIndex = 1;
             this.Cbo_Type.SelectedIndexChanged += new System.EventHandler(this.Cbo_Type_SelectedIndexChanged);
-            // 
-            // btn_add
-            // 
-            this.btn_add.BorderRadius = 20;
-            this.btn_add.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btn_add.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btn_add.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btn_add.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btn_add.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
-            this.btn_add.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_add.ForeColor = System.Drawing.Color.Black;
-            this.btn_add.Location = new System.Drawing.Point(132, 449);
-            this.btn_add.Name = "btn_add";
-            this.btn_add.Size = new System.Drawing.Size(247, 62);
-            this.btn_add.TabIndex = 0;
-            this.btn_add.Text = "ADD";
-            this.btn_add.Click += new System.EventHandler(this.btn_add_Click);
             // 
             // guna2Panel1
             // 
@@ -364,6 +286,7 @@
             // 
             this.lstv_HoaDon.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstv_HoaDon.HideSelection = false;
+            this.lstv_HoaDon.LabelEdit = true;
             this.lstv_HoaDon.Location = new System.Drawing.Point(10, 11);
             this.lstv_HoaDon.Name = "lstv_HoaDon";
             this.lstv_HoaDon.Size = new System.Drawing.Size(518, 418);
@@ -488,6 +411,84 @@
             this.guna2Panel4.Size = new System.Drawing.Size(15, 814);
             this.guna2Panel4.TabIndex = 4;
             // 
+            // btn_add
+            // 
+            this.btn_add.BorderRadius = 20;
+            this.btn_add.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btn_add.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btn_add.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btn_add.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btn_add.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
+            this.btn_add.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_add.ForeColor = System.Drawing.Color.Black;
+            this.btn_add.Location = new System.Drawing.Point(132, 449);
+            this.btn_add.Name = "btn_add";
+            this.btn_add.Size = new System.Drawing.Size(247, 62);
+            this.btn_add.TabIndex = 0;
+            this.btn_add.Text = "ADD";
+            this.btn_add.Click += new System.EventHandler(this.btn_add_Click);
+            // 
+            // guna2HtmlLabel5
+            // 
+            this.guna2HtmlLabel5.AutoSize = false;
+            this.guna2HtmlLabel5.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel5.Location = new System.Drawing.Point(43, 368);
+            this.guna2HtmlLabel5.Name = "guna2HtmlLabel5";
+            this.guna2HtmlLabel5.Size = new System.Drawing.Size(127, 33);
+            this.guna2HtmlLabel5.TabIndex = 8;
+            this.guna2HtmlLabel5.Text = "Quantity";
+            // 
+            // Nud_quantity
+            // 
+            this.Nud_quantity.BackColor = System.Drawing.Color.Transparent;
+            this.Nud_quantity.BorderRadius = 15;
+            this.Nud_quantity.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.Nud_quantity.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.Nud_quantity.Location = new System.Drawing.Point(191, 365);
+            this.Nud_quantity.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.Nud_quantity.Maximum = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+            this.Nud_quantity.Minimum = new decimal(new int[] {
+            200,
+            0,
+            0,
+            -2147483648});
+            this.Nud_quantity.Name = "Nud_quantity";
+            this.Nud_quantity.Size = new System.Drawing.Size(106, 36);
+            this.Nud_quantity.TabIndex = 3;
+            this.Nud_quantity.UpDownButtonFillColor = System.Drawing.Color.LemonChiffon;
+            // 
+            // guna2HtmlLabel4
+            // 
+            this.guna2HtmlLabel4.AutoSize = false;
+            this.guna2HtmlLabel4.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel4.Location = new System.Drawing.Point(43, 286);
+            this.guna2HtmlLabel4.Name = "guna2HtmlLabel4";
+            this.guna2HtmlLabel4.Size = new System.Drawing.Size(127, 33);
+            this.guna2HtmlLabel4.TabIndex = 7;
+            this.guna2HtmlLabel4.Text = "Product";
+            // 
+            // Cbo_dish
+            // 
+            this.Cbo_dish.BackColor = System.Drawing.Color.Transparent;
+            this.Cbo_dish.BorderRadius = 15;
+            this.Cbo_dish.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.Cbo_dish.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Cbo_dish.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.Cbo_dish.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.Cbo_dish.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Cbo_dish.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.Cbo_dish.ItemHeight = 30;
+            this.Cbo_dish.Location = new System.Drawing.Point(190, 283);
+            this.Cbo_dish.Name = "Cbo_dish";
+            this.Cbo_dish.Size = new System.Drawing.Size(260, 36);
+            this.Cbo_dish.TabIndex = 2;
+            // 
             // Frm_Order
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -505,18 +506,15 @@
             this.pn_Menu.ResumeLayout(false);
             this.guna2Panel3.ResumeLayout(false);
             this.guna2Panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Nud_quantity)).EndInit();
             this.guna2Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.Nud_quantity)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
         private Guna.UI2.WinForms.Guna2Panel pn_Menu;
-        private Guna.UI2.WinForms.Guna2Button btn_add;
-        private Guna.UI2.WinForms.Guna2ComboBox Cbo_dish;
         private Guna.UI2.WinForms.Guna2ComboBox Cbo_Type;
-        private Guna.UI2.WinForms.Guna2NumericUpDown Nud_quantity;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
         private Guna.UI2.WinForms.Guna2Button btn_Pay;
         private Guna.UI2.WinForms.Guna2Button btn_Remove;
@@ -536,10 +534,13 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel lbl_total;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel3;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel6;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel5;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel4;
         private Guna.UI2.WinForms.Guna2TextBox txt_change;
         private Guna.UI2.WinForms.Guna2TextBox txt_price;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel5;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel5;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel4;
+        private Guna.UI2.WinForms.Guna2NumericUpDown Nud_quantity;
+        private Guna.UI2.WinForms.Guna2ComboBox Cbo_dish;
+        private Guna.UI2.WinForms.Guna2Button btn_add;
     }
 }

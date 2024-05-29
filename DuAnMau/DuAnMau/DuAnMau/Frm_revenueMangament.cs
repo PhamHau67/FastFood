@@ -12,51 +12,63 @@ using Excel = Microsoft.Office.Interop.Excel;
 
 namespace DuAnMau
 {
-    public partial class Frm__revenueMangament : Form
+    public partial class Frm_revenueMangament : Form
     {
-        public Frm__revenueMangament()
+        public Frm_revenueMangament()
         {
             InitializeComponent();
             Loadatadgv();
         }
-        string conn = "Data Source=LOVELYPOPPY\\THUNHAT;Initial Catalog=FastFoodDB;Integrated Security=True;";
+        string conn = @"Data Source=LOVELYPOPPY\THUNHAT;Initial Catalog=FastFoodDB;Integrated Security=True;";
         public void Loadatadgv()
         {
-            using (var db = new DataClasses1DataContext(conn))
+            try
             {
-                //viết câu query và join bảng sản phẩm
-                var query = from chitiet in db.CHITIET_HOADONs
-                            join sanpham in db.SANPHAMs on chitiet.MaSanPham equals sanpham.MaSanPham
-                            select new
-                            {
-                                sanpham.TenSanPham,
-                                chitiet.MaSanPham,
-                                chitiet.SoLuong,
-                                chitiet.TongGiaTriSanPham,
-                                chitiet.DonGia
-                            };
-
-                DataTable dt = new DataTable();
-
-                dt.Columns.Add("Name Product");
-                dt.Columns.Add("ID Product");
-                dt.Columns.Add("Amount");
-                dt.Columns.Add("Total product value");
-                dt.Columns.Add("Price");
-
-                // Đổ dữ liệu vào DataTable từ truy vấn
-                foreach (var item in query)
+                using (var db = new DataClasses1DataContext(conn))
                 {
-                    DataRow row = dt.NewRow();
-                    row["Name Product"] = item.TenSanPham;
-                    row["ID Product"] = item.MaSanPham;
-                    row["Amount"] = item.SoLuong;
-                    row["Total product value"] = item.TongGiaTriSanPham;
-                    row["Price"] = item.DonGia.ToString();
-                    dt.Rows.Add(row);
-                }
+                    var query = from hoadon in db.HOADONs
+                                join nhanvien in db.NHAN_VIENs on hoadon.MaNhanVien equals nhanvien.MaNhanVien
+                                select new
+                                {
+                                    hoadon.MaHoaDon,
+                                    hoadon.MaNhanVien,
+                                    nhanvien.TenNhanVien,
+                                    hoadon.NgayTao,
+                                    hoadon.TongTien,
+                                    hoadon.TrangThai
+                                };
 
-                dgv_revenue.DataSource = dt;
+                    DataTable dt = new DataTable();
+                    dt.Columns.Add("ID Bill");
+                    dt.Columns.Add("ID Employee");
+                    dt.Columns.Add("Name Employee");
+                    dt.Columns.Add("Date Created");
+                    dt.Columns.Add("Total");
+                    dt.Columns.Add("State");
+
+                    foreach (var item in query)
+                    {
+                        dt.Rows.Add(item.MaHoaDon, item.MaNhanVien, item.TenNhanVien, item.NgayTao, item.TongTien, item.TrangThai);
+                    }
+
+                    // Thiết lập DataSource của DataGridView là DataTable
+                    dgv_revenue.DataSource = dt;
+
+                    // Thiết lập AutoSizeMode cho mỗi cột
+                    dgv_revenue.Columns["ID Bill"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    dgv_revenue.Columns["ID Employee"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    dgv_revenue.Columns["Name Employee"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    dgv_revenue.Columns["Date Created"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    dgv_revenue.Columns["Total"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    dgv_revenue.Columns["State"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+                    // Cập nhật lại DataGridView
+                    dgv_revenue.Refresh();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading data: " + ex.Message);
             }
         }
         private void label1_Click(object sender, EventArgs e)
@@ -68,11 +80,39 @@ namespace DuAnMau
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = dgv_revenue.Rows[e.RowIndex];
-                txt_nameProduct.Text = row.Cells["Name Product"].Value.ToString();
-                txt_idProduct.Text = row.Cells["ID Product"].Value.ToString();
-                txt_amount.Text = row.Cells["Amount"].Value.ToString();
-                txt_total.Text = row.Cells["Total product value"].Value.ToString();
-                txt_price.Text = row.Cells["Price"].Value.ToString();
+                txt_idBill.Text = row.Cells["ID Bill"].Value?.ToString();
+                txt_idProduct.Text = row.Cells["ID Employee"].Value?.ToString();
+                txt_name.Text = row.Cells["Name Employee"].Value?.ToString();
+                txt_day.Text = row.Cells["Date Created"].Value?.ToString();
+
+                // Kiểm tra nếu ô "Total" không rỗng
+                if (row.Cells["Total"].Value != null)
+                {
+                    string totalValueString = row.Cells["Total"].Value.ToString();
+
+                    try
+                    {
+                        // Chuyển đổi giá trị thành decimal và định dạng
+                        decimal totalValue = Convert.ToDecimal(totalValueString);
+                        txt_money.Text = totalValue.ToString("N0");
+                    }
+                    catch (FormatException)
+                    {
+                        // Xử lý khi không thể chuyển đổi giá trị thành số
+                        txt_money.Text = "Invalid format";
+                    }
+                    catch (InvalidCastException)
+                    {
+                        // Xử lý khi không thể chuyển đổi giá trị thành số
+                        txt_money.Text = "Invalid cast";
+                    }
+                }
+                else
+                {
+                    txt_money.Text = string.Empty;
+                }
+
+                txt_total.Text = row.Cells["State"].Value?.ToString();
             }
         }
 
@@ -153,23 +193,82 @@ namespace DuAnMau
 
         private void txt_search_TextChanged_1(object sender, EventArgs e)
         {
-            using (var db = new DataClasses1DataContext(conn))
+            try
             {
-                var key = txt_search.Text.Trim();
-                //kết nối linQ
-                var timKiem = from chitiet in db.CHITIET_HOADONs
-                              join sanpham in db.SANPHAMs on chitiet.MaSanPham equals sanpham.MaSanPham
-                              where chitiet.MaSanPham.Contains(key) || sanpham.TenSanPham.Contains(key) // dùng linq(where) truy xuất dữ liệu chưa keywrod
-                              select new // gọi các dữ liệu cần đổ ra
-                              {
-                                  sanpham.TenSanPham,
-                                  chitiet.MaSanPham,
-                                  chitiet.SoLuong,
-                                  chitiet.TongGiaTriSanPham,
-                                  chitiet.DonGia
-                              };
-                dgv_revenue.DataSource = timKiem.ToList();
+                using (var db = new DataClasses1DataContext(conn))
+                {
+                    string key = txt_search.Text.Trim();
+                    var searchResult = from hoadon in db.HOADONs
+                                       join nhanvien in db.NHAN_VIENs on hoadon.MaNhanVien equals nhanvien.MaNhanVien
+                                       where hoadon.MaHoaDon.Contains(key) || nhanvien.TenNhanVien.Contains(key)
+                                       select new
+                                       {
+                                           hoadon.MaHoaDon,
+                                           hoadon.MaNhanVien,
+                                           nhanvien.TenNhanVien,
+                                           hoadon.NgayTao,
+                                           hoadon.TongTien,
+                                           hoadon.TrangThai
+                                       };
+
+                    DataTable dt = new DataTable();
+                    dt.Columns.Add("ID Bill");
+                    dt.Columns.Add("ID Employee");
+                    dt.Columns.Add("Name Employee");
+                    dt.Columns.Add("Date Created");
+                    dt.Columns.Add("Total");
+                    dt.Columns.Add("State");
+
+                    foreach (var item in searchResult)
+                    {
+                        dt.Rows.Add(item.MaHoaDon, item.MaNhanVien, item.TenNhanVien, item.NgayTao, item.TrangThai);
+                    }
+
+                    dgv_revenue.DataSource = dt;
+
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error searching: " + ex.Message);
+            }
+            
+        }
+        private void CalculateTotalRevenue()
+        {
+            try
+            {
+                // Trích xuất giá trị từ DateTimePicker cho ngày bắt đầu và kết thúc
+                DateTime startDate = dateTimePickerStartDate.Value.Date;
+                DateTime endDate = dateTimePickerEndDate.Value.Date.AddDays(1); // Bổ sung 1 ngày để bao gồm cả ngày kết thúc
+
+                using (var db = new DataClasses1DataContext(conn))
+                {
+                    // Truy vấn cơ sở dữ liệu để tính tổng tiền của các hóa đơn trong khoảng thời gian đã chọn
+                    var totalRevenue = (from hoadon in db.HOADONs
+                                        where hoadon.NgayTao >= startDate && hoadon.NgayTao < endDate
+                                        select hoadon.TongTien).Sum();
+
+                    // Hiển thị tổng tiền tính được lên TextBox
+                    txt_totalAmount.Text = totalRevenue.ToString("N0"); // Format số với dấu phân cách ngàn
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error calculating total revenue: " + ex.Message);
+            }
+        }
+
+        private void dateTimePickerStartDate_ValueChanged(object sender, EventArgs e)
+        {
+            // Khi người dùng thay đổi ngày bắt đầu, tính tổng tiền lại
+            CalculateTotalRevenue();
+        }
+
+        private void dateTimePickerEndDate_ValueChanged(object sender, EventArgs e)
+        {
+            // Khi người dùng thay đổi ngày kết thúc, tính tổng tiền lại
+            CalculateTotalRevenue();
         }
     }
 }

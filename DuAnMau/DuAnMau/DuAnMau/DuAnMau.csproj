@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\LijsDev.CrystalReportsRunner.13.0.20.x64.1.4.2\build\LijsDev.CrystalReportsRunner.13.0.20.x64.props" Condition="Exists('..\packages\LijsDev.CrystalReportsRunner.13.0.20.x64.1.4.2\build\LijsDev.CrystalReportsRunner.13.0.20.x64.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -12,6 +13,8 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -179,6 +182,18 @@
     <Compile Include="Frm_employeeManager.Designer.cs">
       <DependentUpon>Frm_employeeManager.cs</DependentUpon>
     </Compile>
+    <Compile Include="Frm_forgotPassword1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_forgotPassword1.Designer.cs">
+      <DependentUpon>Frm_forgotPassword1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_forgotPassword2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_forgotPassword2.Designer.cs">
+      <DependentUpon>Frm_forgotPassword2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Frm_home.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -202,6 +217,12 @@
     </Compile>
     <Compile Include="Frm_login.Designer.cs">
       <DependentUpon>Frm_login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_Manage_invoices.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_Manage_invoices.Designer.cs">
+      <DependentUpon>Frm_Manage_invoices.cs</DependentUpon>
     </Compile>
     <Compile Include="Frm_order.cs">
       <SubType>Form</SubType>
@@ -232,6 +253,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="SqlServerTypes\Loader.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Frm_Account.resx">
@@ -242,6 +264,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Frm_employeeManager.resx">
       <DependentUpon>Frm_employeeManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_forgotPassword1.resx">
+      <DependentUpon>Frm_forgotPassword1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_forgotPassword2.resx">
+      <DependentUpon>Frm_forgotPassword2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Frm_home.resx">
       <DependentUpon>Frm_home.cs</DependentUpon>
@@ -254,6 +282,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Frm_login.resx">
       <DependentUpon>Frm_login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_Manage_invoices.resx">
+      <DependentUpon>Frm_Manage_invoices.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Frm_order.resx">
       <DependentUpon>Frm_order.cs</DependentUpon>
@@ -269,5 +300,27 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_fe698f81-47be-4887-bb79-3397927997e4.jpg" />
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\LijsDev.CrystalReportsRunner.13.0.20.x64.1.4.2\build\LijsDev.CrystalReportsRunner.13.0.20.x64.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\LijsDev.CrystalReportsRunner.13.0.20.x64.1.4.2\build\LijsDev.CrystalReportsRunner.13.0.20.x64.props'))" />
+  </Target>
 </Project>

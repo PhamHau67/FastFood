@@ -12,7 +12,7 @@ namespace DuAnMau
 
         public Frm_Order()
         {
-            InitializeComponent();           
+            InitializeComponent();
         }
         private void Frm_Order_Load(object sender, EventArgs e)
         {
@@ -23,10 +23,11 @@ namespace DuAnMau
         }
 
         public void LoadData_lstv()
-        {           
+        {
+
             lstv_HoaDon.Columns.Add("Number", 70); // Cột cho số bàn
             lstv_HoaDon.Columns.Add("Product", 120); // Cột cho tên món ăn
-            lstv_HoaDon.Columns.Add("Quantity",90); // Cột cho số lượng
+            lstv_HoaDon.Columns.Add("Quantity", 90); // Cột cho số lượng
             lstv_HoaDon.Columns.Add("Price", 90); // Cột cho giá
             //lstv_HoaDon.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);                       
             lstv_HoaDon.Columns[0].Width = (int)(lstv_HoaDon.Width * 0.25); ; // Tự động điều chỉnh kích thước cột số bàn
@@ -227,7 +228,7 @@ namespace DuAnMau
             {
                 MessageBox.Show("There are no line items available for payment.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
-            }           
+            }
             DialogResult result = MessageBox.Show("Do you want to pay?", "Confirm payment", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
@@ -249,7 +250,7 @@ namespace DuAnMau
                         HOADON newOrder = new HOADON
                         {
                             MaHoaDon = newOrderId,
-                            MaNhanVien = "NV001", 
+                            MaNhanVien = "NV001",
                             NgayTao = DateTime.Now,
                             TongTien = decimal.Parse(txt_Summ.Text),
                             TrangThai = true

@@ -304,6 +304,7 @@
             this.dgv_Account.GridColor = System.Drawing.Color.White;
             this.dgv_Account.Location = new System.Drawing.Point(4, 3);
             this.dgv_Account.Name = "dgv_Account";
+            this.dgv_Account.RowHeadersVisible = false;
             this.dgv_Account.RowHeadersWidth = 51;
             this.dgv_Account.RowTemplate.Height = 24;
             this.dgv_Account.Size = new System.Drawing.Size(1106, 459);

@@ -14,7 +14,7 @@ namespace DuAnMau
 {
     public partial class Frm_Account : Form
     {
-        string strConn = "Data Source=DESKTOP-F5INLQE\\HAU;Initial Catalog=FastFoodDB;Integrated Security=True;";
+        string strConn = "Data Source=RUDEUS\\VVH;Initial Catalog=FastFoodDB;Integrated Security=True;";
         Dictionary<string, string> roleMapping = new Dictionary<string, string>
         {
             { "Quản lý", "VT001" },
@@ -26,6 +26,8 @@ namespace DuAnMau
             
             InitializeComponent();
             LoadData_Dgv();
+            // Ẩn cột trống ở phía bên trái của DataGridView
+            //dgv_Account.RowHeadersVisible = false;
         }
         public void LoadData_Dgv()
         {
@@ -49,14 +51,12 @@ namespace DuAnMau
                 dgv_Account.DataSource = ListAc.ToList();
 
                 // Đổi Tiếng Việt
-                dgv_Account.Columns["MaTaiKhoan"].HeaderText = "Mã Tài Khoản";
-                dgv_Account.Columns["TenTaiKhoan"].HeaderText = "Tên Tài Khoản";
-                dgv_Account.Columns["MatKhau"].HeaderText = "Mật Khẩu";
-                dgv_Account.Columns["MaNhanVien"].HeaderText = "Mã Nhân Viên";
+                dgv_Account.Columns["MaTaiKhoan"].HeaderText = "Account ID";
+                dgv_Account.Columns["TenTaiKhoan"].HeaderText = "Account Name";
+                dgv_Account.Columns["MatKhau"].HeaderText = "Password";
+                dgv_Account.Columns["MaNhanVien"].HeaderText = "Employee ID";
                 dgv_Account.Columns["Gmail"].HeaderText = "Gmail";
-                dgv_Account.Columns["TenVaiTro"].HeaderText = "Vai Trò";
-
-
+                dgv_Account.Columns["TenVaiTro"].HeaderText = "Role";
             }
         }
 

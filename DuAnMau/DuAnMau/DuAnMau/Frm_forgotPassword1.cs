@@ -4,18 +4,35 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+<<<<<<< Updated upstream
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+=======
+using System.Net.Mail;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using static System.Net.WebRequestMethods;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
+
+
+>>>>>>> Stashed changes
 
 namespace DuAnMau
 {
     public partial class Frm_forgotPassword1 : Form
     {
+<<<<<<< Updated upstream
+=======
+        string strConn = "Data Source=RUDEUS\\VVH;Initial Catalog=FastFoodDB;Integrated Security=True;";
+>>>>>>> Stashed changes
         public Frm_forgotPassword1()
         {
             InitializeComponent();
         }
+<<<<<<< Updated upstream
 
         private void btn_send_Click(object sender, EventArgs e)
         {
@@ -32,6 +49,85 @@ namespace DuAnMau
             frm_ForgotPassword2.Dock = DockStyle.Fill;
             frm_ForgotPassword2.BringToFront();
             frm_ForgotPassword2.Show();
+=======
+        Random rand = new Random();
+        int otp;
+
+        private void btn_send_Click(object sender, EventArgs e)
+        {
+            string userEmail = txt_nhap.Text;
+
+            using (var db = new DataClasses1DataContext(strConn))
+            {
+                // Kiểm tra sự tồn tại của Gmail
+                var user = (from nv in db.NHAN_VIENs
+                            
+                            where nv.Gmail == userEmail
+                            select new
+                            {
+                                nv.Gmail
+                            }).FirstOrDefault();
+                if (string.IsNullOrEmpty(txt_nhap.Text))
+                {
+                    MessageBox.Show("Please complete all information!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (user != null)
+                {
+                    try
+                    {
+                        // Tạo OTP
+                        otp = rand.Next(100000, 1000000);
+                        var fromAddress = new MailAddress("vovanhung1313@gmail.com", "Fast food");
+                        var toAddress = new MailAddress(userEmail); // Lấy email từ TextBox
+                        const string fromPass = "efsk bupf npzf kcxm"; // Mật khẩu ứng dụng
+                        const string subject = "OTP Code"; // Tiêu đề email
+
+                        // Nội dung email tùy chỉnh
+                        string body = $"Chào bạn,\n\nĐây là hệ thống xác minh Fast Food.\n\nMã OTP của bạn là: {otp}\n\nVui lòng sử dụng mã này để xác minh. Lưu ý không cung cấp OTP cho người khác.\n\nCảm ơn,\nCửa hàng Fast Food";
+
+                        var smtp = new SmtpClient
+                        {
+                            Host = "smtp.gmail.com",
+                            Port = 587,
+                            EnableSsl = true,
+                            DeliveryMethod = SmtpDeliveryMethod.Network,
+                            UseDefaultCredentials = false,
+                            Credentials = new NetworkCredential(fromAddress.Address, fromPass),
+                            Timeout = 200000
+                        };
+                        using (var message = new MailMessage(fromAddress, toAddress)
+                        {
+                            Subject = subject,
+                            Body = body,
+                        })
+                        {
+                            smtp.Send(message);
+                        }
+                        MessageBox.Show("OTP sent successfully.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Frm_forgotPassword2 frm_ForgotPassword2 = new Frm_forgotPassword2(); //mở form khác
+                        
+                        frm_ForgotPassword2.ReceivedOtp = otp.ToString();
+                        frm_ForgotPassword2.ReceivedGmail=userEmail.ToString();
+                        frm_ForgotPassword2.Show();
+                        this.Hide();
+
+                        //this.Close();
+                        //frm_fp.Show();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No account found with this Gmail. Please check again.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+>>>>>>> Stashed changes
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)

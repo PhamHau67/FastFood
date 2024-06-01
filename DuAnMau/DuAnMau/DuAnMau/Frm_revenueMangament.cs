@@ -18,6 +18,8 @@ namespace DuAnMau
         {
             InitializeComponent();
             Loadatadgv();
+            // Ẩn cột trống ở phía bên trái của DataGridView
+            dgv_revenue.RowHeadersVisible = false;
         }
         string conn = @"Data Source=LOVELYPOPPY\THUNHAT;Initial Catalog=FastFoodDB;Integrated Security=True;";
         public void Loadatadgv()

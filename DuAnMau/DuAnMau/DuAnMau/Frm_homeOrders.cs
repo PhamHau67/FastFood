@@ -51,5 +51,10 @@ namespace DuAnMau
         {
             OpenChildForm(new Frm_Order());
         }
+
+        private void btn_history_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new Frm_activityHistory());
+        }
     }
 }

@@ -5,45 +5,25 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-<<<<<<< Updated upstream
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-=======
-using System.Net.Mail;
 using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Net.WebRequestMethods;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
->>>>>>> Stashed changes
 
 namespace DuAnMau
 {
     public partial class Frm_forgotPassword2 : Form
     {
-<<<<<<< Updated upstream
         public Frm_forgotPassword2()
         {
             InitializeComponent();
         }
-=======
         string strConn = "Data Source=RUDEUS\\VVH;Initial Catalog=FastFoodDB;Integrated Security=True;";
         public string ReceivedOtp { get; set; }
         public string ReceivedGmail { get; set; }
         Random rand = new Random();
         int otp;
-
-
-        public Frm_forgotPassword2()
-        {
-            InitializeComponent();
-
-
-        }
-
->>>>>>> Stashed changes
         private void TogglePasswordVisibility(Guna2TextBox textBox, Guna2Button btnOpenEye, Guna2Button btnCloseEye)
         {
             if (textBox.PasswordChar == '*')
@@ -80,8 +60,6 @@ namespace DuAnMau
         private void btn_recover_Click(object sender, EventArgs e)
         {
 
-<<<<<<< Updated upstream
-=======
             using (var db = new DataClasses1DataContext(strConn))
             {
                 // Tìm tài khoản với Gmail tương ứng
@@ -135,7 +113,6 @@ namespace DuAnMau
                 }
 
             }
->>>>>>> Stashed changes
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)
@@ -144,8 +121,6 @@ namespace DuAnMau
             Frm_login frm_Login = new Frm_login();
             frm_Login.Show();
         }
-<<<<<<< Updated upstream
-=======
 
         private void btn_resend_Click(object sender, EventArgs e)
         {
@@ -206,6 +181,5 @@ namespace DuAnMau
 
         }
 
->>>>>>> Stashed changes
     }
 }

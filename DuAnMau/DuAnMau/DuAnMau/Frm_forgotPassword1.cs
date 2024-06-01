@@ -4,54 +4,25 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-<<<<<<< Updated upstream
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-=======
-using System.Net.Mail;
 using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Net.WebRequestMethods;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 
->>>>>>> Stashed changes
 
 namespace DuAnMau
 {
     public partial class Frm_forgotPassword1 : Form
     {
-<<<<<<< Updated upstream
-=======
         string strConn = "Data Source=RUDEUS\\VVH;Initial Catalog=FastFoodDB;Integrated Security=True;";
->>>>>>> Stashed changes
+        Random rand = new Random();
+        int otp;
         public Frm_forgotPassword1()
         {
             InitializeComponent();
         }
-<<<<<<< Updated upstream
-
-        private void btn_send_Click(object sender, EventArgs e)
-        {
-
-
-
-
-
-
-            this.Close();
-            Frm_forgotPassword2 frm_ForgotPassword2 = new Frm_forgotPassword2();
-            frm_ForgotPassword2.TopLevel = false;
-            frm_ForgotPassword2.FormBorderStyle = FormBorderStyle.None;
-            frm_ForgotPassword2.Dock = DockStyle.Fill;
-            frm_ForgotPassword2.BringToFront();
-            frm_ForgotPassword2.Show();
-=======
-        Random rand = new Random();
-        int otp;
 
         private void btn_send_Click(object sender, EventArgs e)
         {
@@ -127,7 +98,6 @@ namespace DuAnMau
                     MessageBox.Show("No account found with this Gmail. Please check again.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
->>>>>>> Stashed changes
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)

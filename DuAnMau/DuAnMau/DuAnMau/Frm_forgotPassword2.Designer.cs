@@ -235,20 +235,11 @@
             this.btn_resend.FillColor = System.Drawing.Color.White;
             this.btn_resend.Font = new System.Drawing.Font("Segoe UI", 10.2F);
             this.btn_resend.ForeColor = System.Drawing.Color.Black;
-<<<<<<< Updated upstream
             this.btn_resend.Location = new System.Drawing.Point(316, 80);
             this.btn_resend.Name = "btn_resend";
             this.btn_resend.Size = new System.Drawing.Size(167, 45);
             this.btn_resend.TabIndex = 11;
             this.btn_resend.Text = "Resend OTP code";
-=======
-            this.btn_resend.Location = new System.Drawing.Point(294, 80);
-            this.btn_resend.Name = "btn_resend";
-            this.btn_resend.Size = new System.Drawing.Size(204, 45);
-            this.btn_resend.TabIndex = 11;
-            this.btn_resend.Text = "Resend OTP code";
-            this.btn_resend.Click += new System.EventHandler(this.btn_resend_Click);
->>>>>>> Stashed changes
             // 
             // Frm_forgotPassword2
             // 

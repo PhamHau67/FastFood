@@ -60,7 +60,7 @@
             // txt_nhap
             // 
             this.txt_nhap.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.txt_nhap.Location = new System.Drawing.Point(12, 132);
+            this.txt_nhap.Location = new System.Drawing.Point(12, 142);
             this.txt_nhap.Name = "txt_nhap";
             this.txt_nhap.Size = new System.Drawing.Size(489, 38);
             this.txt_nhap.TabIndex = 2;
@@ -75,9 +75,9 @@
             this.btn_send.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
             this.btn_send.Font = new System.Drawing.Font("Segoe UI", 10.2F);
             this.btn_send.ForeColor = System.Drawing.Color.Black;
-            this.btn_send.Location = new System.Drawing.Point(341, 197);
+            this.btn_send.Location = new System.Drawing.Point(301, 197);
             this.btn_send.Name = "btn_send";
-            this.btn_send.Size = new System.Drawing.Size(160, 45);
+            this.btn_send.Size = new System.Drawing.Size(200, 45);
             this.btn_send.TabIndex = 3;
             this.btn_send.Text = "Send OTP code";
             this.btn_send.Click += new System.EventHandler(this.btn_send_Click);

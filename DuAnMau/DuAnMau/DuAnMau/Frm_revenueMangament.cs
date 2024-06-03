@@ -18,6 +18,8 @@ namespace DuAnMau
         {
             InitializeComponent();
             Loadatadgv();
+            // Ẩn cột trống ở phía bên trái của DataGridView
+            dgv_revenue.RowHeadersVisible = false;
         }
         private Cl_conn clConn = new Cl_conn();
         public void Loadatadgv()

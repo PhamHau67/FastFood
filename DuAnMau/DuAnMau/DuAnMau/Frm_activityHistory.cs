@@ -13,7 +13,7 @@ namespace DuAnMau
 {
     public partial class Frm_activityHistory : Form
     {
-        private string _con = "Data Source=DESKTOP-7QHBA3R;Initial Catalog=FastFoodDB;Integrated Security=True;";
+        private Cl_conn clConn = new Cl_conn();
         public Frm_activityHistory()
         {
             InitializeComponent();
@@ -36,7 +36,7 @@ namespace DuAnMau
 
         public void Load_dgv_activity()
         {
-            using (var db = new DataClasses1DataContext(_con))
+            using (var db = new DataClasses1DataContext(clConn.conn))
             {
                 var query = from nv in db.NHAN_VIENs
                             join nvc in db.NHANVIEN_CAKIPs on nv.MaNhanVien equals nvc.MaNhanVien
@@ -83,7 +83,7 @@ namespace DuAnMau
 
         private void FilterData()
         {
-            using (var db = new DataClasses1DataContext(_con))
+            using (var db = new DataClasses1DataContext(clConn.conn))
             {
                 var keyword = txt_find.Text.Trim();
                 var shiftFilter = cbo_shift.SelectedItem?.ToString();

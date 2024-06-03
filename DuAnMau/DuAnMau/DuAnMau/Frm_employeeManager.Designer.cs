@@ -1,6 +1,6 @@
-﻿namespace DuAnMau
+﻿namespace EmployeeManagement
 {
-    partial class Frm_employeeManager
+    partial class Frm_EmployeeManager
     {
         /// <summary>
         /// Required designer variable.
@@ -593,7 +593,6 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Frm_employeeManager";
             this.Text = "Frm_employeeManager";
-            this.Load += new System.EventHandler(this.Frm_employeeManager_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_staff)).EndInit();
             this.grp_Find.ResumeLayout(false);
             this.pan_gentle.ResumeLayout(false);

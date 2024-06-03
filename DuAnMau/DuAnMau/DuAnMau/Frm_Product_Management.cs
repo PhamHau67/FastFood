@@ -14,7 +14,7 @@ namespace DuAnMau
 {
     public partial class Frm_Product_Management : Form
     {
-        string strConn = "Data Source=RUDEUS\\VVH;Initial Catalog=FastFoodDB;Integrated Security=True;";
+        private Cl_conn clConn = new Cl_conn();
         public Frm_Product_Management()
         {
 
@@ -23,15 +23,11 @@ namespace DuAnMau
             Load_cbxData();
             cbx_Supplier_ID.SelectedIndex = -1;
             // Ẩn cột trống ở phía bên trái của DataGridView
-            dgv_Product.RowHeadersVisible = false;
-            
-            
-
-
+            dgv_Product.RowHeadersVisible = false;           
         }
         public void LoadData_Dgv()
         {
-            using (var db = new DataClasses1DataContext(strConn))
+            using (var db = new DataClasses1DataContext(clConn.conn))
             {
                 //Viết câu lệnh truy vấn và join bảng
                 var ListPr = from sp in db.SANPHAMs
@@ -83,7 +79,7 @@ namespace DuAnMau
         {
             if (cbx_Supplier_ID.SelectedValue != null)
             {
-                using (var db = new DataClasses1DataContext(strConn))
+                using (var db = new DataClasses1DataContext(clConn.conn))
                 {
                     var supplier = (from ncc in db.NHACUNGCAPs
                                     where ncc.MaNhaCungCap == cbx_Supplier_ID.SelectedValue.ToString()
@@ -98,7 +94,7 @@ namespace DuAnMau
         }
         public void Load_cbxData()
         {
-            using (var db = new DataClasses1DataContext(strConn))
+            using (var db = new DataClasses1DataContext(clConn.conn))
             {
                 var suppliers = from ncc in db.NHACUNGCAPs
                                 select new
@@ -150,7 +146,7 @@ namespace DuAnMau
             {
                 try
                 {
-                    using (var db = new DataClasses1DataContext(strConn))
+                    using (var db = new DataClasses1DataContext(clConn.conn))
                     {
 
                         Random random = new Random();
@@ -259,7 +255,7 @@ namespace DuAnMau
             {
                 try
                 {
-                    using (var db = new DataClasses1DataContext(strConn))
+                    using (var db = new DataClasses1DataContext(clConn.conn))
                     {
                         string maSanPham = dgv_Product.CurrentRow.Cells["MaSanPham"].Value.ToString();
                         var product = db.SANPHAMs.FirstOrDefault(sp => sp.MaSanPham == maSanPham);
@@ -296,7 +292,7 @@ namespace DuAnMau
             {
                 try
                 {
-                    using (var db = new DataClasses1DataContext(strConn))
+                    using (var db = new DataClasses1DataContext(clConn.conn))
                     {
                         string maSanPham = dgv_Product.CurrentRow.Cells["MaSanPham"].Value.ToString();
                         var pr = db.SANPHAMs.FirstOrDefault(sp => sp.MaSanPham == maSanPham);
@@ -364,7 +360,7 @@ namespace DuAnMau
 
         private void txt_Search_TextChanged(object sender, EventArgs e)
         {
-            using (var db = new DataClasses1DataContext(strConn))
+            using (var db = new DataClasses1DataContext(clConn.conn))
             {
                 var keyword = txt_Search.Text.Trim();
 

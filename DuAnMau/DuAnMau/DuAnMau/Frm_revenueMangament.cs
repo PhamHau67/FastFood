@@ -19,12 +19,12 @@ namespace DuAnMau
             InitializeComponent();
             Loadatadgv();
         }
-        string conn = @"Data Source=LOVELYPOPPY\THUNHAT;Initial Catalog=FastFoodDB;Integrated Security=True;";
+        private Cl_conn clConn = new Cl_conn();
         public void Loadatadgv()
         {
             try
             {
-                using (var db = new DataClasses1DataContext(conn))
+                using (var db = new DataClasses1DataContext(clConn.conn))
                 {
                     var query = from hoadon in db.HOADONs
                                 join nhanvien in db.NHAN_VIENs on hoadon.MaNhanVien equals nhanvien.MaNhanVien
@@ -195,7 +195,7 @@ namespace DuAnMau
         {
             try
             {
-                using (var db = new DataClasses1DataContext(conn))
+                using (var db = new DataClasses1DataContext(clConn.conn))
                 {
                     string key = txt_search.Text.Trim();
                     var searchResult = from hoadon in db.HOADONs
@@ -242,7 +242,7 @@ namespace DuAnMau
                 DateTime startDate = dateTimePickerStartDate.Value.Date;
                 DateTime endDate = dateTimePickerEndDate.Value.Date.AddDays(1); // Bổ sung 1 ngày để bao gồm cả ngày kết thúc
 
-                using (var db = new DataClasses1DataContext(conn))
+                using (var db = new DataClasses1DataContext(clConn.conn))
                 {
                     // Truy vấn cơ sở dữ liệu để tính tổng tiền của các hóa đơn trong khoảng thời gian đã chọn
                     var totalRevenue = (from hoadon in db.HOADONs

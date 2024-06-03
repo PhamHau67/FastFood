@@ -12,6 +12,7 @@ namespace DuAnMau
 {
     public partial class Frm_activityHistory : Form
     {
+        private string _con = "Data Source=DESKTOP-F5INLQE\\HAU;Initial Catalog=FastFoodDB;Integrated Security=True;";
         public Frm_activityHistory()
         {
             InitializeComponent();

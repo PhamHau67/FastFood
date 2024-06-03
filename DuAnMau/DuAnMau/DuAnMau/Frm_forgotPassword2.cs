@@ -19,7 +19,7 @@ namespace DuAnMau
         {
             InitializeComponent();
         }
-        string strConn = "Data Source=RUDEUS\\VVH;Initial Catalog=FastFoodDB;Integrated Security=True;";
+        private Cl_conn clConn = new Cl_conn();
         public string ReceivedOtp { get; set; }
         public string ReceivedGmail { get; set; }
         Random rand = new Random();
@@ -60,7 +60,7 @@ namespace DuAnMau
         private void btn_recover_Click(object sender, EventArgs e)
         {
 
-            using (var db = new DataClasses1DataContext(strConn))
+            using (var db = new DataClasses1DataContext(clConn.conn))
             {
                 // Tìm tài khoản với Gmail tương ứng
                 var taikhoan = (from tk in db.TAI_KHOANs
@@ -124,7 +124,7 @@ namespace DuAnMau
 
         private void btn_resend_Click(object sender, EventArgs e)
         {
-            using (var db = new DataClasses1DataContext(strConn))
+            using (var db = new DataClasses1DataContext(clConn.conn))
             {
                 // Kiểm tra sự tồn tại của Gmail
                 var user = (from nv in db.NHAN_VIENs

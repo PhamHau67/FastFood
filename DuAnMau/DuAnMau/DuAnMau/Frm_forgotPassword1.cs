@@ -16,7 +16,7 @@ namespace DuAnMau
 {
     public partial class Frm_forgotPassword1 : Form
     {
-        string strConn = "Data Source=RUDEUS\\VVH;Initial Catalog=FastFoodDB;Integrated Security=True;";
+        private Cl_conn clConn = new Cl_conn();
         Random rand = new Random();
         int otp;
         public Frm_forgotPassword1()
@@ -28,7 +28,7 @@ namespace DuAnMau
         {
             string userEmail = txt_nhap.Text;
 
-            using (var db = new DataClasses1DataContext(strConn))
+            using (var db = new DataClasses1DataContext(clConn.conn))
             {
                 // Kiểm tra sự tồn tại của Gmail
                 var user = (from nv in db.NHAN_VIENs

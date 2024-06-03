@@ -16,7 +16,7 @@ namespace DuAnMau
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Frm_forgotPassword1());
+            Application.Run(new Frm_Product_Management());
         }
     }
 }

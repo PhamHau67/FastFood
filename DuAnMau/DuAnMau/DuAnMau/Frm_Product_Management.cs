@@ -26,6 +26,7 @@ namespace DuAnMau
             dgv_Product.RowHeadersVisible = false;
 
 
+
         }
         public void LoadData_Dgv()
         {
@@ -56,6 +57,7 @@ namespace DuAnMau
                              };
 
                 dgv_Product.DataSource = ListPr.ToList();
+                dgv_Product.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
                 dgv_Product.Columns["MaSanPham"].HeaderText = "Product Code"; // Mã Sản Phẩm
                 dgv_Product.Columns["TenSanPham"].HeaderText = "Product Name"; // Tên Sản Phẩm
@@ -129,7 +131,11 @@ namespace DuAnMau
                 txt_pr_Type.Text = row.Cells["LoaiSanPham"].Value.ToString();
                 txt_pr_Unit.Text = row.Cells["DonVi"].Value.ToString();
                 txt_pr_Description.Text = row.Cells["MoTaSanPham"].Value.ToString();
-                txt_pr_Money.Text = row.Cells["Tien"].Value.ToString();
+                // Định dạng số tiền
+                if (row.Cells["Tien"].Value != null && decimal.TryParse(row.Cells["Tien"].Value.ToString(), out decimal money))
+                {
+                    txt_pr_Money.Text = money.ToString("N0"); // Định dạng tiền tệ với dấu phân cách hàng nghìn
+                }
                 txt_pr_Quantity.Text = row.Cells["SoLuong"].Value.ToString();
                 txt_pr_Quantity_Remaining.Text = row.Cells["SoLuongConLai"].Value.ToString();
                 dtp_pr_DateOfManufacture.Value = Convert.ToDateTime(row.Cells["NSX"].Value);
@@ -258,17 +264,19 @@ namespace DuAnMau
                 {
                     using (var db = new DataClasses1DataContext(strConn))
                     {
-                        //var ListPr = from sp in db.SANPHAMs
-                        //join ct_HoaDon in db.CHITIET_HOADONs on sp.MaSanPham equals ct_HoaDon.MaSanPham
                         string maSanPham = dgv_Product.CurrentRow.Cells["MaSanPham"].Value.ToString();
                         var product = db.SANPHAMs.FirstOrDefault(sp => sp.MaSanPham == maSanPham);
 
                         if (product != null)
                         {
+                            // del chitiethoadon co lien quan den sp
+                            var relatedDetails = db.CHITIET_HOADONs.Where(ct => ct.MaSanPham == maSanPham).ToList();
+                            db.CHITIET_HOADONs.DeleteAllOnSubmit(relatedDetails);
+                            // Then delete the product
                             db.SANPHAMs.DeleteOnSubmit(product);
                             db.SubmitChanges();
 
-                            MessageBox.Show("Delete product successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("Delete product and related order details successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             LoadData_Dgv();
                         }
                         else
@@ -387,6 +395,21 @@ namespace DuAnMau
 
                 dgv_Product.DataSource = TimFr.ToList();
             }
+        }
+
+        private void dgv_Product_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            // đổi định dạng tiền
+            if (dgv_Product.Columns[e.ColumnIndex].Name == "Tien" && e.Value != null)
+            {
+                if (e.Value is decimal)
+                {
+                    decimal price = (decimal)e.Value;
+                    e.Value = price.ToString("N0"); // Định dạng tiền tệ với dấu phân cách hàng nghìn
+                    e.FormattingApplied = true;
+                }
+            }
+
         }
     }
 }

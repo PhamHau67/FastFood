@@ -18,7 +18,7 @@ namespace DuAnMau
         private DateTime selectedCreationDate;
         private decimal selectedTotalAmount;
         private List<Tuple<string, int, decimal>> selectedInvoiceDetails;
-        private string conn = "Data Source=DESKTOP-F5INLQE\\HAU;Initial Catalog=FastFoodDB;Integrated Security=True;";
+        private string conn = "Data Source=RUDEUS\\VVH;Initial Catalog=FastFoodDB;Integrated Security=True;";
         public Frm_Manage_invoices()
         {
             InitializeComponent();

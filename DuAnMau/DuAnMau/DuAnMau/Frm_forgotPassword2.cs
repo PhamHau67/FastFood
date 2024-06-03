@@ -18,12 +18,30 @@ namespace DuAnMau
         public Frm_forgotPassword2()
         {
             InitializeComponent();
+            // Khởi tạo và cấu hình Timer
+            countdown_Timer = new Timer();
+            countdown_Timer.Interval = 1000; // Đặt khoảng thời gian là 1 giây
+            countdown_Timer.Tick += countdown_Timer_Tick;
+            btn_resend.Enabled = false;
+            countdownTime = 60;
+            countdown_Timer.Start();
+
         }
+
         string strConn = "Data Source=RUDEUS\\VVH;Initial Catalog=FastFoodDB;Integrated Security=True;";
         public string ReceivedOtp { get; set; }
         public string ReceivedGmail { get; set; }
         Random rand = new Random();
         int otp;
+
+
+        private int countdownTime = 60;
+
+
+
+
+
+
         private void TogglePasswordVisibility(Guna2TextBox textBox, Guna2Button btnOpenEye, Guna2Button btnCloseEye)
         {
             if (textBox.PasswordChar == '*')
@@ -122,64 +140,71 @@ namespace DuAnMau
             frm_Login.Show();
         }
 
-        private void btn_resend_Click(object sender, EventArgs e)
+
+
+        private void btn_resend_Click_1(object sender, EventArgs e)
         {
-            using (var db = new DataClasses1DataContext(strConn))
+            try
             {
-                // Kiểm tra sự tồn tại của Gmail
-                var user = (from nv in db.NHAN_VIENs
-                            where nv.Gmail == ReceivedGmail
-                            select new
-                            {
-                                nv.Gmail
-                            }).FirstOrDefault();
+                // Tạo OTP
+                otp = rand.Next(100000, 1000000);
+                var fromAddress = new MailAddress("fastfood.hethongxacminh@gmail.com", "Fast food");
+                var toAddress = new MailAddress(ReceivedGmail); // Lấy email từ TextBox
+                const string fromPass = "dxve duab mfyd nryc"; // Mật khẩu ứng dụng
+                const string subject = "OTP Code"; // Tiêu đề email
 
-                if (user != null)
+                // Nội dung email tùy chỉnh
+                string body = $"Chào bạn,\n\nĐây là hệ thống xác minh Fast Food.\n\nMã OTP của bạn là: {otp}\n\nVui lòng sử dụng mã này để xác minh. Lưu ý không cung cấp OTP cho người khác.\n\nCảm ơn,\nCửa hàng Fast Food";
+
+                var smtp = new SmtpClient
                 {
-                    try
-                    {
-                        // Tạo OTP
-                        otp = rand.Next(100000, 1000000);
-                        var fromAddress = new MailAddress("vovanhung1313@gmail.com", "Fast food");
-                        var toAddress = new MailAddress(ReceivedGmail); // Lấy email từ TextBox
-                        const string fromPass = "efsk bupf npzf kcxm"; // Mật khẩu ứng dụng
-                        const string subject = "OTP Code"; // Tiêu đề email
-
-                        // Nội dung email tùy chỉnh
-                        string body = $"Chào bạn,\n\nĐây là hệ thống xác minh Fast Food.\n\nMã OTP của bạn là: {otp}\n\nVui lòng sử dụng mã này để xác minh. Lưu ý không cung cấp OTP cho người khác.\n\nCảm ơn,\nCửa hàng Fast Food";
-
-                        var smtp = new SmtpClient
-                        {
-                            Host = "smtp.gmail.com",
-                            Port = 587,
-                            EnableSsl = true,
-                            DeliveryMethod = SmtpDeliveryMethod.Network,
-                            UseDefaultCredentials = false,
-                            Credentials = new NetworkCredential(fromAddress.Address, fromPass),
-                            Timeout = 200000
-                        };
-                        using (var message = new MailMessage(fromAddress, toAddress)
-                        {
-                            Subject = subject,
-                            Body = body,
-                        })
-                        {
-                            smtp.Send(message);
-                        }
-
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error: " + ex.Message);
-                    }
-                }
-                else
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(fromAddress.Address, fromPass),
+                    Timeout = 200000
+                };
+                using (var message = new MailMessage(fromAddress, toAddress)
                 {
-                    MessageBox.Show("No account found with this Gmail.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Subject = subject,
+                    Body = body,
+                })
+                {
+                    smtp.Send(message);
                 }
+                MessageBox.Show("The new OTP has been successfully sent.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                btn_resend.Enabled = false;
+                countdownTime = 60;
+                countdown_Timer.Start();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
             }
 
         }
 
+        private void countdown_Timer_Tick(object sender, EventArgs e)
+        {
+            countdownTime--;
+            if (countdownTime <= 0)
+            {
+                countdown_Timer.Stop();
+                btn_resend.Enabled = true;
+                btn_resend.Text = "Resend OTP";
+            }
+            else
+            {
+                btn_resend.Text = $"Resend OTP ({countdownTime}s)";
+
+            }
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

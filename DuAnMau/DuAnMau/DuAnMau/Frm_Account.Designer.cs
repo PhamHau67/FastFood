@@ -50,10 +50,12 @@
             this.btn_refesh = new Guna.UI2.WinForms.Guna2Button();
             this.btn_add = new Guna.UI2.WinForms.Guna2Button();
             this.btn_repair = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
             this.grp_product_Information.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Account)).BeginInit();
             this.guna2Panel2.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
+            this.guna2Panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // grp_product_Information
@@ -71,11 +73,12 @@
             this.grp_product_Information.Controls.Add(this.lbl_Supplier_ID);
             this.grp_product_Information.Controls.Add(this.lbl_pr_Money);
             this.grp_product_Information.Controls.Add(this.guna2HtmlLabel1);
-            this.grp_product_Information.CustomBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(135)))), ((int)(((byte)(67)))));
+            this.grp_product_Information.CustomBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(178)))), ((int)(((byte)(153)))));
             this.grp_product_Information.CustomBorderThickness = new System.Windows.Forms.Padding(0, 35, 0, 0);
+            this.grp_product_Information.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(232)))), ((int)(((byte)(209)))));
             this.grp_product_Information.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.grp_product_Information.ForeColor = System.Drawing.Color.Black;
-            this.grp_product_Information.Location = new System.Drawing.Point(4, 468);
+            this.grp_product_Information.Location = new System.Drawing.Point(4, 492);
             this.grp_product_Information.Name = "grp_product_Information";
             this.grp_product_Information.Size = new System.Drawing.Size(1106, 256);
             this.grp_product_Information.TabIndex = 17;
@@ -302,26 +305,26 @@
             this.dgv_Account.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgv_Account.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_Account.GridColor = System.Drawing.Color.White;
-            this.dgv_Account.Location = new System.Drawing.Point(4, 3);
+            this.dgv_Account.Location = new System.Drawing.Point(-3, 3);
             this.dgv_Account.Name = "dgv_Account";
             this.dgv_Account.RowHeadersWidth = 51;
             this.dgv_Account.RowTemplate.Height = 24;
-            this.dgv_Account.Size = new System.Drawing.Size(1106, 459);
+            this.dgv_Account.Size = new System.Drawing.Size(1123, 483);
             this.dgv_Account.TabIndex = 18;
             this.dgv_Account.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_Account_CellClick);
             // 
             // guna2Panel2
             // 
-            this.guna2Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(209)))), ((int)(((byte)(152)))));
+            this.guna2Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(232)))), ((int)(((byte)(209)))));
             this.guna2Panel2.BorderRadius = 10;
             this.guna2Panel2.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dot;
             this.guna2Panel2.Controls.Add(this.guna2HtmlLabel6);
             this.guna2Panel2.Controls.Add(this.txt_Search);
             this.guna2Panel2.FillColor = System.Drawing.Color.Transparent;
             this.guna2Panel2.ForeColor = System.Drawing.Color.Transparent;
-            this.guna2Panel2.Location = new System.Drawing.Point(640, 733);
+            this.guna2Panel2.Location = new System.Drawing.Point(615, 13);
             this.guna2Panel2.Name = "guna2Panel2";
-            this.guna2Panel2.Size = new System.Drawing.Size(470, 95);
+            this.guna2Panel2.Size = new System.Drawing.Size(495, 106);
             this.guna2Panel2.TabIndex = 19;
             // 
             // guna2HtmlLabel6
@@ -366,7 +369,7 @@
             // 
             // guna2Panel1
             // 
-            this.guna2Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(209)))), ((int)(((byte)(152)))));
+            this.guna2Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(232)))), ((int)(((byte)(209)))));
             this.guna2Panel1.BorderRadius = 10;
             this.guna2Panel1.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dot;
             this.guna2Panel1.Controls.Add(this.guna2HtmlLabel3);
@@ -376,9 +379,9 @@
             this.guna2Panel1.Controls.Add(this.btn_repair);
             this.guna2Panel1.FillColor = System.Drawing.Color.Transparent;
             this.guna2Panel1.ForeColor = System.Drawing.Color.Transparent;
-            this.guna2Panel1.Location = new System.Drawing.Point(12, 733);
+            this.guna2Panel1.Location = new System.Drawing.Point(15, 13);
             this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(542, 95);
+            this.guna2Panel1.Size = new System.Drawing.Size(575, 109);
             this.guna2Panel1.TabIndex = 20;
             // 
             // guna2HtmlLabel3
@@ -467,13 +470,22 @@
             this.btn_repair.Text = "Repair";
             this.btn_repair.Click += new System.EventHandler(this.btn_repair_Click);
             // 
+            // guna2Panel4
+            // 
+            this.guna2Panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(178)))), ((int)(((byte)(153)))));
+            this.guna2Panel4.Controls.Add(this.guna2Panel1);
+            this.guna2Panel4.Controls.Add(this.guna2Panel2);
+            this.guna2Panel4.Location = new System.Drawing.Point(-3, 754);
+            this.guna2Panel4.Name = "guna2Panel4";
+            this.guna2Panel4.Size = new System.Drawing.Size(1123, 144);
+            this.guna2Panel4.TabIndex = 21;
+            // 
             // Frm_Account
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1119, 900);
-            this.Controls.Add(this.guna2Panel2);
-            this.Controls.Add(this.guna2Panel1);
+            this.Controls.Add(this.guna2Panel4);
             this.Controls.Add(this.dgv_Account);
             this.Controls.Add(this.grp_product_Information);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -484,6 +496,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Account)).EndInit();
             this.guna2Panel2.ResumeLayout(false);
             this.guna2Panel1.ResumeLayout(false);
+            this.guna2Panel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -511,5 +524,6 @@
         private Guna.UI2.WinForms.Guna2Button btn_refesh;
         private Guna.UI2.WinForms.Guna2Button btn_add;
         private Guna.UI2.WinForms.Guna2Button btn_repair;
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel4;
     }
 }

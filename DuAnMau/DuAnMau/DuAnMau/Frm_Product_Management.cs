@@ -14,7 +14,7 @@ namespace DuAnMau
 {
     public partial class Frm_Product_Management : Form
     {
-        string strConn = "Data Source=DESKTOP-F5INLQE\\HAU;Initial Catalog=FastFoodDB;Integrated Security=True;";
+        string strConn = "Data Source=RUDEUS\\VVH;Initial Catalog=FastFoodDB;Integrated Security=True;";
         public Frm_Product_Management()
         {
 
@@ -22,6 +22,8 @@ namespace DuAnMau
             LoadData_Dgv();
             Load_cbxData();
             cbx_Supplier_ID.SelectedIndex = -1;
+            // Ẩn cột trống ở phía bên trái của DataGridView
+            dgv_Product.RowHeadersVisible = false;
 
 
         }
@@ -55,22 +57,19 @@ namespace DuAnMau
 
                 dgv_Product.DataSource = ListPr.ToList();
 
-
-                // Đổi tiếng viêt cột
-                dgv_Product.Columns["MaSanPham"].HeaderText = "Mã Sản Phẩm";
-                dgv_Product.Columns["TenSanPham"].HeaderText = "Tên Sản Phẩm";
-                dgv_Product.Columns["LoaiSanPham"].HeaderText = "Loại Sản Phẩm";
-                dgv_Product.Columns["DonVi"].HeaderText = "Đơn Vị";
-                dgv_Product.Columns["MoTaSanPham"].HeaderText = "Mô Tả Sản Phẩm";
-                dgv_Product.Columns["Tien"].HeaderText = "Tiền";
-                dgv_Product.Columns["SoLuong"].HeaderText = "Số Lượng";
-                dgv_Product.Columns["SoLuongConLai"].HeaderText = "Số Lượng Còn Lại";
-                dgv_Product.Columns["NSX"].HeaderText = "Ngày Sản Xuất";
-                dgv_Product.Columns["HSD"].HeaderText = "Hạn Sử Dụng";
-                dgv_Product.Columns["TrangThai"].HeaderText = "Trạng Thái";
-                dgv_Product.Columns["MaNhaCungCap"].HeaderText = "Mã Nhà Cung Cấp";
-                dgv_Product.Columns["TenNhaCungCap"].HeaderText = "Tên Nhà Cung Cấp";
-
+                dgv_Product.Columns["MaSanPham"].HeaderText = "Product Code"; // Mã Sản Phẩm
+                dgv_Product.Columns["TenSanPham"].HeaderText = "Product Name"; // Tên Sản Phẩm
+                dgv_Product.Columns["LoaiSanPham"].HeaderText = "Product Category"; // Loại Sản Phẩm
+                dgv_Product.Columns["DonVi"].HeaderText = "Unit"; // Đơn Vị
+                dgv_Product.Columns["MoTaSanPham"].HeaderText = "Product Description"; // Mô Tả Sản Phẩm
+                dgv_Product.Columns["Tien"].HeaderText = "Price"; // Tiền
+                dgv_Product.Columns["SoLuong"].HeaderText = "Quantity"; // Số Lượng
+                dgv_Product.Columns["SoLuongConLai"].HeaderText = "Remaining Quantity"; // Số Lượng Còn Lại
+                dgv_Product.Columns["NSX"].HeaderText = "Manufacture Date"; // Ngày Sản Xuất
+                dgv_Product.Columns["HSD"].HeaderText = "Expiry Date"; // Hạn Sử Dụng
+                dgv_Product.Columns["TrangThai"].HeaderText = "Status"; // Trạng Thái
+                dgv_Product.Columns["MaNhaCungCap"].HeaderText = "Supplier Code"; // Mã Nhà Cung Cấp
+                dgv_Product.Columns["TenNhaCungCap"].HeaderText = "Supplier Name"; // Tên Nhà Cung Cấp
 
             }
 

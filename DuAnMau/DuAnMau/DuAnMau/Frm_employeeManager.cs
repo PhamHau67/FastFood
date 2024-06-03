@@ -19,7 +19,7 @@ namespace DuAnMau
     public partial class Frm_employeeManager : Form
     {
         
-        private string _con = "Data Source=DESKTOP-R9SVLJT\\HUNG;Initial Catalog=FastFoodDB;Integrated Security=True;";
+        private string _con = "Data Source=RUDEUS\\VVH;Initial Catalog=FastFoodDB;Integrated Security=True;";
         public Frm_employeeManager()
         {
             InitializeComponent();

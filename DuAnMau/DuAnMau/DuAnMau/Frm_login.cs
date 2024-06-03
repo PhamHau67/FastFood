@@ -16,7 +16,7 @@ namespace DuAnMau
         {
             InitializeComponent();
         }
-        string conn = "Data Source=DESKTOP-F5INLQE\\HAU;Initial Catalog=FastFoodDB;Integrated Security=True;";
+        string conn = "Data Source=RUDEUS\\VVH;Initial Catalog=FastFoodDB;Integrated Security=True;";
        
         private void pictureBox2_Click(object sender, EventArgs e)
         {

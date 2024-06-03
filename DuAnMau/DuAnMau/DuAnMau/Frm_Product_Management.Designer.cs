@@ -61,10 +61,12 @@
             this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2HtmlLabel6 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.txt_Search = new Guna.UI2.WinForms.Guna2TextBox();
+            this.guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Product)).BeginInit();
             this.grp_product_Information.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
             this.guna2Panel2.SuspendLayout();
+            this.guna2Panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgv_Product
@@ -75,11 +77,11 @@
             this.dgv_Product.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgv_Product.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_Product.GridColor = System.Drawing.Color.White;
-            this.dgv_Product.Location = new System.Drawing.Point(52, 16);
+            this.dgv_Product.Location = new System.Drawing.Point(0, -1);
             this.dgv_Product.Name = "dgv_Product";
             this.dgv_Product.RowHeadersWidth = 51;
             this.dgv_Product.RowTemplate.Height = 24;
-            this.dgv_Product.Size = new System.Drawing.Size(1013, 433);
+            this.dgv_Product.Size = new System.Drawing.Size(1120, 450);
             this.dgv_Product.TabIndex = 13;
             this.dgv_Product.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_Product_CellClick_1);
             // 
@@ -268,13 +270,14 @@
             this.grp_product_Information.Controls.Add(this.lbl_pr_Money);
             this.grp_product_Information.Controls.Add(this.guna2HtmlLabel8);
             this.grp_product_Information.Controls.Add(this.guna2HtmlLabel1);
-            this.grp_product_Information.CustomBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(135)))), ((int)(((byte)(67)))));
+            this.grp_product_Information.CustomBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(178)))), ((int)(((byte)(153)))));
             this.grp_product_Information.CustomBorderThickness = new System.Windows.Forms.Padding(0, 35, 0, 0);
+            this.grp_product_Information.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(232)))), ((int)(((byte)(209)))));
             this.grp_product_Information.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.grp_product_Information.ForeColor = System.Drawing.Color.Black;
-            this.grp_product_Information.Location = new System.Drawing.Point(12, 455);
+            this.grp_product_Information.Location = new System.Drawing.Point(0, 455);
             this.grp_product_Information.Name = "grp_product_Information";
-            this.grp_product_Information.Size = new System.Drawing.Size(1092, 314);
+            this.grp_product_Information.Size = new System.Drawing.Size(1120, 329);
             this.grp_product_Information.TabIndex = 16;
             this.grp_product_Information.Text = "Product Information";
             // 
@@ -293,9 +296,9 @@
             this.cbx_Supplier_ID.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.cbx_Supplier_ID.ForeColor = System.Drawing.Color.Black;
             this.cbx_Supplier_ID.ItemHeight = 30;
-            this.cbx_Supplier_ID.Location = new System.Drawing.Point(334, 165);
+            this.cbx_Supplier_ID.Location = new System.Drawing.Point(334, 173);
             this.cbx_Supplier_ID.Name = "cbx_Supplier_ID";
-            this.cbx_Supplier_ID.Size = new System.Drawing.Size(233, 36);
+            this.cbx_Supplier_ID.Size = new System.Drawing.Size(261, 36);
             this.cbx_Supplier_ID.TabIndex = 17;
             this.cbx_Supplier_ID.SelectedIndexChanged += new System.EventHandler(this.cbx_Supplier_ID_SelectedIndexChanged);
             // 
@@ -303,7 +306,7 @@
             // 
             this.dtp_pr_DateOfManufacture.BorderColor = System.Drawing.Color.Transparent;
             this.dtp_pr_DateOfManufacture.Checked = true;
-            this.dtp_pr_DateOfManufacture.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(135)))), ((int)(((byte)(67)))));
+            this.dtp_pr_DateOfManufacture.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
             this.dtp_pr_DateOfManufacture.FocusedColor = System.Drawing.SystemColors.Control;
             this.dtp_pr_DateOfManufacture.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.dtp_pr_DateOfManufacture.ForeColor = System.Drawing.Color.Black;
@@ -320,7 +323,7 @@
             // 
             this.dtp_Expiration_Date.BorderColor = System.Drawing.Color.Transparent;
             this.dtp_Expiration_Date.Checked = true;
-            this.dtp_Expiration_Date.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(135)))), ((int)(((byte)(67)))));
+            this.dtp_Expiration_Date.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
             this.dtp_Expiration_Date.FocusedColor = System.Drawing.SystemColors.Control;
             this.dtp_Expiration_Date.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.dtp_Expiration_Date.ForeColor = System.Drawing.Color.Black;
@@ -439,7 +442,7 @@
             // txt_pr_Description
             // 
             this.txt_pr_Description.BackColor = System.Drawing.Color.Transparent;
-            this.txt_pr_Description.BorderRadius = 12;
+            this.txt_pr_Description.BorderRadius = 16;
             this.txt_pr_Description.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txt_pr_Description.DefaultText = "";
             this.txt_pr_Description.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
@@ -516,7 +519,7 @@
             this.btn_refesh.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btn_refesh.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btn_refesh.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btn_refesh.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(135)))), ((int)(((byte)(67)))));
+            this.btn_refesh.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
             this.btn_refesh.Font = new System.Drawing.Font("Times New Roman", 10.8F);
             this.btn_refesh.ForeColor = System.Drawing.Color.Black;
             this.btn_refesh.Location = new System.Drawing.Point(422, 46);
@@ -530,13 +533,13 @@
             // 
             this.btn_add.AutoRoundedCorners = true;
             this.btn_add.BorderColor = System.Drawing.Color.Transparent;
-            this.btn_add.BorderRadius = 14;
+            this.btn_add.BorderRadius = 12;
             this.btn_add.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom;
             this.btn_add.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btn_add.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btn_add.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btn_add.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btn_add.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(135)))), ((int)(((byte)(67)))));
+            this.btn_add.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
             this.btn_add.Font = new System.Drawing.Font("Times New Roman", 10.8F);
             this.btn_add.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btn_add.Location = new System.Drawing.Point(16, 46);
@@ -554,7 +557,7 @@
             this.btn_repair.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btn_repair.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btn_repair.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btn_repair.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(135)))), ((int)(((byte)(67)))));
+            this.btn_repair.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
             this.btn_repair.Font = new System.Drawing.Font("Times New Roman", 10.8F);
             this.btn_repair.ForeColor = System.Drawing.Color.Black;
             this.btn_repair.Location = new System.Drawing.Point(156, 46);
@@ -572,7 +575,7 @@
             this.btn_del.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btn_del.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btn_del.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btn_del.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(135)))), ((int)(((byte)(67)))));
+            this.btn_del.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
             this.btn_del.Font = new System.Drawing.Font("Times New Roman", 10.8F);
             this.btn_del.ForeColor = System.Drawing.Color.Black;
             this.btn_del.Location = new System.Drawing.Point(289, 46);
@@ -584,7 +587,7 @@
             // 
             // guna2Panel1
             // 
-            this.guna2Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(209)))), ((int)(((byte)(152)))));
+            this.guna2Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(232)))), ((int)(((byte)(209)))));
             this.guna2Panel1.BorderRadius = 10;
             this.guna2Panel1.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dot;
             this.guna2Panel1.Controls.Add(this.guna2HtmlLabel3);
@@ -594,7 +597,7 @@
             this.guna2Panel1.Controls.Add(this.btn_repair);
             this.guna2Panel1.FillColor = System.Drawing.Color.Transparent;
             this.guna2Panel1.ForeColor = System.Drawing.Color.Transparent;
-            this.guna2Panel1.Location = new System.Drawing.Point(37, 779);
+            this.guna2Panel1.Location = new System.Drawing.Point(16, 15);
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(542, 95);
             this.guna2Panel1.TabIndex = 17;
@@ -607,22 +610,22 @@
             this.guna2HtmlLabel3.ForeColor = System.Drawing.Color.Black;
             this.guna2HtmlLabel3.Location = new System.Drawing.Point(3, 3);
             this.guna2HtmlLabel3.Name = "guna2HtmlLabel3";
-            this.guna2HtmlLabel3.Size = new System.Drawing.Size(176, 22);
+            this.guna2HtmlLabel3.Size = new System.Drawing.Size(460, 37);
             this.guna2HtmlLabel3.TabIndex = 17;
             this.guna2HtmlLabel3.Text = "Product Management Toolbar";
             // 
             // guna2Panel2
             // 
-            this.guna2Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(209)))), ((int)(((byte)(152)))));
+            this.guna2Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(232)))), ((int)(((byte)(209)))));
             this.guna2Panel2.BorderRadius = 10;
             this.guna2Panel2.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dot;
             this.guna2Panel2.Controls.Add(this.guna2HtmlLabel6);
             this.guna2Panel2.Controls.Add(this.txt_Search);
             this.guna2Panel2.FillColor = System.Drawing.Color.Transparent;
             this.guna2Panel2.ForeColor = System.Drawing.Color.Transparent;
-            this.guna2Panel2.Location = new System.Drawing.Point(613, 779);
+            this.guna2Panel2.Location = new System.Drawing.Point(604, 15);
             this.guna2Panel2.Name = "guna2Panel2";
-            this.guna2Panel2.Size = new System.Drawing.Size(470, 95);
+            this.guna2Panel2.Size = new System.Drawing.Size(500, 95);
             this.guna2Panel2.TabIndex = 17;
             // 
             // guna2HtmlLabel6
@@ -633,7 +636,7 @@
             this.guna2HtmlLabel6.ForeColor = System.Drawing.Color.Black;
             this.guna2HtmlLabel6.Location = new System.Drawing.Point(13, 3);
             this.guna2HtmlLabel6.Name = "guna2HtmlLabel6";
-            this.guna2HtmlLabel6.Size = new System.Drawing.Size(176, 22);
+            this.guna2HtmlLabel6.Size = new System.Drawing.Size(293, 36);
             this.guna2HtmlLabel6.TabIndex = 17;
             this.guna2HtmlLabel6.Text = "Search Product";
             // 
@@ -665,13 +668,23 @@
             this.txt_Search.TabIndex = 14;
             this.txt_Search.TextChanged += new System.EventHandler(this.txt_Search_TextChanged);
             // 
+            // guna2Panel4
+            // 
+            this.guna2Panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(178)))), ((int)(((byte)(153)))));
+            this.guna2Panel4.Controls.Add(this.guna2Panel1);
+            this.guna2Panel4.Controls.Add(this.guna2Panel2);
+            this.guna2Panel4.ForeColor = System.Drawing.Color.Black;
+            this.guna2Panel4.Location = new System.Drawing.Point(0, 775);
+            this.guna2Panel4.Name = "guna2Panel4";
+            this.guna2Panel4.Size = new System.Drawing.Size(1120, 124);
+            this.guna2Panel4.TabIndex = 19;
+            // 
             // Frm_Product_Management
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1119, 900);
-            this.Controls.Add(this.guna2Panel2);
-            this.Controls.Add(this.guna2Panel1);
+            this.Controls.Add(this.guna2Panel4);
             this.Controls.Add(this.dgv_Product);
             this.Controls.Add(this.grp_product_Information);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -682,6 +695,7 @@
             this.grp_product_Information.ResumeLayout(false);
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel2.ResumeLayout(false);
+            this.guna2Panel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -720,5 +734,6 @@
         private Guna.UI2.WinForms.Guna2ComboBox cbx_Supplier_ID;
         private Guna.UI2.WinForms.Guna2TextBox txt_Supplier_Name;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel9;
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel4;
     }
 }

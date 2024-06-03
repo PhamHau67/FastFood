@@ -19,7 +19,7 @@ namespace DuAnMau
             InitializeComponent();
             Loadatadgv();
         }
-        string conn = @"Data Source=LOVELYPOPPY\THUNHAT;Initial Catalog=FastFoodDB;Integrated Security=True;";
+        string conn = "Data Source=RUDEUS\\VVH;Initial Catalog=FastFoodDB;Integrated Security=True;";
         public void Loadatadgv()
         {
             try

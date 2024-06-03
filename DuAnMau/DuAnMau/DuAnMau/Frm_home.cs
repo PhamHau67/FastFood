@@ -87,5 +87,10 @@ namespace DuAnMau
         {
             OpenChildForm(new Frm_activityHistory());
         }
+
+        private void guna2Button1_Click_1(object sender, EventArgs e)
+        {
+            OpenChildForm(new Frm_Manage_invoices());
+        }
     }
 }

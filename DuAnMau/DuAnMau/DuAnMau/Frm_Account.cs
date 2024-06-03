@@ -14,7 +14,7 @@ namespace DuAnMau
 {
     public partial class Frm_Account : Form
     {
-        string strConn = "Data Source=DESKTOP-F5INLQE\\HAU;Initial Catalog=FastFoodDB;Integrated Security=True;";
+        private Cl_conn clConn = new Cl_conn();
         Dictionary<string, string> roleMapping = new Dictionary<string, string>
         {
             { "Quản lý", "VT001" },
@@ -29,7 +29,7 @@ namespace DuAnMau
         }
         public void LoadData_Dgv()
         {
-            using (var db = new DataClasses1DataContext(strConn))
+            using (var db = new DataClasses1DataContext(clConn.conn))
             {
                 //Viết câu lệnh truy vấn và join bảng
                 var ListAc = from tk in db.TAI_KHOANs
@@ -92,7 +92,7 @@ namespace DuAnMau
             {
                 try
                 {
-                    using (var db = new DataClasses1DataContext(strConn))
+                    using (var db = new DataClasses1DataContext(clConn.conn))
                     {
                         Random random = new Random();
                         string newID;
@@ -203,7 +203,7 @@ namespace DuAnMau
             if (result == DialogResult.Yes)
             {
                 // chức năng sửa dữ liệu
-                using (var db = new DataClasses1DataContext(strConn))
+                using (var db = new DataClasses1DataContext(clConn.conn))
                 {
 
                     try
@@ -263,7 +263,7 @@ namespace DuAnMau
 
         private void btn_del_Click(object sender, EventArgs e)
         {
-            using (var db = new DataClasses1DataContext(strConn))
+            using (var db = new DataClasses1DataContext(clConn.conn))
             {
                 try
                 {
@@ -309,7 +309,7 @@ namespace DuAnMau
 
         private void txt_Search_TextChanged(object sender, EventArgs e)
         {
-            using (var db = new DataClasses1DataContext(strConn))
+            using (var db = new DataClasses1DataContext(clConn.conn))
             {
                 var keyword = txt_Search.Text.Trim();
 

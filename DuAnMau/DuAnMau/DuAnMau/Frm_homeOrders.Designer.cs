@@ -38,6 +38,7 @@
             this.lbl_admin = new System.Windows.Forms.Label();
             this.guna2CirclePictureBox1 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btn_history = new Guna.UI2.WinForms.Guna2Button();
             this.gn_home.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox1)).BeginInit();
@@ -47,6 +48,7 @@
             // gn_home
             // 
             this.gn_home.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(209)))), ((int)(((byte)(152)))));
+            this.gn_home.Controls.Add(this.btn_history);
             this.gn_home.Controls.Add(this.btn_exit);
             this.gn_home.Controls.Add(this.btn_logout);
             this.gn_home.Controls.Add(this.btn_order);
@@ -106,11 +108,12 @@
             this.btn_order.Image = ((System.Drawing.Image)(resources.GetObject("btn_order.Image")));
             this.btn_order.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btn_order.ImageSize = new System.Drawing.Size(30, 30);
-            this.btn_order.Location = new System.Drawing.Point(3, 247);
+            this.btn_order.Location = new System.Drawing.Point(0, 247);
             this.btn_order.Name = "btn_order";
-            this.btn_order.Size = new System.Drawing.Size(315, 71);
+            this.btn_order.Size = new System.Drawing.Size(329, 71);
             this.btn_order.TabIndex = 2;
             this.btn_order.Text = "    ORDER";
+            this.btn_order.Click += new System.EventHandler(this.btn_order_Click);
             // 
             // btn_home
             // 
@@ -126,7 +129,7 @@
             this.btn_home.ImageSize = new System.Drawing.Size(30, 30);
             this.btn_home.Location = new System.Drawing.Point(3, 170);
             this.btn_home.Name = "btn_home";
-            this.btn_home.Size = new System.Drawing.Size(315, 71);
+            this.btn_home.Size = new System.Drawing.Size(326, 71);
             this.btn_home.TabIndex = 1;
             this.btn_home.Text = "    HOME";
             // 
@@ -173,6 +176,25 @@
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
             // 
+            // btn_history
+            // 
+            this.btn_history.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btn_history.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btn_history.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btn_history.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btn_history.FillColor = System.Drawing.Color.Transparent;
+            this.btn_history.Font = new System.Drawing.Font("Segoe UI Emoji", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_history.ForeColor = System.Drawing.Color.Black;
+            this.btn_history.Image = ((System.Drawing.Image)(resources.GetObject("btn_history.Image")));
+            this.btn_history.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btn_history.ImageSize = new System.Drawing.Size(30, 30);
+            this.btn_history.Location = new System.Drawing.Point(0, 324);
+            this.btn_history.Name = "btn_history";
+            this.btn_history.Size = new System.Drawing.Size(329, 71);
+            this.btn_history.TabIndex = 12;
+            this.btn_history.Text = "    ACTIVITY HISTORY";
+            this.btn_history.Click += new System.EventHandler(this.btn_history_Click);
+            // 
             // Frm_homeOrders
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -204,5 +226,6 @@
         private System.Windows.Forms.Label lbl_admin;
         private Guna.UI2.WinForms.Guna2CirclePictureBox guna2CirclePictureBox1;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private Guna.UI2.WinForms.Guna2Button btn_history;
     }
 }

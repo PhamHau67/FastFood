@@ -39,7 +39,7 @@ namespace DuAnMau
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Frm__revenueMangament());
+            OpenChildForm(new Frm_revenueMangament());
         }
 
         private void btn_exit_Click(object sender, EventArgs e)
@@ -83,8 +83,9 @@ namespace DuAnMau
             OpenChildForm(new Frm_Product_Management());
         }
 
-        
-
-        
+        private void btn_history_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new Frm_activityHistory());
+        }
     }
 }

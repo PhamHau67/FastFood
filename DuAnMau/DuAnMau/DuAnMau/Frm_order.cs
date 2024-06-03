@@ -8,11 +8,11 @@ namespace DuAnMau
 {
     public partial class Frm_Order : Form
     {
-        private string conn = "Data Source=DESKTOP-F5INLQE\\HAU;Initial Catalog=FastFoodDB;Integrated Security=True;";
+        private Cl_conn clConn = new Cl_conn();
 
         public Frm_Order()
         {
-            InitializeComponent();           
+            InitializeComponent();
         }
         private void Frm_Order_Load(object sender, EventArgs e)
         {
@@ -23,10 +23,11 @@ namespace DuAnMau
         }
 
         public void LoadData_lstv()
-        {           
+        {
+
             lstv_HoaDon.Columns.Add("Number", 70); // Cột cho số bàn
             lstv_HoaDon.Columns.Add("Product", 120); // Cột cho tên món ăn
-            lstv_HoaDon.Columns.Add("Quantity",90); // Cột cho số lượng
+            lstv_HoaDon.Columns.Add("Quantity", 90); // Cột cho số lượng
             lstv_HoaDon.Columns.Add("Price", 90); // Cột cho giá
             //lstv_HoaDon.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);                       
             lstv_HoaDon.Columns[0].Width = (int)(lstv_HoaDon.Width * 0.25); ; // Tự động điều chỉnh kích thước cột số bàn
@@ -43,7 +44,7 @@ namespace DuAnMau
         {
             try
             {
-                using (var db = new DataClasses1DataContext(conn))
+                using (var db = new DataClasses1DataContext(clConn.conn))
                 {
                     var loaiSp = (from sp in db.SANPHAMs
                                   select sp.LoaiSanPham).Distinct().ToList();
@@ -62,7 +63,7 @@ namespace DuAnMau
         {
             try
             {
-                using (var db = new DataClasses1DataContext(conn))
+                using (var db = new DataClasses1DataContext(clConn.conn))
                 {
                     var loaiSp = (from sp in db.SANPHAMs
                                   select sp.TenSanPham).Distinct().ToList();
@@ -124,7 +125,7 @@ namespace DuAnMau
                 // Nếu sản phẩm không tồn tại và quantity > 0, thêm một mục mới vào ListView
                 if (!isExisting && quantity > 0)
                 {
-                    using (var db = new DataClasses1DataContext(conn))
+                    using (var db = new DataClasses1DataContext(clConn.conn))
                     {
                         // sp và trả về true nếu thuộc tính TenSanPham của sp bằng với selectedDish, ngược lại trả về false.
                         var selectedProduct = db.SANPHAMs.FirstOrDefault(sp => sp.TenSanPham == selectedDish);
@@ -178,7 +179,7 @@ namespace DuAnMau
             {
                 try
                 {
-                    using (var db = new DataClasses1DataContext(conn))
+                    using (var db = new DataClasses1DataContext(clConn.conn))
                     {
                         var dishes = (from sp in db.SANPHAMs
                                       where sp.LoaiSanPham == selectedType
@@ -227,7 +228,7 @@ namespace DuAnMau
             {
                 MessageBox.Show("There are no line items available for payment.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
-            }           
+            }
             DialogResult result = MessageBox.Show("Do you want to pay?", "Confirm payment", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
@@ -235,7 +236,7 @@ namespace DuAnMau
                 // Thực hiện quy trình thanh toán
                 try
                 {
-                    using (var db = new DataClasses1DataContext(conn))
+                    using (var db = new DataClasses1DataContext(clConn.conn))
                     {
                         // Bắt đầu một giao dịch
                         db.Connection.Open();
@@ -249,7 +250,7 @@ namespace DuAnMau
                         HOADON newOrder = new HOADON
                         {
                             MaHoaDon = newOrderId,
-                            MaNhanVien = "NV001", 
+                            MaNhanVien = "NV001",
                             NgayTao = DateTime.Now,
                             TongTien = decimal.Parse(txt_Summ.Text),
                             TrangThai = true
@@ -303,7 +304,7 @@ namespace DuAnMau
 
         private string GenerateNewId(string tableName, string columnName, string prefix)
         {
-            using (var db = new DataClasses1DataContext(conn))
+            using (var db = new DataClasses1DataContext(clConn.conn))
             {
                 // lấy ra id lớn nhất trong columname, trả về danh sách dạng chuỗi
                 // Nó chọn ra giá trị lớn nhất trong cột columnName của bảng tableName mà bắt đầu bằng prefix

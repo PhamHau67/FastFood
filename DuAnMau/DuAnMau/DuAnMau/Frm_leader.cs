@@ -16,6 +16,24 @@ namespace DuAnMau
         {
             InitializeComponent();
         }
+        private Form currentFormChild;
+
+        private void OpenChildForm(Form childForm)
+        {
+            if (currentFormChild != null)
+            {
+                currentFormChild.Close();
+            }
+
+            currentFormChild = childForm;
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
+            childForm.BringToFront();
+            pictureBox1.Controls.Add(childForm);
+            pictureBox1.Tag = childForm;
+            childForm.Show();
+        }
 
         private void btn_exit_Click(object sender, EventArgs e)
         {
@@ -28,6 +46,26 @@ namespace DuAnMau
             loginForm.ClearCredentials(); 
             loginForm.Show();
             this.Close();
+        }
+
+        private void btn_order_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new Frm_Order());
+        }
+
+        private void btn_emplyess_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new Frm_employeeManager());
+        }
+
+        private void btn_product_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new Frm_Product_Management());
+        }
+
+        private void btn_history_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new Frm_activityHistory());
         }
     }
 }

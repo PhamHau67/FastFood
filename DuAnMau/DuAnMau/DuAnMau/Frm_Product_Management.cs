@@ -23,7 +23,14 @@ namespace DuAnMau
             Load_cbxData();
             cbx_Supplier_ID.SelectedIndex = -1;
             // Ẩn cột trống ở phía bên trái của DataGridView
-            dgv_Product.RowHeadersVisible = false;           
+            dgv_Product.RowHeadersVisible = false;
+
+            dtp_pr_DateOfManufacture.Format = DateTimePickerFormat.Custom;
+            dtp_pr_DateOfManufacture.CustomFormat = "dd/MM/yyyy";
+            dtp_Expiration_Date.Format = DateTimePickerFormat.Custom;
+            dtp_Expiration_Date.CustomFormat = "dd/MM/yyyy";
+
+
         }
         public void LoadData_Dgv()
         {
@@ -53,23 +60,21 @@ namespace DuAnMau
                              };
 
                 dgv_Product.DataSource = ListPr.ToList();
+                dgv_Product.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
-
-                // Đổi tiếng viêt cột
-                dgv_Product.Columns["MaSanPham"].HeaderText = "Product ID";
-                dgv_Product.Columns["TenSanPham"].HeaderText = "Product Name";
-                dgv_Product.Columns["LoaiSanPham"].HeaderText = "Product Type";
-                dgv_Product.Columns["DonVi"].HeaderText = "Unit";
-                dgv_Product.Columns["MoTaSanPham"].HeaderText = "Product Description";
-                dgv_Product.Columns["Tien"].HeaderText = "Price";
-                dgv_Product.Columns["SoLuong"].HeaderText = "Quantity";
-                dgv_Product.Columns["SoLuongConLai"].HeaderText = "Remaining Quantity";
-                dgv_Product.Columns["NSX"].HeaderText = "Manufacture Date";
-                dgv_Product.Columns["HSD"].HeaderText = "Expiration Date";
-                dgv_Product.Columns["TrangThai"].HeaderText = "Status";
-                dgv_Product.Columns["MaNhaCungCap"].HeaderText = "Supplier ID";
-                dgv_Product.Columns["TenNhaCungCap"].HeaderText = "Supplier Name";
-
+                dgv_Product.Columns["MaSanPham"].HeaderText = "Product Code"; // Mã Sản Phẩm
+                dgv_Product.Columns["TenSanPham"].HeaderText = "Product Name"; // Tên Sản Phẩm
+                dgv_Product.Columns["LoaiSanPham"].HeaderText = "Product Category"; // Loại Sản Phẩm
+                dgv_Product.Columns["DonVi"].HeaderText = "Unit"; // Đơn Vị
+                dgv_Product.Columns["MoTaSanPham"].HeaderText = "Product Description"; // Mô Tả Sản Phẩm
+                dgv_Product.Columns["Tien"].HeaderText = "Price"; // Tiền
+                dgv_Product.Columns["SoLuong"].HeaderText = "Quantity"; // Số Lượng
+                dgv_Product.Columns["SoLuongConLai"].HeaderText = "Remaining Quantity"; // Số Lượng Còn Lại
+                dgv_Product.Columns["NSX"].HeaderText = "Manufacture Date"; // Ngày Sản Xuất
+                dgv_Product.Columns["HSD"].HeaderText = "Expiry Date"; // Hạn Sử Dụng
+                dgv_Product.Columns["TrangThai"].HeaderText = "Status"; // Trạng Thái
+                dgv_Product.Columns["MaNhaCungCap"].HeaderText = "Supplier Code"; // Mã Nhà Cung Cấp
+                dgv_Product.Columns["TenNhaCungCap"].HeaderText = "Supplier Name"; // Tên Nhà Cung Cấp
 
             }
         }
@@ -128,7 +133,11 @@ namespace DuAnMau
                 txt_pr_Type.Text = row.Cells["LoaiSanPham"].Value.ToString();
                 txt_pr_Unit.Text = row.Cells["DonVi"].Value.ToString();
                 txt_pr_Description.Text = row.Cells["MoTaSanPham"].Value.ToString();
-                txt_pr_Money.Text = row.Cells["Tien"].Value.ToString();
+                // Định dạng số tiền
+                if (row.Cells["Tien"].Value != null && decimal.TryParse(row.Cells["Tien"].Value.ToString(), out decimal money))
+                {
+                    txt_pr_Money.Text = money.ToString("N0"); // Định dạng tiền tệ với dấu phân cách hàng nghìn
+                }
                 txt_pr_Quantity.Text = row.Cells["SoLuong"].Value.ToString();
                 txt_pr_Quantity_Remaining.Text = row.Cells["SoLuongConLai"].Value.ToString();
                 dtp_pr_DateOfManufacture.Value = Convert.ToDateTime(row.Cells["NSX"].Value);
@@ -387,6 +396,30 @@ namespace DuAnMau
 
                 dgv_Product.DataSource = TimFr.ToList();
             }
+        }
+
+        private void dgv_Product_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            // đổi định dạng tiền
+            if (dgv_Product.Columns[e.ColumnIndex].Name == "Tien" && e.Value != null)
+            {
+                if (e.Value is decimal)
+                {
+                    decimal price = (decimal)e.Value;
+                    e.Value = price.ToString("N0"); // Định dạng tiền tệ với dấu phân cách hàng nghìn
+                    e.FormattingApplied = true;
+                }
+            }
+            // đổi dindhj dạng d/m/y
+            if ((dgv_Product.Columns[e.ColumnIndex].Name == "NSX" || dgv_Product.Columns[e.ColumnIndex].Name == "HSD") && e.Value != null)
+            {
+                if (e.Value is DateTime date)
+                {
+                    e.Value = date.ToString("dd/MM/yyyy"); 
+                    e.FormattingApplied = true;
+                }
+            }
+
         }
     }
 }

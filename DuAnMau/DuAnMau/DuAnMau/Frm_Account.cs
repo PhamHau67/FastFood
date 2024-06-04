@@ -27,6 +27,7 @@ namespace DuAnMau
             InitializeComponent();
             LoadData_Dgv();
             // Ẩn cột trống ở phía bên trái của DataGridView
+            dgv_Account.RowHeadersVisible = false;
             //dgv_Account.RowHeadersVisible = false;
         }
         public void LoadData_Dgv()
@@ -51,12 +52,14 @@ namespace DuAnMau
                 dgv_Account.DataSource = ListAc.ToList();
 
                 // Đổi Tiếng Việt
-                dgv_Account.Columns["MaTaiKhoan"].HeaderText = "Account ID";
-                dgv_Account.Columns["TenTaiKhoan"].HeaderText = "Account Name";
-                dgv_Account.Columns["MatKhau"].HeaderText = "Password";
-                dgv_Account.Columns["MaNhanVien"].HeaderText = "Employee ID";
-                dgv_Account.Columns["Gmail"].HeaderText = "Gmail";
-                dgv_Account.Columns["TenVaiTro"].HeaderText = "Role";
+                dgv_Account.Columns["MaTaiKhoan"].HeaderText = "Account ID"; // Mã Tài Khoản
+                dgv_Account.Columns["TenTaiKhoan"].HeaderText = "Account Name"; // Tên Tài Khoản
+                dgv_Account.Columns["MatKhau"].HeaderText = "Password"; // Mật Khẩu
+                dgv_Account.Columns["MaNhanVien"].HeaderText = "Employee ID"; // Mã Nhân Viên
+                dgv_Account.Columns["Gmail"].HeaderText = "Gmail"; // Gmail
+                dgv_Account.Columns["TenVaiTro"].HeaderText = "Role"; // Vai Trò
+
+
             }
         }
 

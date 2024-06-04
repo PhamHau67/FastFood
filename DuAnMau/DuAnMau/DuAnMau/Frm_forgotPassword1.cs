@@ -50,9 +50,9 @@ namespace DuAnMau
                     {
                         // Tạo OTP
                         otp = rand.Next(100000, 1000000);
-                        var fromAddress = new MailAddress("vovanhung1313@gmail.com", "Fast food");
+                        var fromAddress = new MailAddress("fastfood.hethongxacminh@gmail.com", "Fast food");
                         var toAddress = new MailAddress(userEmail); // Lấy email từ TextBox
-                        const string fromPass = "efsk bupf npzf kcxm"; // Mật khẩu ứng dụng
+                        const string fromPass = "dxve duab mfyd nryc"; // Mật khẩu ứng dụng
                         const string subject = "OTP Code"; // Tiêu đề email
 
                         // Nội dung email tùy chỉnh
@@ -101,6 +101,25 @@ namespace DuAnMau
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            Frm_login frm_Login = new Frm_login();
+            frm_Login.Show();
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void guna2Button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            Frm_login frm_Login = new Frm_login();
+            frm_Login.Show();
+        }
+
+        private void guna2Button1_Click_1(object sender, EventArgs e)
         {
             this.Close();
             Frm_login frm_Login = new Frm_login();

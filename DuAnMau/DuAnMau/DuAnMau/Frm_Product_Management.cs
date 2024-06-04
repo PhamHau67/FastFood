@@ -14,7 +14,7 @@ namespace DuAnMau
 {
     public partial class Frm_Product_Management : Form
     {
-        string strConn = "Data Source=DESKTOP-F5INLQE\\HAU;Initial Catalog=FastFoodDB;Integrated Security=True;";
+        private Cl_conn clConn = new Cl_conn();
         public Frm_Product_Management()
         {
 
@@ -22,16 +22,15 @@ namespace DuAnMau
             LoadData_Dgv();
             Load_cbxData();
             cbx_Supplier_ID.SelectedIndex = -1;
-
-
+            // Ẩn cột trống ở phía bên trái của DataGridView
+            dgv_Product.RowHeadersVisible = false;           
         }
         public void LoadData_Dgv()
         {
-            using (var db = new DataClasses1DataContext(strConn))
+            using (var db = new DataClasses1DataContext(clConn.conn))
             {
                 //Viết câu lệnh truy vấn và join bảng
                 var ListPr = from sp in db.SANPHAMs
-                             //join ct_HoaDon in db.CHITIET_HOADONs on sp.MaSanPham equals ct_HoaDon.MaSanPham
                              join ncc in db.NHACUNGCAPs on sp.MaNhaCungCap equals ncc.MaNhaCungCap
 
 
@@ -57,31 +56,30 @@ namespace DuAnMau
 
 
                 // Đổi tiếng viêt cột
-                dgv_Product.Columns["MaSanPham"].HeaderText = "Mã Sản Phẩm";
-                dgv_Product.Columns["TenSanPham"].HeaderText = "Tên Sản Phẩm";
-                dgv_Product.Columns["LoaiSanPham"].HeaderText = "Loại Sản Phẩm";
-                dgv_Product.Columns["DonVi"].HeaderText = "Đơn Vị";
-                dgv_Product.Columns["MoTaSanPham"].HeaderText = "Mô Tả Sản Phẩm";
-                dgv_Product.Columns["Tien"].HeaderText = "Tiền";
-                dgv_Product.Columns["SoLuong"].HeaderText = "Số Lượng";
-                dgv_Product.Columns["SoLuongConLai"].HeaderText = "Số Lượng Còn Lại";
-                dgv_Product.Columns["NSX"].HeaderText = "Ngày Sản Xuất";
-                dgv_Product.Columns["HSD"].HeaderText = "Hạn Sử Dụng";
-                dgv_Product.Columns["TrangThai"].HeaderText = "Trạng Thái";
-                dgv_Product.Columns["MaNhaCungCap"].HeaderText = "Mã Nhà Cung Cấp";
-                dgv_Product.Columns["TenNhaCungCap"].HeaderText = "Tên Nhà Cung Cấp";
+                dgv_Product.Columns["MaSanPham"].HeaderText = "Product ID";
+                dgv_Product.Columns["TenSanPham"].HeaderText = "Product Name";
+                dgv_Product.Columns["LoaiSanPham"].HeaderText = "Product Type";
+                dgv_Product.Columns["DonVi"].HeaderText = "Unit";
+                dgv_Product.Columns["MoTaSanPham"].HeaderText = "Product Description";
+                dgv_Product.Columns["Tien"].HeaderText = "Price";
+                dgv_Product.Columns["SoLuong"].HeaderText = "Quantity";
+                dgv_Product.Columns["SoLuongConLai"].HeaderText = "Remaining Quantity";
+                dgv_Product.Columns["NSX"].HeaderText = "Manufacture Date";
+                dgv_Product.Columns["HSD"].HeaderText = "Expiration Date";
+                dgv_Product.Columns["TrangThai"].HeaderText = "Status";
+                dgv_Product.Columns["MaNhaCungCap"].HeaderText = "Supplier ID";
+                dgv_Product.Columns["TenNhaCungCap"].HeaderText = "Supplier Name";
 
 
             }
-
         }
-        //Sự kiện để cho thay đổi cbx thì 
+            //Sự kiện để cho thay đổi cbx thì 
 
-        private void cbx_Supplier_ID_SelectedIndexChanged(object sender, EventArgs e)
+            private void cbx_Supplier_ID_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbx_Supplier_ID.SelectedValue != null)
             {
-                using (var db = new DataClasses1DataContext(strConn))
+                using (var db = new DataClasses1DataContext(clConn.conn))
                 {
                     var supplier = (from ncc in db.NHACUNGCAPs
                                     where ncc.MaNhaCungCap == cbx_Supplier_ID.SelectedValue.ToString()
@@ -96,7 +94,7 @@ namespace DuAnMau
         }
         public void Load_cbxData()
         {
-            using (var db = new DataClasses1DataContext(strConn))
+            using (var db = new DataClasses1DataContext(clConn.conn))
             {
                 var suppliers = from ncc in db.NHACUNGCAPs
                                 select new
@@ -148,7 +146,7 @@ namespace DuAnMau
             {
                 try
                 {
-                    using (var db = new DataClasses1DataContext(strConn))
+                    using (var db = new DataClasses1DataContext(clConn.conn))
                     {
 
                         Random random = new Random();
@@ -257,19 +255,20 @@ namespace DuAnMau
             {
                 try
                 {
-                    using (var db = new DataClasses1DataContext(strConn))
+                    using (var db = new DataClasses1DataContext(clConn.conn))
                     {
-                        //var ListPr = from sp in db.SANPHAMs
-                        //join ct_HoaDon in db.CHITIET_HOADONs on sp.MaSanPham equals ct_HoaDon.MaSanPham
                         string maSanPham = dgv_Product.CurrentRow.Cells["MaSanPham"].Value.ToString();
                         var product = db.SANPHAMs.FirstOrDefault(sp => sp.MaSanPham == maSanPham);
 
                         if (product != null)
                         {
+
+                            var relatedDetails = db.CHITIET_HOADONs.Where(ct => ct.MaSanPham == maSanPham).ToList();
+                            db.CHITIET_HOADONs.DeleteAllOnSubmit(relatedDetails);
                             db.SANPHAMs.DeleteOnSubmit(product);
                             db.SubmitChanges();
 
-                            MessageBox.Show("Delete product successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("Delete product and related order details successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             LoadData_Dgv();
                         }
                         else
@@ -293,7 +292,7 @@ namespace DuAnMau
             {
                 try
                 {
-                    using (var db = new DataClasses1DataContext(strConn))
+                    using (var db = new DataClasses1DataContext(clConn.conn))
                     {
                         string maSanPham = dgv_Product.CurrentRow.Cells["MaSanPham"].Value.ToString();
                         var pr = db.SANPHAMs.FirstOrDefault(sp => sp.MaSanPham == maSanPham);
@@ -361,7 +360,7 @@ namespace DuAnMau
 
         private void txt_Search_TextChanged(object sender, EventArgs e)
         {
-            using (var db = new DataClasses1DataContext(strConn))
+            using (var db = new DataClasses1DataContext(clConn.conn))
             {
                 var keyword = txt_Search.Text.Trim();
 

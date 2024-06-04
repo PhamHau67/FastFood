@@ -18,8 +18,8 @@ namespace DuAnMau
 {
     public partial class Frm_employeeManager : Form
     {
-        
-        private string _con = "Data Source=RUDEUS\\VVH;Initial Catalog=FastFoodDB;Integrated Security=True;";
+
+        private Cl_conn clConn = new Cl_conn();
         public Frm_employeeManager()
         {
             InitializeComponent();
@@ -27,7 +27,7 @@ namespace DuAnMau
         }
         public void Load_dgv_manager()
         {
-            using (var db = new DataClasses1DataContext(_con))
+            using (var db = new DataClasses1DataContext(clConn.conn))
             {
                 var query = from nv in db.NHAN_VIENs
                             select nv;
@@ -94,7 +94,7 @@ namespace DuAnMau
             {
                 if (!ValidateFields())
                     return;
-                using (var db = new DataClasses1DataContext(_con))
+                using (var db = new DataClasses1DataContext(clConn.conn))
                 {
                     NHAN_VIEN newEmployee = new NHAN_VIEN
                     {
@@ -130,7 +130,7 @@ namespace DuAnMau
             {
                 if (!ValidateFields())
                     return;
-                using (var db = new DataClasses1DataContext(_con))
+                using (var db = new DataClasses1DataContext(clConn.conn))
                 {
                     var query = from nv in db.NHAN_VIENs
                                 where nv.MaNhanVien == txt_IDStaff.Text
@@ -177,7 +177,7 @@ namespace DuAnMau
                 DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa nhân viên này không?", "Xác nhận Xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    using (var db = new DataClasses1DataContext(_con))
+                    using (var db = new DataClasses1DataContext(clConn.conn))
                     {
                         var query = from nv in db.NHAN_VIENs
                                     where nv.MaNhanVien == txt_IDStaff.Text
@@ -277,7 +277,7 @@ namespace DuAnMau
 
         private void txt_Find_TextChanged(object sender, EventArgs e)
         {
-            using (var db = new DataClasses1DataContext(_con))
+            using (var db = new DataClasses1DataContext(clConn.conn))
             {
                 var keyword = txt_Find.Text.Trim();
                 var findnv = from nv in db.NHAN_VIENs

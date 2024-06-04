@@ -18,13 +18,15 @@ namespace DuAnMau
         {
             InitializeComponent();
             Loadatadgv();
+            // Ẩn cột trống ở phía bên trái của DataGridView
+            dgv_revenue.RowHeadersVisible = false;
         }
-        string conn = "Data Source=RUDEUS\\VVH;Initial Catalog=FastFoodDB;Integrated Security=True;";
+        private Cl_conn clConn = new Cl_conn();
         public void Loadatadgv()
         {
             try
             {
-                using (var db = new DataClasses1DataContext(conn))
+                using (var db = new DataClasses1DataContext(clConn.conn))
                 {
                     var query = from hoadon in db.HOADONs
                                 join nhanvien in db.NHAN_VIENs on hoadon.MaNhanVien equals nhanvien.MaNhanVien
@@ -35,7 +37,7 @@ namespace DuAnMau
                                     nhanvien.TenNhanVien,
                                     hoadon.NgayTao,
                                     hoadon.TongTien,
-                                    hoadon.TrangThai
+                                    Status = hoadon.TrangThai.HasValue ? (hoadon.TrangThai.Value ? "Đã thanh toán" : "Chưa thanh toán") : "Chưa thanh toán" // Thay đổi trạng thái
                                 };
 
                     DataTable dt = new DataTable();
@@ -44,11 +46,11 @@ namespace DuAnMau
                     dt.Columns.Add("Name Employee");
                     dt.Columns.Add("Date Created");
                     dt.Columns.Add("Total");
-                    dt.Columns.Add("State");
+                    dt.Columns.Add("Status");
 
                     foreach (var item in query)
                     {
-                        dt.Rows.Add(item.MaHoaDon, item.MaNhanVien, item.TenNhanVien, item.NgayTao, item.TongTien, item.TrangThai);
+                        dt.Rows.Add(item.MaHoaDon, item.MaNhanVien, item.TenNhanVien, item.NgayTao, item.TongTien, item.Status);
                     }
 
                     // Thiết lập DataSource của DataGridView là DataTable
@@ -60,7 +62,7 @@ namespace DuAnMau
                     dgv_revenue.Columns["Name Employee"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                     dgv_revenue.Columns["Date Created"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                     dgv_revenue.Columns["Total"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                    dgv_revenue.Columns["State"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    dgv_revenue.Columns["Status"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
                     // Cập nhật lại DataGridView
                     dgv_revenue.Refresh();
@@ -112,7 +114,7 @@ namespace DuAnMau
                     txt_money.Text = string.Empty;
                 }
 
-                txt_total.Text = row.Cells["State"].Value?.ToString();
+                txt_total.Text = row.Cells["Status"].Value?.ToString();
             }
         }
 
@@ -195,7 +197,7 @@ namespace DuAnMau
         {
             try
             {
-                using (var db = new DataClasses1DataContext(conn))
+                using (var db = new DataClasses1DataContext(clConn.conn))
                 {
                     string key = txt_search.Text.Trim();
                     var searchResult = from hoadon in db.HOADONs
@@ -217,7 +219,7 @@ namespace DuAnMau
                     dt.Columns.Add("Name Employee");
                     dt.Columns.Add("Date Created");
                     dt.Columns.Add("Total");
-                    dt.Columns.Add("State");
+                    dt.Columns.Add("Status");
 
                     foreach (var item in searchResult)
                     {
@@ -242,7 +244,7 @@ namespace DuAnMau
                 DateTime startDate = dateTimePickerStartDate.Value.Date;
                 DateTime endDate = dateTimePickerEndDate.Value.Date.AddDays(1); // Bổ sung 1 ngày để bao gồm cả ngày kết thúc
 
-                using (var db = new DataClasses1DataContext(conn))
+                using (var db = new DataClasses1DataContext(clConn.conn))
                 {
                     // Truy vấn cơ sở dữ liệu để tính tổng tiền của các hóa đơn trong khoảng thời gian đã chọn
                     var totalRevenue = (from hoadon in db.HOADONs

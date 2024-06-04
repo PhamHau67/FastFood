@@ -14,7 +14,7 @@ namespace DuAnMau
 {
     public partial class Frm_Product_Management : Form
     {
-        string strConn = "Data Source=RUDEUS\\VVH;Initial Catalog=FastFoodDB;Integrated Security=True;";
+        private Cl_conn clConn = new Cl_conn();
         public Frm_Product_Management()
         {
 
@@ -34,11 +34,10 @@ namespace DuAnMau
         }
         public void LoadData_Dgv()
         {
-            using (var db = new DataClasses1DataContext(strConn))
+            using (var db = new DataClasses1DataContext(clConn.conn))
             {
                 //Viết câu lệnh truy vấn và join bảng
                 var ListPr = from sp in db.SANPHAMs
-                             //join ct_HoaDon in db.CHITIET_HOADONs on sp.MaSanPham equals ct_HoaDon.MaSanPham
                              join ncc in db.NHACUNGCAPs on sp.MaNhaCungCap equals ncc.MaNhaCungCap
 
 
@@ -78,15 +77,14 @@ namespace DuAnMau
                 dgv_Product.Columns["TenNhaCungCap"].HeaderText = "Supplier Name"; // Tên Nhà Cung Cấp
 
             }
-
         }
-        //Sự kiện để cho thay đổi cbx thì 
+            //Sự kiện để cho thay đổi cbx thì 
 
-        private void cbx_Supplier_ID_SelectedIndexChanged(object sender, EventArgs e)
+            private void cbx_Supplier_ID_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbx_Supplier_ID.SelectedValue != null)
             {
-                using (var db = new DataClasses1DataContext(strConn))
+                using (var db = new DataClasses1DataContext(clConn.conn))
                 {
                     var supplier = (from ncc in db.NHACUNGCAPs
                                     where ncc.MaNhaCungCap == cbx_Supplier_ID.SelectedValue.ToString()
@@ -101,7 +99,7 @@ namespace DuAnMau
         }
         public void Load_cbxData()
         {
-            using (var db = new DataClasses1DataContext(strConn))
+            using (var db = new DataClasses1DataContext(clConn.conn))
             {
                 var suppliers = from ncc in db.NHACUNGCAPs
                                 select new
@@ -157,7 +155,7 @@ namespace DuAnMau
             {
                 try
                 {
-                    using (var db = new DataClasses1DataContext(strConn))
+                    using (var db = new DataClasses1DataContext(clConn.conn))
                     {
 
                         Random random = new Random();
@@ -266,17 +264,16 @@ namespace DuAnMau
             {
                 try
                 {
-                    using (var db = new DataClasses1DataContext(strConn))
+                    using (var db = new DataClasses1DataContext(clConn.conn))
                     {
                         string maSanPham = dgv_Product.CurrentRow.Cells["MaSanPham"].Value.ToString();
                         var product = db.SANPHAMs.FirstOrDefault(sp => sp.MaSanPham == maSanPham);
 
                         if (product != null)
                         {
-                            // del chitiethoadon co lien quan den sp
+
                             var relatedDetails = db.CHITIET_HOADONs.Where(ct => ct.MaSanPham == maSanPham).ToList();
                             db.CHITIET_HOADONs.DeleteAllOnSubmit(relatedDetails);
-                            // Then delete the product
                             db.SANPHAMs.DeleteOnSubmit(product);
                             db.SubmitChanges();
 
@@ -304,7 +301,7 @@ namespace DuAnMau
             {
                 try
                 {
-                    using (var db = new DataClasses1DataContext(strConn))
+                    using (var db = new DataClasses1DataContext(clConn.conn))
                     {
                         string maSanPham = dgv_Product.CurrentRow.Cells["MaSanPham"].Value.ToString();
                         var pr = db.SANPHAMs.FirstOrDefault(sp => sp.MaSanPham == maSanPham);
@@ -372,7 +369,7 @@ namespace DuAnMau
 
         private void txt_Search_TextChanged(object sender, EventArgs e)
         {
-            using (var db = new DataClasses1DataContext(strConn))
+            using (var db = new DataClasses1DataContext(clConn.conn))
             {
                 var keyword = txt_Search.Text.Trim();
 

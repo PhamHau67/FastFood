@@ -16,11 +16,11 @@ namespace DuAnMau
         {
             InitializeComponent();
         }
-        string conn = "Data Source=RUDEUS\\VVH;Initial Catalog=FastFoodDB;Integrated Security=True;";
-       
+        private Cl_conn clConn = new Cl_conn();
+
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Application.Exit();
         }
         public bool ShowPassword
         {
@@ -37,7 +37,7 @@ namespace DuAnMau
         {
             string username = txt_user.Text;
             string password = txt_pass.Text;
-            using (var db = new DataClasses1DataContext(conn))
+            using (var db = new DataClasses1DataContext(clConn.conn))
             {
                 var user = db.TAI_KHOANs.SingleOrDefault(u => u.TenTaiKhoan == username && u.MatKhau == password);
                 if (user != null)
@@ -83,16 +83,19 @@ namespace DuAnMau
             txt_user.Text = "";
             txt_pass.Text = "";
         }
-       
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+
+        private void label1_Click(object sender, EventArgs e)
         {
-            this.Close();
-            Frm_forgotPassword1 frm_ForgotPassword1 = new Frm_forgotPassword1();
-            frm_ForgotPassword1.TopLevel = false;
-            frm_ForgotPassword1.FormBorderStyle = FormBorderStyle.None;
-            frm_ForgotPassword1.Dock = DockStyle.Fill;
-            frm_ForgotPassword1.BringToFront();
-            frm_ForgotPassword1.Show();
+            this.Hide();  // Đóng biểu mẫu hiện tại
+            using (Frm_forgotPassword1 frm_ForgotPassword1 = new Frm_forgotPassword1())
+            {
+                frm_ForgotPassword1.TopLevel = true;  // Đảm bảo rằng đó là một mẫu trình độ lớn
+                frm_ForgotPassword1.FormBorderStyle = FormBorderStyle.None;
+                frm_ForgotPassword1.Dock = DockStyle.Fill;
+                frm_ForgotPassword1.BringToFront();
+                frm_ForgotPassword1.ShowDialog();  // Show as a modal dialog
+            }
+            this.Show();
         }
     }
 }

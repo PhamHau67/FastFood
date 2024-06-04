@@ -18,7 +18,7 @@ namespace DuAnMau
         private DateTime selectedCreationDate;
         private decimal selectedTotalAmount;
         private List<Tuple<string, int, decimal>> selectedInvoiceDetails;
-        private string conn = "Data Source=RUDEUS\\VVH;Initial Catalog=FastFoodDB;Integrated Security=True;";
+        private Cl_conn clConn = new Cl_conn();
         public Frm_Manage_invoices()
         {
             InitializeComponent();
@@ -34,7 +34,7 @@ namespace DuAnMau
 
         private void LoadataHoaDon()
         {
-            using (var db = new DataClasses1DataContext(conn))
+            using (var db = new DataClasses1DataContext(clConn.conn))
             {
                 var query = from hoadon in db.HOADONs
                             join nhanvien in db.NHAN_VIENs on hoadon.MaNhanVien equals nhanvien.MaNhanVien
@@ -102,7 +102,7 @@ namespace DuAnMau
             DateTime startDate = dt_start.Value.Date;
             DateTime endDate = dt_end.Value.Date.AddDays(1).AddTicks(-1);
 
-            using (var db = new DataClasses1DataContext(conn))
+            using (var db = new DataClasses1DataContext(clConn.conn))
             {
                 var query = from hoadon in db.HOADONs
                             join nhanvien in db.NHAN_VIENs on hoadon.MaNhanVien equals nhanvien.MaNhanVien
@@ -187,7 +187,7 @@ namespace DuAnMau
                 selectedInvoiceDetails = new List<Tuple<string, int, decimal>>();
 
                 // Truy vấn chi tiết hóa đơn tương ứng từ cơ sở dữ liệu
-                using (var db = new DataClasses1DataContext(conn))
+                using (var db = new DataClasses1DataContext(clConn.conn))
                 {
                     var query = from chitiet in db.CHITIET_HOADONs
                                 join sanpham in db.SANPHAMs on chitiet.MaSanPham equals sanpham.MaSanPham
@@ -238,7 +238,7 @@ namespace DuAnMau
         {
             try
             {
-                using (var db = new DataClasses1DataContext(conn))
+                using (var db = new DataClasses1DataContext(clConn.conn))
                 {
                     var keyword = txt_Search.Text.Trim();
 

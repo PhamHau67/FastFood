@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_homeOrders));
             this.gn_home = new Guna.UI2.WinForms.Guna2Panel();
+            this.btn_history = new Guna.UI2.WinForms.Guna2Button();
             this.btn_exit = new Guna.UI2.WinForms.Guna2Button();
             this.btn_logout = new Guna.UI2.WinForms.Guna2Button();
             this.btn_order = new Guna.UI2.WinForms.Guna2Button();
@@ -38,7 +39,6 @@
             this.lbl_admin = new System.Windows.Forms.Label();
             this.guna2CirclePictureBox1 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btn_history = new Guna.UI2.WinForms.Guna2Button();
             this.gn_home.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox1)).BeginInit();
@@ -59,6 +59,26 @@
             this.gn_home.Name = "gn_home";
             this.gn_home.Size = new System.Drawing.Size(321, 853);
             this.gn_home.TabIndex = 1;
+            // 
+            // btn_history
+            // 
+            this.btn_history.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_history.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btn_history.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btn_history.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btn_history.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btn_history.FillColor = System.Drawing.Color.Transparent;
+            this.btn_history.Font = new System.Drawing.Font("Segoe UI Emoji", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_history.ForeColor = System.Drawing.Color.Black;
+            this.btn_history.Image = ((System.Drawing.Image)(resources.GetObject("btn_history.Image")));
+            this.btn_history.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btn_history.ImageSize = new System.Drawing.Size(30, 30);
+            this.btn_history.Location = new System.Drawing.Point(0, 324);
+            this.btn_history.Name = "btn_history";
+            this.btn_history.Size = new System.Drawing.Size(329, 71);
+            this.btn_history.TabIndex = 12;
+            this.btn_history.Text = "    ACTIVITY HISTORY";
+            this.btn_history.Click += new System.EventHandler(this.btn_history_Click);
             // 
             // btn_exit
             // 
@@ -98,6 +118,7 @@
             // 
             // btn_order
             // 
+            this.btn_order.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_order.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btn_order.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btn_order.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -117,6 +138,7 @@
             // 
             // btn_home
             // 
+            this.btn_home.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_home.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btn_home.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btn_home.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -132,6 +154,7 @@
             this.btn_home.Size = new System.Drawing.Size(326, 71);
             this.btn_home.TabIndex = 1;
             this.btn_home.Text = "    HOME";
+            this.btn_home.Click += new System.EventHandler(this.btn_home_Click);
             // 
             // panel1
             // 
@@ -175,25 +198,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
-            // 
-            // btn_history
-            // 
-            this.btn_history.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btn_history.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btn_history.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btn_history.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btn_history.FillColor = System.Drawing.Color.Transparent;
-            this.btn_history.Font = new System.Drawing.Font("Segoe UI Emoji", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_history.ForeColor = System.Drawing.Color.Black;
-            this.btn_history.Image = ((System.Drawing.Image)(resources.GetObject("btn_history.Image")));
-            this.btn_history.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btn_history.ImageSize = new System.Drawing.Size(30, 30);
-            this.btn_history.Location = new System.Drawing.Point(0, 324);
-            this.btn_history.Name = "btn_history";
-            this.btn_history.Size = new System.Drawing.Size(329, 71);
-            this.btn_history.TabIndex = 12;
-            this.btn_history.Text = "    ACTIVITY HISTORY";
-            this.btn_history.Click += new System.EventHandler(this.btn_history_Click);
             // 
             // Frm_homeOrders
             // 

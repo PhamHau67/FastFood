@@ -44,15 +44,23 @@ namespace DuAnMau
 
         private void btn_exit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            var result = MessageBox.Show("Are you sure you want to exit?", "Exit Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
         }
 
         private void btn_logout_Click(object sender, EventArgs e)
         {
-            Frm_login loginForm = new Frm_login();
-            loginForm.ClearCredentials();
-            loginForm.Show();
-            this.Close();
+            var result = MessageBox.Show("Are you sure you want to log out?", "Logout Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                Frm_login loginForm = new Frm_login();
+                loginForm.ClearCredentials();
+                loginForm.Show();
+                this.Close();
+            }
         }
 
         private void btn_home_Click(object sender, EventArgs e)

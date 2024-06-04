@@ -25,6 +25,10 @@ namespace DuAnMau
             // Ẩn cột trống ở phía bên trái của DataGridView
             dgv_Product.RowHeadersVisible = false;
 
+            dtp_pr_DateOfManufacture.Format = DateTimePickerFormat.Custom;
+            dtp_pr_DateOfManufacture.CustomFormat = "dd/MM/yyyy";
+            dtp_Expiration_Date.Format = DateTimePickerFormat.Custom;
+            dtp_Expiration_Date.CustomFormat = "dd/MM/yyyy";
 
 
         }
@@ -406,6 +410,15 @@ namespace DuAnMau
                 {
                     decimal price = (decimal)e.Value;
                     e.Value = price.ToString("N0"); // Định dạng tiền tệ với dấu phân cách hàng nghìn
+                    e.FormattingApplied = true;
+                }
+            }
+            // đổi dindhj dạng d/m/y
+            if ((dgv_Product.Columns[e.ColumnIndex].Name == "NSX" || dgv_Product.Columns[e.ColumnIndex].Name == "HSD") && e.Value != null)
+            {
+                if (e.Value is DateTime date)
+                {
+                    e.Value = date.ToString("dd/MM/yyyy"); 
                     e.FormattingApplied = true;
                 }
             }

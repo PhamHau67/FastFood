@@ -121,6 +121,7 @@
             // btn_recover
             // 
             this.btn_recover.BorderRadius = 20;
+            this.btn_recover.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_recover.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btn_recover.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btn_recover.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -157,6 +158,7 @@
             // 
             this.btn_closeEye.BackColor = System.Drawing.Color.White;
             this.btn_closeEye.BorderRadius = 20;
+            this.btn_closeEye.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_closeEye.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btn_closeEye.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btn_closeEye.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -175,6 +177,7 @@
             // 
             this.btn_closeEye2.BackColor = System.Drawing.Color.White;
             this.btn_closeEye2.BorderRadius = 20;
+            this.btn_closeEye2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_closeEye2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btn_closeEye2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btn_closeEye2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));

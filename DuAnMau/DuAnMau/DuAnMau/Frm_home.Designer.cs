@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_home));
             this.gn_home = new Guna.UI2.WinForms.Guna2Panel();
+            this.btn_manga = new Guna.UI2.WinForms.Guna2Button();
             this.btn_history = new Guna.UI2.WinForms.Guna2Button();
             this.btn_product = new Guna.UI2.WinForms.Guna2Button();
             this.btn_emplyess = new Guna.UI2.WinForms.Guna2Button();
@@ -43,7 +44,6 @@
             this.lbl_admin = new System.Windows.Forms.Label();
             this.guna2CirclePictureBox1 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btn_manga = new Guna.UI2.WinForms.Guna2Button();
             this.gn_home.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox1)).BeginInit();
@@ -70,8 +70,29 @@
             this.gn_home.Size = new System.Drawing.Size(321, 900);
             this.gn_home.TabIndex = 0;
             // 
+            // btn_manga
+            // 
+            this.btn_manga.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_manga.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btn_manga.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btn_manga.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btn_manga.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btn_manga.FillColor = System.Drawing.Color.Transparent;
+            this.btn_manga.Font = new System.Drawing.Font("Segoe UI Emoji", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_manga.ForeColor = System.Drawing.Color.Black;
+            this.btn_manga.Image = ((System.Drawing.Image)(resources.GetObject("btn_manga.Image")));
+            this.btn_manga.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btn_manga.ImageSize = new System.Drawing.Size(30, 30);
+            this.btn_manga.Location = new System.Drawing.Point(-3, 761);
+            this.btn_manga.Name = "btn_manga";
+            this.btn_manga.Size = new System.Drawing.Size(329, 71);
+            this.btn_manga.TabIndex = 12;
+            this.btn_manga.Text = "    MANAGE INVOICES";
+            this.btn_manga.Click += new System.EventHandler(this.guna2Button1_Click_1);
+            // 
             // btn_history
             // 
+            this.btn_history.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_history.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btn_history.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btn_history.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -91,6 +112,7 @@
             // 
             // btn_product
             // 
+            this.btn_product.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_product.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btn_product.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btn_product.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -110,6 +132,7 @@
             // 
             // btn_emplyess
             // 
+            this.btn_emplyess.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_emplyess.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btn_emplyess.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btn_emplyess.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -129,6 +152,7 @@
             // 
             // btn_account
             // 
+            this.btn_account.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_account.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btn_account.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btn_account.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -148,6 +172,7 @@
             // 
             // btn_revenue
             // 
+            this.btn_revenue.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_revenue.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btn_revenue.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btn_revenue.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -167,6 +192,7 @@
             // 
             // btn_exit
             // 
+            this.btn_exit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_exit.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btn_exit.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btn_exit.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -176,7 +202,7 @@
             this.btn_exit.ForeColor = System.Drawing.Color.Black;
             this.btn_exit.Image = ((System.Drawing.Image)(resources.GetObject("btn_exit.Image")));
             this.btn_exit.ImageSize = new System.Drawing.Size(30, 30);
-            this.btn_exit.Location = new System.Drawing.Point(192, 838);
+            this.btn_exit.Location = new System.Drawing.Point(192, 829);
             this.btn_exit.Name = "btn_exit";
             this.btn_exit.Size = new System.Drawing.Size(62, 59);
             this.btn_exit.TabIndex = 5;
@@ -185,6 +211,7 @@
             // 
             // btn_logout
             // 
+            this.btn_logout.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_logout.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btn_logout.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btn_logout.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -194,7 +221,7 @@
             this.btn_logout.ForeColor = System.Drawing.Color.Black;
             this.btn_logout.Image = ((System.Drawing.Image)(resources.GetObject("btn_logout.Image")));
             this.btn_logout.ImageSize = new System.Drawing.Size(30, 30);
-            this.btn_logout.Location = new System.Drawing.Point(262, 838);
+            this.btn_logout.Location = new System.Drawing.Point(262, 829);
             this.btn_logout.Name = "btn_logout";
             this.btn_logout.Size = new System.Drawing.Size(53, 59);
             this.btn_logout.TabIndex = 4;
@@ -203,6 +230,7 @@
             // 
             // btn_order
             // 
+            this.btn_order.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_order.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btn_order.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btn_order.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -222,6 +250,7 @@
             // 
             // btn_home
             // 
+            this.btn_home.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_home.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btn_home.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btn_home.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -281,25 +310,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            // 
-            // btn_manga
-            // 
-            this.btn_manga.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btn_manga.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btn_manga.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btn_manga.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btn_manga.FillColor = System.Drawing.Color.Transparent;
-            this.btn_manga.Font = new System.Drawing.Font("Segoe UI Emoji", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_manga.ForeColor = System.Drawing.Color.Black;
-            this.btn_manga.Image = ((System.Drawing.Image)(resources.GetObject("btn_manga.Image")));
-            this.btn_manga.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btn_manga.ImageSize = new System.Drawing.Size(30, 30);
-            this.btn_manga.Location = new System.Drawing.Point(-3, 761);
-            this.btn_manga.Name = "btn_manga";
-            this.btn_manga.Size = new System.Drawing.Size(329, 71);
-            this.btn_manga.TabIndex = 12;
-            this.btn_manga.Text = "    MANAGE INVOICES";
-            this.btn_manga.Click += new System.EventHandler(this.guna2Button1_Click_1);
             // 
             // Frm_home
             // 

@@ -163,7 +163,7 @@ namespace DuAnMau
 
                         do
                         {
-                            newID = "SP" + random.Next(100, 999).ToString();
+                            newID = "SP" + random.Next(100, 990).ToString();
                         } while (db.SANPHAMs.Any(sp => sp.MaSanPham == newID));
 
 
@@ -187,14 +187,21 @@ namespace DuAnMau
                             MessageBox.Show("Please complete all information!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
+
+                        // kiểu tra ngày ngày sản xuất lúc thêm vào sẽ ko bị lớn hơn hạn sửa dụng
+                        if (NSX > HSD)
+                        {
+                            MessageBox.Show("Manufacture Date cannot be later than Expiry Date!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
                         // kiểm tra định dạng của tiền, sl, sl còn lại
                         decimal dt_tien;
                         int dt_sl, dt_slConLai;
-                        if (!decimal.TryParse(Tien, out dt_tien) ||
-                            !int.TryParse(SL_SP, out dt_sl) ||
-                            !int.TryParse(SLConLaiSP, out dt_slConLai))
+                        if (!decimal.TryParse(Tien, out dt_tien) || dt_tien < 0 ||
+                            !int.TryParse(SL_SP, out dt_sl) || dt_sl < 0 ||
+                            !int.TryParse(SLConLaiSP, out dt_slConLai) || dt_slConLai < 0)
                         {
-                            MessageBox.Show("Please enter the correct number format for Amount, Amount and Remaining Amount!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show("Please enter the correct number format for Amount, Amount and Remaining Amount! They must be positive numbers.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
 
@@ -328,20 +335,26 @@ namespace DuAnMau
                                 MessageBox.Show("Please complete all information!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 return;
                             }
+                        // kiểu tra ngày ngày sản xuất lúc thêm vào sẽ ko bị lớn hơn hạn sửa dụng
+                        if (NSX > HSD)
+                        {
+                            MessageBox.Show("Manufacture Date cannot be later than Expiry Date!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
 
-                            // kiểm tra định dạng của tiền, sl, sl còn lại
-                            decimal dt_tien;
-                            int dt_sl, dt_slConLai;
-                            if (!decimal.TryParse(Tien, out dt_tien) ||
-                                !int.TryParse(SL_SP, out dt_sl) ||
-                                !int.TryParse(SLConLaiSP, out dt_slConLai))
-                            {
-                                MessageBox.Show("Please enter the correct number format for Amount, Amount and Remaining Amount!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                return;
-                            }
+                        // kiểm tra định dạng của tiền, sl, sl còn lại
+                        decimal dt_tien;
+                        int dt_sl, dt_slConLai;
+                        if (!decimal.TryParse(Tien, out dt_tien) || dt_tien < 0 ||
+                            !int.TryParse(SL_SP, out dt_sl) || dt_sl < 0 ||
+                            !int.TryParse(SLConLaiSP, out dt_slConLai) || dt_slConLai < 0)
+                        {
+                            MessageBox.Show("Please enter the correct number format for Amount, Amount and Remaining Amount! They must be positive numbers.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
 
-                            // Cập nhật thông tin sản phẩm
-                            pr.TenSanPham = TenSP;
+                        // Cập nhật thông tin sản phẩm
+                        pr.TenSanPham = TenSP;
                             pr.LoaiSanPham = LoaiSP;
                             pr.DonVi = DonViSP;
                             pr.MoTaSanPham = MoTaSP;

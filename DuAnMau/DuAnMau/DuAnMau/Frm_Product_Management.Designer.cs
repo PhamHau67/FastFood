@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgv_Product = new System.Windows.Forms.DataGridView();
             this.txt_pr_Name = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -77,23 +77,23 @@
             this.dgv_Product.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgv_Product.BackgroundColor = System.Drawing.Color.White;
             this.dgv_Product.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_Product.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_Product.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
             this.dgv_Product.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv_Product.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv_Product.DefaultCellStyle = dataGridViewCellStyle14;
             this.dgv_Product.GridColor = System.Drawing.Color.White;
             this.dgv_Product.Location = new System.Drawing.Point(0, -1);
             this.dgv_Product.Name = "dgv_Product";
@@ -109,7 +109,7 @@
             this.txt_pr_Name.Animated = true;
             this.txt_pr_Name.AutoRoundedCorners = true;
             this.txt_pr_Name.BackColor = System.Drawing.Color.Transparent;
-            this.txt_pr_Name.BorderRadius = 16;
+            this.txt_pr_Name.BorderRadius = 20;
             this.txt_pr_Name.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txt_pr_Name.DefaultText = "";
             this.txt_pr_Name.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
@@ -128,7 +128,7 @@
             this.txt_pr_Name.PlaceholderForeColor = System.Drawing.Color.White;
             this.txt_pr_Name.PlaceholderText = "";
             this.txt_pr_Name.SelectedText = "";
-            this.txt_pr_Name.Size = new System.Drawing.Size(176, 35);
+            this.txt_pr_Name.Size = new System.Drawing.Size(186, 43);
             this.txt_pr_Name.TabIndex = 14;
             // 
             // guna2HtmlLabel1
@@ -188,7 +188,7 @@
             this.txt_pr_Money.PasswordChar = '\0';
             this.txt_pr_Money.PlaceholderText = "";
             this.txt_pr_Money.SelectedText = "";
-            this.txt_pr_Money.Size = new System.Drawing.Size(176, 35);
+            this.txt_pr_Money.Size = new System.Drawing.Size(186, 43);
             this.txt_pr_Money.TabIndex = 14;
             // 
             // txt_pr_Quantity
@@ -212,7 +212,7 @@
             this.txt_pr_Quantity.PasswordChar = '\0';
             this.txt_pr_Quantity.PlaceholderText = "";
             this.txt_pr_Quantity.SelectedText = "";
-            this.txt_pr_Quantity.Size = new System.Drawing.Size(59, 38);
+            this.txt_pr_Quantity.Size = new System.Drawing.Size(69, 46);
             this.txt_pr_Quantity.TabIndex = 14;
             // 
             // txt_pr_Unit
@@ -236,7 +236,7 @@
             this.txt_pr_Unit.PasswordChar = '\0';
             this.txt_pr_Unit.PlaceholderText = "";
             this.txt_pr_Unit.SelectedText = "";
-            this.txt_pr_Unit.Size = new System.Drawing.Size(59, 38);
+            this.txt_pr_Unit.Size = new System.Drawing.Size(69, 46);
             this.txt_pr_Unit.TabIndex = 14;
             // 
             // guna2HtmlLabel4
@@ -317,7 +317,7 @@
             this.cbx_Supplier_ID.ItemHeight = 30;
             this.cbx_Supplier_ID.Location = new System.Drawing.Point(334, 173);
             this.cbx_Supplier_ID.Name = "cbx_Supplier_ID";
-            this.cbx_Supplier_ID.Size = new System.Drawing.Size(261, 36);
+            this.cbx_Supplier_ID.Size = new System.Drawing.Size(176, 36);
             this.cbx_Supplier_ID.TabIndex = 17;
             this.cbx_Supplier_ID.SelectedIndexChanged += new System.EventHandler(this.cbx_Supplier_ID_SelectedIndexChanged);
             // 
@@ -376,7 +376,7 @@
             this.txt_pr_Quantity_Remaining.PasswordChar = '\0';
             this.txt_pr_Quantity_Remaining.PlaceholderText = "";
             this.txt_pr_Quantity_Remaining.SelectedText = "";
-            this.txt_pr_Quantity_Remaining.Size = new System.Drawing.Size(59, 38);
+            this.txt_pr_Quantity_Remaining.Size = new System.Drawing.Size(69, 46);
             this.txt_pr_Quantity_Remaining.TabIndex = 14;
             // 
             // guna2HtmlLabel2
@@ -396,7 +396,7 @@
             this.txt_Supplier_Name.Animated = true;
             this.txt_Supplier_Name.AutoRoundedCorners = true;
             this.txt_Supplier_Name.BackColor = System.Drawing.Color.Transparent;
-            this.txt_Supplier_Name.BorderRadius = 16;
+            this.txt_Supplier_Name.BorderRadius = 20;
             this.txt_Supplier_Name.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txt_Supplier_Name.DefaultText = "";
             this.txt_Supplier_Name.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
@@ -416,7 +416,7 @@
             this.txt_Supplier_Name.PlaceholderForeColor = System.Drawing.Color.White;
             this.txt_Supplier_Name.PlaceholderText = "";
             this.txt_Supplier_Name.SelectedText = "";
-            this.txt_Supplier_Name.Size = new System.Drawing.Size(176, 35);
+            this.txt_Supplier_Name.Size = new System.Drawing.Size(186, 43);
             this.txt_Supplier_Name.TabIndex = 14;
             // 
             // txt_pr_Type
@@ -424,7 +424,7 @@
             this.txt_pr_Type.Animated = true;
             this.txt_pr_Type.AutoRoundedCorners = true;
             this.txt_pr_Type.BackColor = System.Drawing.Color.Transparent;
-            this.txt_pr_Type.BorderRadius = 16;
+            this.txt_pr_Type.BorderRadius = 20;
             this.txt_pr_Type.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txt_pr_Type.DefaultText = "";
             this.txt_pr_Type.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
@@ -443,7 +443,7 @@
             this.txt_pr_Type.PlaceholderForeColor = System.Drawing.Color.White;
             this.txt_pr_Type.PlaceholderText = "";
             this.txt_pr_Type.SelectedText = "";
-            this.txt_pr_Type.Size = new System.Drawing.Size(176, 35);
+            this.txt_pr_Type.Size = new System.Drawing.Size(186, 43);
             this.txt_pr_Type.TabIndex = 14;
             // 
             // guna2HtmlLabel7
@@ -479,7 +479,7 @@
             this.txt_pr_Description.PasswordChar = '\0';
             this.txt_pr_Description.PlaceholderText = "";
             this.txt_pr_Description.SelectedText = "";
-            this.txt_pr_Description.Size = new System.Drawing.Size(176, 35);
+            this.txt_pr_Description.Size = new System.Drawing.Size(186, 43);
             this.txt_pr_Description.TabIndex = 14;
             // 
             // lbl_pr_Product_Description

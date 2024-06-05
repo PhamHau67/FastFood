@@ -33,25 +33,25 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txt_search = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txt_money = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.dateTimePickerEndDate = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerStartDate = new System.Windows.Forms.DateTimePicker();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txt_name = new System.Windows.Forms.TextBox();
             this.txt_total = new System.Windows.Forms.TextBox();
             this.txt_day = new System.Windows.Forms.TextBox();
             this.txt_idProduct = new System.Windows.Forms.TextBox();
             this.txt_idBill = new System.Windows.Forms.TextBox();
-            this.txt_name = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.dateTimePickerStartDate = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePickerEndDate = new System.Windows.Forms.DateTimePicker();
             this.txt_totalAmount = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.txt_money = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
-            this.label11 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_revenue)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -130,6 +130,108 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Information";
             // 
+            // label5
+            // 
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.label5.Location = new System.Drawing.Point(70, 255);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(75, 28);
+            this.label5.TabIndex = 21;
+            this.label5.Text = "Status:";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label4
+            // 
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.label4.Location = new System.Drawing.Point(28, 194);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(134, 32);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "Date Created:";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.label3.Location = new System.Drawing.Point(27, 114);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(118, 67);
+            this.label3.TabIndex = 19;
+            this.label3.Text = "Name Employee:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label11
+            // 
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.label11.Location = new System.Drawing.Point(66, 40);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(75, 28);
+            this.label11.TabIndex = 17;
+            this.label11.Text = "ID Bill:";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txt_money
+            // 
+            this.txt_money.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.txt_money.Location = new System.Drawing.Point(168, 315);
+            this.txt_money.Name = "txt_money";
+            this.txt_money.Size = new System.Drawing.Size(189, 30);
+            this.txt_money.TabIndex = 16;
+            // 
+            // label10
+            // 
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.label10.Location = new System.Drawing.Point(66, 318);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(75, 28);
+            this.label10.TabIndex = 15;
+            this.label10.Text = "Total:";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // dateTimePickerEndDate
+            // 
+            this.dateTimePickerEndDate.Location = new System.Drawing.Point(157, 415);
+            this.dateTimePickerEndDate.Name = "dateTimePickerEndDate";
+            this.dateTimePickerEndDate.Size = new System.Drawing.Size(200, 27);
+            this.dateTimePickerEndDate.TabIndex = 14;
+            this.dateTimePickerEndDate.ValueChanged += new System.EventHandler(this.dateTimePickerEndDate_ValueChanged);
+            // 
+            // dateTimePickerStartDate
+            // 
+            this.dateTimePickerStartDate.Location = new System.Drawing.Point(157, 367);
+            this.dateTimePickerStartDate.Name = "dateTimePickerStartDate";
+            this.dateTimePickerStartDate.Size = new System.Drawing.Size(200, 27);
+            this.dateTimePickerStartDate.TabIndex = 13;
+            this.dateTimePickerStartDate.ValueChanged += new System.EventHandler(this.dateTimePickerStartDate_ValueChanged);
+            // 
+            // label8
+            // 
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.label8.Location = new System.Drawing.Point(27, 414);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(115, 28);
+            this.label8.TabIndex = 12;
+            this.label8.Text = "To day:";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label7
+            // 
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.label7.Location = new System.Drawing.Point(27, 367);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(115, 28);
+            this.label7.TabIndex = 11;
+            this.label7.Text = "From day:";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // txt_name
+            // 
+            this.txt_name.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.txt_name.Location = new System.Drawing.Point(168, 132);
+            this.txt_name.Name = "txt_name";
+            this.txt_name.Size = new System.Drawing.Size(189, 30);
+            this.txt_name.TabIndex = 10;
+            // 
             // txt_total
             // 
             this.txt_total.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
@@ -162,50 +264,6 @@
             this.txt_idBill.Size = new System.Drawing.Size(189, 30);
             this.txt_idBill.TabIndex = 5;
             // 
-            // txt_name
-            // 
-            this.txt_name.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.txt_name.Location = new System.Drawing.Point(168, 132);
-            this.txt_name.Name = "txt_name";
-            this.txt_name.Size = new System.Drawing.Size(189, 30);
-            this.txt_name.TabIndex = 10;
-            // 
-            // label7
-            // 
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label7.Location = new System.Drawing.Point(27, 367);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(115, 28);
-            this.label7.TabIndex = 11;
-            this.label7.Text = "From day:";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // label8
-            // 
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label8.Location = new System.Drawing.Point(27, 414);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(115, 28);
-            this.label8.TabIndex = 12;
-            this.label8.Text = "To day:";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // dateTimePickerStartDate
-            // 
-            this.dateTimePickerStartDate.Location = new System.Drawing.Point(157, 367);
-            this.dateTimePickerStartDate.Name = "dateTimePickerStartDate";
-            this.dateTimePickerStartDate.Size = new System.Drawing.Size(200, 27);
-            this.dateTimePickerStartDate.TabIndex = 13;
-            this.dateTimePickerStartDate.ValueChanged += new System.EventHandler(this.dateTimePickerStartDate_ValueChanged);
-            // 
-            // dateTimePickerEndDate
-            // 
-            this.dateTimePickerEndDate.Location = new System.Drawing.Point(157, 415);
-            this.dateTimePickerEndDate.Name = "dateTimePickerEndDate";
-            this.dateTimePickerEndDate.Size = new System.Drawing.Size(200, 27);
-            this.dateTimePickerEndDate.TabIndex = 14;
-            this.dateTimePickerEndDate.ValueChanged += new System.EventHandler(this.dateTimePickerEndDate_ValueChanged);
-            // 
             // txt_totalAmount
             // 
             this.txt_totalAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
@@ -224,29 +282,12 @@
             this.label9.Text = "Total Amount:";
             this.label9.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // txt_money
-            // 
-            this.txt_money.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.txt_money.Location = new System.Drawing.Point(168, 315);
-            this.txt_money.Name = "txt_money";
-            this.txt_money.Size = new System.Drawing.Size(189, 30);
-            this.txt_money.TabIndex = 16;
-            // 
-            // label10
-            // 
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label10.Location = new System.Drawing.Point(66, 318);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(75, 28);
-            this.label10.TabIndex = 15;
-            this.label10.Text = "Total:";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
             // guna2Button1
             // 
             this.guna2Button1.BackColor = System.Drawing.Color.Transparent;
             this.guna2Button1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.guna2Button1.BorderRadius = 20;
+            this.guna2Button1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.guna2Button1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -261,16 +302,6 @@
             this.guna2Button1.Text = "EXPORT EXCEL";
             this.guna2Button1.Click += new System.EventHandler(this.guna2Button1_Click);
             // 
-            // label11
-            // 
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label11.Location = new System.Drawing.Point(66, 40);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(75, 28);
-            this.label11.TabIndex = 17;
-            this.label11.Text = "ID Bill:";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
@@ -280,36 +311,6 @@
             this.label2.TabIndex = 18;
             this.label2.Text = "ID Employee:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label3
-            // 
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label3.Location = new System.Drawing.Point(27, 114);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(118, 67);
-            this.label3.TabIndex = 19;
-            this.label3.Text = "Name Employee:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label4
-            // 
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label4.Location = new System.Drawing.Point(28, 194);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(134, 32);
-            this.label4.TabIndex = 20;
-            this.label4.Text = "Date Created:";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label5
-            // 
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label5.Location = new System.Drawing.Point(70, 255);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(75, 28);
-            this.label5.TabIndex = 21;
-            this.label5.Text = "State:";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // Frm_revenueMangament
             // 

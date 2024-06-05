@@ -37,15 +37,23 @@ namespace DuAnMau
 
         private void btn_exit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            var result = MessageBox.Show("Are you sure you want to exit?", "Exit Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
         }
 
         private void btn_logout_Click(object sender, EventArgs e)
         {
-            Frm_login loginForm = new Frm_login();
-            loginForm.ClearCredentials(); 
-            loginForm.Show();
-            this.Close();
+            var result = MessageBox.Show("Are you sure you want to log out?", "Logout Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                Frm_login loginForm = new Frm_login();
+                loginForm.ClearCredentials();
+                loginForm.Show();
+                this.Close();
+            }
         }
 
         private void btn_order_Click(object sender, EventArgs e)
@@ -61,6 +69,19 @@ namespace DuAnMau
         private void btn_product_Click(object sender, EventArgs e)
         {
             OpenChildForm(new Frm_Product_Management());
+        }
+
+        private void btn_history_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new Frm_activityHistory());
+        }
+
+        private void btn_home_Click(object sender, EventArgs e)
+        {
+            if (currentFormChild != null)
+            {
+                currentFormChild.Close();
+            }
         }
     }
 }

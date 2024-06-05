@@ -9,10 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.Linq;
 using System.Data.SqlClient;
-<<<<<<< Updated upstream
-using ClosedXML.Excel;
-=======
->>>>>>> Stashed changes
+
 using System.Runtime.InteropServices;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Text.RegularExpressions;
@@ -22,9 +19,9 @@ namespace EmployeeManagement
 {
     public partial class Frm_EmployeeManager : Form
     {
-        private string _con = "Data Source=DESKTOP-7QHBA3R;Initial Catalog=FastFoodDB;Integrated Security=True;";
 
-        public Frm_EmployeeManager()
+        private Cl_conn clConn = new Cl_conn();
+        public Frm_employeeManager()
         {
             InitializeComponent();
             Load_dgv_manager();
@@ -33,7 +30,7 @@ namespace EmployeeManagement
 
         public void Load_dgv_manager()
         {
-            using (var db = new DataClasses1DataContext(_con))
+            using (var db = new DataClasses1DataContext(clConn.conn))
             {
                 var query = from nv in db.NHAN_VIENs
                             select nv;
@@ -100,7 +97,7 @@ namespace EmployeeManagement
             {
                 if (!ValidateFields())
                     return;
-                using (var db = new DataClasses1DataContext(_con))
+                using (var db = new DataClasses1DataContext(clConn.conn))
                 {
                     NHAN_VIEN newEmployee = new NHAN_VIEN
                     {
@@ -134,7 +131,7 @@ namespace EmployeeManagement
             {
                 if (!ValidateFields())
                     return;
-                using (var db = new DataClasses1DataContext(_con))
+                using (var db = new DataClasses1DataContext(clConn.conn))
                 {
                     var query = from nv in db.NHAN_VIENs
                                 where nv.MaNhanVien == txt_IDStaff.Text
@@ -181,7 +178,7 @@ namespace EmployeeManagement
                 DialogResult result = MessageBox.Show("Are you sure you want to delete this employee?", "Delete Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    using (var db = new DataClasses1DataContext(_con))
+                    using (var db = new DataClasses1DataContext(clConn.conn))
                     {
                         var query = from nv in db.NHAN_VIENs
                                     where nv.MaNhanVien == txt_IDStaff.Text
@@ -281,7 +278,7 @@ namespace EmployeeManagement
 
         private void txt_Find_TextChanged(object sender, EventArgs e)
         {
-            using (var db = new DataClasses1DataContext(_con))
+            using (var db = new DataClasses1DataContext(clConn.conn))
             {
                 var keyword = txt_Find.Text.Trim();
                 var findnv = from nv in db.NHAN_VIENs

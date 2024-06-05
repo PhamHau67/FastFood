@@ -15,12 +15,8 @@ namespace DuAnMau
         static void Main()
         {
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-<<<<<<< Updated upstream
-            Application.Run(new Frm_revenueMangament());
-=======
-            Application.Run(new Frm_activityHistory());
->>>>>>> Stashed changes
+            Application.SetCompatibleTextRenderingDefault(false);   
+            Application.Run(new Frm_login());
         }
     }
 }

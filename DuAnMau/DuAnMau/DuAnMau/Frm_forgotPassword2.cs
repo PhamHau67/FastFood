@@ -121,7 +121,7 @@ namespace DuAnMau
                     {
 
                         MessageBox.Show("OTP does not match. Please check again.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        txt_enter.Text = string.Empty;
+                        //txt_enter.Text = string.Empty;
                     }
                 }
                 else

@@ -9,15 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.Linq;
 using System.Data.SqlClient;
-
 using System.Runtime.InteropServices;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Text.RegularExpressions;
 using DuAnMau;
 
-namespace EmployeeManagement
+namespace employeeManagement
 {
-    public partial class Frm_EmployeeManager : Form
+    public partial class Frm_employeeManager : Form
     {
 
         private Cl_conn clConn = new Cl_conn();
@@ -26,6 +25,13 @@ namespace EmployeeManagement
             InitializeComponent();
             Load_dgv_manager();
             dgv_staff.RowHeadersVisible = false;
+
+            dtp_Birthday.Format = DateTimePickerFormat.Custom;
+            dtp_Birthday.CustomFormat = "dd/MM/yyyy";
+            dtp_SignUpDay.Format = DateTimePickerFormat.Custom;
+            dtp_SignUpDay.CustomFormat = "dd/MM/yyyy";
+
+
         }
 
         public void Load_dgv_manager()
@@ -61,11 +67,11 @@ namespace EmployeeManagement
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = dgv_staff.Rows[e.RowIndex];
-                txt_IDStaff.Text = row.Cells["Employee ID"].Value.ToString();
-                txt_NameStaff.Text = row.Cells["Employee Name"].Value.ToString();
-                txt_CCCD.Text = row.Cells["Identification Number"].Value.ToString();
-                txt_IDDepartment.Text = row.Cells["Department ID"].Value.ToString();
-                txt_IDRole.Text = row.Cells["Role ID"].Value.ToString();
+                txt_IDStaff.Text = row.Cells["Employee ID"].Value.ToString().Trim();
+                txt_NameStaff.Text = row.Cells["Employee Name"].Value.ToString().Trim();
+                txt_CCCD.Text = row.Cells["Identification Number"].Value.ToString().Trim();
+                txt_IDDepartment.Text = row.Cells["Department ID"].Value.ToString().Trim();
+                txt_IDRole.Text = row.Cells["Role ID"].Value.ToString().Trim();
                 dtp_Birthday.Value = DateTime.Parse(row.Cells["Date of Birth"].Value.ToString());
                 string gender = row.Cells["Gender"].Value.ToString();
                 if (gender == "Male")
@@ -76,9 +82,9 @@ namespace EmployeeManagement
                 {
                     rdo_Female.Checked = true;
                 }
-                txt_PhoneNumber.Text = row.Cells["Phone Number"].Value.ToString();
+                txt_PhoneNumber.Text = row.Cells["Phone Number"].Value.ToString().Trim();
                 dtp_SignUpDay.Value = DateTime.Parse(row.Cells["Registration Date"].Value.ToString());
-                txt_Gmail.Text = row.Cells["Email"].Value.ToString();
+                txt_Gmail.Text = row.Cells["Email"].Value.ToString().Trim();
                 string status = row.Cells["Status"].Value.ToString();
                 if (status == "Working")
                 {
@@ -321,7 +327,7 @@ namespace EmployeeManagement
 
         private bool ValidateCCCD(string cccd)
         {
-            if (cccd.Any(char.IsLetter) || Convert.ToInt32(cccd) < 0)
+            if (cccd.Any(char.IsLetter) || Convert.ToInt64(cccd) < 0)
                 return false;
             return true;
         }

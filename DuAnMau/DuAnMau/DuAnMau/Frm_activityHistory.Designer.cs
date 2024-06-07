@@ -1,4 +1,4 @@
-﻿namespace EmployeeManagement
+﻿namespace DuAnMau
 {
     partial class Frm_activityHistory
     {
@@ -28,21 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgv_LichSu = new System.Windows.Forms.DataGridView();
             this.grp_find = new System.Windows.Forms.GroupBox();
+            this.btn_export = new Guna.UI2.WinForms.Guna2Button();
+            this.lbl_dateEnd = new System.Windows.Forms.Label();
+            this.lbl_dateStart = new System.Windows.Forms.Label();
+            this.dtp_end = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.lbl_status = new System.Windows.Forms.Label();
+            this.dtp_start = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.lbl_quay = new System.Windows.Forms.Label();
+            this.btn_refresh = new Guna.UI2.WinForms.Guna2Button();
             this.lbl_IDShift = new System.Windows.Forms.Label();
             this.cbo_status = new System.Windows.Forms.ComboBox();
             this.cbo_counter = new System.Windows.Forms.ComboBox();
             this.cbo_shift = new System.Windows.Forms.ComboBox();
             this.txt_find = new Guna.UI2.WinForms.Guna2TextBox();
-            this.btn_refresh = new Guna.UI2.WinForms.Guna2Button();
-            this.dtp_start = new Guna.UI2.WinForms.Guna2DateTimePicker();
-            this.dtp_end = new Guna.UI2.WinForms.Guna2DateTimePicker();
-            this.lbl_dateStart = new System.Windows.Forms.Label();
-            this.lbl_dateEnd = new System.Windows.Forms.Label();
-            this.btn_export = new Guna.UI2.WinForms.Guna2Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_LichSu)).BeginInit();
             this.grp_find.SuspendLayout();
             this.SuspendLayout();
@@ -50,10 +53,33 @@
             // dgv_LichSu
             // 
             this.dgv_LichSu.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgv_LichSu.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_LichSu.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dgv_LichSu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv_LichSu.DefaultCellStyle = dataGridViewCellStyle8;
             this.dgv_LichSu.Location = new System.Drawing.Point(2, 327);
             this.dgv_LichSu.Name = "dgv_LichSu";
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_LichSu.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dgv_LichSu.RowHeadersWidth = 62;
             this.dgv_LichSu.RowTemplate.Height = 28;
             this.dgv_LichSu.Size = new System.Drawing.Size(1241, 525);
@@ -74,12 +100,65 @@
             this.grp_find.Controls.Add(this.cbo_counter);
             this.grp_find.Controls.Add(this.cbo_shift);
             this.grp_find.Controls.Add(this.txt_find);
-            this.grp_find.Location = new System.Drawing.Point(2, 24);
+            this.grp_find.Location = new System.Drawing.Point(2, 12);
             this.grp_find.Name = "grp_find";
-            this.grp_find.Size = new System.Drawing.Size(1241, 310);
+            this.grp_find.Size = new System.Drawing.Size(1241, 322);
             this.grp_find.TabIndex = 1;
             this.grp_find.TabStop = false;
             this.grp_find.Text = "Finding information";
+            // 
+            // btn_export
+            // 
+            this.btn_export.BorderRadius = 10;
+            this.btn_export.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btn_export.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btn_export.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btn_export.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btn_export.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
+            this.btn_export.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btn_export.ForeColor = System.Drawing.Color.Black;
+            this.btn_export.Location = new System.Drawing.Point(783, 231);
+            this.btn_export.Name = "btn_export";
+            this.btn_export.Size = new System.Drawing.Size(180, 57);
+            this.btn_export.TabIndex = 6;
+            this.btn_export.Text = "Export excel";
+            this.btn_export.Click += new System.EventHandler(this.btn_export_Click);
+            // 
+            // lbl_dateEnd
+            // 
+            this.lbl_dateEnd.AutoSize = true;
+            this.lbl_dateEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_dateEnd.Location = new System.Drawing.Point(815, 136);
+            this.lbl_dateEnd.Name = "lbl_dateEnd";
+            this.lbl_dateEnd.Size = new System.Drawing.Size(93, 25);
+            this.lbl_dateEnd.TabIndex = 5;
+            this.lbl_dateEnd.Text = "Date End";
+            // 
+            // lbl_dateStart
+            // 
+            this.lbl_dateStart.AutoSize = true;
+            this.lbl_dateStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_dateStart.Location = new System.Drawing.Point(815, 57);
+            this.lbl_dateStart.Name = "lbl_dateStart";
+            this.lbl_dateStart.Size = new System.Drawing.Size(99, 25);
+            this.lbl_dateStart.TabIndex = 5;
+            this.lbl_dateStart.Text = "Date Start";
+            // 
+            // dtp_end
+            // 
+            this.dtp_end.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(232)))), ((int)(((byte)(209)))));
+            this.dtp_end.BorderRadius = 15;
+            this.dtp_end.Checked = true;
+            this.dtp_end.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.dtp_end.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.dtp_end.Format = System.Windows.Forms.DateTimePickerFormat.Long;
+            this.dtp_end.Location = new System.Drawing.Point(935, 127);
+            this.dtp_end.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
+            this.dtp_end.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
+            this.dtp_end.Name = "dtp_end";
+            this.dtp_end.Size = new System.Drawing.Size(250, 45);
+            this.dtp_end.TabIndex = 4;
+            this.dtp_end.Value = new System.DateTime(2024, 6, 3, 10, 29, 50, 741);
             // 
             // lbl_status
             // 
@@ -91,6 +170,22 @@
             this.lbl_status.TabIndex = 2;
             this.lbl_status.Text = "Status";
             // 
+            // dtp_start
+            // 
+            this.dtp_start.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(232)))), ((int)(((byte)(209)))));
+            this.dtp_start.BorderRadius = 15;
+            this.dtp_start.Checked = true;
+            this.dtp_start.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.dtp_start.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.dtp_start.Format = System.Windows.Forms.DateTimePickerFormat.Long;
+            this.dtp_start.Location = new System.Drawing.Point(935, 46);
+            this.dtp_start.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
+            this.dtp_start.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
+            this.dtp_start.Name = "dtp_start";
+            this.dtp_start.Size = new System.Drawing.Size(250, 45);
+            this.dtp_start.TabIndex = 4;
+            this.dtp_start.Value = new System.DateTime(2024, 6, 3, 10, 29, 50, 741);
+            // 
             // lbl_quay
             // 
             this.lbl_quay.AutoSize = true;
@@ -100,6 +195,23 @@
             this.lbl_quay.Size = new System.Drawing.Size(82, 25);
             this.lbl_quay.TabIndex = 2;
             this.lbl_quay.Text = "Counter";
+            // 
+            // btn_refresh
+            // 
+            this.btn_refresh.BorderRadius = 10;
+            this.btn_refresh.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btn_refresh.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btn_refresh.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btn_refresh.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btn_refresh.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
+            this.btn_refresh.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btn_refresh.ForeColor = System.Drawing.Color.Black;
+            this.btn_refresh.Location = new System.Drawing.Point(1005, 231);
+            this.btn_refresh.Name = "btn_refresh";
+            this.btn_refresh.Size = new System.Drawing.Size(180, 57);
+            this.btn_refresh.TabIndex = 3;
+            this.btn_refresh.Text = "Refresh";
+            this.btn_refresh.Click += new System.EventHandler(this.btn_refresh_Click_1);
             // 
             // lbl_IDShift
             // 
@@ -150,7 +262,7 @@
             this.txt_find.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txt_find.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txt_find.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txt_find.Location = new System.Drawing.Point(135, 136);
+            this.txt_find.Location = new System.Drawing.Point(59, 145);
             this.txt_find.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txt_find.Name = "txt_find";
             this.txt_find.PasswordChar = '\0';
@@ -158,87 +270,6 @@
             this.txt_find.SelectedText = "";
             this.txt_find.Size = new System.Drawing.Size(444, 60);
             this.txt_find.TabIndex = 0;
-            this.txt_find.TextChanged += new System.EventHandler(this.txt_find_TextChanged);
-            // 
-            // btn_refresh
-            // 
-            this.btn_refresh.BorderRadius = 10;
-            this.btn_refresh.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btn_refresh.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btn_refresh.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btn_refresh.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btn_refresh.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
-            this.btn_refresh.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btn_refresh.ForeColor = System.Drawing.Color.Black;
-            this.btn_refresh.Location = new System.Drawing.Point(1005, 231);
-            this.btn_refresh.Name = "btn_refresh";
-            this.btn_refresh.Size = new System.Drawing.Size(180, 45);
-            this.btn_refresh.TabIndex = 3;
-            this.btn_refresh.Text = "Refresh";
-            this.btn_refresh.Click += new System.EventHandler(this.btn_refresh_Click_1);
-            // 
-            // dtp_start
-            // 
-            this.dtp_start.Checked = true;
-            this.dtp_start.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.dtp_start.Format = System.Windows.Forms.DateTimePickerFormat.Long;
-            this.dtp_start.Location = new System.Drawing.Point(935, 46);
-            this.dtp_start.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
-            this.dtp_start.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
-            this.dtp_start.Name = "dtp_start";
-            this.dtp_start.Size = new System.Drawing.Size(250, 45);
-            this.dtp_start.TabIndex = 4;
-            this.dtp_start.Value = new System.DateTime(2024, 6, 3, 10, 29, 50, 741);
-            // 
-            // dtp_end
-            // 
-            this.dtp_end.Checked = true;
-            this.dtp_end.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.dtp_end.Format = System.Windows.Forms.DateTimePickerFormat.Long;
-            this.dtp_end.Location = new System.Drawing.Point(935, 127);
-            this.dtp_end.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
-            this.dtp_end.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
-            this.dtp_end.Name = "dtp_end";
-            this.dtp_end.Size = new System.Drawing.Size(250, 45);
-            this.dtp_end.TabIndex = 4;
-            this.dtp_end.Value = new System.DateTime(2024, 6, 3, 10, 29, 50, 741);
-            // 
-            // lbl_dateStart
-            // 
-            this.lbl_dateStart.AutoSize = true;
-            this.lbl_dateStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_dateStart.Location = new System.Drawing.Point(815, 57);
-            this.lbl_dateStart.Name = "lbl_dateStart";
-            this.lbl_dateStart.Size = new System.Drawing.Size(99, 25);
-            this.lbl_dateStart.TabIndex = 5;
-            this.lbl_dateStart.Text = "Date Start";
-            // 
-            // lbl_dateEnd
-            // 
-            this.lbl_dateEnd.AutoSize = true;
-            this.lbl_dateEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_dateEnd.Location = new System.Drawing.Point(815, 136);
-            this.lbl_dateEnd.Name = "lbl_dateEnd";
-            this.lbl_dateEnd.Size = new System.Drawing.Size(93, 25);
-            this.lbl_dateEnd.TabIndex = 5;
-            this.lbl_dateEnd.Text = "Date End";
-            // 
-            // btn_export
-            // 
-            this.btn_export.BorderRadius = 10;
-            this.btn_export.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btn_export.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btn_export.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btn_export.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btn_export.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
-            this.btn_export.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btn_export.ForeColor = System.Drawing.Color.Black;
-            this.btn_export.Location = new System.Drawing.Point(783, 231);
-            this.btn_export.Name = "btn_export";
-            this.btn_export.Size = new System.Drawing.Size(180, 45);
-            this.btn_export.TabIndex = 6;
-            this.btn_export.Text = "Export excel";
-            this.btn_export.Click += new System.EventHandler(this.btn_export_Click);
             // 
             // Frm_activityHistory
             // 

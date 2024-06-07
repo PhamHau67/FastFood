@@ -9,13 +9,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.Linq;
 using System.Data.SqlClient;
-//using ClosedXML.Excel;
 using System.Runtime.InteropServices;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Text.RegularExpressions;
-using DuAnMau;
+using System.Windows.Controls;
 
-namespace EmployeeManagement
+namespace DuAnMau
 {
     public partial class Frm_activityHistory : Form
     {
@@ -34,12 +33,16 @@ namespace EmployeeManagement
             cbo_shift.Items.Add("CK005");
             cbo_status.Items.Add("Present");
             cbo_status.Items.Add("Absent");
+            dtp_start.Value = DateTime.Now;
+            dtp_end.Value = DateTime.Now;
 
-            cbo_shift.SelectedIndexChanged += new EventHandler(FilterChanged);
-            cbo_counter.SelectedIndexChanged += new EventHandler(FilterChanged);
-            cbo_status.SelectedIndexChanged += new EventHandler(FilterChanged);
-            dtp_start.ValueChanged += new EventHandler(FilterChanged);
-            dtp_end.ValueChanged += new EventHandler(FilterChanged);
+            // Đăng ký sự kiện
+            cbo_shift.SelectedIndexChanged += FilterChanged;
+            cbo_counter.SelectedIndexChanged += FilterChanged;
+            cbo_status.SelectedIndexChanged += FilterChanged;
+            dtp_start.ValueChanged += FilterChanged;
+            dtp_end.ValueChanged += FilterChanged;
+
         }
 
         public void Load_dgv_activity()
@@ -79,77 +82,11 @@ namespace EmployeeManagement
             }
         }
 
-        private void txt_find_TextChanged(object sender, EventArgs e)
-        {
-            FilterData();
-        }
+        
 
-        private void FilterChanged(object sender, EventArgs e)
-        {
-            FilterData();
-        }
 
-        private void FilterData()
-        {
-            DateTime startDate = dtp_start.Value.Date;
-            DateTime endDate = dtp_end.Value.Date.AddDays(1).AddTicks(-1);
 
-            using (var db = new DataClasses1DataContext(_con))
-            {
-                var keyword = txt_find.Text.Trim();
-                var shiftFilter = cbo_shift.SelectedItem?.ToString();
-                var counterFilter = cbo_counter.SelectedItem?.ToString();
-                var statusFilter = cbo_status.SelectedItem?.ToString();
-
-                var findnv = from nv in db.NHAN_VIENs
-                             join nvc in db.NHANVIEN_CAKIPs on nv.MaNhanVien equals nvc.MaNhanVien
-                             join ck in db.CAKIPs on nvc.MaCaKip equals ck.MaCaKip
-                             where (string.IsNullOrEmpty(keyword) || nv.MaNhanVien.Contains(keyword) || ck.MaCaKip.Contains(keyword) || nv.TenNhanVien.Contains(keyword) || nvc.Quay.Contains(keyword) || nvc.NgayLam.ToString().Contains(keyword))
-                                && (string.IsNullOrEmpty(shiftFilter) || nvc.MaCaKip == shiftFilter)
-                                && (string.IsNullOrEmpty(counterFilter) || nvc.Quay == counterFilter)
-                                && (string.IsNullOrEmpty(statusFilter) || (statusFilter == "Present" && nvc.TrangThai == true) || (statusFilter == "Absent" && nvc.TrangThai == false))
-                                && nvc.NgayLam >= startDate && nvc.NgayLam <= endDate
-                             select new
-                             {
-                                 ck.MaCaKip,
-                                 ck.GioBatDau,
-                                 ck.GioKetThuc,
-                                 nv.MaNhanVien,
-                                 nv.TenNhanVien,
-                                 nvc.Quay,
-                                 nvc.NgayLam,
-                                 Status = (bool)nvc.TrangThai ? "Present" : "Absent",
-                             };
-
-                // Create DataTable from the query result
-                DataTable dt = new DataTable();
-                dt.Columns.Add("ShiftCode");
-                dt.Columns.Add("StartTime");
-                dt.Columns.Add("EndTime");
-                dt.Columns.Add("EmployeeID");
-                dt.Columns.Add("EmployeeName");
-                dt.Columns.Add("Counter");
-                dt.Columns.Add("WorkDate");
-                dt.Columns.Add("Status");
-
-                foreach (var item in findnv)
-                {
-                    DataRow row = dt.NewRow();
-                    row["ShiftCode"] = item.MaCaKip;
-                    row["StartTime"] = item.GioBatDau;
-                    row["EndTime"] = item.GioKetThuc;
-                    row["EmployeeID"] = item.MaNhanVien;
-                    row["EmployeeName"] = item.TenNhanVien;
-                    row["Counter"] = item.Quay;
-                    row["WorkDate"] = item.NgayLam.ToString("dd/MM/yyyy");
-                    row["Status"] = item.Status;
-                    dt.Rows.Add(row);
-                }
-
-                // Bind DataTable to DataGridView
-                dgv_LichSu.DataSource = dt;
-            }
-        }
+        
 
         private void btn_refresh_Click_1(object sender, EventArgs e)
         {
@@ -215,5 +152,66 @@ namespace EmployeeManagement
                 MessageBox.Show("No data to export!");
             }
         }
+
+        private void FilterChanged(object sender, EventArgs e)
+        {
+            FilterData();
+        }
+
+        private void FilterData()
+        {
+            string selectedShift = cbo_shift.SelectedItem?.ToString();
+            string selectedCounter = cbo_counter.SelectedItem?.ToString();
+            string selectedStatus = cbo_status.SelectedItem?.ToString();
+            DateTime startDate = dtp_start.Value.Date;
+            DateTime endDate = dtp_end.Value.Date.AddDays(1).AddSeconds(-1); // Get data until the end of endDate
+
+            using (var db = new DataClasses1DataContext(clConn.conn))
+            {
+                var query = from nv in db.NHAN_VIENs
+                            join nvc in db.NHANVIEN_CAKIPs on nv.MaNhanVien equals nvc.MaNhanVien
+                            join ck in db.CAKIPs on nvc.MaCaKip equals ck.MaCaKip
+                            where (string.IsNullOrEmpty(selectedShift) || ck.MaCaKip == selectedShift)
+                               && (string.IsNullOrEmpty(selectedCounter) || nvc.Quay == selectedCounter)
+                               && (string.IsNullOrEmpty(selectedStatus) ||
+                                   (selectedStatus == "Present" && nvc.TrangThai.HasValue && nvc.TrangThai.Value) ||
+                                   (selectedStatus == "Absent" && nvc.TrangThai.HasValue && !nvc.TrangThai.Value))
+                               && (nvc.NgayLam >= startDate && nvc.NgayLam <= endDate)
+                            select new
+                            {
+                                nvc.MaCaKip,
+                                ck.GioBatDau,
+                                ck.GioKetThuc,
+                                nvc.MaNhanVien,
+                                nv.TenNhanVien,
+                                nvc.Quay,
+                                nvc.NgayLam,
+                                nvc.TrangThai
+                            };
+
+                DataTable dt = new DataTable();
+                dt.Columns.Add("ShiftCode");
+                dt.Columns.Add("StartTime");
+                dt.Columns.Add("EndTime");
+                dt.Columns.Add("EmployeeID");
+                dt.Columns.Add("EmployeeName");
+                dt.Columns.Add("Counter");
+                dt.Columns.Add("WorkDate");
+                dt.Columns.Add("Status");
+
+                foreach (var item in query)
+                {
+                    string status = item.TrangThai.HasValue && item.TrangThai.Value ? "Present" : "Absent";
+                    dt.Rows.Add(item.MaCaKip, item.GioBatDau, item.GioKetThuc, item.MaNhanVien, item.TenNhanVien, item.Quay, item.NgayLam, status);
+                }
+
+                dgv_LichSu.DataSource = dt;
+                
+            }
+        }
+
+
+
+
     }
 }

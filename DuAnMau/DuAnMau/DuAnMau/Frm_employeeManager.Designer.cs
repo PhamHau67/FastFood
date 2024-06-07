@@ -1,6 +1,6 @@
-﻿namespace EmployeeManagement
+﻿namespace employeeManagement
 {
-    partial class Frm_EmployeeManager
+    partial class Frm_employeeManager
     {
         /// <summary>
         /// Required designer variable.
@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txt_NameStaff = new Guna.UI2.WinForms.Guna2TextBox();
             this.txt_IDStaff = new Guna.UI2.WinForms.Guna2TextBox();
             this.lbl_Status = new System.Windows.Forms.Label();
@@ -221,7 +223,23 @@
             // dgv_staff
             // 
             this.dgv_staff.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_staff.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgv_staff.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv_staff.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgv_staff.Location = new System.Drawing.Point(14, 1);
             this.dgv_staff.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dgv_staff.Name = "dgv_staff";
@@ -463,7 +481,7 @@
             this.btn_Add.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btn_Add.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
             this.btn_Add.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btn_Add.ForeColor = System.Drawing.Color.White;
+            this.btn_Add.ForeColor = System.Drawing.Color.Black;
             this.btn_Add.Location = new System.Drawing.Point(890, 882);
             this.btn_Add.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_Add.Name = "btn_Add";
@@ -481,7 +499,7 @@
             this.btn_Update.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btn_Update.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
             this.btn_Update.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btn_Update.ForeColor = System.Drawing.Color.White;
+            this.btn_Update.ForeColor = System.Drawing.Color.Black;
             this.btn_Update.Location = new System.Drawing.Point(890, 968);
             this.btn_Update.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_Update.Name = "btn_Update";
@@ -499,7 +517,7 @@
             this.btn_Refresh.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btn_Refresh.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
             this.btn_Refresh.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btn_Refresh.ForeColor = System.Drawing.Color.White;
+            this.btn_Refresh.ForeColor = System.Drawing.Color.Black;
             this.btn_Refresh.Location = new System.Drawing.Point(1029, 882);
             this.btn_Refresh.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_Refresh.Name = "btn_Refresh";
@@ -517,7 +535,7 @@
             this.btn_Delete.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btn_Delete.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
             this.btn_Delete.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btn_Delete.ForeColor = System.Drawing.Color.White;
+            this.btn_Delete.ForeColor = System.Drawing.Color.Black;
             this.btn_Delete.Location = new System.Drawing.Point(1029, 968);
             this.btn_Delete.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_Delete.Name = "btn_Delete";
@@ -535,7 +553,7 @@
             this.btn_Export.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btn_Export.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
             this.btn_Export.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btn_Export.ForeColor = System.Drawing.Color.White;
+            this.btn_Export.ForeColor = System.Drawing.Color.Black;
             this.btn_Export.Location = new System.Drawing.Point(561, 968);
             this.btn_Export.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_Export.Name = "btn_Export";

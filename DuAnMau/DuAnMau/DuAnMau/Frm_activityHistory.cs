@@ -33,16 +33,16 @@ namespace DuAnMau
             cbo_shift.Items.Add("CK005");
             cbo_status.Items.Add("Present");
             cbo_status.Items.Add("Absent");
-            dtp_start.Value = DateTime.Now;
-            dtp_end.Value = DateTime.Now;
 
-            // Đăng ký sự kiện
-            cbo_shift.SelectedIndexChanged += FilterChanged;
-            cbo_counter.SelectedIndexChanged += FilterChanged;
-            cbo_status.SelectedIndexChanged += FilterChanged;
-            dtp_start.ValueChanged += FilterChanged;
-            dtp_end.ValueChanged += FilterChanged;
 
+            cbo_shift.SelectedIndexChanged += new EventHandler(FilterChanged);
+            cbo_counter.SelectedIndexChanged += new EventHandler(FilterChanged);
+            cbo_status.SelectedIndexChanged += new EventHandler(FilterChanged);
+
+            dtp_start.Format = DateTimePickerFormat.Custom;
+            dtp_start.CustomFormat = "dd/MM/yyyy";
+            dtp_end.Format = DateTimePickerFormat.Custom;
+            dtp_end.CustomFormat = "dd/MM/yyyy";
         }
 
         public void Load_dgv_activity()
@@ -63,6 +63,7 @@ namespace DuAnMau
                                 nvc.NgayLam,
                                 nvc.TrangThai
                             };
+
                 DataTable dt = new DataTable();
                 dt.Columns.Add("ShiftCode");
                 dt.Columns.Add("StartTime");
@@ -72,21 +73,18 @@ namespace DuAnMau
                 dt.Columns.Add("Counter");
                 dt.Columns.Add("WorkDate");
                 dt.Columns.Add("Status");
+
                 foreach (var item in query)
                 {
                     string status = (bool)item.TrangThai ? "Present" : "Absent";
-                    dt.Rows.Add(item.MaCaKip, item.GioBatDau, item.GioKetThuc, item.MaNhanVien, item.TenNhanVien, item.Quay, item.NgayLam, status);
+                    // Định dạng ngày tháng sau khi lấy dữ liệu từ cơ sở dữ liệu
+                    string workDate = item.NgayLam.ToString("dd/MM/yyyy");
+                    dt.Rows.Add(item.MaCaKip, item.GioBatDau, item.GioKetThuc, item.MaNhanVien, item.TenNhanVien, item.Quay, workDate, status);
                 }
 
                 dgv_LichSu.DataSource = dt;
             }
         }
-
-        
-
-
-
-        
 
         private void btn_refresh_Click_1(object sender, EventArgs e)
         {
@@ -160,34 +158,37 @@ namespace DuAnMau
 
         private void FilterData()
         {
-            string selectedShift = cbo_shift.SelectedItem?.ToString();
-            string selectedCounter = cbo_counter.SelectedItem?.ToString();
-            string selectedStatus = cbo_status.SelectedItem?.ToString();
-            DateTime startDate = dtp_start.Value.Date;
-            DateTime endDate = dtp_end.Value.Date.AddDays(1).AddSeconds(-1); // Get data until the end of endDate
-
             using (var db = new DataClasses1DataContext(clConn.conn))
             {
-                var query = from nv in db.NHAN_VIENs
-                            join nvc in db.NHANVIEN_CAKIPs on nv.MaNhanVien equals nvc.MaNhanVien
-                            join ck in db.CAKIPs on nvc.MaCaKip equals ck.MaCaKip
-                            where (string.IsNullOrEmpty(selectedShift) || ck.MaCaKip == selectedShift)
-                               && (string.IsNullOrEmpty(selectedCounter) || nvc.Quay == selectedCounter)
-                               && (string.IsNullOrEmpty(selectedStatus) ||
-                                   (selectedStatus == "Present" && nvc.TrangThai.HasValue && nvc.TrangThai.Value) ||
-                                   (selectedStatus == "Absent" && nvc.TrangThai.HasValue && !nvc.TrangThai.Value))
-                               && (nvc.NgayLam >= startDate && nvc.NgayLam <= endDate)
-                            select new
-                            {
-                                nvc.MaCaKip,
-                                ck.GioBatDau,
-                                ck.GioKetThuc,
-                                nvc.MaNhanVien,
-                                nv.TenNhanVien,
-                                nvc.Quay,
-                                nvc.NgayLam,
-                                nvc.TrangThai
-                            };
+                var keyword = txt_find.Text.Trim();
+                var shiftFilter = cbo_shift.SelectedItem?.ToString();
+                var counterFilter = cbo_counter.SelectedItem?.ToString();
+                var statusFilter = cbo_status.SelectedItem?.ToString();
+
+                bool isDateFilterUsed = dtp_start.Value.Date != DateTime.Now.Date || dtp_end.Value.Date != DateTime.Now.Date;
+
+                var startDateFilter = dtp_start.Value.Date;
+                var endDateFilter = dtp_end.Value.Date.AddDays(1).AddSeconds(-1);
+
+                var findnv = from nv in db.NHAN_VIENs
+                             join nvc in db.NHANVIEN_CAKIPs on nv.MaNhanVien equals nvc.MaNhanVien
+                             join ck in db.CAKIPs on nvc.MaCaKip equals ck.MaCaKip
+                             where (string.IsNullOrEmpty(keyword) || nv.MaNhanVien.Contains(keyword) || ck.MaCaKip.Contains(keyword) || nv.TenNhanVien.Contains(keyword) || nvc.Quay.Contains(keyword) || nvc.NgayLam.ToString().Contains(keyword))
+                                && (string.IsNullOrEmpty(shiftFilter) || nvc.MaCaKip == shiftFilter)
+                                && (string.IsNullOrEmpty(counterFilter) || nvc.Quay == counterFilter)
+                                && (string.IsNullOrEmpty(statusFilter) || (statusFilter == "Present" && nvc.TrangThai == true) || (statusFilter == "Absent" && nvc.TrangThai == false))
+                                && (!isDateFilterUsed || (nvc.NgayLam >= startDateFilter && nvc.NgayLam <= endDateFilter)) // Áp dụng bộ lọc ngày tháng nếu cần
+                             select new
+                             {
+                                 ck.MaCaKip,
+                                 ck.GioBatDau,
+                                 ck.GioKetThuc,
+                                 nv.MaNhanVien,
+                                 nv.TenNhanVien,
+                                 nvc.Quay,
+                                 nvc.NgayLam,
+                                 TrangThai = (bool)nvc.TrangThai ? "Present" : "Absent",
+                             };
 
                 DataTable dt = new DataTable();
                 dt.Columns.Add("ShiftCode");
@@ -199,19 +200,29 @@ namespace DuAnMau
                 dt.Columns.Add("WorkDate");
                 dt.Columns.Add("Status");
 
-                foreach (var item in query)
+                foreach (var item in findnv)
                 {
-                    string status = item.TrangThai.HasValue && item.TrangThai.Value ? "Present" : "Absent";
-                    dt.Rows.Add(item.MaCaKip, item.GioBatDau, item.GioKetThuc, item.MaNhanVien, item.TenNhanVien, item.Quay, item.NgayLam, status);
+                    string workDate = isDateFilterUsed ? item.NgayLam.ToString("dd/MM/yyyy") : item.NgayLam.ToShortDateString(); // Định dạng ngày nếu sử dụng bộ lọc
+                    dt.Rows.Add(item.MaCaKip, item.GioBatDau, item.GioKetThuc, item.MaNhanVien, item.TenNhanVien, item.Quay, workDate, item.TrangThai);
                 }
 
                 dgv_LichSu.DataSource = dt;
-                
             }
         }
 
+        private void txt_find_TextChanged(object sender, EventArgs e)
+        {
+            FilterData();
+        }
 
+        private void dtp_end_ValueChanged(object sender, EventArgs e)
+        {
+            FilterData();
+        }
 
-
+        private void dtp_start_ValueChanged(object sender, EventArgs e)
+        {
+            FilterData();
+        }
     }
 }

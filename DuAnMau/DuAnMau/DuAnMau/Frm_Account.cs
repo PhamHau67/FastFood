@@ -9,6 +9,7 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace DuAnMau
 {
@@ -30,6 +31,7 @@ namespace DuAnMau
             dgv_Account.RowHeadersVisible = false;
             //dgv_Account.RowHeadersVisible = false;
         }
+
         public void LoadData_Dgv()
         {
             using (var db = new DataClasses1DataContext(clConn.conn))
@@ -41,12 +43,12 @@ namespace DuAnMau
                              join vt in db.VAITROs on nv.MaVaiTro equals vt.MaVaiTro
                              select new
                              {
-                                 tk.MaTaiKhoan,
-                                 tk.TenTaiKhoan,
-                                 tk.MatKhau,
-                                 nv.MaNhanVien,
-                                 nv.Gmail,
-                                 vt.TenVaiTro
+                                 MaTaiKhoan = tk.MaTaiKhoan.Trim(),
+                                 TenTaiKhoan = tk.TenTaiKhoan.Trim(),
+                                 MatKhau = tk.MatKhau.Trim(),
+                                 MaNhanVien = nv.MaNhanVien.Trim(),
+                                 Gmail = nv.Gmail.Trim(),
+                                 TenVaiTro = vt.TenVaiTro.Trim()
                              };
 
                 dgv_Account.DataSource = ListAc.ToList();
@@ -118,19 +120,16 @@ namespace DuAnMau
                             MessageBox.Show("Please complete all information!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
-                        // Check tên tài khoản tồn tại chưa
-                        ////cách thông thường
-                        //var ck_user = (from tk in db.TAI_KHOANs
-                        //                        where tk.TenTaiKhoan == username
-                        //                        select tk).FirstOrDefault();
 
-                        //if (ck_user != null)
-                        //{
-                        //    MessageBox.Show("Tên tài khoản này đã tồn tại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        //    return;
-                        //}
+                        // Kiểm tra định dạng Gmail bằng Regex
+                        string emailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+                        if (!Regex.IsMatch(gmail, emailPattern))
+                        {
+                            MessageBox.Show("Invalid Gmail format!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
                         // Check tên tài khoản tồn tại chưa
-                        /// dùng lamda
                         var ck_user = db.TAI_KHOANs.FirstOrDefault(tk => tk.TenTaiKhoan == username);
                         if (ck_user != null)
                         {
@@ -225,6 +224,13 @@ namespace DuAnMau
                             MessageBox.Show("Account not found for update!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
+                        // Kiểm tra định dạng Gmail bằng Regex
+                        string emailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+                        if (!Regex.IsMatch(gmail, emailPattern))
+                        {
+                            MessageBox.Show("Invalid Gmail format!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
 
                         // Cập nhật thông tin tài khoản
                         upDateAC.TenTaiKhoan = username;
@@ -266,29 +272,34 @@ namespace DuAnMau
 
         private void btn_del_Click(object sender, EventArgs e)
         {
-            using (var db = new DataClasses1DataContext(clConn.conn))
+            DialogResult result = MessageBox.Show("Are you sure you want to Delete this Account?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
             {
-                try
+                using (var db = new DataClasses1DataContext(clConn.conn))
                 {
-                    string accountID = txt_AccountID.Text.Trim();
-
-                    // Kiểm tra xem tài khoản có tồn tại trong bảng TAI_KHOAN hay không
-                    var accountToDelete = db.TAI_KHOANs.FirstOrDefault(tk => tk.MaTaiKhoan == accountID);
-                    if (accountToDelete == null)
+                    try
                     {
-                        MessageBox.Show("Account not found for deletion!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
+                        string accountID = txt_AccountID.Text.Trim();
+
+                        // Kiểm tra xem tài khoản có tồn tại trong bảng TAI_KHOAN hay không
+                        var accountToDelete = db.TAI_KHOANs.FirstOrDefault(tk => tk.MaTaiKhoan == accountID);
+                        if (accountToDelete == null)
+                        {
+                            MessageBox.Show("Account not found for deletion!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        db.TAI_KHOANs.DeleteOnSubmit(accountToDelete);
+                        db.SubmitChanges();
+
+                        LoadData_Dgv();
+                        MessageBox.Show("Account deleted successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-
-                    db.TAI_KHOANs.DeleteOnSubmit(accountToDelete);
-                    db.SubmitChanges();
-
-                    LoadData_Dgv();
-                    MessageBox.Show("Account deleted successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("An error occurred while deleting the account: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("An error occurred while deleting the account: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }

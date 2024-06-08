@@ -67,7 +67,7 @@
             this.dgv_revenue.Name = "dgv_revenue";
             this.dgv_revenue.RowHeadersWidth = 51;
             this.dgv_revenue.RowTemplate.Height = 24;
-            this.dgv_revenue.Size = new System.Drawing.Size(423, 465);
+            this.dgv_revenue.Size = new System.Drawing.Size(440, 465);
             this.dgv_revenue.TabIndex = 0;
             this.dgv_revenue.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_revenue_CellClick);
             // 
@@ -75,7 +75,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label1.Location = new System.Drawing.Point(106, 32);
+            this.label1.Location = new System.Drawing.Point(185, 43);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(502, 42);
@@ -90,7 +90,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(423, 106);
+            this.groupBox1.Size = new System.Drawing.Size(440, 106);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Search";
@@ -109,6 +109,7 @@
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.txt_money);
             this.groupBox2.Controls.Add(this.label10);
@@ -121,7 +122,7 @@
             this.groupBox2.Controls.Add(this.txt_day);
             this.groupBox2.Controls.Add(this.txt_idProduct);
             this.groupBox2.Controls.Add(this.txt_idBill);
-            this.groupBox2.Location = new System.Drawing.Point(446, 116);
+            this.groupBox2.Location = new System.Drawing.Point(463, 116);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
@@ -267,7 +268,7 @@
             // txt_totalAmount
             // 
             this.txt_totalAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.txt_totalAmount.Location = new System.Drawing.Point(603, 605);
+            this.txt_totalAmount.Location = new System.Drawing.Point(624, 601);
             this.txt_totalAmount.Name = "txt_totalAmount";
             this.txt_totalAmount.Size = new System.Drawing.Size(200, 30);
             this.txt_totalAmount.TabIndex = 16;
@@ -275,7 +276,7 @@
             // label9
             // 
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label9.Location = new System.Drawing.Point(445, 608);
+            this.label9.Location = new System.Drawing.Point(466, 604);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(142, 28);
             this.label9.TabIndex = 15;
@@ -295,7 +296,7 @@
             this.guna2Button1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(99)))), ((int)(((byte)(59)))));
             this.guna2Button1.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.guna2Button1.ForeColor = System.Drawing.Color.Gold;
-            this.guna2Button1.Location = new System.Drawing.Point(597, 652);
+            this.guna2Button1.Location = new System.Drawing.Point(607, 652);
             this.guna2Button1.Name = "guna2Button1";
             this.guna2Button1.Size = new System.Drawing.Size(217, 43);
             this.guna2Button1.TabIndex = 9;
@@ -305,12 +306,12 @@
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label2.Location = new System.Drawing.Point(489, 202);
+            this.label2.Location = new System.Drawing.Point(15, 86);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(130, 28);
             this.label2.TabIndex = 18;
             this.label2.Text = "ID Employee:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // Frm_revenueMangament
             // 
@@ -321,7 +322,6 @@
             this.Controls.Add(this.txt_totalAmount);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.guna2Button1);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);

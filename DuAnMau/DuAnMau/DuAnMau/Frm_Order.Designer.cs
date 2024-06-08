@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.pn_Menu = new Guna.UI2.WinForms.Guna2Panel();
+            this.lbl_EmployeeName = new System.Windows.Forms.Label();
             this.guna2Panel5 = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2HtmlLabel6 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -69,6 +70,7 @@
             this.pn_Menu.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.pn_Menu.BorderRadius = 20;
             this.pn_Menu.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+            this.pn_Menu.Controls.Add(this.lbl_EmployeeName);
             this.pn_Menu.Controls.Add(this.guna2Panel5);
             this.pn_Menu.Controls.Add(this.guna2HtmlLabel6);
             this.pn_Menu.Controls.Add(this.guna2HtmlLabel5);
@@ -84,6 +86,16 @@
             this.pn_Menu.Name = "pn_Menu";
             this.pn_Menu.Size = new System.Drawing.Size(540, 840);
             this.pn_Menu.TabIndex = 2;
+            // 
+            // lbl_EmployeeName
+            // 
+            this.lbl_EmployeeName.AutoSize = true;
+            this.lbl_EmployeeName.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_EmployeeName.Location = new System.Drawing.Point(39, 561);
+            this.lbl_EmployeeName.Name = "lbl_EmployeeName";
+            this.lbl_EmployeeName.Size = new System.Drawing.Size(194, 32);
+            this.lbl_EmployeeName.TabIndex = 10;
+            this.lbl_EmployeeName.Text = "Tên Nhân Viên";
             // 
             // guna2Panel5
             // 
@@ -140,7 +152,7 @@
             // 
             this.lbl_time.BackColor = System.Drawing.Color.Transparent;
             this.lbl_time.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_time.Location = new System.Drawing.Point(187, 49);
+            this.lbl_time.Location = new System.Drawing.Point(174, 58);
             this.lbl_time.Name = "lbl_time";
             this.lbl_time.Size = new System.Drawing.Size(62, 39);
             this.lbl_time.TabIndex = 1;
@@ -151,7 +163,7 @@
             this.lbl_odernow.AutoSize = false;
             this.lbl_odernow.BackColor = System.Drawing.Color.Transparent;
             this.lbl_odernow.Font = new System.Drawing.Font("Showcard Gothic", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_odernow.Location = new System.Drawing.Point(166, 7);
+            this.lbl_odernow.Location = new System.Drawing.Point(157, -1);
             this.lbl_odernow.Name = "lbl_odernow";
             this.lbl_odernow.Size = new System.Drawing.Size(404, 81);
             this.lbl_odernow.TabIndex = 0;
@@ -202,11 +214,6 @@
             0,
             0,
             0});
-            this.Nud_quantity.Minimum = new decimal(new int[] {
-            200,
-            0,
-            0,
-            -2147483648});
             this.Nud_quantity.Name = "Nud_quantity";
             this.Nud_quantity.Size = new System.Drawing.Size(106, 36);
             this.Nud_quantity.TabIndex = 3;
@@ -253,7 +260,7 @@
             this.btn_add.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btn_add.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btn_add.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
-            this.btn_add.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
+            this.btn_add.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_add.ForeColor = System.Drawing.Color.Black;
             this.btn_add.Location = new System.Drawing.Point(132, 449);
             this.btn_add.Name = "btn_add";
@@ -363,6 +370,7 @@
             // lstv_HoaDon
             // 
             this.lstv_HoaDon.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstv_HoaDon.FullRowSelect = true;
             this.lstv_HoaDon.HideSelection = false;
             this.lstv_HoaDon.LabelEdit = true;
             this.lstv_HoaDon.Location = new System.Drawing.Point(10, 11);
@@ -370,6 +378,7 @@
             this.lstv_HoaDon.Size = new System.Drawing.Size(518, 418);
             this.lstv_HoaDon.TabIndex = 9;
             this.lstv_HoaDon.UseCompatibleStateImageBehavior = false;
+            this.lstv_HoaDon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lstv_HoaDon_MouseDoubleClick);
             // 
             // guna2Panel2
             // 
@@ -467,7 +476,7 @@
             this.btn_Pay.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btn_Pay.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btn_Pay.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
-            this.btn_Pay.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Pay.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Pay.ForeColor = System.Drawing.Color.Black;
             this.btn_Pay.Location = new System.Drawing.Point(79, 752);
             this.btn_Pay.Name = "btn_Pay";
@@ -504,6 +513,7 @@
             this.Text = "Order";
             this.Load += new System.EventHandler(this.Frm_Order_Load);
             this.pn_Menu.ResumeLayout(false);
+            this.pn_Menu.PerformLayout();
             this.guna2Panel3.ResumeLayout(false);
             this.guna2Panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Nud_quantity)).EndInit();
@@ -542,5 +552,6 @@
         private Guna.UI2.WinForms.Guna2NumericUpDown Nud_quantity;
         private Guna.UI2.WinForms.Guna2ComboBox Cbo_dish;
         private Guna.UI2.WinForms.Guna2Button btn_add;
+        private System.Windows.Forms.Label lbl_EmployeeName;
     }
 }

@@ -60,7 +60,7 @@ namespace DuAnMau
 
         private void btn_order_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Frm_Order());
+            OpenChildForm(new Frm_Order(Globals.username));
         }
 
         private void btn_emplyess_Click(object sender, EventArgs e)

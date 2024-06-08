@@ -66,5 +66,16 @@ namespace DuAnMau.Properties {
                 return ((string)(this["FastFoodDBConnectionString1"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-F5INLQE\\HAU;Initial Catalog=FastFoodDB;Integrated Security=Tr" +
+            "ue;Encrypt=True;TrustServerCertificate=True")]
+        public string FastFoodDBConnectionString2 {
+            get {
+                return ((string)(this["FastFoodDBConnectionString2"]));
+            }
+        }
     }
 }

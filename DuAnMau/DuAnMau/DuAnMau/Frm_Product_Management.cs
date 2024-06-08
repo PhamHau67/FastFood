@@ -198,8 +198,8 @@ namespace DuAnMau
                             DonVi = DonViSP,
                             MoTaSanPham = MoTaSP,
                             Tien = dt_tien,
-                            SoLuong = dt_sl.ToString(),
-                            SoLuongConLai = dt_slConLai.ToString(),
+                            SoLuong = dt_sl,
+                            SoLuongConLai = dt_slConLai,
                             NSX = NSX,
                             HSD = HSD,
                             TrangThai = true,
@@ -337,8 +337,8 @@ namespace DuAnMau
                             pr.DonVi = DonViSP;
                             pr.MoTaSanPham = MoTaSP;
                             pr.Tien = dt_tien;
-                            pr.SoLuong = dt_sl.ToString();
-                            pr.SoLuongConLai = dt_slConLai.ToString();
+                            pr.SoLuong = dt_sl;
+                            pr.SoLuongConLai = dt_slConLai;
                             pr.NSX = NSX;
                             pr.HSD = HSD;
                             pr.MaNhaCungCap = MaNhaCC;

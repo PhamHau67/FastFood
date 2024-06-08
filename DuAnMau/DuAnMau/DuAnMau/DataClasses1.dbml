@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="FastFoodDB" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-F5INLQE\HAU;Initial Catalog=FastFoodDB;Integrated Security=True;Encrypt=True;Trust Server Certificate=True" SettingsObjectName="DuAnMau.Properties.Settings" SettingsPropertyName="FastFoodDBConnectionString2" Provider="System.Data.SqlClient" />
   <Table Name="dbo.BOPHAN" Member="BOPHANs">
     <Type Name="BOPHAN">
       <Column Name="MaBoPhan" Type="System.String" DbType="Char(5) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -17,7 +18,7 @@
   </Table>
   <Table Name="dbo.CHITIET_HOADON" Member="CHITIET_HOADONs">
     <Type Name="CHITIET_HOADON">
-      <Column Name="MaChiTietHoaDon" Type="System.String" DbType="Char(5) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MaChiTietHoaDon" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="MaHoaDon" Type="System.String" DbType="Char(5) NOT NULL" CanBeNull="false" />
       <Column Name="MaSanPham" Type="System.String" DbType="Char(5) NOT NULL" CanBeNull="false" />
       <Column Name="SoLuong" Type="System.String" DbType="Char(5) NOT NULL" CanBeNull="false" />
@@ -112,10 +113,10 @@
       <Column Name="MaSanPham" Type="System.String" DbType="Char(5) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="MaNhaCungCap" Type="System.String" DbType="Char(5) NOT NULL" CanBeNull="false" />
       <Column Name="Tien" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
-      <Column Name="SoLuong" Type="System.String" DbType="Char(5) NOT NULL" CanBeNull="false" />
+      <Column Name="SoLuong" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="NgayThem" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
       <Column Name="DonVi" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
-      <Column Name="SoLuongConLai" Type="System.String" DbType="Char(5) NOT NULL" CanBeNull="false" />
+      <Column Name="SoLuongConLai" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="NSX" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
       <Column Name="HSD" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
       <Column Name="MoTaSanPham" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />

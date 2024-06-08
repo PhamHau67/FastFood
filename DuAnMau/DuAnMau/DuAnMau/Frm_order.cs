@@ -1,18 +1,23 @@
 ﻿using Guna.UI2.WinForms;
 using System;
+using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace DuAnMau
 {
     public partial class Frm_Order : Form
     {
         private Cl_conn clConn = new Cl_conn();
+        private string employeeName;
 
-        public Frm_Order()
+        public Frm_Order(string employeeName)
         {
             InitializeComponent();
+            this.employeeName = employeeName;
         }
         private void Frm_Order_Load(object sender, EventArgs e)
         {
@@ -20,15 +25,18 @@ namespace DuAnMau
             cbo_dish();
             LoadData_lstv();
             timer1.Start();
+            // Hiển thị tên nhân viên
+            lbl_EmployeeName.Text = "Nhân viên: " + employeeName;
+
         }
 
         public void LoadData_lstv()
         {
-
             lstv_HoaDon.Columns.Add("Number", 70); // Cột cho số bàn
             lstv_HoaDon.Columns.Add("Product", 120); // Cột cho tên món ăn
             lstv_HoaDon.Columns.Add("Quantity", 90); // Cột cho số lượng
             lstv_HoaDon.Columns.Add("Price", 90); // Cột cho giá
+
             //lstv_HoaDon.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);                       
             lstv_HoaDon.Columns[0].Width = (int)(lstv_HoaDon.Width * 0.25); ; // Tự động điều chỉnh kích thước cột số bàn
             lstv_HoaDon.Columns[1].Width = (int)(lstv_HoaDon.Width * 0.25); ; // Tự động điều chỉnh kích thước cột tên món
@@ -36,8 +44,6 @@ namespace DuAnMau
             lstv_HoaDon.Columns[3].Width = (int)(lstv_HoaDon.Width * 0.25); ; // Tự động điều chỉnh kích thước cột giá
             lstv_HoaDon.View = View.Details;
             lstv_HoaDon.GridLines = true;
-            //click vào lisview 
-            lstv_HoaDon.FullRowSelect = true;
         }
 
         public void cbo_type()
@@ -84,7 +90,7 @@ namespace DuAnMau
                 // Lấy dữ liệu đã chọn từ ComboBox và Guna2NumericUpDown
                 string selectedDish = Cbo_dish.SelectedItem?.ToString();
                 int quantity = (int)Nud_quantity.Value;
-                int tableNumber = int.Parse(txt_TableNumber.Text); // Lấy số bàn từ TextBox hoặc một nguồn khác
+                int tableNumber = int.Parse(txt_TableNumber.Text); 
 
                 if (string.IsNullOrEmpty(selectedDish) || quantity == 0)
                 {
@@ -157,6 +163,60 @@ namespace DuAnMau
                 MessageBox.Show("Error when adding data to order: " + ex.Message);
             }
         }
+        public static class InputBox
+        {
+            public static string Show(string prompt, string title, string defaultValue = "")
+            {
+                // Hiển thị hộp thoại nhập thông qua MessageBox
+                string input = defaultValue;
+                input = Microsoft.VisualBasic.Interaction.InputBox(prompt, title, defaultValue);
+                return input;
+            }
+        }
+        private void lstv_HoaDon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (lstv_HoaDon.SelectedItems.Count > 0)
+            {
+                // Lấy mục hàng được chọn trong ListView
+                ListViewItem selectedItem = lstv_HoaDon.SelectedItems[0];
+                string selectedDish = selectedItem.SubItems[1].Text;
+
+                // Hiển thị hộp thoại để nhập số lượng mới
+                string input = InputBox.Show("Enter the new quantity:", "Edit Quantity", selectedItem.SubItems[2].Text);
+
+                // Kiểm tra xem người dùng đã nhập số lượng mới hay không
+                if (!string.IsNullOrEmpty(input))
+                {
+                    // Cập nhật số lượng trong ListView
+                    int newQuantity;
+                    if (int.TryParse(input, out newQuantity))
+                    {
+                        // Lấy giá trị của món ăn và số lượng hiện tại
+                        decimal oldPrice = decimal.Parse(selectedItem.SubItems[3].Text.Replace(",", ""));
+                        int oldQuantity = int.Parse(selectedItem.SubItems[2].Text);
+
+                        // Cập nhật số lượng mới
+                        selectedItem.SubItems[2].Text = newQuantity.ToString();
+
+                        // Tính lại giá dựa trên số lượng mới và cập nhật lại giá trong ListView
+                        decimal newPrice = (oldPrice / oldQuantity) * newQuantity;
+                        selectedItem.SubItems[3].Text = newPrice.ToString("N0");
+
+                        // Cập nhật tổng tiền
+                        CalculateSum();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please enter a valid quantity.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select an item to edit.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
 
         // Tính tổng cần thanh toán
         private void CalculateSum()
@@ -220,7 +280,8 @@ namespace DuAnMau
             CalculateSum(); // Tính lại tổng sau khi xóa
         }
 
-        //Thanh toán
+        string maNhanVienDangNhap = Globals.username;
+
         private void btn_Pay_Click(object sender, EventArgs e)
         {
             // Kiểm tra xem ListView có mục hàng nào không
@@ -238,61 +299,76 @@ namespace DuAnMau
                 {
                     using (var db = new DataClasses1DataContext(clConn.conn))
                     {
-                        // Bắt đầu một giao dịch
-                        db.Connection.Open();
-                        var transaction = db.Connection.BeginTransaction();
-                        db.Transaction = transaction;
+                        // Tìm mã nhân viên dựa trên tên nhân viên
+                        var nhanVien = db.NHAN_VIENs.FirstOrDefault(nv => nv.TenNhanVien == maNhanVienDangNhap);
 
-                        // Tạo một ID mới cho đơn hàng
-                        string newOrderId = GenerateNewId("HOADON", "MaHoaDon", "HD");
-
-                        // Thêm đơn hàng vào bảng HOADON
-                        HOADON newOrder = new HOADON
+                        if (nhanVien != null)
                         {
-                            MaHoaDon = newOrderId,
-                            MaNhanVien = "NV001",
-                            NgayTao = DateTime.Now,
-                            TongTien = decimal.Parse(txt_Summ.Text),
-                            TrangThai = true
-                        };
-                        db.HOADONs.InsertOnSubmit(newOrder);
-                        db.SubmitChanges();
+                            // Bắt đầu một giao dịch
+                            db.Connection.Open();
+                            var transaction = db.Connection.BeginTransaction();
+                            db.Transaction = transaction;
 
-                        // Thêm chi tiết đơn hàng vào bảng CHITIET_HOADON
-                        foreach (ListViewItem item in lstv_HoaDon.Items)
-                        {
-                            string dishName = item.SubItems[1].Text;
-                            int quantity = int.Parse(item.SubItems[2].Text);
+                            // Tạo một ID mới cho đơn hàng
+                            string newOrderId = GenerateNewId("HOADON", "MaHoaDon", "HD");
 
-                            //  sp và trả về true nếu thuộc tính TenSanPham của sp bằng với selectedDish, ngược lại trả về false.
-                            var product = db.SANPHAMs.FirstOrDefault(sp => sp.TenSanPham == dishName);
-                            if (product != null)
+                            // Kiểm tra mã đơn hàng đã tồn tại hay chưa
+                            if (db.HOADONs.Any(hd => hd.MaHoaDon == newOrderId))
                             {
-                                string newOrderDetailId = GenerateNewId("CHITIET_HOADON", "MaChiTietHoaDon", "CT");
-
-                                CHITIET_HOADON orderDetail = new CHITIET_HOADON
-                                {
-                                    MaChiTietHoaDon = newOrderDetailId,
-                                    MaHoaDon = newOrderId,
-                                    MaSanPham = product.MaSanPham,
-                                    SoLuong = quantity.ToString(),
-                                    DonGia = product.Tien,
-                                    TongGiaTriSanPham = product.Tien * quantity
-                                };
-                                db.CHITIET_HOADONs.InsertOnSubmit(orderDetail);
-                                // Cập nhật số lượng sản phẩm trong bảng SANPHAM
-                                product.SoLuongConLai = (int.Parse(product.SoLuongConLai) - quantity).ToString();
+                                throw new Exception("The generated order ID already exists.");
                             }
+
+                            // Thêm đơn hàng vào bảng HOADON
+                            HOADON newOrder = new HOADON
+                            {
+                                MaHoaDon = newOrderId,
+                                MaNhanVien = nhanVien.MaNhanVien,
+                                NgayTao = DateTime.Now,
+                                TongTien = decimal.Parse(txt_Summ.Text.Replace(",", "")), // Thêm phương thức Replace để loại bỏ dấu phẩy
+                                TrangThai = true
+                            };
+                            db.HOADONs.InsertOnSubmit(newOrder);
+                            db.SubmitChanges();
+
+                            // Thêm chi tiết đơn hàng vào bảng CHITIET_HOADON
+                            foreach (ListViewItem item in lstv_HoaDon.Items)
+                            {
+                                string dishName = item.SubItems[1].Text;
+                                int quantity = int.Parse(item.SubItems[2].Text);
+
+                                var product = db.SANPHAMs.FirstOrDefault(sp => sp.TenSanPham == dishName);
+                                if (product != null)
+                                {                                    
+                                    CHITIET_HOADON orderDetail = new CHITIET_HOADON
+                                    {                                       
+                                        MaHoaDon = newOrderId,
+                                        MaSanPham = product.MaSanPham,
+                                        SoLuong = quantity.ToString(),
+                                        DonGia = product.Tien,
+                                        TongGiaTriSanPham = product.Tien * quantity
+                                    };
+                                    db.CHITIET_HOADONs.InsertOnSubmit(orderDetail);
+
+                                    // Cập nhật số lượng sản phẩm trong bảng SANPHAM
+                                    product.SoLuongConLai -= quantity;
+                                    // Xác nhận giao dịch
+                                    db.SubmitChanges();                            
+                                }
+                            }
+                            transaction.Commit();
+
+                            // In hóa đơn
+                            PrintInvoice(newOrderId);
+
+                            // Xóa ListView và thiết lập lại form
+                            lstv_HoaDon.Items.Clear();
+                            txt_Summ.Text = "0";
+                            MessageBox.Show("Payment success!");
                         }
-
-                        // Xác nhận giao dịch
-                        db.SubmitChanges();
-                        transaction.Commit();
-
-                        // Xóa ListView và thiết lập lại form
-                        lstv_HoaDon.Items.Clear();
-                        txt_Summ.Text = "0";
-                        MessageBox.Show("Payment success!");
+                        else
+                        {
+                            MessageBox.Show("User not found!");
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -302,24 +378,108 @@ namespace DuAnMau
             }
         }
 
+
+        // Phương thức in hóa đơn
+        private void PrintInvoice(string orderId)
+        {
+            try
+            {
+                // Tạo một đối tượng PrintDocument
+                PrintDocument pd = new PrintDocument();
+
+                // Đặt sự kiện PrintPage cho việc vẽ nội dung cần in
+                pd.PrintPage += (sender, e) => PrintPage(sender, e, orderId);
+
+                // In hoá đơn
+                pd.Print();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while printing the invoice: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Phương thức in nội dung hóa đơn
+        private void PrintPage(object sender, PrintPageEventArgs e, string orderId)
+        {
+            // Lấy thông tin cần thiết cho hóa đơn từ cơ sở dữ liệu
+            string storeName = "Fast Food GS";
+            string employeeNamee = "Name: " + employeeName;
+            string currentTime = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+            string numBer = txt_TableNumber.Text;
+            // Vẽ nội dung hóa đơn
+            Font titleFont = new Font("Arial", 16, FontStyle.Bold);
+            Font titleFontS = new Font("Arial", 30, FontStyle.Bold);
+            Font contentFont = new Font("Arial", 12);
+            Font contentFontB = new Font("Arial", 12,FontStyle.Bold);
+            float lineHeight = contentFont.GetHeight() + 2;
+            float startX = 10;
+            float startY = 10;
+            // Tính kích thước của chuỗi văn bản
+            //SizeF textSize = e.Graphics.MeasureString(storeName, titleFont);
+
+            // Tính vị trí để căn giữa trên trục x
+            float centerX = startX + 300;
+
+            // Vẽ chuỗi văn bản
+            e.Graphics.DrawString(storeName, titleFont, Brushes.Black, centerX, startY);
+            startY += lineHeight * 3;
+
+            // Vẽ Số 
+            e.Graphics.DrawString(numBer,titleFontS, Brushes.Black, startX, startY);
+            startY += lineHeight * 3;
+
+            // Vẽ tên nhân viên và thời gian
+            e.Graphics.DrawString(employeeNamee, contentFont, Brushes.Black, startX, startY);
+            startY += lineHeight;
+            e.Graphics.DrawString($"Time: {currentTime}", contentFont, Brushes.Black, startX, startY);
+            startY += lineHeight * 2; // Tăng khoảng cách giữa các dòng
+
+            // In Mã Hóa Đơn
+            string orderIdText = "Order ID: " + orderId;
+            e.Graphics.DrawString(orderIdText, titleFont, Brushes.Black, startX, startY);
+            startY += lineHeight *2;
+
+            // In chi tiết hóa đơn
+            float tableX = startX;
+            float tableY = startY;
+            float columnWidth = e.PageBounds.Width / 3;
+            e.Graphics.DrawString("Product", contentFontB, Brushes.Black, tableX , tableY);
+            e.Graphics.DrawString("Quantity", contentFontB, Brushes.Black, tableX + columnWidth, tableY);
+            e.Graphics.DrawString("Price", contentFontB, Brushes.Black, tableX + 2 * columnWidth, tableY);
+            tableY += lineHeight;
+
+            foreach (ListViewItem item in lstv_HoaDon.Items)
+            {
+                e.Graphics.DrawString(item.SubItems[1].Text, contentFont, Brushes.Black, tableX , tableY);
+                e.Graphics.DrawString(item.SubItems[2].Text, contentFont, Brushes.Black, tableX +  columnWidth, tableY);
+                e.Graphics.DrawString(item.SubItems[3].Text, contentFont, Brushes.Black, tableX + 2 * columnWidth, tableY);
+                tableY += lineHeight ;
+            }
+            tableY += lineHeight;
+            // In tổng tiền
+            float totalY = tableX +lineHeight * 20; // Đặt vị trí in tổng tiền ở dưới cùng của các mục
+            e.Graphics.DrawString("Total Amount: " + txt_Summ.Text, contentFontB, Brushes.Red, totalY,centerX);
+        }
+
         private string GenerateNewId(string tableName, string columnName, string prefix)
         {
             using (var db = new DataClasses1DataContext(clConn.conn))
             {
-                // lấy ra id lớn nhất trong columname, trả về danh sách dạng chuỗi
-                // Nó chọn ra giá trị lớn nhất trong cột columnName của bảng tableName mà bắt đầu bằng prefix
-                var maxId = db.ExecuteQuery<string>($"SELECT MAX({columnName}) FROM {tableName} WHERE {columnName} LIKE '{prefix}%'").FirstOrDefault();
-                if (maxId != null)
+                var lastId = db.ExecuteQuery<string>($"SELECT TOP 1 {columnName} FROM {tableName} WHERE {columnName} LIKE '{prefix}%' ORDER BY {columnName} DESC").FirstOrDefault();
+                if (lastId != null)
                 {
-                    int newIdNum = int.Parse(maxId.Substring(prefix.Length)) + 1;
-                    return prefix + newIdNum.ToString("D3");
+                    int newIdNumber = int.Parse(lastId.Substring(prefix.Length)) + 1;
+                    return prefix + newIdNumber.ToString("D3");
                 }
                 else
                 {
-                    return prefix + "001"; // Nếu không có mã nào tồn tại, trả về mã đầu tiên trong chuỗi
+                    return prefix + "001";
                 }
             }
         }
+
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             lbl_time.Text = DateTime.Now.ToLongTimeString();
@@ -330,7 +490,7 @@ namespace DuAnMau
         {
             CalculateChange();
         }
-
+        
         private void CalculateChange()
         {
             // Chuyển đổi số tiền khách đưa thành số nguyên

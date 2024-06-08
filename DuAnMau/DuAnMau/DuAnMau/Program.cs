@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,8 +16,8 @@ namespace DuAnMau
         static void Main()
         {
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Frm_login());
+            Application.SetCompatibleTextRenderingDefault(false);   
+            Application.Run(new Frm_activityHistory());
         }
     }
 }

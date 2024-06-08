@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_forgotPassword2));
             this.label1 = new System.Windows.Forms.Label();
             this.txt_enter = new Guna.UI2.WinForms.Guna2TextBox();
@@ -40,13 +41,16 @@
             this.btn_openEye1 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.btn_resend = new Guna.UI2.WinForms.Guna2Button();
+            this.countdown_Timer = new System.Windows.Forms.Timer(this.components);
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Yi Baiti", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(117, 20);
+            this.label1.Location = new System.Drawing.Point(160, 21);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(294, 40);
             this.label1.TabIndex = 1;
@@ -71,7 +75,7 @@
             this.txt_enter.PasswordChar = '\0';
             this.txt_enter.PlaceholderText = "Enter OTP code";
             this.txt_enter.SelectedText = "";
-            this.txt_enter.Size = new System.Drawing.Size(483, 45);
+            this.txt_enter.Size = new System.Drawing.Size(570, 45);
             this.txt_enter.TabIndex = 2;
             // 
             // txt_newPass
@@ -93,7 +97,7 @@
             this.txt_newPass.PasswordChar = '*';
             this.txt_newPass.PlaceholderText = "Enter new password";
             this.txt_newPass.SelectedText = "";
-            this.txt_newPass.Size = new System.Drawing.Size(483, 45);
+            this.txt_newPass.Size = new System.Drawing.Size(570, 45);
             this.txt_newPass.TabIndex = 3;
             // 
             // txt_rePass
@@ -115,12 +119,13 @@
             this.txt_rePass.PasswordChar = '*';
             this.txt_rePass.PlaceholderText = "Re-enter new password";
             this.txt_rePass.SelectedText = "";
-            this.txt_rePass.Size = new System.Drawing.Size(483, 45);
+            this.txt_rePass.Size = new System.Drawing.Size(570, 45);
             this.txt_rePass.TabIndex = 4;
             // 
             // btn_recover
             // 
             this.btn_recover.BorderRadius = 20;
+            this.btn_recover.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_recover.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btn_recover.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btn_recover.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -128,7 +133,7 @@
             this.btn_recover.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
             this.btn_recover.Font = new System.Drawing.Font("Segoe UI", 10.2F);
             this.btn_recover.ForeColor = System.Drawing.Color.Black;
-            this.btn_recover.Location = new System.Drawing.Point(273, 330);
+            this.btn_recover.Location = new System.Drawing.Point(363, 331);
             this.btn_recover.Name = "btn_recover";
             this.btn_recover.Size = new System.Drawing.Size(225, 45);
             this.btn_recover.TabIndex = 5;
@@ -147,7 +152,7 @@
             this.btn_openEye.Font = new System.Drawing.Font("Segoe UI", 10.2F);
             this.btn_openEye.ForeColor = System.Drawing.Color.Black;
             this.btn_openEye.Image = ((System.Drawing.Image)(resources.GetObject("btn_openEye.Image")));
-            this.btn_openEye.Location = new System.Drawing.Point(442, 162);
+            this.btn_openEye.Location = new System.Drawing.Point(544, 162);
             this.btn_openEye.Name = "btn_openEye";
             this.btn_openEye.Size = new System.Drawing.Size(41, 45);
             this.btn_openEye.TabIndex = 6;
@@ -157,6 +162,7 @@
             // 
             this.btn_closeEye.BackColor = System.Drawing.Color.White;
             this.btn_closeEye.BorderRadius = 20;
+            this.btn_closeEye.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_closeEye.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btn_closeEye.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btn_closeEye.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -165,7 +171,7 @@
             this.btn_closeEye.Font = new System.Drawing.Font("Segoe UI", 10.2F);
             this.btn_closeEye.ForeColor = System.Drawing.Color.Black;
             this.btn_closeEye.Image = ((System.Drawing.Image)(resources.GetObject("btn_closeEye.Image")));
-            this.btn_closeEye.Location = new System.Drawing.Point(442, 162);
+            this.btn_closeEye.Location = new System.Drawing.Point(544, 162);
             this.btn_closeEye.Name = "btn_closeEye";
             this.btn_closeEye.Size = new System.Drawing.Size(41, 45);
             this.btn_closeEye.TabIndex = 7;
@@ -175,6 +181,7 @@
             // 
             this.btn_closeEye2.BackColor = System.Drawing.Color.White;
             this.btn_closeEye2.BorderRadius = 20;
+            this.btn_closeEye2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_closeEye2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btn_closeEye2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btn_closeEye2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -183,7 +190,7 @@
             this.btn_closeEye2.Font = new System.Drawing.Font("Segoe UI", 10.2F);
             this.btn_closeEye2.ForeColor = System.Drawing.Color.Black;
             this.btn_closeEye2.Image = ((System.Drawing.Image)(resources.GetObject("btn_closeEye2.Image")));
-            this.btn_closeEye2.Location = new System.Drawing.Point(442, 248);
+            this.btn_closeEye2.Location = new System.Drawing.Point(544, 248);
             this.btn_closeEye2.Name = "btn_closeEye2";
             this.btn_closeEye2.Size = new System.Drawing.Size(41, 45);
             this.btn_closeEye2.TabIndex = 9;
@@ -201,7 +208,7 @@
             this.btn_openEye1.Font = new System.Drawing.Font("Segoe UI", 10.2F);
             this.btn_openEye1.ForeColor = System.Drawing.Color.Black;
             this.btn_openEye1.Image = ((System.Drawing.Image)(resources.GetObject("btn_openEye1.Image")));
-            this.btn_openEye1.Location = new System.Drawing.Point(442, 248);
+            this.btn_openEye1.Location = new System.Drawing.Point(544, 248);
             this.btn_openEye1.Name = "btn_openEye1";
             this.btn_openEye1.Size = new System.Drawing.Size(41, 45);
             this.btn_openEye1.TabIndex = 8;
@@ -209,7 +216,7 @@
             // 
             // guna2Button1
             // 
-            this.guna2Button1.BorderRadius = 20;
+            this.guna2Button1.BackColor = System.Drawing.Color.Transparent;
             this.guna2Button1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -220,7 +227,7 @@
             this.guna2Button1.Image = ((System.Drawing.Image)(resources.GetObject("guna2Button1.Image")));
             this.guna2Button1.Location = new System.Drawing.Point(15, 325);
             this.guna2Button1.Name = "guna2Button1";
-            this.guna2Button1.Size = new System.Drawing.Size(66, 50);
+            this.guna2Button1.Size = new System.Drawing.Size(65, 51);
             this.guna2Button1.TabIndex = 10;
             this.guna2Button1.Click += new System.EventHandler(this.guna2Button1_Click);
             // 
@@ -235,18 +242,36 @@
             this.btn_resend.FillColor = System.Drawing.Color.White;
             this.btn_resend.Font = new System.Drawing.Font("Segoe UI", 10.2F);
             this.btn_resend.ForeColor = System.Drawing.Color.Black;
-            this.btn_resend.Location = new System.Drawing.Point(316, 80);
+            this.btn_resend.Location = new System.Drawing.Point(349, 80);
             this.btn_resend.Name = "btn_resend";
-            this.btn_resend.Size = new System.Drawing.Size(167, 45);
+            this.btn_resend.Size = new System.Drawing.Size(239, 45);
             this.btn_resend.TabIndex = 11;
-            this.btn_resend.Text = "Resend OTP code";
+            this.btn_resend.Text = "Resend OTP";
+            this.btn_resend.Click += new System.EventHandler(this.btn_resend_Click_1);
+            // 
+            // countdown_Timer
+            // 
+            this.countdown_Timer.Tick += new System.EventHandler(this.countdown_Timer_Tick);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(527, -4);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(73, 65);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 13;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // Frm_forgotPassword2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(232)))), ((int)(((byte)(209)))));
-            this.ClientSize = new System.Drawing.Size(513, 400);
+            this.ClientSize = new System.Drawing.Size(600, 400);
+            this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.btn_resend);
             this.Controls.Add(this.guna2Button1);
             this.Controls.Add(this.btn_closeEye2);
@@ -261,6 +286,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Frm_forgotPassword2";
             this.Text = "Frm_forgotPassword2";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -279,5 +305,8 @@
         private Guna.UI2.WinForms.Guna2Button btn_openEye1;
         private Guna.UI2.WinForms.Guna2Button guna2Button1;
         private Guna.UI2.WinForms.Guna2Button btn_resend;
+        private System.Windows.Forms.Timer countdownTimer;
+        private System.Windows.Forms.Timer countdown_Timer;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }

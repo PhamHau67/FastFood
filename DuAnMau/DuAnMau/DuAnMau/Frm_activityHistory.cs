@@ -1,5 +1,4 @@
-﻿using DocumentFormat.OpenXml.Wordprocessing;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,6 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.Linq;
+using System.Data.SqlClient;
+using System.Runtime.InteropServices;
+using Excel = Microsoft.Office.Interop.Excel;
+using System.Text.RegularExpressions;
+using System.Windows.Controls;
 
 namespace DuAnMau
 {
@@ -18,6 +23,7 @@ namespace DuAnMau
         {
             InitializeComponent();
             Load_dgv_activity();
+            dgv_LichSu.RowHeadersVisible = false;
             cbo_counter.Items.Add("A1");
             cbo_counter.Items.Add("B2");
             cbo_shift.Items.Add("CK001");
@@ -25,13 +31,18 @@ namespace DuAnMau
             cbo_shift.Items.Add("CK003");
             cbo_shift.Items.Add("CK004");
             cbo_shift.Items.Add("CK005");
-            cbo_status.Items.Add("Có mặt");
-            cbo_status.Items.Add("Vắng");
+            cbo_status.Items.Add("Present");
+            cbo_status.Items.Add("Absent");
 
-            // Add event handlers
+
             cbo_shift.SelectedIndexChanged += new EventHandler(FilterChanged);
             cbo_counter.SelectedIndexChanged += new EventHandler(FilterChanged);
             cbo_status.SelectedIndexChanged += new EventHandler(FilterChanged);
+
+            dtp_start.Format = DateTimePickerFormat.Custom;
+            dtp_start.CustomFormat = "dd/MM/yyyy";
+            dtp_end.Format = DateTimePickerFormat.Custom;
+            dtp_end.CustomFormat = "dd/MM/yyyy";
         }
 
         public void Load_dgv_activity()
@@ -52,28 +63,92 @@ namespace DuAnMau
                                 nvc.NgayLam,
                                 nvc.TrangThai
                             };
+
                 DataTable dt = new DataTable();
-                dt.Columns.Add("Mã ca kíp");
-                dt.Columns.Add("Giờ bắt đầu");
-                dt.Columns.Add("Giờ kết thúc");
-                dt.Columns.Add("Mã nhân viên");
-                dt.Columns.Add("Tên nhân viên");
-                dt.Columns.Add("Quầy");
-                dt.Columns.Add("Ngày làm");
-                dt.Columns.Add("Trạng thái");
+                dt.Columns.Add("ShiftCode");
+                dt.Columns.Add("StartTime");
+                dt.Columns.Add("EndTime");
+                dt.Columns.Add("EmployeeID");
+                dt.Columns.Add("EmployeeName");
+                dt.Columns.Add("Counter");
+                dt.Columns.Add("WorkDate");
+                dt.Columns.Add("Status");
+
                 foreach (var item in query)
                 {
-                    string trangThai = (bool)item.TrangThai ? "Có mặt" : "Vắng";
-                    dt.Rows.Add(item.MaCaKip, item.GioBatDau, item.GioKetThuc, item.MaNhanVien, item.TenNhanVien, item.Quay, item.NgayLam, trangThai);
+                    string status = (bool)item.TrangThai ? "Present" : "Absent";
+                    // Định dạng ngày tháng sau khi lấy dữ liệu từ cơ sở dữ liệu
+                    string workDate = item.NgayLam.ToString("dd/MM/yyyy");
+                    dt.Rows.Add(item.MaCaKip, item.GioBatDau, item.GioKetThuc, item.MaNhanVien, item.TenNhanVien, item.Quay, workDate, status);
                 }
 
                 dgv_LichSu.DataSource = dt;
             }
         }
 
-        private void txt_find_TextChanged(object sender, EventArgs e)
+        private void btn_refresh_Click_1(object sender, EventArgs e)
         {
-            FilterData();
+            txt_find.Clear();
+            cbo_shift.SelectedIndex = -1;
+            cbo_counter.SelectedIndex = -1;
+            cbo_status.SelectedIndex = -1;
+            dtp_start.Value = DateTime.Now;
+            dtp_end.Value = DateTime.Now;
+
+            Load_dgv_activity();
+        }
+
+        private void btn_export_Click(object sender, EventArgs e)
+        {
+            if (dgv_LichSu.Rows.Count > 0)
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog
+                {
+                    Filter = "Excel Files|*.xls;*.xlsx;*.xlsm",
+                    Title = "Save an Excel File"
+                };
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    Excel.Application excel = null;
+                    Excel.Workbook workbook = null;
+                    Excel.Worksheet worksheet = null;
+
+                    try
+                    {
+                        excel = new Excel.Application();
+                        workbook = excel.Workbooks.Add(Type.Missing);
+                        worksheet = (Excel.Worksheet)workbook.Sheets[1];
+                        for (int i = 1; i < dgv_LichSu.Columns.Count + 1; i++)
+                        {
+                            worksheet.Cells[1, i] = dgv_LichSu.Columns[i - 1].HeaderText;
+                        }
+                        for (int i = 0; i < dgv_LichSu.Rows.Count; i++)
+                        {
+                            for (int j = 0; j < dgv_LichSu.Columns.Count; j++)
+                            {
+                                worksheet.Cells[i + 2, j + 1] = dgv_LichSu.Rows[i].Cells[j].Value?.ToString() ?? string.Empty;
+                            }
+                        }
+                        worksheet.Columns.AutoFit();
+                        workbook.SaveAs(saveFileDialog.FileName);
+                        MessageBox.Show("Export successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message);
+                    }
+                    finally
+                    {
+                        if (worksheet != null) Marshal.ReleaseComObject(worksheet);
+                        if (workbook != null) Marshal.ReleaseComObject(workbook);
+                        if (excel != null) Marshal.ReleaseComObject(excel);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("No data to export!");
+            }
         }
 
         private void FilterChanged(object sender, EventArgs e)
@@ -90,13 +165,19 @@ namespace DuAnMau
                 var counterFilter = cbo_counter.SelectedItem?.ToString();
                 var statusFilter = cbo_status.SelectedItem?.ToString();
 
+                bool isDateFilterUsed = dtp_start.Value.Date != DateTime.Now.Date || dtp_end.Value.Date != DateTime.Now.Date;
+
+                var startDateFilter = dtp_start.Value.Date;
+                var endDateFilter = dtp_end.Value.Date.AddDays(1).AddSeconds(-1);
+
                 var findnv = from nv in db.NHAN_VIENs
                              join nvc in db.NHANVIEN_CAKIPs on nv.MaNhanVien equals nvc.MaNhanVien
                              join ck in db.CAKIPs on nvc.MaCaKip equals ck.MaCaKip
                              where (string.IsNullOrEmpty(keyword) || nv.MaNhanVien.Contains(keyword) || ck.MaCaKip.Contains(keyword) || nv.TenNhanVien.Contains(keyword) || nvc.Quay.Contains(keyword) || nvc.NgayLam.ToString().Contains(keyword))
                                 && (string.IsNullOrEmpty(shiftFilter) || nvc.MaCaKip == shiftFilter)
                                 && (string.IsNullOrEmpty(counterFilter) || nvc.Quay == counterFilter)
-                                && (string.IsNullOrEmpty(statusFilter) || (statusFilter == "Có mặt" && nvc.TrangThai == true) || (statusFilter == "Vắng" && nvc.TrangThai == false))
+                                && (string.IsNullOrEmpty(statusFilter) || (statusFilter == "Present" && nvc.TrangThai == true) || (statusFilter == "Absent" && nvc.TrangThai == false))
+                                && (!isDateFilterUsed || (nvc.NgayLam >= startDateFilter && nvc.NgayLam <= endDateFilter)) // Áp dụng bộ lọc ngày tháng nếu cần
                              select new
                              {
                                  ck.MaCaKip,
@@ -106,24 +187,42 @@ namespace DuAnMau
                                  nv.TenNhanVien,
                                  nvc.Quay,
                                  nvc.NgayLam,
-                                 TrangThai = (bool)nvc.TrangThai ? "Có mặt" : "Vắng",
+                                 TrangThai = (bool)nvc.TrangThai ? "Present" : "Absent",
                              };
 
-                dgv_LichSu.DataSource = findnv.ToList();
+                DataTable dt = new DataTable();
+                dt.Columns.Add("ShiftCode");
+                dt.Columns.Add("StartTime");
+                dt.Columns.Add("EndTime");
+                dt.Columns.Add("EmployeeID");
+                dt.Columns.Add("EmployeeName");
+                dt.Columns.Add("Counter");
+                dt.Columns.Add("WorkDate");
+                dt.Columns.Add("Status");
+
+                foreach (var item in findnv)
+                {
+                    string workDate = isDateFilterUsed ? item.NgayLam.ToString("dd/MM/yyyy") : item.NgayLam.ToShortDateString(); // Định dạng ngày nếu sử dụng bộ lọc
+                    dt.Rows.Add(item.MaCaKip, item.GioBatDau, item.GioKetThuc, item.MaNhanVien, item.TenNhanVien, item.Quay, workDate, item.TrangThai);
+                }
+
+                dgv_LichSu.DataSource = dt;
             }
         }
 
-       
-
-        private void btn_refresh_Click_1(object sender, EventArgs e)
+        private void txt_find_TextChanged(object sender, EventArgs e)
         {
-            txt_find.Clear();
-            cbo_shift.SelectedIndex = -1;
-            cbo_counter.SelectedIndex = -1;
-            cbo_status.SelectedIndex = -1;
+            FilterData();
+        }
 
+        private void dtp_end_ValueChanged(object sender, EventArgs e)
+        {
+            FilterData();
+        }
 
-            Load_dgv_activity();
+        private void dtp_start_ValueChanged(object sender, EventArgs e)
+        {
+            FilterData();
         }
     }
 }

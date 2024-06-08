@@ -37,7 +37,7 @@ namespace DuAnMau
                                     nhanvien.TenNhanVien,
                                     hoadon.NgayTao,
                                     hoadon.TongTien,
-                                    hoadon.TrangThai
+                                    Status = hoadon.TrangThai.HasValue ? (hoadon.TrangThai.Value ? "Đã thanh toán" : "Chưa thanh toán") : "Chưa thanh toán" // Thay đổi trạng thái
                                 };
 
                     DataTable dt = new DataTable();
@@ -46,11 +46,11 @@ namespace DuAnMau
                     dt.Columns.Add("Name Employee");
                     dt.Columns.Add("Date Created");
                     dt.Columns.Add("Total");
-                    dt.Columns.Add("State");
+                    dt.Columns.Add("Status");
 
                     foreach (var item in query)
                     {
-                        dt.Rows.Add(item.MaHoaDon, item.MaNhanVien, item.TenNhanVien, item.NgayTao, item.TongTien, item.TrangThai);
+                        dt.Rows.Add(item.MaHoaDon, item.MaNhanVien, item.TenNhanVien, item.NgayTao, item.TongTien, item.Status);
                     }
 
                     // Thiết lập DataSource của DataGridView là DataTable
@@ -62,7 +62,7 @@ namespace DuAnMau
                     dgv_revenue.Columns["Name Employee"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                     dgv_revenue.Columns["Date Created"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                     dgv_revenue.Columns["Total"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                    dgv_revenue.Columns["State"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    dgv_revenue.Columns["Status"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
                     // Cập nhật lại DataGridView
                     dgv_revenue.Refresh();
@@ -114,7 +114,7 @@ namespace DuAnMau
                     txt_money.Text = string.Empty;
                 }
 
-                txt_total.Text = row.Cells["State"].Value?.ToString();
+                txt_total.Text = row.Cells["Status"].Value?.ToString();
             }
         }
 
@@ -219,7 +219,7 @@ namespace DuAnMau
                     dt.Columns.Add("Name Employee");
                     dt.Columns.Add("Date Created");
                     dt.Columns.Add("Total");
-                    dt.Columns.Add("State");
+                    dt.Columns.Add("Status");
 
                     foreach (var item in searchResult)
                     {

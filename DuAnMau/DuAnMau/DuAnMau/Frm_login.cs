@@ -22,13 +22,14 @@ namespace DuAnMau
 
         public bool ShowPassword
         {
-            get { return txt_pass.PasswordChar == '\0'; } // Return true if the password is visible
-            set { txt_pass.PasswordChar = value ? '\0' : '*'; } // Set PasswordChar based on the property value
+            get { return txt_pass.PasswordChar == '\0'; } // Trả về true nếu mật khẩu hiển thị
+            set { txt_pass.PasswordChar = value ? '\0' : '*'; } // Thiết lập PasswordChar dựa trên giá trị thuộc tính
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            // When Checkbox is clicked, update the ShowPassword property
+
+            // Khi Checkbox được nhấp, cập nhật thuộc tính ShowPassword
             ShowPassword = checkBox1.Checked;
         }
 
@@ -36,6 +37,13 @@ namespace DuAnMau
         {
             string username = txt_user.Text;
             string password = txt_pass.Text;
+
+            // Kiểm tra mật khẩu có chứa khoảng trống hay không
+            if (password.Contains(' '))
+            {
+                lbl_error.Text = "Password cannot contain spaces!";
+                return;
+            }
 
             using (var db = new DataClasses1DataContext(clConn.conn))
             {
@@ -94,7 +102,7 @@ namespace DuAnMau
                 frm_ForgotPassword1.FormBorderStyle = FormBorderStyle.None;
                 frm_ForgotPassword1.Dock = DockStyle.Fill;
                 frm_ForgotPassword1.BringToFront();
-                frm_ForgotPassword1.ShowDialog();  // Show as a modal dialog
+                frm_ForgotPassword1.ShowDialog(); 
             }
             this.Show();
         }

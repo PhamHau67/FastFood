@@ -166,7 +166,7 @@
             this.label1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.label1.Location = new System.Drawing.Point(407, 347);
+            this.label1.Location = new System.Drawing.Point(406, 334);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(168, 25);
             this.label1.TabIndex = 20;

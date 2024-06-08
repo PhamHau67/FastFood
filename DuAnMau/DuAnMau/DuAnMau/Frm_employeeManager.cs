@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.Linq;
 using System.Data.SqlClient;
-//using ClosedXML.Excel;
 using System.Runtime.InteropServices;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Text.RegularExpressions;
+using DuAnMau;
 
-namespace DuAnMau
+namespace employeeManagement
 {
     public partial class Frm_employeeManager : Form
     {
@@ -24,7 +24,16 @@ namespace DuAnMau
         {
             InitializeComponent();
             Load_dgv_manager();
+            dgv_staff.RowHeadersVisible = false;
+
+            dtp_Birthday.Format = DateTimePickerFormat.Custom;
+            dtp_Birthday.CustomFormat = "dd/MM/yyyy";
+            dtp_SignUpDay.Format = DateTimePickerFormat.Custom;
+            dtp_SignUpDay.CustomFormat = "dd/MM/yyyy";
+
+
         }
+
         public void Load_dgv_manager()
         {
             using (var db = new DataClasses1DataContext(clConn.conn))
@@ -32,40 +41,40 @@ namespace DuAnMau
                 var query = from nv in db.NHAN_VIENs
                             select nv;
                 DataTable dt = new DataTable();
-                dt.Columns.Add("Mã nhân viên");
-                dt.Columns.Add("Tên nhân viên");
-                dt.Columns.Add("CCCD");
-                dt.Columns.Add("Mã bộ phận");
-                dt.Columns.Add("Mã vai trò");
-                dt.Columns.Add("Ngày sinh");
-                dt.Columns.Add("Giới tính");
-                dt.Columns.Add("Số điện thoại");
-                dt.Columns.Add("Ngày đăng kí");
-                dt.Columns.Add("Gmail");
-                dt.Columns.Add("Trạng thái");
+                dt.Columns.Add("Employee ID");
+                dt.Columns.Add("Employee Name");
+                dt.Columns.Add("Identification Number");
+                dt.Columns.Add("Department ID");
+                dt.Columns.Add("Role ID");
+                dt.Columns.Add("Date of Birth");
+                dt.Columns.Add("Gender");
+                dt.Columns.Add("Phone Number");
+                dt.Columns.Add("Registration Date");
+                dt.Columns.Add("Email");
+                dt.Columns.Add("Status");
                 foreach (var item in query)
                 {
-                    string trangThai = (bool)item.TrangThai ? "Đang đi làm" : "Đã nghỉ làm";
-                    string gioiTinh = (bool)item.GioiTinh ? "Nam" : "Nữ";
-                    dt.Rows.Add(item.MaNhanVien, item.TenNhanVien, item.CCCD, item.MaBoPhan, item.MaVaiTro, item.NgaySinh, gioiTinh, item.SDT, item.NgayDangKi, item.Gmail, trangThai);
+                    string status = (bool)item.TrangThai ? "Working" : "Stopped";
+                    string gender = (bool)item.GioiTinh ? "Male" : "Female";
+                    dt.Rows.Add(item.MaNhanVien, item.TenNhanVien, item.CCCD, item.MaBoPhan, item.MaVaiTro, item.NgaySinh, gender, item.SDT, item.NgayDangKi, item.Gmail, status);
                 }
                 dgv_staff.DataSource = dt;
             }
         }
-        
+
         private void dgv_staff_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = dgv_staff.Rows[e.RowIndex];
-                txt_IDStaff.Text = row.Cells["Mã nhân viên"].Value.ToString();
-                txt_NameStaff.Text = row.Cells["Tên nhân viên"].Value.ToString();
-                txt_CCCD.Text = row.Cells["CCCD"].Value.ToString();
-                txt_IDDepartment.Text = row.Cells["Mã bộ phận"].Value.ToString();
-                txt_IDRole.Text = row.Cells["Mã vai trò"].Value.ToString();
-                dtp_Birthday.Value = DateTime.Parse(row.Cells["Ngày sinh"].Value.ToString());
-                string gioiTinh = row.Cells["Giới tính"].Value.ToString();
-                if (gioiTinh == "Nam")
+                txt_IDStaff.Text = row.Cells["Employee ID"].Value.ToString().Trim();
+                txt_NameStaff.Text = row.Cells["Employee Name"].Value.ToString().Trim();
+                txt_CCCD.Text = row.Cells["Identification Number"].Value.ToString().Trim();
+                txt_IDDepartment.Text = row.Cells["Department ID"].Value.ToString().Trim();
+                txt_IDRole.Text = row.Cells["Role ID"].Value.ToString().Trim();
+                dtp_Birthday.Value = DateTime.Parse(row.Cells["Date of Birth"].Value.ToString());
+                string gender = row.Cells["Gender"].Value.ToString();
+                if (gender == "Male")
                 {
                     rdo_Male.Checked = true;
                 }
@@ -73,11 +82,11 @@ namespace DuAnMau
                 {
                     rdo_Female.Checked = true;
                 }
-                txt_PhoneNumber.Text = row.Cells["Số điện thoại"].Value.ToString();
-                dtp_SignUpDay.Value = DateTime.Parse(row.Cells["Ngày đăng kí"].Value.ToString());
-                txt_Gmail.Text = row.Cells["Gmail"].Value.ToString();
-                string trangThai = row.Cells["Trạng thái"].Value.ToString();
-                if (trangThai == "Đang đi làm")
+                txt_PhoneNumber.Text = row.Cells["Phone Number"].Value.ToString().Trim();
+                dtp_SignUpDay.Value = DateTime.Parse(row.Cells["Registration Date"].Value.ToString());
+                txt_Gmail.Text = row.Cells["Email"].Value.ToString().Trim();
+                string status = row.Cells["Status"].Value.ToString();
+                if (status == "Working")
                 {
                     rdo_StillWorking.Checked = true;
                 }
@@ -112,17 +121,15 @@ namespace DuAnMau
                     };
                     db.NHAN_VIENs.InsertOnSubmit(newEmployee);
                     db.SubmitChanges();
-                    MessageBox.Show("Nhân viên đã được thêm thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Employee added successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Load_dgv_manager();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Thêm nhân viên thất bại!Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Failed to add employee! Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
-
 
         private void btn_Update_Click(object sender, EventArgs e)
         {
@@ -151,17 +158,17 @@ namespace DuAnMau
                         nvToUpdate.TrangThai = rdo_StillWorking.Checked;
                         db.SubmitChanges();
                         Load_dgv_manager();
-                        MessageBox.Show("Cập nhật nhân viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Employee updated successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
-                        MessageBox.Show("Không tìm thấy nhân viên cần cập nhật!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Employee not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Có lỗi xảy ra khi cập nhật nhân viên: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error updating employee: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -171,10 +178,10 @@ namespace DuAnMau
             {
                 if (string.IsNullOrWhiteSpace(txt_IDStaff.Text))
                 {
-                    MessageBox.Show("Vui lòng chọn nhân viên cần xóa!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return; // Dừng việc xóa nếu chưa chọn nhân viên
+                    MessageBox.Show("Please select an employee to delete!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
-                DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa nhân viên này không?", "Xác nhận Xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult result = MessageBox.Show("Are you sure you want to delete this employee?", "Delete Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
                     using (var db = new DataClasses1DataContext(clConn.conn))
@@ -188,18 +195,18 @@ namespace DuAnMau
                             db.NHAN_VIENs.DeleteOnSubmit(employeeToDelete);
                             db.SubmitChanges();
                             Load_dgv_manager();
-                            MessageBox.Show("Nhân viên đã được xóa thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("Employee deleted successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
                         {
-                            MessageBox.Show("Không tìm thấy nhân viên cần xóa!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Employee not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Có lỗi xảy ra: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -281,24 +288,25 @@ namespace DuAnMau
             {
                 var keyword = txt_Find.Text.Trim();
                 var findnv = from nv in db.NHAN_VIENs
-                            where nv.MaNhanVien.Contains(keyword) || nv.TenNhanVien.Contains(keyword) || nv.MaVaiTro.Contains(keyword) || nv.MaBoPhan.Contains(keyword)
-                            select new
-                            {
-                                nv.MaNhanVien,
-                                nv.TenNhanVien,
-                                nv.CCCD,
-                                nv.MaBoPhan,
-                                nv.MaVaiTro,
-                                nv.NgaySinh,
-                                GioiTinh = (bool)nv.GioiTinh ? "Nam" : "Nữ",
-                                nv.SDT,
-                                nv.NgayDangKi,
-                                nv.Gmail,
-                                TrangThai = nv.TrangThai ? "Đang còn" : "Đã hết",
-                            };
+                             where nv.MaNhanVien.Contains(keyword) || nv.TenNhanVien.Contains(keyword) || nv.MaVaiTro.Contains(keyword) || nv.MaBoPhan.Contains(keyword)
+                             select new
+                             {
+                                 nv.MaNhanVien,
+                                 nv.TenNhanVien,
+                                 nv.CCCD,
+                                 nv.MaBoPhan,
+                                 nv.MaVaiTro,
+                                 nv.NgaySinh,
+                                 GioiTinh = (bool)nv.GioiTinh ? "Male" : "Female",
+                                 nv.SDT,
+                                 nv.NgayDangKi,
+                                 nv.Gmail,
+                                 TrangThai = nv.TrangThai ? "Working" : "Stopped",
+                             };
                 dgv_staff.DataSource = findnv.ToList();
             }
         }
+
         private bool ValidateEmployeeID(string id)
         {
             Regex regex = new Regex(@"^NV\d{3}$");
@@ -319,7 +327,7 @@ namespace DuAnMau
 
         private bool ValidateCCCD(string cccd)
         {
-            if (cccd.Any(char.IsLetter) || Convert.ToInt32(cccd) < 0)
+            if (cccd.Any(char.IsLetter) || Convert.ToInt64(cccd) < 0)
                 return false;
             return true;
         }
@@ -347,6 +355,7 @@ namespace DuAnMau
         {
             return dateOfBirth <= signUpDate;
         }
+
         private bool ValidateName(string name)
         {
             Regex regex = new Regex(@"\d");
@@ -357,64 +366,61 @@ namespace DuAnMau
         {
             if (!ValidateName(txt_NameStaff.Text))
             {
-                MessageBox.Show("Tên nhân viên không được chứa số!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Employee name cannot contain numbers!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
             if (!ValidateEmployeeID(txt_IDStaff.Text))
             {
-                MessageBox.Show("Mã nhân viên không đúng định dạng (NVxxx)!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Invalid employee ID format (NVxxx)!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
             if (!ValidateDepartmentID(txt_IDDepartment.Text))
             {
-                MessageBox.Show("Mã bộ phận không đúng định dạng (BPxxx)!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Invalid department ID format (BPxxx)!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
             if (!ValidateRoleID(txt_IDRole.Text))
             {
-                MessageBox.Show("Mã vai trò không đúng định dạng (VTxxx)!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Invalid role ID format (VTxxx)!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
             if (!ValidateCCCD(txt_CCCD.Text))
             {
-                MessageBox.Show("CCCD không được nhập kí tự và số âm!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Identification number cannot contain letters or negative numbers!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
             if (!ValidatePhoneNumber(txt_PhoneNumber.Text))
             {
-                MessageBox.Show("Số điện thoại không được nhập kí tự và số âm!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Phone number cannot contain letters or negative numbers!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
             if (!ValidateEmail(txt_Gmail.Text))
             {
-                MessageBox.Show("Email không hợp lệ! Phải có định dạng '@gmail.com'", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Invalid email format! Must end with '@gmail.com'", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
             if (!ValidateGenderAndStatus())
             {
-                MessageBox.Show("Giới tính hoặc trạng thái không được bỏ trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Gender or status cannot be empty!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
             if (!ValidateDateOfBirthAndSignUpDate(dtp_Birthday.Value, dtp_SignUpDay.Value))
             {
-                MessageBox.Show("Ngày sinh không được sau ngày đăng kí!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Date of birth cannot be after the registration date!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
             return true;
         }
 
-        private void Frm_employeeManager_Load(object sender, EventArgs e)
-        {
-
-        }
+        
     }
 }

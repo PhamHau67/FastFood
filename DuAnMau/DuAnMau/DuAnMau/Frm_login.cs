@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DuAnMau
@@ -16,20 +11,24 @@ namespace DuAnMau
         {
             InitializeComponent();
         }
+
         private Cl_conn clConn = new Cl_conn();
+
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
+
         public bool ShowPassword
         {
-            get { return txt_pass.PasswordChar == '\0'; } //Trả về true nếu mật khẩu đang hiển thị
-            set { txt_pass.PasswordChar = value ? '\0' : '*'; } //Thiết lập PasswordChar tùy thuộc vào giá trị của thuộc tính
-        } 
+            get { return txt_pass.PasswordChar == '\0'; } // Return true if the password is visible
+            set { txt_pass.PasswordChar = value ? '\0' : '*'; } // Set PasswordChar based on the property value
+        }
+
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            //Khi Checkbox được nhấp, cập nhật thuộc tính ShowPassword
+            // When Checkbox is clicked, update the ShowPassword property
             ShowPassword = checkBox1.Checked;
         }
 
@@ -37,18 +36,28 @@ namespace DuAnMau
         {
             string username = txt_user.Text;
             string password = txt_pass.Text;
+
             using (var db = new DataClasses1DataContext(clConn.conn))
             {
-                var user = db.TAI_KHOANs.SingleOrDefault(u => u.TenTaiKhoan == username && u.MatKhau == password);
+                var user = (from tk in db.TAI_KHOANs
+                            join nv in db.NHAN_VIENs on tk.MaNhanVien equals nv.MaNhanVien
+                            where tk.TenTaiKhoan == username && tk.MatKhau == password
+                            select new { tk, nv }).SingleOrDefault();
+
                 if (user != null)
                 {
-                    lbl_error.Text = "Password or username error!";
-                    if (username == "admin")
+                    Globals.username = user.nv.TenNhanVien; // Lưu tên nhân viên vào biến toàn cục
+
+                    // Truyền tên nhân viên sang form gọi món
+                    Frm_Order orderForm = new Frm_Order(user.nv.TenNhanVien);
+
+                    // Kiểm tra quyền của người dùng và hiển thị form tương ứng
+                    if (username.ToLower() == "admin")
                     {
-                        Frm_home frm_Home = new Frm_home(); 
+                        Frm_home frm_Home = new Frm_home();
                         frm_Home.Show();
                     }
-                    else if (username == "ql")
+                    else if (username.ToLower().StartsWith("ql"))
                     {
                         Frm_leader frm_Leader = new Frm_leader();
                         frm_Leader.Show();
@@ -64,19 +73,11 @@ namespace DuAnMau
                 {
                     lbl_error.Text = "Invalid username or password!";
                 }
+
             }
         }
-        public string Username
-        {
-            get { return txt_user.Text; }
-            set { txt_user.Text = value; }
-        }
 
-        public string Password
-        {
-            get { return txt_pass.Text; }
-            set { txt_pass.Text = value; }
-        }
+
 
         public void ClearCredentials()
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -57,7 +58,7 @@ namespace DuAnMau
 
         private void btn_order_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Frm_Order());
+            OpenChildForm(new Frm_Order(Globals.username));
         }
 
         private void btn_history_Click(object sender, EventArgs e)

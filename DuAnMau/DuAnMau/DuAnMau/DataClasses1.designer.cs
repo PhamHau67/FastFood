@@ -62,6 +62,12 @@ namespace DuAnMau
     partial void DeleteVAITRO(VAITRO instance);
     #endregion
 		
+		public DataClasses1DataContext() : 
+				base(global::DuAnMau.Properties.Settings.Default.FastFoodDBConnectionString2, mappingSource)
+		{
+			OnCreated();
+		}
+		
 		public DataClasses1DataContext(string connection) : 
 				base(connection, mappingSource)
 		{
@@ -437,7 +443,7 @@ namespace DuAnMau
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private string _MaChiTietHoaDon;
+		private int _MaChiTietHoaDon;
 		
 		private string _MaHoaDon;
 		
@@ -457,7 +463,7 @@ namespace DuAnMau
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnMaChiTietHoaDonChanging(string value);
+    partial void OnMaChiTietHoaDonChanging(int value);
     partial void OnMaChiTietHoaDonChanged();
     partial void OnMaHoaDonChanging(string value);
     partial void OnMaHoaDonChanged();
@@ -478,8 +484,8 @@ namespace DuAnMau
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaChiTietHoaDon", DbType="Char(5) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string MaChiTietHoaDon
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaChiTietHoaDon", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int MaChiTietHoaDon
 		{
 			get
 			{
@@ -2132,13 +2138,13 @@ namespace DuAnMau
 		
 		private decimal _Tien;
 		
-		private string _SoLuong;
+		private int _SoLuong;
 		
 		private System.DateTime _NgayThem;
 		
 		private string _DonVi;
 		
-		private string _SoLuongConLai;
+		private int _SoLuongConLai;
 		
 		private System.DateTime _NSX;
 		
@@ -2166,13 +2172,13 @@ namespace DuAnMau
     partial void OnMaNhaCungCapChanged();
     partial void OnTienChanging(decimal value);
     partial void OnTienChanged();
-    partial void OnSoLuongChanging(string value);
+    partial void OnSoLuongChanging(int value);
     partial void OnSoLuongChanged();
     partial void OnNgayThemChanging(System.DateTime value);
     partial void OnNgayThemChanged();
     partial void OnDonViChanging(string value);
     partial void OnDonViChanged();
-    partial void OnSoLuongConLaiChanging(string value);
+    partial void OnSoLuongConLaiChanging(int value);
     partial void OnSoLuongConLaiChanged();
     partial void OnNSXChanging(System.DateTime value);
     partial void OnNSXChanged();
@@ -2259,8 +2265,8 @@ namespace DuAnMau
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoLuong", DbType="Char(5) NOT NULL", CanBeNull=false)]
-		public string SoLuong
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoLuong", DbType="Int NOT NULL")]
+		public int SoLuong
 		{
 			get
 			{
@@ -2319,8 +2325,8 @@ namespace DuAnMau
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoLuongConLai", DbType="Char(5) NOT NULL", CanBeNull=false)]
-		public string SoLuongConLai
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoLuongConLai", DbType="Int NOT NULL")]
+		public int SoLuongConLai
 		{
 			get
 			{

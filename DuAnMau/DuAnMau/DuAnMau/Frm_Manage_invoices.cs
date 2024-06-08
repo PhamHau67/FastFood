@@ -1,5 +1,4 @@
-﻿
-using iTextSharp.text.pdf;
+﻿using iTextSharp.text.pdf;
 using iTextSharp.text;
 using System;
 using System.Data;
@@ -14,22 +13,23 @@ namespace DuAnMau
 {
     public partial class Frm_Manage_invoices : Form
     {
+        private string selectedInvoiceID;
         private string selectedEmployeeName;
         private DateTime selectedCreationDate;
         private decimal selectedTotalAmount;
         private List<Tuple<string, int, decimal>> selectedInvoiceDetails;
         private Cl_conn clConn = new Cl_conn();
+
         public Frm_Manage_invoices()
         {
             InitializeComponent();
-            LoadataHoaDon(); 
+            LoadataHoaDon();
             timer1.Start();
             Row_lstv();
 
-            // Thêm trình xử lý sự kiện cho DateTimePickers
+            // Add event handlers for DateTimePickers
             dt_start.ValueChanged += DateTimePickers_ValueChanged;
             dt_end.ValueChanged += DateTimePickers_ValueChanged;
-
         }
 
         private void LoadataHoaDon()
@@ -44,10 +44,9 @@ namespace DuAnMau
                                 nhanvien.TenNhanVien,
                                 hoadon.NgayTao,
                                 hoadon.TongTien,
-                                Status = hoadon.TrangThai.HasValue ? (hoadon.TrangThai.Value ? "Đã thanh toán" : "Chưa thanh toán") : "Chưa thanh toán" // Thay đổi trạng thái
+                                Status = hoadon.TrangThai.HasValue ? (hoadon.TrangThai.Value ? "Đã thanh toán" : "Chưa thanh toán") : "Chưa thanh toán"
                             };
 
-                // Tạo DataTable từ kết quả truy vấn
                 DataTable dt = new DataTable();
                 dt.Columns.Add("Invoice ID");
                 dt.Columns.Add("Employee Name");
@@ -64,38 +63,30 @@ namespace DuAnMau
                     row["Employee Name"] = item.TenNhanVien;
                     row["Creation Date"] = item.NgayTao.ToString("dd/MM/yyyy");
                     row["Total Amount"] = item.TongTien.ToString("N0");
-                    row["Status"] = item.Status; // Gán giá trị trạng thái mới
+                    row["Status"] = item.Status;
                     dt.Rows.Add(row);
                 }
 
-                // Gắn kết DataTable với DataGridView
                 dgv_HoaDon.DataSource = dt;
-
-                // Hiển thị tổng số tiền của các hóa đơn trên TextBox
                 txt_Summ.Text = totalAmount.ToString("N0");
             }
         }
+
         private void UpdateTotalAmount()
         {
             decimal totalAmount = 0;
 
             foreach (ListViewItem item in lstv_ChiTietHoaDon.Items)
             {
-                // Lấy giá trị số tiền từ cột thứ 3 (index là 2)
                 string priceString = item.SubItems[2].Text;
-
-                // Chuyển đổi giá trị số tiền từ chuỗi về decimal
                 if (decimal.TryParse(priceString, out decimal price))
                 {
-                    // Cộng dồn vào tổng số tiền
                     totalAmount += price;
                 }
             }
 
-            // Hiển thị tổng số tiền lên TextBox
             txt_Summ.Text = totalAmount.ToString("N0");
         }
-
 
         private void FilterDataByDate()
         {
@@ -113,10 +104,9 @@ namespace DuAnMau
                                 nhanvien.TenNhanVien,
                                 hoadon.NgayTao,
                                 hoadon.TongTien,
-                                Status = hoadon.TrangThai.HasValue ? (hoadon.TrangThai.Value ? "Đã thanh toán" : "Chưa thanh toán") : "Chưa thanh toán" // Thay đổi trạng thái
+                                Status = hoadon.TrangThai.HasValue ? (hoadon.TrangThai.Value ? "Đã thanh toán" : "Chưa thanh toán") : "Chưa thanh toán"
                             };
 
-                // Tạo DataTable từ kết quả truy vấn
                 DataTable dt = new DataTable();
                 dt.Columns.Add("Invoice ID");
                 dt.Columns.Add("Employee Name");
@@ -131,15 +121,14 @@ namespace DuAnMau
                     row["Employee Name"] = item.TenNhanVien;
                     row["Creation Date"] = item.NgayTao.ToString("dd/MM/yyyy");
                     row["Total Amount"] = item.TongTien.ToString("N0");
-                    row["Status"] = item.Status; // Gán giá trị trạng thái mới
+                    row["Status"] = item.Status;
                     dt.Rows.Add(row);
                 }
-                // Gắn kết DataTable với DataGridView
+
                 dgv_HoaDon.DataSource = dt;
             }
         }
 
-        // Trình xử lý sự kiện để thay đổi giá trị DateTimePicker
         private void DateTimePickers_ValueChanged(object sender, EventArgs e)
         {
             FilterDataByDate();
@@ -147,51 +136,38 @@ namespace DuAnMau
 
         public void Row_lstv()
         {
-            lstv_ChiTietHoaDon.Columns.Add("Product", 200); // Cột cho tên món ăn
-            lstv_ChiTietHoaDon.Columns.Add("Quantity", 90); // Cột cho số lượng
-            lstv_ChiTietHoaDon.Columns.Add("Price", 90); // Cột cho giá
+            lstv_ChiTietHoaDon.Columns.Add("Product", 200);
+            lstv_ChiTietHoaDon.Columns.Add("Quantity", 90);
+            lstv_ChiTietHoaDon.Columns.Add("Price", 90);
             lstv_ChiTietHoaDon.Columns[0].Width = (int)(lstv_ChiTietHoaDon.Width * 0.40);
             lstv_ChiTietHoaDon.Columns[1].Width = (int)(lstv_ChiTietHoaDon.Width * 0.25);
             lstv_ChiTietHoaDon.Columns[2].Width = (int)(lstv_ChiTietHoaDon.Width * 0.25);
             lstv_ChiTietHoaDon.View = View.Details;
             lstv_ChiTietHoaDon.GridLines = true;
         }
-             
+
         private void dgv_HoaDon_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Kiểm tra xem người dùng đã chọn một hàng hay không
             if (e.RowIndex >= 0)
             {
-                // Lấy hóa đơn được chọn từ DataGridView
                 DataGridViewRow selectedRow = dgv_HoaDon.Rows[e.RowIndex];
-                string maHoaDon = selectedRow.Cells["Invoice ID"].Value.ToString();
-
-                // Lưu thông tin hóa đơn được chọn
+                selectedInvoiceID = selectedRow.Cells["Invoice ID"].Value.ToString();
                 selectedEmployeeName = selectedRow.Cells["Employee Name"].Value.ToString();
-
-                // Sử dụng DateTime.ParseExact để xử lý định dạng ngày tháng
-                string dateFormat = "dd/MM/yyyy";
-                if (!DateTime.TryParseExact(selectedRow.Cells["Creation Date"].Value.ToString(), dateFormat, null, System.Globalization.DateTimeStyles.None, out selectedCreationDate))
+                string status = selectedRow.Cells["Status"].Value.ToString();
+                txt_status.Text = status;
+                if (!DateTime.TryParseExact(selectedRow.Cells["Creation Date"].Value.ToString(), "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out selectedCreationDate))
                 {
                     MessageBox.Show("Invalid date format in Creation Date.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                if (!decimal.TryParse(selectedRow.Cells["Total Amount"].Value.ToString(), out selectedTotalAmount))
-                {
-                    MessageBox.Show("Invalid number format in Total Amount.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                // Lưu chi tiết hóa đơn vào danh sách
                 selectedInvoiceDetails = new List<Tuple<string, int, decimal>>();
 
-                // Truy vấn chi tiết hóa đơn tương ứng từ cơ sở dữ liệu
                 using (var db = new DataClasses1DataContext(clConn.conn))
                 {
                     var query = from chitiet in db.CHITIET_HOADONs
                                 join sanpham in db.SANPHAMs on chitiet.MaSanPham equals sanpham.MaSanPham
-                                where chitiet.MaHoaDon == maHoaDon
+                                where chitiet.MaHoaDon == selectedInvoiceID
                                 select new
                                 {
                                     sanpham.TenSanPham,
@@ -199,35 +175,38 @@ namespace DuAnMau
                                     chitiet.DonGia
                                 };
 
-                    // Thêm chi tiết hóa đơn vào danh sách
                     foreach (var item in query)
                     {
-                        int soLuong = 0;
+                        int soLuong;
                         if (int.TryParse(item.SoLuong.ToString(), out soLuong))
                         {
                             selectedInvoiceDetails.Add(new Tuple<string, int, decimal>(item.TenSanPham, soLuong, item.DonGia));
                         }
                         else
                         {
-                            // Xử lý trường hợp không chuyển đổi được
                             MessageBox.Show("Cannot convert SoLuong to int: " + item.SoLuong);
                         }
                     }
                 }
 
-                // Hiển thị chi tiết hóa đơn trong ListView
                 lstv_ChiTietHoaDon.Items.Clear();
                 foreach (var detail in selectedInvoiceDetails)
                 {
                     ListViewItem item = new ListViewItem(detail.Item1);
-                    item.SubItems.Add(detail.Item2.ToString()); // Convert int to string
-                    item.SubItems.Add(detail.Item3.ToString("N0")); // Convert decimal to string
+                    item.SubItems.Add(detail.Item2.ToString());
+                    item.SubItems.Add((detail.Item2 * detail.Item3).ToString("N0"));
                     lstv_ChiTietHoaDon.Items.Add(item);
                 }
-            }
-            UpdateTotalAmount();
-        }
 
+                decimal totalAmount = 0;
+                foreach (var detail in selectedInvoiceDetails)
+                {
+                    totalAmount += detail.Item2 * detail.Item3;
+                }
+
+                txt_Summ.Text = totalAmount.ToString("N0");
+            }
+        }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -267,13 +246,16 @@ namespace DuAnMau
         {
             try
             {
-                // Tạo một đối tượng PrintDocument
+                // Kiểm tra trạng thái của hóa đơn
+                if (txt_status.Text == "Chưa thanh toán")
+                {
+                    MessageBox.Show("This invoice has not been completed yet. You cannot print it.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return; // Ngăn chặn việc in nếu hóa đơn chưa hoàn thành
+                }
+
+                // Nếu hóa đơn đã hoàn thành, tiến hành in
                 PrintDocument pd = new PrintDocument();
-
-                // Đặt sự kiện PrintPage cho việc vẽ nội dung cần in
                 pd.PrintPage += new PrintPageEventHandler(PrintPage);
-
-                // In hoá đơn
                 pd.Print();
             }
             catch (Exception ex)
@@ -282,6 +264,9 @@ namespace DuAnMau
             }
         }
 
+
+
+
         private void PrintPage(object sender, PrintPageEventArgs e)
         {
             System.Drawing.Font font = new System.Drawing.Font("Arial", 12);
@@ -289,13 +274,11 @@ namespace DuAnMau
             float y = 20;
             float lineHeight = font.GetHeight(e.Graphics) + 5;
 
-            // In thông tin nhân viên và ngày giờ
             e.Graphics.DrawString("Employee Name: " + selectedEmployeeName, font, brush, 20, y);
             y += lineHeight;
             e.Graphics.DrawString("Creation Date: " + selectedCreationDate.ToString("dd/MM/yyyy HH:mm:ss"), font, brush, 20, y);
             y += lineHeight;
 
-            // In chi tiết hóa đơn
             e.Graphics.DrawString("Invoice Details", new System.Drawing.Font("Arial", 14, FontStyle.Bold), brush, 20, y);
             y += lineHeight;
 
@@ -307,14 +290,76 @@ namespace DuAnMau
             foreach (var detail in selectedInvoiceDetails)
             {
                 e.Graphics.DrawString(detail.Item1, font, brush, 20, y);
-                e.Graphics.DrawString(detail.Item2.ToString(), font, brush, 200, y); // Convert int to string
-                e.Graphics.DrawString(detail.Item3.ToString("N0"), font, brush, 300, y); // Convert decimal to string
+                e.Graphics.DrawString(detail.Item2.ToString(), font, brush, 200, y);
+                e.Graphics.DrawString(detail.Item3.ToString("N0"), font, brush, 300, y);
                 y += lineHeight;
             }
 
-            // In tổng tiền
             y += lineHeight;
             e.Graphics.DrawString("Total Amount: " + selectedTotalAmount.ToString("N0"), font, brush, 20, y);
+        }
+
+        private void btn_remove_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(selectedInvoiceID))
+                {
+                    MessageBox.Show("Please select an invoice to change the status.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                using (var db = new DataClasses1DataContext(clConn.conn))
+                {
+                    var invoice = db.HOADONs.SingleOrDefault(hd => hd.MaHoaDon == selectedInvoiceID);
+                    if (invoice == null)
+                    {
+                        MessageBox.Show("Invoice not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    // Kiểm tra nếu hóa đơn đã thanh toán thì không cho xóa
+                    if (invoice.TrangThai.HasValue && invoice.TrangThai.Value)
+                    {
+                        DialogResult result = MessageBox.Show("This invoice has already been paid. Do you still want to change its status?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (result == DialogResult.No)
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("This invoice is not paid yet. You cannot change its status.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    // Cập nhật trạng thái hóa đơn
+                    invoice.TrangThai = false;
+
+                    // Lặp qua từng mặt hàng trong hóa đơn và cập nhật lại số lượng sản phẩm
+                    foreach (var detail in selectedInvoiceDetails)
+                    {
+                        var product = db.SANPHAMs.SingleOrDefault(sp => sp.TenSanPham == detail.Item1);
+                        if (product != null)
+                        {
+                            // Cộng lại số lượng của sản phẩm trong bảng SANPHAMs
+                            product.SoLuongConLai += detail.Item2;
+                        }
+                    }
+
+                    db.SubmitChanges();
+
+                    LoadataHoaDon();
+                    lstv_ChiTietHoaDon.Items.Clear();
+                    UpdateTotalAmount();
+
+                    MessageBox.Show("Invoice status changed successfully and product quantities updated.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

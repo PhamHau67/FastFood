@@ -65,7 +65,7 @@
             this.btn_login.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(99)))), ((int)(((byte)(59)))));
             this.btn_login.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.btn_login.ForeColor = System.Drawing.Color.Gold;
-            this.btn_login.Location = new System.Drawing.Point(184, 291);
+            this.btn_login.Location = new System.Drawing.Point(196, 291);
             this.btn_login.Name = "btn_login";
             this.btn_login.Size = new System.Drawing.Size(299, 40);
             this.btn_login.TabIndex = 7;

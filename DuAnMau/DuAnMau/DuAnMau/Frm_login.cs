@@ -49,8 +49,9 @@ namespace DuAnMau
             {
                 var user = (from tk in db.TAI_KHOANs
                             join nv in db.NHAN_VIENs on tk.MaNhanVien equals nv.MaNhanVien
+                            join vt in db.VAITROs on nv.MaVaiTro equals vt.MaVaiTro
                             where tk.TenTaiKhoan == username && tk.MatKhau == password
-                            select new { tk, nv }).SingleOrDefault();
+                            select new { tk, nv, vt }).SingleOrDefault();
 
                 if (user != null)
                 {
@@ -59,31 +60,36 @@ namespace DuAnMau
                     // Truyền tên nhân viên sang form gọi món
                     Frm_Order orderForm = new Frm_Order(user.nv.TenNhanVien);
 
-                    // Kiểm tra quyền của người dùng và hiển thị form tương ứng
-                    if (username.ToLower() == "admin")
+                    // Kiểm tra vai trò của người dùng và hiển thị form tương ứng
+                    if (user.vt.TenVaiTro.ToLower() == "admin")
                     {
-                        Frm_home frm_Home = new Frm_home();
-                        frm_Home.Show();
+                        Frm_home frm_Admin = new Frm_home();
+                        frm_Admin.Show();
                     }
-                    else if (username.ToLower().StartsWith("ql"))
+                    else if (user.vt.TenVaiTro.ToLower() == "quản lý")
                     {
                         Frm_leader frm_Leader = new Frm_leader();
                         frm_Leader.Show();
                     }
-                    else
+                    else if (user.vt.TenVaiTro.ToLower() == "nhân viên")
                     {
                         Frm_homeOrders frm_HomeOrders = new Frm_homeOrders();
                         frm_HomeOrders.Show();
                     }
+                    else
+                    {
+                        MessageBox.Show("Unknown role!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
                     this.Hide();
                 }
                 else
                 {
                     lbl_error.Text = "Invalid username or password!";
                 }
-
             }
         }
+
 
 
 

@@ -134,9 +134,9 @@ namespace DuAnMau
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
-            this.Close();
-            Frm_login frm_Login = new Frm_login();
-            frm_Login.Show();
+            Frm_login frm_login = new Frm_login();
+            frm_login.Show();
+            this.Hide();
         }
 
 

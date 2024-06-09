@@ -30,6 +30,7 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_Account));
             this.grp_product_Information = new Guna.UI2.WinForms.Guna2GroupBox();
             this.cbx_Role = new Guna.UI2.WinForms.Guna2ComboBox();
             this.txt_Password = new Guna.UI2.WinForms.Guna2TextBox();
@@ -53,6 +54,7 @@
             this.btn_add = new Guna.UI2.WinForms.Guna2Button();
             this.btn_repair = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.grp_product_Information.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Account)).BeginInit();
             this.guna2Panel2.SuspendLayout();
@@ -64,6 +66,7 @@
             // 
             this.grp_product_Information.BorderRadius = 5;
             this.grp_product_Information.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+            this.grp_product_Information.Controls.Add(this.guna2Button1);
             this.grp_product_Information.Controls.Add(this.cbx_Role);
             this.grp_product_Information.Controls.Add(this.txt_Password);
             this.grp_product_Information.Controls.Add(this.txt_AccountID);
@@ -80,9 +83,9 @@
             this.grp_product_Information.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(232)))), ((int)(((byte)(209)))));
             this.grp_product_Information.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grp_product_Information.ForeColor = System.Drawing.Color.Black;
-            this.grp_product_Information.Location = new System.Drawing.Point(4, 492);
+            this.grp_product_Information.Location = new System.Drawing.Point(-3, 484);
             this.grp_product_Information.Name = "grp_product_Information";
-            this.grp_product_Information.Size = new System.Drawing.Size(1106, 256);
+            this.grp_product_Information.Size = new System.Drawing.Size(1123, 277);
             this.grp_product_Information.TabIndex = 17;
             this.grp_product_Information.Text = "Account Information";
             // 
@@ -105,9 +108,9 @@
             "Quản lý",
             "Nhân viên",
             "ADMIN"});
-            this.cbx_Role.Location = new System.Drawing.Point(430, 193);
+            this.cbx_Role.Location = new System.Drawing.Point(430, 204);
             this.cbx_Role.Name = "cbx_Role";
-            this.cbx_Role.Size = new System.Drawing.Size(247, 36);
+            this.cbx_Role.Size = new System.Drawing.Size(264, 36);
             this.cbx_Role.TabIndex = 17;
             // 
             // txt_Password
@@ -499,6 +502,23 @@
             this.guna2Panel4.Size = new System.Drawing.Size(1123, 144);
             this.guna2Panel4.TabIndex = 21;
             // 
+            // guna2Button1
+            // 
+            this.guna2Button1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2Button1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2Button1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2Button1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(232)))), ((int)(((byte)(209)))));
+            this.guna2Button1.Font = new System.Drawing.Font("Segoe UI", 10.2F);
+            this.guna2Button1.ForeColor = System.Drawing.Color.Black;
+            this.guna2Button1.Image = ((System.Drawing.Image)(resources.GetObject("guna2Button1.Image")));
+            this.guna2Button1.Location = new System.Drawing.Point(1055, 51);
+            this.guna2Button1.Name = "guna2Button1";
+            this.guna2Button1.Size = new System.Drawing.Size(65, 51);
+            this.guna2Button1.TabIndex = 18;
+            this.guna2Button1.Click += new System.EventHandler(this.guna2Button1_Click);
+            // 
             // Frm_Account
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -544,5 +564,6 @@
         private Guna.UI2.WinForms.Guna2Button btn_add;
         private Guna.UI2.WinForms.Guna2Button btn_repair;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel4;
+        private Guna.UI2.WinForms.Guna2Button guna2Button1;
     }
 }

@@ -29,7 +29,6 @@ namespace DuAnMau
             LoadData_Dgv();
             // Ẩn cột trống ở phía bên trái của DataGridView
             dgv_Account.RowHeadersVisible = false;
-            //dgv_Account.RowHeadersVisible = false;
         }
 
         public void LoadData_Dgv()
@@ -343,6 +342,13 @@ namespace DuAnMau
                             };
                 dgv_Account.DataSource = TimAc.ToList();
             }
+        }
+
+        private void guna2Button1_Click(object sender, EventArgs e)
+        {
+            Frm_home frm_login = new Frm_home();
+            frm_login.Show();
+            this.Hide();
         }
     }
 }

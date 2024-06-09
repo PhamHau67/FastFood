@@ -8,6 +8,6 @@ namespace DuAnMau
 {
     internal class Cl_conn
     {
-        public string conn = "Data Source=DESKTOP-F5INLQE\\HAU;Initial Catalog=FastFoodDB;Integrated Security=True;";
+        public string conn = "Data Source=RUDEUS\\VVH;Initial Catalog=FastFoodDB;Integrated Security=True;";
     }
 }

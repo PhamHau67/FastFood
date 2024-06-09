@@ -34,54 +34,59 @@ namespace DuAnMau
         }
         public void LoadData_Dgv()
         {
-            using (var db = new DataClasses1DataContext(clConn.conn))
+            try 
             {
-                //Viết câu lệnh truy vấn và join bảng
-                var ListPr = from sp in db.SANPHAMs
-                             join ncc in db.NHACUNGCAPs on sp.MaNhaCungCap equals ncc.MaNhaCungCap
+                using (var db = new DataClasses1DataContext(clConn.conn))
+                {
+                    //Viết câu lệnh truy vấn và join bảng
+                    var ListPr = from sp in db.SANPHAMs
+                                 join ncc in db.NHACUNGCAPs on sp.MaNhaCungCap equals ncc.MaNhaCungCap
+                                 select new
+                                 {
+                                     sp.MaSanPham,
+                                     sp.TenSanPham,
+                                     sp.LoaiSanPham,
+                                     sp.DonVi,
+                                     sp.MoTaSanPham,
+                                     sp.Tien,
+                                     sp.SoLuong,
+                                     sp.SoLuongConLai,
+                                     sp.NSX,
+                                     sp.HSD,
+                                     TrangThai = sp.TrangThai ? "Đang còn" : "Đã hết",
+                                     ncc.MaNhaCungCap,
+                                     ncc.TenNhaCungCap
+                                 };
 
+                    dgv_Product.DataSource = ListPr.ToList();
+                    dgv_Product.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
+                    dgv_Product.Columns["MaSanPham"].HeaderText = "Product Code"; // Mã Sản Phẩm
+                    dgv_Product.Columns["TenSanPham"].HeaderText = "Product Name"; // Tên Sản Phẩm
+                    dgv_Product.Columns["LoaiSanPham"].HeaderText = "Product Category"; // Loại Sản Phẩm
+                    dgv_Product.Columns["DonVi"].HeaderText = "Unit"; // Đơn Vị
+                    dgv_Product.Columns["MoTaSanPham"].HeaderText = "Product Description"; // Mô Tả Sản Phẩm
+                    dgv_Product.Columns["Tien"].HeaderText = "Price"; // Tiền
+                    dgv_Product.Columns["SoLuong"].HeaderText = "Quantity"; // Số Lượng
+                    dgv_Product.Columns["SoLuongConLai"].HeaderText = "Remaining Quantity"; // Số Lượng Còn Lại
+                    dgv_Product.Columns["NSX"].HeaderText = "Manufacture Date"; // Ngày Sản Xuất
+                    dgv_Product.Columns["HSD"].HeaderText = "Expiry Date"; // Hạn Sử Dụng
+                    dgv_Product.Columns["TrangThai"].HeaderText = "Status"; // Trạng Thái
+                    dgv_Product.Columns["MaNhaCungCap"].HeaderText = "Supplier Code"; // Mã Nhà Cung Cấp
+                    dgv_Product.Columns["TenNhaCungCap"].HeaderText = "Supplier Name"; // Tên Nhà Cung Cấp
 
-                             select new
-                             {
-                                 sp.MaSanPham,
-                                 sp.TenSanPham,
-                                 sp.LoaiSanPham,
-                                 sp.DonVi,
-                                 sp.MoTaSanPham,
-                                 sp.Tien,
-                                 sp.SoLuong,
-                                 sp.SoLuongConLai,
-                                 sp.NSX,
-                                 sp.HSD,
-                                 TrangThai = sp.TrangThai ? "Đang còn" : "Đã hết",
-                                 ncc.MaNhaCungCap,
-                                 ncc.TenNhaCungCap
-                             };
-
-                dgv_Product.DataSource = ListPr.ToList();
-                dgv_Product.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-
-                dgv_Product.Columns["MaSanPham"].HeaderText = "Product Code"; // Mã Sản Phẩm
-                dgv_Product.Columns["TenSanPham"].HeaderText = "Product Name"; // Tên Sản Phẩm
-                dgv_Product.Columns["LoaiSanPham"].HeaderText = "Product Category"; // Loại Sản Phẩm
-                dgv_Product.Columns["DonVi"].HeaderText = "Unit"; // Đơn Vị
-                dgv_Product.Columns["MoTaSanPham"].HeaderText = "Product Description"; // Mô Tả Sản Phẩm
-                dgv_Product.Columns["Tien"].HeaderText = "Price"; // Tiền
-                dgv_Product.Columns["SoLuong"].HeaderText = "Quantity"; // Số Lượng
-                dgv_Product.Columns["SoLuongConLai"].HeaderText = "Remaining Quantity"; // Số Lượng Còn Lại
-                dgv_Product.Columns["NSX"].HeaderText = "Manufacture Date"; // Ngày Sản Xuất
-                dgv_Product.Columns["HSD"].HeaderText = "Expiry Date"; // Hạn Sử Dụng
-                dgv_Product.Columns["TrangThai"].HeaderText = "Status"; // Trạng Thái
-                dgv_Product.Columns["MaNhaCungCap"].HeaderText = "Supplier Code"; // Mã Nhà Cung Cấp
-                dgv_Product.Columns["TenNhaCungCap"].HeaderText = "Supplier Name"; // Tên Nhà Cung Cấp
-
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while adding data: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
             //Sự kiện để cho thay đổi cbx thì 
 
             private void cbx_Supplier_ID_SelectedIndexChanged(object sender, EventArgs e)
-        {
+            {
             if (cbx_Supplier_ID.SelectedValue != null)
             {
                 using (var db = new DataClasses1DataContext(clConn.conn))
@@ -92,7 +97,7 @@ namespace DuAnMau
 
                     if (supplier != null)
                     {
-                        txt_Supplier_Name.Text = supplier.TenNhaCungCap;
+                        cbx_Supplier_ID.Text = supplier.TenNhaCungCap;
                     }
                 }
             }
@@ -110,7 +115,7 @@ namespace DuAnMau
 
                 cbx_Supplier_ID.DataSource = suppliers.ToList();
                 cbx_Supplier_ID.ValueMember = "MaNhaCungCap";
-                cbx_Supplier_ID.DisplayMember = "MaNhaCungCap";
+                cbx_Supplier_ID.DisplayMember = "TenNhaCungCap";
             }
         }
 
@@ -127,8 +132,6 @@ namespace DuAnMau
             {
                 // Lấy dữ liệu từ click vào các biến
                 DataGridViewRow row = dgv_Product.Rows[e.RowIndex];
-
-
                 txt_pr_Name.Text = row.Cells["TenSanPham"].Value.ToString();
                 txt_pr_Type.Text = row.Cells["LoaiSanPham"].Value.ToString();
                 txt_pr_Unit.Text = row.Cells["DonVi"].Value.ToString();
@@ -142,7 +145,7 @@ namespace DuAnMau
                 txt_pr_Quantity_Remaining.Text = row.Cells["SoLuongConLai"].Value.ToString();
                 dtp_pr_DateOfManufacture.Value = Convert.ToDateTime(row.Cells["NSX"].Value);
                 dtp_Expiration_Date.Value = Convert.ToDateTime(row.Cells["HSD"].Value);
-                txt_Supplier_Name.Text = row.Cells["TenNhaCungCap"].Value.ToString();
+                
                 cbx_Supplier_ID.SelectedValue = row.Cells["MaNhaCungCap"].Value.ToString();
             }
         }
@@ -254,8 +257,7 @@ namespace DuAnMau
                 txt_pr_Quantity.Text = string.Empty;
                 txt_pr_Quantity_Remaining.Text = string.Empty;
                 dtp_pr_DateOfManufacture.Value = DateTime.Now;
-                dtp_Expiration_Date.Value = DateTime.Now;
-                txt_Supplier_Name.Text = string.Empty;
+                dtp_Expiration_Date.Value = DateTime.Now;              
                 cbx_Supplier_ID.SelectedIndex = -1;
 
 

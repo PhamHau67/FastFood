@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using DocumentFormat.OpenXml.Spreadsheet;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace DuAnMau
 {
@@ -24,11 +26,23 @@ namespace DuAnMau
         };
         public Frm_Account()
         {
-            
+
             InitializeComponent();
             LoadData_Dgv();
             // Ẩn cột trống ở phía bên trái của DataGridView
             dgv_Account.RowHeadersVisible = false;
+            LoadEmployeeIDs(); // Load employee id vào cbx
+
+            // liên kết selected IndexChanged
+            cbx_EmployeeID.SelectedIndexChanged += cbx_EmployeeID_SelectedIndexChanged;
+        }
+        private void LoadEmployeeIDs()
+        {
+            using (var db = new DataClasses1DataContext(clConn.conn))
+            {
+                var employeeIDs = db.NHAN_VIENs.Select(nv => nv.MaNhanVien.Trim()).ToList();
+                cbx_EmployeeID.DataSource = employeeIDs;
+            }
         }
 
         public void LoadData_Dgv()
@@ -81,7 +95,7 @@ namespace DuAnMau
                 txt_AccountID.Text = accountID;
                 txt_Username.Text = username;
                 txt_Password.Text = password;
-                txt_EmployeeID.Text = employeeID;
+                cbx_EmployeeID.Text = employeeID;
                 txt_Gmail.Text = email;
                 cbx_Role.Text = role;
             }
@@ -108,7 +122,7 @@ namespace DuAnMau
 
                         string username = txt_Username.Text.Trim();
                         string password = txt_Password.Text.Trim();
-                        string employeeID = txt_EmployeeID.Text.Trim();
+                        string employeeID = cbx_EmployeeID.Text.Trim();
                         string gmail = txt_Gmail.Text.Trim();
                         string roleName = cbx_Role.Text.Trim();
 
@@ -194,11 +208,13 @@ namespace DuAnMau
                     MessageBox.Show("An error occurred while adding the account: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            
         }
+
 
         private void btn_repair_Click(object sender, EventArgs e)
         {
+
+
             DialogResult result = MessageBox.Show("Are you sure you want to update this Account?", "Confirm Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
@@ -212,7 +228,7 @@ namespace DuAnMau
                         string accountID = txt_AccountID.Text.Trim();
                         string username = txt_Username.Text.Trim();
                         string password = txt_Password.Text.Trim();
-                        string employeeID = txt_EmployeeID.Text.Trim();
+                        string employeeID = cbx_EmployeeID.Text.Trim();
                         string gmail = txt_Gmail.Text.Trim();
                         string roleName = cbx_Role.Text.Trim();
 
@@ -230,7 +246,6 @@ namespace DuAnMau
                             MessageBox.Show("Invalid Gmail format!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
-
                         // Cập nhật thông tin tài khoản
                         upDateAC.TenTaiKhoan = username;
                         upDateAC.MatKhau = password;
@@ -246,6 +261,7 @@ namespace DuAnMau
 
                         // Cập nhật thông tin nhân viên và vai trò
                         var upDateNV = db.NHAN_VIENs.FirstOrDefault(nv => nv.MaNhanVien == employeeID);
+
                         if (upDateNV != null)
                         {
                             // Chỉ cập nhật mã vai trò nếu vai trò mới khác với vai trò hiện tại
@@ -314,7 +330,7 @@ namespace DuAnMau
                 txt_Username.Text = string.Empty;
                 cbx_Role.Text = string.Empty;
                 txt_Password.Text = string.Empty;
-                txt_EmployeeID.Text = string.Empty;
+                cbx_EmployeeID.Text = string.Empty;
                 txt_Gmail.Text = string.Empty;
                 LoadData_Dgv();
             }
@@ -327,7 +343,7 @@ namespace DuAnMau
                 var keyword = txt_Search.Text.Trim();
 
                 var TimAc = from tk in db.TAI_KHOANs
-                            
+
                             join nv in db.NHAN_VIENs on tk.MaNhanVien equals nv.MaNhanVien
                             join vt in db.VAITROs on nv.MaVaiTro equals vt.MaVaiTro
                             where tk.TenTaiKhoan.Contains(keyword) || tk.MatKhau.Contains(keyword) || nv.Gmail.Contains(keyword) || vt.TenVaiTro.Contains(keyword)
@@ -350,5 +366,44 @@ namespace DuAnMau
             frm_login.Show();
             this.Hide();
         }
+
+        private void cbx_EmployeeID_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbx_EmployeeID.SelectedValue != null)
+            {
+                if (cbx_EmployeeID.SelectedValue != null)
+                {
+                    using (var db = new DataClasses1DataContext(clConn.conn))
+                    {
+                        // Lấy thông tin nhân viên dựa vào mã nhân viên được chọn từ ComboBox
+                        var employee = db.NHAN_VIENs.FirstOrDefault(nv => nv.MaNhanVien == cbx_EmployeeID.SelectedValue.ToString());
+
+                        if (employee != null)
+                        {
+                            // Tìm vai trò của nhân viên và hiển thị trong ComboBox vai trò
+                            var role = db.VAITROs.FirstOrDefault(vt => vt.MaVaiTro == employee.MaVaiTro);
+                            if (role != null)
+                            {
+                                // Đặt text của ComboBox vai trò là tên vai trò của nhân viên
+                                cbx_Role.Text = role.TenVaiTro;
+                            }
+                            else
+                            {
+                                cbx_Role.SelectedIndex = -1; // Xóa lựa chọn nếu không tìm thấy vai trò
+                            }
+                        }
+                        else
+                        {
+                            cbx_Role.SelectedIndex = -1; // Xóa lựa chọn nếu không tìm thấy nhân viên
+                        }
+                    }
+                }
+                else
+                {
+                    cbx_Role.SelectedIndex = -1; // Xóa lựa chọn nếu không có mã nhân viên được chọn
+                }
+            }
+        }
     }
+        
 }

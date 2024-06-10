@@ -21,6 +21,7 @@ namespace employeeManagement
             InitializeComboBoxes();
             LoadDataGridView();
             dgv_staff.RowHeadersVisible = false;
+
             dtp_Birthday.Format = DateTimePickerFormat.Custom;
             dtp_Birthday.CustomFormat = "dd/MM/yyyy";
             dtp_SignUpDay.Format = DateTimePickerFormat.Custom;
@@ -187,8 +188,7 @@ namespace employeeManagement
                     db.NHAN_VIENs.InsertOnSubmit(newEmployee);
                     db.SubmitChanges();
                     MessageBox.Show("Employee added successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Load_dgv_manager();
-                   
+                    LoadDataGridView();
                 }
             }
             catch (Exception ex)

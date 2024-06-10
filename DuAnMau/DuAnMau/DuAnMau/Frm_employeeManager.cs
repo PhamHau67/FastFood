@@ -21,6 +21,7 @@ namespace employeeManagement
             InitializeComboBoxes();
             LoadDataGridView();
             dgv_staff.RowHeadersVisible = false;
+
             dtp_Birthday.Format = DateTimePickerFormat.Custom;
             dtp_Birthday.CustomFormat = "dd/MM/yyyy";
             dtp_SignUpDay.Format = DateTimePickerFormat.Custom;
@@ -32,24 +33,7 @@ namespace employeeManagement
             load_cbo_department();
             load_cbo_role();
         }
-        public void load_cbo_department()
-        {
-            try
-            {
-                using (var db = new DataClasses1DataContext(clConn.conn))
-                {
-                    var tenBoPhan = (from bp in db.BOPHANs
-                                  select bp.TenBoPhan).Distinct().ToList();
-
-                    cbo_department.Items.Clear();
-                    cbo_department.Items.AddRange(tenBoPhan.ToArray());
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error reading data from database: " + ex.Message);
-            }
-        }
+        
         public void load_cbo_role()
         {
             try
@@ -61,6 +45,25 @@ namespace employeeManagement
 
                     cbo_role.Items.Clear();
                     cbo_role.Items.AddRange(tenVaiTro.ToArray());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error reading data from database: " + ex.Message);
+            }
+        }
+
+        public void load_cbo_department()
+        {
+            try
+            {
+                using (var db = new DataClasses1DataContext(clConn.conn))
+                {
+                    var tenBoPhan = (from bp in db.BOPHANs
+                                     select bp.TenBoPhan).Distinct().ToList();
+
+                    cbo_department.Items.Clear();
+                    cbo_department.Items.AddRange(tenBoPhan.ToArray());
                 }
             }
             catch (Exception ex)
@@ -187,8 +190,7 @@ namespace employeeManagement
                     db.NHAN_VIENs.InsertOnSubmit(newEmployee);
                     db.SubmitChanges();
                     MessageBox.Show("Employee added successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Load_dgv_manager();
-                   
+                    LoadDataGridView();
                 }
             }
             catch (Exception ex)

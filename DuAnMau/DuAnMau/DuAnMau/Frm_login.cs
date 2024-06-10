@@ -93,16 +93,25 @@ namespace DuAnMau
 
         private void label1_Click(object sender, EventArgs e)
         {
-            this.Hide();  // Đóng biểu mẫu hiện tại
-            using (Frm_forgotPassword1 frm_ForgotPassword1 = new Frm_forgotPassword1())
-            {
-                frm_ForgotPassword1.TopLevel = true;  // Đảm bảo rằng đó là một mẫu trình độ lớn
-                frm_ForgotPassword1.FormBorderStyle = FormBorderStyle.None;
-                frm_ForgotPassword1.Dock = DockStyle.Fill;
-                frm_ForgotPassword1.BringToFront();
-                frm_ForgotPassword1.ShowDialog();  // Show as a modal dialog
-            }
-            this.Show();
+
+            //using (Frm_forgotPassword1 frm_ForgotPassword1 = new Frm_forgotPassword1())
+            //{
+            //    frm_ForgotPassword1.TopLevel = true;  // Đảm bảo rằng đó là một mẫu trình độ lớn
+            //    frm_ForgotPassword1.FormBorderStyle = FormBorderStyle.None;
+            //    frm_ForgotPassword1.Dock = DockStyle.Fill;
+            //    frm_ForgotPassword1.BringToFront();
+            //    frm_ForgotPassword1.ShowDialog();  // Show as a modal dialog
+
+            //}
+            Frm_forgotPassword1 frm_ForgotPassword1 = new Frm_forgotPassword1();
+            frm_ForgotPassword1.Show();
+            this.Hide();  
+
+
+
+
+
+
         }
     }
 }

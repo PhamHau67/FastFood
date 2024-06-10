@@ -93,9 +93,6 @@ namespace DuAnMau
                         frm_ForgotPassword2.Show();
                         this.Hide();
 
-                        //this.Close();
-                        //frm_fp.Show();
-
                     }
                     catch (Exception ex)
                     {
@@ -121,18 +118,11 @@ namespace DuAnMau
             this.Close();
         }
 
-        private void guna2Button2_Click(object sender, EventArgs e)
-        {
-            this.Close();
-            Frm_login frm_Login = new Frm_login();
-            frm_Login.Show();
-        }
-
         private void guna2Button1_Click_1(object sender, EventArgs e)
         {
-            this.Close();
-            Frm_login frm_Login = new Frm_login();
-            frm_Login.Show();
+            Frm_login frm_login = new Frm_login();
+            frm_login.Show();
+            this.Hide();
         }
     }
 }

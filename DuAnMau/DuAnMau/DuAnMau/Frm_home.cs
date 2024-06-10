@@ -17,7 +17,7 @@ namespace DuAnMau
         public Frm_home()
         {
             InitializeComponent();
-            
+
 
         }
         private Form currentFormChild;
@@ -102,5 +102,6 @@ namespace DuAnMau
         {
             OpenChildForm(new Frm_Manage_invoices());
         }
+
     }
 }

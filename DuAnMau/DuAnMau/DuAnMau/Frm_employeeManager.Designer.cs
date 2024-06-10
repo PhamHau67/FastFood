@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txt_NameStaff = new Guna.UI2.WinForms.Guna2TextBox();
             this.txt_IDStaff = new Guna.UI2.WinForms.Guna2TextBox();
             this.lbl_Status = new System.Windows.Forms.Label();
@@ -81,14 +81,14 @@
             this.txt_NameStaff.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txt_NameStaff.ForeColor = System.Drawing.Color.Black;
             this.txt_NameStaff.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txt_NameStaff.Location = new System.Drawing.Point(45, 608);
-            this.txt_NameStaff.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.txt_NameStaff.Location = new System.Drawing.Point(40, 486);
+            this.txt_NameStaff.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_NameStaff.Name = "txt_NameStaff";
             this.txt_NameStaff.PasswordChar = '\0';
             this.txt_NameStaff.PlaceholderForeColor = System.Drawing.Color.Black;
             this.txt_NameStaff.PlaceholderText = "Nhập tên nhân viên";
             this.txt_NameStaff.SelectedText = "";
-            this.txt_NameStaff.Size = new System.Drawing.Size(258, 60);
+            this.txt_NameStaff.Size = new System.Drawing.Size(229, 48);
             this.txt_NameStaff.TabIndex = 17;
             // 
             // txt_IDStaff
@@ -104,23 +104,23 @@
             this.txt_IDStaff.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txt_IDStaff.ForeColor = System.Drawing.Color.Black;
             this.txt_IDStaff.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txt_IDStaff.Location = new System.Drawing.Point(45, 495);
-            this.txt_IDStaff.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.txt_IDStaff.Location = new System.Drawing.Point(40, 396);
+            this.txt_IDStaff.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_IDStaff.Name = "txt_IDStaff";
             this.txt_IDStaff.PasswordChar = '\0';
             this.txt_IDStaff.PlaceholderForeColor = System.Drawing.Color.Black;
             this.txt_IDStaff.PlaceholderText = "Nhập mã nhân viên";
             this.txt_IDStaff.SelectedText = "";
-            this.txt_IDStaff.Size = new System.Drawing.Size(258, 60);
+            this.txt_IDStaff.Size = new System.Drawing.Size(229, 48);
             this.txt_IDStaff.TabIndex = 16;
             // 
             // lbl_Status
             // 
             this.lbl_Status.AutoSize = true;
             this.lbl_Status.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Status.Location = new System.Drawing.Point(888, 684);
+            this.lbl_Status.Location = new System.Drawing.Point(789, 547);
             this.lbl_Status.Name = "lbl_Status";
-            this.lbl_Status.Size = new System.Drawing.Size(73, 25);
+            this.lbl_Status.Size = new System.Drawing.Size(57, 20);
             this.lbl_Status.TabIndex = 5;
             this.lbl_Status.Text = "Status";
             // 
@@ -128,9 +128,9 @@
             // 
             this.lbl_Gmail.AutoSize = true;
             this.lbl_Gmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Gmail.Location = new System.Drawing.Point(888, 578);
+            this.lbl_Gmail.Location = new System.Drawing.Point(789, 462);
             this.lbl_Gmail.Name = "lbl_Gmail";
-            this.lbl_Gmail.Size = new System.Drawing.Size(67, 25);
+            this.lbl_Gmail.Size = new System.Drawing.Size(53, 20);
             this.lbl_Gmail.TabIndex = 6;
             this.lbl_Gmail.Text = "Gmail";
             // 
@@ -138,9 +138,9 @@
             // 
             this.lbl_SignUpDay.AutoSize = true;
             this.lbl_SignUpDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_SignUpDay.Location = new System.Drawing.Point(888, 465);
+            this.lbl_SignUpDay.Location = new System.Drawing.Point(789, 372);
             this.lbl_SignUpDay.Name = "lbl_SignUpDay";
-            this.lbl_SignUpDay.Size = new System.Drawing.Size(175, 25);
+            this.lbl_SignUpDay.Size = new System.Drawing.Size(136, 20);
             this.lbl_SignUpDay.TabIndex = 7;
             this.lbl_SignUpDay.Text = "Registration date";
             // 
@@ -148,9 +148,9 @@
             // 
             this.lbl_PhoneNumber.AutoSize = true;
             this.lbl_PhoneNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_PhoneNumber.Location = new System.Drawing.Point(475, 801);
+            this.lbl_PhoneNumber.Location = new System.Drawing.Point(422, 641);
             this.lbl_PhoneNumber.Name = "lbl_PhoneNumber";
-            this.lbl_PhoneNumber.Size = new System.Drawing.Size(152, 25);
+            this.lbl_PhoneNumber.Size = new System.Drawing.Size(117, 20);
             this.lbl_PhoneNumber.TabIndex = 8;
             this.lbl_PhoneNumber.Text = "Phone number";
             // 
@@ -158,9 +158,9 @@
             // 
             this.lbl_Gentle.AutoSize = true;
             this.lbl_Gentle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Gentle.Location = new System.Drawing.Point(475, 684);
+            this.lbl_Gentle.Location = new System.Drawing.Point(422, 547);
             this.lbl_Gentle.Name = "lbl_Gentle";
-            this.lbl_Gentle.Size = new System.Drawing.Size(75, 25);
+            this.lbl_Gentle.Size = new System.Drawing.Size(58, 20);
             this.lbl_Gentle.TabIndex = 9;
             this.lbl_Gentle.Text = "Gentle";
             // 
@@ -168,9 +168,9 @@
             // 
             this.lbl_IDDepartment.AutoSize = true;
             this.lbl_IDDepartment.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_IDDepartment.Location = new System.Drawing.Point(86, 801);
+            this.lbl_IDDepartment.Location = new System.Drawing.Point(76, 641);
             this.lbl_IDDepartment.Name = "lbl_IDDepartment";
-            this.lbl_IDDepartment.Size = new System.Drawing.Size(123, 25);
+            this.lbl_IDDepartment.Size = new System.Drawing.Size(138, 20);
             this.lbl_IDDepartment.TabIndex = 10;
             this.lbl_IDDepartment.Text = "Department";
             // 
@@ -178,9 +178,9 @@
             // 
             this.lbl_Birthday.AutoSize = true;
             this.lbl_Birthday.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Birthday.Location = new System.Drawing.Point(475, 578);
+            this.lbl_Birthday.Location = new System.Drawing.Point(422, 462);
             this.lbl_Birthday.Name = "lbl_Birthday";
-            this.lbl_Birthday.Size = new System.Drawing.Size(91, 25);
+            this.lbl_Birthday.Size = new System.Drawing.Size(71, 20);
             this.lbl_Birthday.TabIndex = 11;
             this.lbl_Birthday.Text = "Birthday";
             // 
@@ -188,9 +188,9 @@
             // 
             this.lbl_CCCD.AutoSize = true;
             this.lbl_CCCD.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_CCCD.Location = new System.Drawing.Point(86, 684);
+            this.lbl_CCCD.Location = new System.Drawing.Point(76, 547);
             this.lbl_CCCD.Name = "lbl_CCCD";
-            this.lbl_CCCD.Size = new System.Drawing.Size(126, 25);
+            this.lbl_CCCD.Size = new System.Drawing.Size(99, 20);
             this.lbl_CCCD.TabIndex = 12;
             this.lbl_CCCD.Text = "Citizen card";
             // 
@@ -198,7 +198,7 @@
             // 
             this.lbl_IDRole.AutoSize = true;
             this.lbl_IDRole.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_IDRole.Location = new System.Drawing.Point(475, 465);
+            this.lbl_IDRole.Location = new System.Drawing.Point(422, 372);
             this.lbl_IDRole.Name = "lbl_IDRole";
             this.lbl_IDRole.Size = new System.Drawing.Size(56, 25);
             this.lbl_IDRole.TabIndex = 13;
@@ -208,9 +208,9 @@
             // 
             this.lbl_NameStaff.AutoSize = true;
             this.lbl_NameStaff.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_NameStaff.Location = new System.Drawing.Point(86, 578);
+            this.lbl_NameStaff.Location = new System.Drawing.Point(76, 462);
             this.lbl_NameStaff.Name = "lbl_NameStaff";
-            this.lbl_NameStaff.Size = new System.Drawing.Size(115, 25);
+            this.lbl_NameStaff.Size = new System.Drawing.Size(90, 20);
             this.lbl_NameStaff.TabIndex = 14;
             this.lbl_NameStaff.Text = "Staff name";
             // 
@@ -218,9 +218,9 @@
             // 
             this.lbl_IDStaff.AutoSize = true;
             this.lbl_IDStaff.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_IDStaff.Location = new System.Drawing.Point(86, 465);
+            this.lbl_IDStaff.Location = new System.Drawing.Point(76, 372);
             this.lbl_IDStaff.Name = "lbl_IDStaff";
-            this.lbl_IDStaff.Size = new System.Drawing.Size(82, 25);
+            this.lbl_IDStaff.Size = new System.Drawing.Size(66, 20);
             this.lbl_IDStaff.TabIndex = 15;
             this.lbl_IDStaff.Text = "ID Staff";
             // 
@@ -249,7 +249,7 @@
             this.dgv_staff.Name = "dgv_staff";
             this.dgv_staff.RowHeadersWidth = 51;
             this.dgv_staff.RowTemplate.Height = 24;
-            this.dgv_staff.Size = new System.Drawing.Size(1221, 429);
+            this.dgv_staff.Size = new System.Drawing.Size(1085, 343);
             this.dgv_staff.TabIndex = 4;
             this.dgv_staff.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_staff_CellClick);
             // 
@@ -266,15 +266,57 @@
             this.txt_CCCD.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txt_CCCD.ForeColor = System.Drawing.Color.Black;
             this.txt_CCCD.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txt_CCCD.Location = new System.Drawing.Point(45, 714);
-            this.txt_CCCD.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.txt_CCCD.Location = new System.Drawing.Point(40, 571);
+            this.txt_CCCD.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_CCCD.Name = "txt_CCCD";
             this.txt_CCCD.PasswordChar = '\0';
             this.txt_CCCD.PlaceholderForeColor = System.Drawing.Color.Black;
             this.txt_CCCD.PlaceholderText = "Nhập số CCCD";
             this.txt_CCCD.SelectedText = "";
-            this.txt_CCCD.Size = new System.Drawing.Size(258, 60);
+            this.txt_CCCD.Size = new System.Drawing.Size(229, 48);
             this.txt_CCCD.TabIndex = 18;
+            // 
+            // txt_IDDepartment
+            // 
+            this.txt_IDDepartment.BorderRadius = 20;
+            this.txt_IDDepartment.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txt_IDDepartment.DefaultText = "";
+            this.txt_IDDepartment.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txt_IDDepartment.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txt_IDDepartment.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txt_IDDepartment.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txt_IDDepartment.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txt_IDDepartment.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txt_IDDepartment.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txt_IDDepartment.Location = new System.Drawing.Point(40, 665);
+            this.txt_IDDepartment.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txt_IDDepartment.Name = "txt_IDDepartment";
+            this.txt_IDDepartment.PasswordChar = '\0';
+            this.txt_IDDepartment.PlaceholderText = "Nhập mã bộ phận";
+            this.txt_IDDepartment.SelectedText = "";
+            this.txt_IDDepartment.Size = new System.Drawing.Size(229, 48);
+            this.txt_IDDepartment.TabIndex = 19;
+            // 
+            // txt_IDRole
+            // 
+            this.txt_IDRole.BorderRadius = 20;
+            this.txt_IDRole.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txt_IDRole.DefaultText = "";
+            this.txt_IDRole.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txt_IDRole.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txt_IDRole.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txt_IDRole.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txt_IDRole.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txt_IDRole.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txt_IDRole.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txt_IDRole.Location = new System.Drawing.Point(409, 396);
+            this.txt_IDRole.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txt_IDRole.Name = "txt_IDRole";
+            this.txt_IDRole.PasswordChar = '\0';
+            this.txt_IDRole.PlaceholderText = "Nhập mã vai trò";
+            this.txt_IDRole.SelectedText = "";
+            this.txt_IDRole.Size = new System.Drawing.Size(229, 48);
+            this.txt_IDRole.TabIndex = 20;
             // 
             // dtp_Birthday
             // 
@@ -283,12 +325,11 @@
             this.dtp_Birthday.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.dtp_Birthday.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.dtp_Birthday.Format = System.Windows.Forms.DateTimePickerFormat.Long;
-            this.dtp_Birthday.Location = new System.Drawing.Point(460, 608);
-            this.dtp_Birthday.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dtp_Birthday.Location = new System.Drawing.Point(409, 486);
             this.dtp_Birthday.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
             this.dtp_Birthday.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
             this.dtp_Birthday.Name = "dtp_Birthday";
-            this.dtp_Birthday.Size = new System.Drawing.Size(258, 45);
+            this.dtp_Birthday.Size = new System.Drawing.Size(229, 36);
             this.dtp_Birthday.TabIndex = 21;
             this.dtp_Birthday.Value = new System.DateTime(2024, 5, 19, 22, 37, 7, 593);
             // 
@@ -296,10 +337,9 @@
             // 
             this.rdo_Male.AutoSize = true;
             this.rdo_Male.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdo_Male.Location = new System.Drawing.Point(35, 59);
-            this.rdo_Male.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.rdo_Male.Location = new System.Drawing.Point(31, 47);
             this.rdo_Male.Name = "rdo_Male";
-            this.rdo_Male.Size = new System.Drawing.Size(84, 29);
+            this.rdo_Male.Size = new System.Drawing.Size(66, 24);
             this.rdo_Male.TabIndex = 22;
             this.rdo_Male.TabStop = true;
             this.rdo_Male.Text = "Male";
@@ -309,10 +349,9 @@
             // 
             this.rdo_Female.AutoSize = true;
             this.rdo_Female.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdo_Female.Location = new System.Drawing.Point(148, 59);
-            this.rdo_Female.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.rdo_Female.Location = new System.Drawing.Point(132, 47);
             this.rdo_Female.Name = "rdo_Female";
-            this.rdo_Female.Size = new System.Drawing.Size(108, 29);
+            this.rdo_Female.Size = new System.Drawing.Size(85, 24);
             this.rdo_Female.TabIndex = 23;
             this.rdo_Female.TabStop = true;
             this.rdo_Female.Text = "Female";
@@ -331,14 +370,14 @@
             this.txt_PhoneNumber.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txt_PhoneNumber.ForeColor = System.Drawing.Color.Black;
             this.txt_PhoneNumber.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txt_PhoneNumber.Location = new System.Drawing.Point(460, 831);
-            this.txt_PhoneNumber.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.txt_PhoneNumber.Location = new System.Drawing.Point(409, 665);
+            this.txt_PhoneNumber.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_PhoneNumber.Name = "txt_PhoneNumber";
             this.txt_PhoneNumber.PasswordChar = '\0';
             this.txt_PhoneNumber.PlaceholderForeColor = System.Drawing.Color.Black;
             this.txt_PhoneNumber.PlaceholderText = "Nhập số điện thoại";
             this.txt_PhoneNumber.SelectedText = "";
-            this.txt_PhoneNumber.Size = new System.Drawing.Size(258, 60);
+            this.txt_PhoneNumber.Size = new System.Drawing.Size(229, 48);
             this.txt_PhoneNumber.TabIndex = 24;
             // 
             // dtp_SignUpDay
@@ -348,12 +387,11 @@
             this.dtp_SignUpDay.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.dtp_SignUpDay.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.dtp_SignUpDay.Format = System.Windows.Forms.DateTimePickerFormat.Long;
-            this.dtp_SignUpDay.Location = new System.Drawing.Point(880, 510);
-            this.dtp_SignUpDay.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dtp_SignUpDay.Location = new System.Drawing.Point(782, 408);
             this.dtp_SignUpDay.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
             this.dtp_SignUpDay.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
             this.dtp_SignUpDay.Name = "dtp_SignUpDay";
-            this.dtp_SignUpDay.Size = new System.Drawing.Size(258, 45);
+            this.dtp_SignUpDay.Size = new System.Drawing.Size(229, 36);
             this.dtp_SignUpDay.TabIndex = 21;
             this.dtp_SignUpDay.Value = new System.DateTime(2024, 5, 19, 22, 37, 7, 593);
             // 
@@ -370,24 +408,23 @@
             this.txt_Gmail.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txt_Gmail.ForeColor = System.Drawing.Color.Black;
             this.txt_Gmail.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txt_Gmail.Location = new System.Drawing.Point(880, 608);
-            this.txt_Gmail.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.txt_Gmail.Location = new System.Drawing.Point(782, 486);
+            this.txt_Gmail.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_Gmail.Name = "txt_Gmail";
             this.txt_Gmail.PasswordChar = '\0';
             this.txt_Gmail.PlaceholderForeColor = System.Drawing.Color.Black;
             this.txt_Gmail.PlaceholderText = "Nhập gmail";
             this.txt_Gmail.SelectedText = "";
-            this.txt_Gmail.Size = new System.Drawing.Size(316, 60);
+            this.txt_Gmail.Size = new System.Drawing.Size(281, 48);
             this.txt_Gmail.TabIndex = 25;
             // 
             // rdo_StillWorking
             // 
             this.rdo_StillWorking.AutoSize = true;
             this.rdo_StillWorking.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdo_StillWorking.Location = new System.Drawing.Point(880, 731);
-            this.rdo_StillWorking.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.rdo_StillWorking.Location = new System.Drawing.Point(782, 585);
             this.rdo_StillWorking.Name = "rdo_StillWorking";
-            this.rdo_StillWorking.Size = new System.Drawing.Size(116, 29);
+            this.rdo_StillWorking.Size = new System.Drawing.Size(91, 24);
             this.rdo_StillWorking.TabIndex = 22;
             this.rdo_StillWorking.TabStop = true;
             this.rdo_StillWorking.Text = "Working";
@@ -397,10 +434,9 @@
             // 
             this.rdo_Leave.AutoSize = true;
             this.rdo_Leave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdo_Leave.Location = new System.Drawing.Point(1041, 731);
-            this.rdo_Leave.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.rdo_Leave.Location = new System.Drawing.Point(925, 585);
             this.rdo_Leave.Name = "rdo_Leave";
-            this.rdo_Leave.Size = new System.Drawing.Size(76, 29);
+            this.rdo_Leave.Size = new System.Drawing.Size(61, 24);
             this.rdo_Leave.TabIndex = 23;
             this.rdo_Leave.TabStop = true;
             this.rdo_Leave.Text = "Quit";
@@ -409,11 +445,9 @@
             // grp_Find
             // 
             this.grp_Find.Controls.Add(this.txt_Find);
-            this.grp_Find.Location = new System.Drawing.Point(27, 926);
-            this.grp_Find.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.grp_Find.Location = new System.Drawing.Point(24, 741);
             this.grp_Find.Name = "grp_Find";
-            this.grp_Find.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.grp_Find.Size = new System.Drawing.Size(480, 125);
+            this.grp_Find.Size = new System.Drawing.Size(427, 100);
             this.grp_Find.TabIndex = 26;
             this.grp_Find.TabStop = false;
             this.grp_Find.Text = "Finding staff";
@@ -431,14 +465,14 @@
             this.txt_Find.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txt_Find.ForeColor = System.Drawing.Color.Black;
             this.txt_Find.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txt_Find.Location = new System.Drawing.Point(18, 41);
-            this.txt_Find.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.txt_Find.Location = new System.Drawing.Point(16, 33);
+            this.txt_Find.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_Find.Name = "txt_Find";
             this.txt_Find.PasswordChar = '\0';
             this.txt_Find.PlaceholderForeColor = System.Drawing.Color.Black;
             this.txt_Find.PlaceholderText = "Nhập mã hoặc tên nhân viên cần tìm";
             this.txt_Find.SelectedText = "";
-            this.txt_Find.Size = new System.Drawing.Size(439, 60);
+            this.txt_Find.Size = new System.Drawing.Size(390, 48);
             this.txt_Find.TabIndex = 0;
             this.txt_Find.TextChanged += new System.EventHandler(this.txt_Find_TextChanged);
             // 
@@ -452,10 +486,9 @@
             this.btn_Add.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
             this.btn_Add.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Add.ForeColor = System.Drawing.Color.Black;
-            this.btn_Add.Location = new System.Drawing.Point(890, 882);
-            this.btn_Add.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btn_Add.Location = new System.Drawing.Point(791, 706);
             this.btn_Add.Name = "btn_Add";
-            this.btn_Add.Size = new System.Drawing.Size(108, 56);
+            this.btn_Add.Size = new System.Drawing.Size(96, 45);
             this.btn_Add.TabIndex = 27;
             this.btn_Add.Text = "Add";
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
@@ -470,10 +503,9 @@
             this.btn_Update.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
             this.btn_Update.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Update.ForeColor = System.Drawing.Color.Black;
-            this.btn_Update.Location = new System.Drawing.Point(890, 968);
-            this.btn_Update.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btn_Update.Location = new System.Drawing.Point(791, 774);
             this.btn_Update.Name = "btn_Update";
-            this.btn_Update.Size = new System.Drawing.Size(108, 56);
+            this.btn_Update.Size = new System.Drawing.Size(96, 45);
             this.btn_Update.TabIndex = 28;
             this.btn_Update.Text = "Update";
             this.btn_Update.Click += new System.EventHandler(this.btn_Update_Click);
@@ -488,10 +520,9 @@
             this.btn_Refresh.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
             this.btn_Refresh.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Refresh.ForeColor = System.Drawing.Color.Black;
-            this.btn_Refresh.Location = new System.Drawing.Point(1029, 882);
-            this.btn_Refresh.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btn_Refresh.Location = new System.Drawing.Point(915, 706);
             this.btn_Refresh.Name = "btn_Refresh";
-            this.btn_Refresh.Size = new System.Drawing.Size(108, 56);
+            this.btn_Refresh.Size = new System.Drawing.Size(96, 45);
             this.btn_Refresh.TabIndex = 28;
             this.btn_Refresh.Text = "Refresh";
             this.btn_Refresh.Click += new System.EventHandler(this.btn_Refresh_Click);
@@ -506,10 +537,9 @@
             this.btn_Delete.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
             this.btn_Delete.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Delete.ForeColor = System.Drawing.Color.Black;
-            this.btn_Delete.Location = new System.Drawing.Point(1029, 968);
-            this.btn_Delete.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btn_Delete.Location = new System.Drawing.Point(915, 774);
             this.btn_Delete.Name = "btn_Delete";
-            this.btn_Delete.Size = new System.Drawing.Size(108, 56);
+            this.btn_Delete.Size = new System.Drawing.Size(96, 45);
             this.btn_Delete.TabIndex = 28;
             this.btn_Delete.Text = "Delete";
             this.btn_Delete.Click += new System.EventHandler(this.btn_Delete_Click);
@@ -524,10 +554,9 @@
             this.btn_Export.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
             this.btn_Export.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Export.ForeColor = System.Drawing.Color.Black;
-            this.btn_Export.Location = new System.Drawing.Point(561, 968);
-            this.btn_Export.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btn_Export.Location = new System.Drawing.Point(499, 774);
             this.btn_Export.Name = "btn_Export";
-            this.btn_Export.Size = new System.Drawing.Size(156, 60);
+            this.btn_Export.Size = new System.Drawing.Size(139, 48);
             this.btn_Export.TabIndex = 27;
             this.btn_Export.Text = "Export excel";
             this.btn_Export.Click += new System.EventHandler(this.btn_Export_Click);
@@ -536,10 +565,9 @@
             // 
             this.pan_gentle.Controls.Add(this.rdo_Female);
             this.pan_gentle.Controls.Add(this.rdo_Male);
-            this.pan_gentle.Location = new System.Drawing.Point(460, 672);
-            this.pan_gentle.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.pan_gentle.Location = new System.Drawing.Point(409, 538);
             this.pan_gentle.Name = "pan_gentle";
-            this.pan_gentle.Size = new System.Drawing.Size(264, 125);
+            this.pan_gentle.Size = new System.Drawing.Size(235, 100);
             this.pan_gentle.TabIndex = 29;
             // 
             // cbo_role
@@ -576,7 +604,7 @@
             // 
             // Frm_employeeManager
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(232)))), ((int)(((byte)(209)))));
             this.ClientSize = new System.Drawing.Size(1239, 1066);
@@ -610,7 +638,6 @@
             this.Controls.Add(this.lbl_IDStaff);
             this.Controls.Add(this.dgv_staff);
             this.Controls.Add(this.pan_gentle);
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Frm_employeeManager";
             this.Text = "Frm_employeeManager";
             ((System.ComponentModel.ISupportInitialize)(this.dgv_staff)).EndInit();

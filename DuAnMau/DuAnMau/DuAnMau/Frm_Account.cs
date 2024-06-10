@@ -188,6 +188,8 @@ namespace DuAnMau
 
                         LoadData_Dgv();
                         MessageBox.Show("Account added successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
                     }
                 }
                 catch (Exception ex)

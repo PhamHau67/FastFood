@@ -25,7 +25,6 @@ namespace employeeManagement
             InitializeComponent();
             Load_dgv_manager();
             dgv_staff.RowHeadersVisible = false;
-
             dtp_Birthday.Format = DateTimePickerFormat.Custom;
             dtp_Birthday.CustomFormat = "dd/MM/yyyy";
             dtp_SignUpDay.Format = DateTimePickerFormat.Custom;
@@ -39,7 +38,7 @@ namespace employeeManagement
             using (var db = new DataClasses1DataContext(clConn.conn))
             {
                 var query = from nv in db.NHAN_VIENs
-                            select nv;
+                            select nv;  
                 DataTable dt = new DataTable();
                 dt.Columns.Add("Employee ID");
                 dt.Columns.Add("Employee Name");
@@ -123,6 +122,7 @@ namespace employeeManagement
                     db.SubmitChanges();
                     MessageBox.Show("Employee added successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Load_dgv_manager();
+                   
                 }
             }
             catch (Exception ex)

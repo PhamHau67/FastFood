@@ -30,14 +30,45 @@ namespace employeeManagement
 
         private void InitializeComboBoxes()
         {
-            cbo_department.Items.Add("Thu ngân");
-            cbo_department.Items.Add("Bếp");
-
-            cbo_role.Items.Add("Quản lí");
-            cbo_role.Items.Add("Nhân viên");
-            cbo_role.Items.Add("Admin");
+            load_cbo_department();
+            load_cbo_role();
         }
+        public void load_cbo_department()
+        {
+            try
+            {
+                using (var db = new DataClasses1DataContext(clConn.conn))
+                {
+                    var tenBoPhan = (from bp in db.BOPHANs
+                                  select bp.TenBoPhan).Distinct().ToList();
 
+                    cbo_department.Items.Clear();
+                    cbo_department.Items.AddRange(tenBoPhan.ToArray());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error reading data from database: " + ex.Message);
+            }
+        }
+        public void load_cbo_role()
+        {
+            try
+            {
+                using (var db = new DataClasses1DataContext(clConn.conn))
+                {
+                    var tenVaiTro = (from vt in db.VAITROs
+                                     select vt.TenVaiTro).Distinct().ToList();
+
+                    cbo_role.Items.Clear();
+                    cbo_role.Items.AddRange(tenVaiTro.ToArray());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error reading data from database: " + ex.Message);
+            }
+        }
         private void LoadDataGridView()
         {
             using (var db = new DataClasses1DataContext(clConn.conn))

@@ -19,20 +19,15 @@ namespace DuAnMau
     public partial class Frm_activityHistory : Form
     {
         private Cl_conn clConn = new Cl_conn();
-        public Frm_activityHistory()
+
+        private DateTime loginTime;
+
+        public Frm_activityHistory(DateTime loginTime)
         {
             InitializeComponent();
             Load_dgv_activity();
+            InitializeComboBoxes();
             dgv_LichSu.RowHeadersVisible = false;
-            cbo_counter.Items.Add("A1");
-            cbo_counter.Items.Add("B2");
-            cbo_shift.Items.Add("CK001");
-            cbo_shift.Items.Add("CK002");
-            cbo_shift.Items.Add("CK003");
-            cbo_shift.Items.Add("CK004");
-            cbo_shift.Items.Add("CK005");
-            cbo_status.Items.Add("Present");
-            cbo_status.Items.Add("Absent");
 
 
             cbo_shift.SelectedIndexChanged += new EventHandler(FilterChanged);
@@ -43,7 +38,85 @@ namespace DuAnMau
             dtp_start.CustomFormat = "dd/MM/yyyy";
             dtp_end.Format = DateTimePickerFormat.Custom;
             dtp_end.CustomFormat = "dd/MM/yyyy";
+
+            this.loginTime = loginTime;
         }
+
+        private void InitializeComboBoxes()
+        {
+            
+            load_cbo_counter();
+            load_cbo_shift();
+            load_cbo_status();
+        }
+
+        public void load_cbo_counter()
+        {
+            try
+            {
+                using (var db = new DataClasses1DataContext(clConn.conn))
+                {
+                    var quay = (from nvc in db.NHANVIEN_CAKIPs
+                                     select nvc.Quay).Distinct().ToList();
+
+                    cbo_counter.Items.Clear();
+                    cbo_counter.Items.AddRange(quay.ToArray());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error reading data from database: " + ex.Message);
+            }
+        }
+
+        public void load_cbo_shift()
+        {
+            try
+            {
+                using (var db = new DataClasses1DataContext(clConn.conn))
+                {
+                    var ck = (from nvc in db.NHANVIEN_CAKIPs
+                                select nvc.MaCaKip).Distinct().ToList();
+
+                    cbo_shift.Items.Clear();
+                    cbo_shift.Items.AddRange(ck.ToArray());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error reading data from database: " + ex.Message);
+            }
+        }
+
+        public void load_cbo_status()
+        {
+            try
+            {
+                using (var db = new DataClasses1DataContext(clConn.conn))
+                {
+                    var trangThai = (from nvc in db.NHANVIEN_CAKIPs
+                                     select nvc.TrangThai).Distinct().ToList();
+
+                    cbo_status.Items.Clear();
+                    foreach (var status in trangThai)
+                    {
+                        if ((bool)status)
+                        {
+                            cbo_status.Items.Add("Present");
+                        }
+                        else
+                        {
+                            cbo_status.Items.Add("Absent");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error reading data from database: " + ex.Message);
+            }
+        }
+
 
         public void Load_dgv_activity()
         {
@@ -52,6 +125,7 @@ namespace DuAnMau
                 var query = from nv in db.NHAN_VIENs
                             join nvc in db.NHANVIEN_CAKIPs on nv.MaNhanVien equals nvc.MaNhanVien
                             join ck in db.CAKIPs on nvc.MaCaKip equals ck.MaCaKip
+                            where nvc.NgayLam >= loginTime
                             select new
                             {
                                 nvc.MaCaKip,
@@ -79,9 +153,11 @@ namespace DuAnMau
                     string status = (bool)item.TrangThai ? "Present" : "Absent";
                     // Định dạng ngày tháng sau khi lấy dữ liệu từ cơ sở dữ liệu
                     string workDate = item.NgayLam.ToString("dd/MM/yyyy");
-                    dt.Rows.Add(item.MaCaKip, item.GioBatDau, item.GioKetThuc, item.MaNhanVien, item.TenNhanVien, item.Quay, workDate, status);
+                    // Sử dụng giá trị của Globals.LoginTime và Globals.LogoutTime làm StartTime và EndTime
+                    string startTime = Globals.loginTime.ToString("dd/MM/yyyy HH:mm:ss");
+                    string endTime = Globals.LogoutTime.ToString("dd/MM/yyyy HH:mm:ss");
+                    dt.Rows.Add(item.MaCaKip, startTime, endTime, item.MaNhanVien, item.TenNhanVien, item.Quay, workDate, status);
                 }
-
                 dgv_LichSu.DataSource = dt;
             }
         }
@@ -178,6 +254,7 @@ namespace DuAnMau
                                 && (string.IsNullOrEmpty(counterFilter) || nvc.Quay == counterFilter)
                                 && (string.IsNullOrEmpty(statusFilter) || (statusFilter == "Present" && nvc.TrangThai == true) || (statusFilter == "Absent" && nvc.TrangThai == false))
                                 && (!isDateFilterUsed || (nvc.NgayLam >= startDateFilter && nvc.NgayLam <= endDateFilter)) // Áp dụng bộ lọc ngày tháng nếu cần
+                                && nvc.NgayLam >= loginTime
                              select new
                              {
                                  ck.MaCaKip,
@@ -202,8 +279,11 @@ namespace DuAnMau
 
                 foreach (var item in findnv)
                 {
-                    string workDate = isDateFilterUsed ? item.NgayLam.ToString("dd/MM/yyyy") : item.NgayLam.ToShortDateString(); // Định dạng ngày nếu sử dụng bộ lọc
-                    dt.Rows.Add(item.MaCaKip, item.GioBatDau, item.GioKetThuc, item.MaNhanVien, item.TenNhanVien, item.Quay, workDate, item.TrangThai);
+                    // Định dạng ngày và thời gian trước khi thêm vào DataTable
+                    string workDate = item.NgayLam.ToString("dd/MM/yyyy");
+                    string startTime = item.GioBatDau.ToString(@"hh\:mm");
+                    string endTime = item.GioKetThuc.ToString(@"hh\:mm");
+                    dt.Rows.Add(item.MaCaKip, startTime, endTime, item.MaNhanVien, item.TenNhanVien, item.Quay, workDate, item.TrangThai);
                 }
 
                 dgv_LichSu.DataSource = dt;

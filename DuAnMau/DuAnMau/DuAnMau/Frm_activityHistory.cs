@@ -23,16 +23,9 @@ namespace DuAnMau
         {
             InitializeComponent();
             Load_dgv_activity();
+            InitializeComboBoxes();
             dgv_LichSu.RowHeadersVisible = false;
-            cbo_counter.Items.Add("A1");
-            cbo_counter.Items.Add("B2");
-            cbo_shift.Items.Add("CK001");
-            cbo_shift.Items.Add("CK002");
-            cbo_shift.Items.Add("CK003");
-            cbo_shift.Items.Add("CK004");
-            cbo_shift.Items.Add("CK005");
-            cbo_status.Items.Add("Present");
-            cbo_status.Items.Add("Absent");
+            
 
 
             cbo_shift.SelectedIndexChanged += new EventHandler(FilterChanged);
@@ -43,6 +36,81 @@ namespace DuAnMau
             dtp_start.CustomFormat = "dd/MM/yyyy";
             dtp_end.Format = DateTimePickerFormat.Custom;
             dtp_end.CustomFormat = "dd/MM/yyyy";
+        }
+
+        private void InitializeComboBoxes()
+        {
+
+            load_cbo_counter();
+            load_cbo_shift();
+            load_cbo_status();
+        }
+
+        public void load_cbo_counter()
+        {
+            try
+            {
+                using (var db = new DataClasses1DataContext(clConn.conn))
+                {
+                    var quay = (from nvc in db.NHANVIEN_CAKIPs
+                                select nvc.Quay).Distinct().ToList();
+
+                    cbo_counter.Items.Clear();
+                    cbo_counter.Items.AddRange(quay.ToArray());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error reading data from database: " + ex.Message);
+            }
+        }
+
+        public void load_cbo_shift()
+        {
+            try
+            {
+                using (var db = new DataClasses1DataContext(clConn.conn))
+                {
+                    var ck = (from nvc in db.NHANVIEN_CAKIPs
+                              select nvc.MaCaKip).Distinct().ToList();
+
+                    cbo_shift.Items.Clear();
+                    cbo_shift.Items.AddRange(ck.ToArray());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error reading data from database: " + ex.Message);
+            }
+        }
+
+        public void load_cbo_status()
+        {
+            try
+            {
+                using (var db = new DataClasses1DataContext(clConn.conn))
+                {
+                    var trangThai = (from nvc in db.NHANVIEN_CAKIPs
+                                     select nvc.TrangThai).Distinct().ToList();
+
+                    cbo_status.Items.Clear();
+                    foreach (var status in trangThai)
+                    {
+                        if ((bool)status)
+                        {
+                            cbo_status.Items.Add("Present");
+                        }
+                        else
+                        {
+                            cbo_status.Items.Add("Absent");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error reading data from database: " + ex.Message);
+            }
         }
 
         public void Load_dgv_activity()
@@ -77,7 +145,6 @@ namespace DuAnMau
                 foreach (var item in query)
                 {
                     string status = (bool)item.TrangThai ? "Present" : "Absent";
-                    // Định dạng ngày tháng sau khi lấy dữ liệu từ cơ sở dữ liệu
                     string workDate = item.NgayLam.ToString("dd/MM/yyyy");
                     dt.Rows.Add(item.MaCaKip, item.GioBatDau, item.GioKetThuc, item.MaNhanVien, item.TenNhanVien, item.Quay, workDate, status);
                 }

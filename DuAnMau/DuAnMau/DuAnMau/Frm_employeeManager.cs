@@ -1,63 +1,116 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Data.Linq;
-using System.Data.SqlClient;
 using System.Runtime.InteropServices;
-using Excel = Microsoft.Office.Interop.Excel;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 using DuAnMau;
+using ClosedXML;
+using Excel = Microsoft.Office.Interop.Excel;
+using Guna.UI2.WinForms;
 
 namespace employeeManagement
 {
     public partial class Frm_employeeManager : Form
     {
-
         private Cl_conn clConn = new Cl_conn();
+
         public Frm_employeeManager()
         {
             InitializeComponent();
-            Load_dgv_manager();
+            InitializeComboBoxes();
+            LoadDataGridView();
             dgv_staff.RowHeadersVisible = false;
 
             dtp_Birthday.Format = DateTimePickerFormat.Custom;
             dtp_Birthday.CustomFormat = "dd/MM/yyyy";
             dtp_SignUpDay.Format = DateTimePickerFormat.Custom;
             dtp_SignUpDay.CustomFormat = "dd/MM/yyyy";
-
-
         }
 
-        public void Load_dgv_manager()
+        private void InitializeComboBoxes()
+        {
+            load_cbo_department();
+            load_cbo_role();
+        }
+        
+        public void load_cbo_role()
+        {
+            try
+            {
+                using (var db = new DataClasses1DataContext(clConn.conn))
+                {
+                    var tenVaiTro = (from vt in db.VAITROs
+                                     select vt.TenVaiTro).Distinct().ToList();
+
+                    cbo_role.Items.Clear();
+                    cbo_role.Items.AddRange(tenVaiTro.ToArray());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error reading data from database: " + ex.Message);
+            }
+        }
+
+        public void load_cbo_department()
+        {
+            try
+            {
+                using (var db = new DataClasses1DataContext(clConn.conn))
+                {
+                    var tenBoPhan = (from bp in db.BOPHANs
+                                     select bp.TenBoPhan).Distinct().ToList();
+
+                    cbo_department.Items.Clear();
+                    cbo_department.Items.AddRange(tenBoPhan.ToArray());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error reading data from database: " + ex.Message);
+            }
+        }
+        private void LoadDataGridView()
         {
             using (var db = new DataClasses1DataContext(clConn.conn))
             {
                 var query = from nv in db.NHAN_VIENs
-                            select nv;
+                            join bp in db.BOPHANs on nv.MaBoPhan equals bp.MaBoPhan
+                            join vt in db.VAITROs on nv.MaVaiTro equals vt.MaVaiTro
+                            select new
+                            {
+                                nv.MaNhanVien,
+                                nv.TenNhanVien,
+                                nv.CCCD,
+                                bp.TenBoPhan,
+                                vt.TenVaiTro,
+                                nv.NgaySinh,
+                                GioiTinh = (bool)nv.GioiTinh ? "Nam" : "Nữ",
+                                nv.SDT,
+                                nv.NgayDangKi,
+                                nv.Gmail,
+                                TrangThai = nv.TrangThai ? "Working" : "Stopped"
+                            };
+
                 DataTable dt = new DataTable();
                 dt.Columns.Add("Employee ID");
                 dt.Columns.Add("Employee Name");
                 dt.Columns.Add("Identification Number");
-                dt.Columns.Add("Department ID");
-                dt.Columns.Add("Role ID");
+                dt.Columns.Add("Department");
+                dt.Columns.Add("Role");
                 dt.Columns.Add("Date of Birth");
                 dt.Columns.Add("Gender");
                 dt.Columns.Add("Phone Number");
                 dt.Columns.Add("Registration Date");
                 dt.Columns.Add("Email");
                 dt.Columns.Add("Status");
+
                 foreach (var item in query)
                 {
-                    string status = (bool)item.TrangThai ? "Working" : "Stopped";
-                    string gender = (bool)item.GioiTinh ? "Male" : "Female";
-                    dt.Rows.Add(item.MaNhanVien, item.TenNhanVien, item.CCCD, item.MaBoPhan, item.MaVaiTro, item.NgaySinh, gender, item.SDT, item.NgayDangKi, item.Gmail, status);
+                    dt.Rows.Add(item.MaNhanVien, item.TenNhanVien, item.CCCD, item.TenBoPhan, item.TenVaiTro, item.NgaySinh, item.GioiTinh, item.SDT, item.NgayDangKi, item.Gmail, item.TrangThai);
                 }
+
                 dgv_staff.DataSource = dt;
             }
         }
@@ -67,14 +120,19 @@ namespace employeeManagement
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = dgv_staff.Rows[e.RowIndex];
+
                 txt_IDStaff.Text = row.Cells["Employee ID"].Value.ToString().Trim();
                 txt_NameStaff.Text = row.Cells["Employee Name"].Value.ToString().Trim();
                 txt_CCCD.Text = row.Cells["Identification Number"].Value.ToString().Trim();
-                txt_IDDepartment.Text = row.Cells["Department ID"].Value.ToString().Trim();
-                txt_IDRole.Text = row.Cells["Role ID"].Value.ToString().Trim();
-                dtp_Birthday.Value = DateTime.Parse(row.Cells["Date of Birth"].Value.ToString());
+
+                // Sử dụng SelectedItem thay vì SelectedValue để đảm bảo giá trị được chọn đúng
+                cbo_department.SelectedItem = row.Cells["Department"].Value.ToString();
+                cbo_role.SelectedItem = row.Cells["Role"].Value.ToString();
+
+                dtp_Birthday.Value = Convert.ToDateTime(row.Cells["Date of Birth"].Value);
+
                 string gender = row.Cells["Gender"].Value.ToString();
-                if (gender == "Male")
+                if (gender == "Nam")
                 {
                     rdo_Male.Checked = true;
                 }
@@ -82,9 +140,11 @@ namespace employeeManagement
                 {
                     rdo_Female.Checked = true;
                 }
+
                 txt_PhoneNumber.Text = row.Cells["Phone Number"].Value.ToString().Trim();
-                dtp_SignUpDay.Value = DateTime.Parse(row.Cells["Registration Date"].Value.ToString());
+                dtp_SignUpDay.Value = Convert.ToDateTime(row.Cells["Registration Date"].Value);
                 txt_Gmail.Text = row.Cells["Email"].Value.ToString().Trim();
+
                 string status = row.Cells["Status"].Value.ToString();
                 if (status == "Working")
                 {
@@ -103,6 +163,13 @@ namespace employeeManagement
             {
                 if (!ValidateFields())
                     return;
+
+                if (IsGmailDuplicate(txt_Gmail.Text.Trim()))
+                {
+                    MessageBox.Show("Gmail đã tồn tại! Vui lòng nhập Gmail khác.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 using (var db = new DataClasses1DataContext(clConn.conn))
                 {
                     NHAN_VIEN newEmployee = new NHAN_VIEN
@@ -110,8 +177,8 @@ namespace employeeManagement
                         MaNhanVien = txt_IDStaff.Text,
                         TenNhanVien = txt_NameStaff.Text,
                         CCCD = txt_CCCD.Text,
-                        MaBoPhan = txt_IDDepartment.Text,
-                        MaVaiTro = txt_IDRole.Text,
+                        MaBoPhan = cbo_department.SelectedValue.ToString(),
+                        MaVaiTro = cbo_role.SelectedValue.ToString(),
                         NgaySinh = dtp_Birthday.Value,
                         GioiTinh = rdo_Male.Checked,
                         SDT = txt_PhoneNumber.Text,
@@ -119,10 +186,11 @@ namespace employeeManagement
                         Gmail = txt_Gmail.Text,
                         TrangThai = rdo_StillWorking.Checked
                     };
+
                     db.NHAN_VIENs.InsertOnSubmit(newEmployee);
                     db.SubmitChanges();
                     MessageBox.Show("Employee added successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Load_dgv_manager();
+                    LoadDataGridView();
                 }
             }
             catch (Exception ex)
@@ -137,27 +205,36 @@ namespace employeeManagement
             {
                 if (!ValidateFields())
                     return;
+
+                if (IsGmailDuplicate(txt_Gmail.Text.Trim(), txt_IDStaff.Text))
+                {
+                    MessageBox.Show("Gmail đã tồn tại! Vui lòng nhập Gmail khác.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 using (var db = new DataClasses1DataContext(clConn.conn))
                 {
                     var query = from nv in db.NHAN_VIENs
                                 where nv.MaNhanVien == txt_IDStaff.Text
                                 select nv;
+
                     NHAN_VIEN nvToUpdate = query.SingleOrDefault();
 
                     if (nvToUpdate != null)
                     {
                         nvToUpdate.TenNhanVien = txt_NameStaff.Text;
                         nvToUpdate.CCCD = txt_CCCD.Text;
-                        nvToUpdate.MaBoPhan = txt_IDDepartment.Text;
-                        nvToUpdate.MaVaiTro = txt_IDRole.Text;
+                        nvToUpdate.MaBoPhan = cbo_department.SelectedValue.ToString();
+                        nvToUpdate.MaVaiTro = cbo_role.SelectedValue.ToString();
                         nvToUpdate.NgaySinh = dtp_Birthday.Value;
                         nvToUpdate.GioiTinh = rdo_Male.Checked;
                         nvToUpdate.SDT = txt_PhoneNumber.Text;
                         nvToUpdate.NgayDangKi = dtp_SignUpDay.Value;
                         nvToUpdate.Gmail = txt_Gmail.Text;
                         nvToUpdate.TrangThai = rdo_StillWorking.Checked;
+
                         db.SubmitChanges();
-                        Load_dgv_manager();
+                        LoadDataGridView();
                         MessageBox.Show("Employee updated successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
@@ -181,6 +258,7 @@ namespace employeeManagement
                     MessageBox.Show("Please select an employee to delete!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+
                 DialogResult result = MessageBox.Show("Are you sure you want to delete this employee?", "Delete Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
@@ -189,12 +267,13 @@ namespace employeeManagement
                         var query = from nv in db.NHAN_VIENs
                                     where nv.MaNhanVien == txt_IDStaff.Text
                                     select nv;
+
                         NHAN_VIEN employeeToDelete = query.SingleOrDefault();
                         if (employeeToDelete != null)
                         {
                             db.NHAN_VIENs.DeleteOnSubmit(employeeToDelete);
                             db.SubmitChanges();
-                            Load_dgv_manager();
+                            LoadDataGridView();
                             MessageBox.Show("Employee deleted successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
@@ -212,11 +291,17 @@ namespace employeeManagement
 
         private void btn_Refresh_Click(object sender, EventArgs e)
         {
+            ClearFields();
+            LoadDataGridView();
+        }
+
+        private void ClearFields()
+        {
             txt_IDStaff.Clear();
             txt_NameStaff.Clear();
             txt_CCCD.Clear();
-            txt_IDDepartment.Clear();
-            txt_IDRole.Clear();
+            cbo_department.SelectedIndex = -1;
+            cbo_role.SelectedIndex = -1;
             dtp_Birthday.Value = DateTime.Now;
             rdo_Male.Checked = false;
             rdo_Female.Checked = false;
@@ -225,8 +310,6 @@ namespace employeeManagement
             txt_Gmail.Clear();
             rdo_StillWorking.Checked = false;
             rdo_Leave.Checked = false;
-
-            Load_dgv_manager();
         }
 
         private void btn_Export_Click(object sender, EventArgs e)
@@ -286,9 +369,13 @@ namespace employeeManagement
         {
             using (var db = new DataClasses1DataContext(clConn.conn))
             {
-                var keyword = txt_Find.Text.Trim();
+                string keyword = txt_Find.Text.Trim();
+
                 var findnv = from nv in db.NHAN_VIENs
-                             where nv.MaNhanVien.Contains(keyword) || nv.TenNhanVien.Contains(keyword) || nv.MaVaiTro.Contains(keyword) || nv.MaBoPhan.Contains(keyword)
+                             where nv.MaNhanVien.Contains(keyword) ||
+                                   nv.TenNhanVien.Contains(keyword) ||
+                                   nv.MaVaiTro.Contains(keyword) ||
+                                   nv.MaBoPhan.Contains(keyword)
                              select new
                              {
                                  nv.MaNhanVien,
@@ -297,69 +384,29 @@ namespace employeeManagement
                                  nv.MaBoPhan,
                                  nv.MaVaiTro,
                                  nv.NgaySinh,
-                                 GioiTinh = (bool)nv.GioiTinh ? "Male" : "Female",
+                                 GioiTinh = (bool)nv.GioiTinh ? "Nam" : "Nữ",
                                  nv.SDT,
                                  nv.NgayDangKi,
                                  nv.Gmail,
-                                 TrangThai = nv.TrangThai ? "Working" : "Stopped",
+                                 TrangThai = nv.TrangThai ? "Working" : "Stopped"
                              };
+
                 dgv_staff.DataSource = findnv.ToList();
             }
         }
 
-        private bool ValidateEmployeeID(string id)
+        private bool IsGmailDuplicate(string gmail, string employeeId = null)
         {
-            Regex regex = new Regex(@"^NV\d{3}$");
-            return regex.IsMatch(id);
-        }
+            using (var db = new DataClasses1DataContext(clConn.conn))
+            {
+                var query = db.NHAN_VIENs.AsQueryable();
+                if (!string.IsNullOrEmpty(employeeId))
+                {
+                    query = query.Where(nv => nv.MaNhanVien != employeeId);
+                }
 
-        private bool ValidateDepartmentID(string id)
-        {
-            Regex regex = new Regex(@"^BP\d{3}$");
-            return regex.IsMatch(id);
-        }
-
-        private bool ValidateRoleID(string id)
-        {
-            Regex regex = new Regex(@"^VT\d{3}$");
-            return regex.IsMatch(id);
-        }
-
-        private bool ValidateCCCD(string cccd)
-        {
-            if (cccd.Any(char.IsLetter) || Convert.ToInt64(cccd) < 0)
-                return false;
-            return true;
-        }
-
-        private bool ValidatePhoneNumber(string phoneNumber)
-        {
-            if (phoneNumber.Any(char.IsLetter) || Convert.ToInt64(phoneNumber) < 0)
-                return false;
-            return true;
-        }
-
-        private bool ValidateEmail(string email)
-        {
-            if (!email.EndsWith("@gmail.com"))
-                return false;
-            return true;
-        }
-
-        private bool ValidateGenderAndStatus()
-        {
-            return (rdo_Male.Checked || rdo_Female.Checked) && (rdo_StillWorking.Checked || rdo_Leave.Checked);
-        }
-
-        private bool ValidateDateOfBirthAndSignUpDate(DateTime dateOfBirth, DateTime signUpDate)
-        {
-            return dateOfBirth <= signUpDate;
-        }
-
-        private bool ValidateName(string name)
-        {
-            Regex regex = new Regex(@"\d");
-            return !regex.IsMatch(name);
+                return query.Any(nv => nv.Gmail == gmail);
+            }
         }
 
         private bool ValidateFields()
@@ -376,18 +423,6 @@ namespace employeeManagement
                 return false;
             }
 
-            if (!ValidateDepartmentID(txt_IDDepartment.Text))
-            {
-                MessageBox.Show("Invalid department ID format (BPxxx)!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            if (!ValidateRoleID(txt_IDRole.Text))
-            {
-                MessageBox.Show("Invalid role ID format (VTxxx)!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
             if (!ValidateCCCD(txt_CCCD.Text))
             {
                 MessageBox.Show("Identification number cannot contain letters or negative numbers!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -397,12 +432,6 @@ namespace employeeManagement
             if (!ValidatePhoneNumber(txt_PhoneNumber.Text))
             {
                 MessageBox.Show("Phone number cannot contain letters or negative numbers!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            if (!ValidateEmail(txt_Gmail.Text))
-            {
-                MessageBox.Show("Invalid email format! Must end with '@gmail.com'", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
@@ -420,6 +449,38 @@ namespace employeeManagement
 
             return true;
         }
+
+        private bool ValidateName(string name)
+        {
+            return !Regex.IsMatch(name, @"\d");
+        }
+
+        private bool ValidateEmployeeID(string id)
+        {
+            return Regex.IsMatch(id, @"^NV\d{3}$");
+        }
+
+        private bool ValidateCCCD(string cccd)
+        {
+            return !cccd.Any(char.IsLetter) && long.TryParse(cccd, out _);
+        }
+
+        private bool ValidatePhoneNumber(string phoneNumber)
+        {
+            return !phoneNumber.Any(char.IsLetter) && long.TryParse(phoneNumber, out _);
+        }
+
+        private bool ValidateGenderAndStatus()
+        {
+            return (rdo_Male.Checked || rdo_Female.Checked) && (rdo_StillWorking.Checked || rdo_Leave.Checked);
+        }
+
+        private bool ValidateDateOfBirthAndSignUpDate(DateTime dateOfBirth, DateTime signUpDate)
+        {
+            return dateOfBirth <= signUpDate;
+        }
+
+        
 
         
     }

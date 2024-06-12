@@ -1,4 +1,5 @@
 ﻿
+using employeeManagement;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace DuAnMau
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Frm_home());
             Application.SetCompatibleTextRenderingDefault(false);   
-            Application.Run(new Frm_login());
+            Application.Run(new Frm_home());
         }
     }
 }

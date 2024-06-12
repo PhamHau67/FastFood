@@ -166,10 +166,15 @@ namespace employeeManagement
 
                 if (IsGmailDuplicate(txt_Gmail.Text.Trim()))
                 {
-                    MessageBox.Show("Gmail đã tồn tại! Vui lòng nhập Gmail khác.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Gmail already exists! please enter another gmail.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
+                if (IsPhoneNumberDuplicate(txt_PhoneNumber.Text.Trim()))
+                {
+                    MessageBox.Show("Phone number already exists! Please enter another phone number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 using (var db = new DataClasses1DataContext(clConn.conn))
                 {
                     NHAN_VIEN newEmployee = new NHAN_VIEN
@@ -206,9 +211,15 @@ namespace employeeManagement
                 if (!ValidateFields())
                     return;
 
-                if (IsGmailDuplicate(txt_Gmail.Text.Trim(), txt_IDStaff.Text))
+                if (IsGmailDuplicate(txt_Gmail.Text.Trim()))
                 {
-                    MessageBox.Show("Gmail đã tồn tại! Vui lòng nhập Gmail khác.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Gmail already exists! please enter another gmail.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (IsPhoneNumberDuplicate(txt_PhoneNumber.Text.Trim()))
+                {
+                    MessageBox.Show("Phone number already exists! Please enter another phone number.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -256,6 +267,12 @@ namespace employeeManagement
                 if (string.IsNullOrWhiteSpace(txt_IDStaff.Text))
                 {
                     MessageBox.Show("Please select an employee to delete!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (HasAccount(txt_IDStaff.Text))
+                {
+                    MessageBox.Show("The employee's account must be deleted before deleting the employee!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -395,20 +412,6 @@ namespace employeeManagement
             }
         }
 
-        private bool IsGmailDuplicate(string gmail, string employeeId = null)
-        {
-            using (var db = new DataClasses1DataContext(clConn.conn))
-            {
-                var query = db.NHAN_VIENs.AsQueryable();
-                if (!string.IsNullOrEmpty(employeeId))
-                {
-                    query = query.Where(nv => nv.MaNhanVien != employeeId);
-                }
-
-                return query.Any(nv => nv.Gmail == gmail);
-            }
-        }
-
         private bool ValidateFields()
         {
             if (!ValidateName(txt_NameStaff.Text))
@@ -450,6 +453,33 @@ namespace employeeManagement
             return true;
         }
 
+        private bool IsGmailDuplicate(string gmail, string employeeId = null)
+        {
+            using (var db = new DataClasses1DataContext(clConn.conn))
+            {
+                var query = db.NHAN_VIENs.AsQueryable();
+                if (!string.IsNullOrEmpty(employeeId))
+                {
+                    query = query.Where(nv => nv.MaNhanVien != employeeId);
+                }
+
+                return query.Any(nv => nv.Gmail == gmail);
+            }
+        }
+
+        private bool IsPhoneNumberDuplicate(string phoneNumber, string employeeId = null)
+        {
+            using (var db = new DataClasses1DataContext(clConn.conn))
+            {
+                var query = db.NHAN_VIENs.AsQueryable();
+                if (!string.IsNullOrEmpty(employeeId))
+                {
+                    query = query.Where(nv => nv.MaNhanVien != employeeId);
+                }
+                return query.Any(nv => nv.SDT == phoneNumber);
+            }
+        }
+
         private bool ValidateName(string name)
         {
             return !Regex.IsMatch(name, @"\d");
@@ -480,8 +510,14 @@ namespace employeeManagement
             return dateOfBirth <= signUpDate;
         }
 
-        
+        private bool HasAccount(string employeeId)
+        {
+            using (var db = new DataClasses1DataContext(clConn.conn))
+            {
+                return db.TAI_KHOANs.Any(acc => acc.MaNhanVien == employeeId);
+            }
+        }
 
-        
+
     }
 }

@@ -127,7 +127,7 @@
             this.btn_product.Name = "btn_product";
             this.btn_product.Size = new System.Drawing.Size(321, 71);
             this.btn_product.TabIndex = 9;
-            this.btn_product.Text = "    PRODUCT MANAGER";
+            this.btn_product.Text = "     PRODUCT MANAGER";
             this.btn_product.Click += new System.EventHandler(this.btn_product_Click);
             // 
             // btn_emplyess
@@ -147,7 +147,7 @@
             this.btn_emplyess.Name = "btn_emplyess";
             this.btn_emplyess.Size = new System.Drawing.Size(329, 71);
             this.btn_emplyess.TabIndex = 8;
-            this.btn_emplyess.Text = "    EMPLOYEE MANAGER";
+            this.btn_emplyess.Text = "     EMPLOYEE MANAGER";
             this.btn_emplyess.Click += new System.EventHandler(this.btn_emplyess_Click);
             // 
             // btn_account
@@ -185,9 +185,9 @@
             this.btn_revenue.ImageSize = new System.Drawing.Size(30, 30);
             this.btn_revenue.Location = new System.Drawing.Point(0, 314);
             this.btn_revenue.Name = "btn_revenue";
-            this.btn_revenue.Size = new System.Drawing.Size(326, 71);
+            this.btn_revenue.Size = new System.Drawing.Size(326, 85);
             this.btn_revenue.TabIndex = 6;
-            this.btn_revenue.Text = "       REVENUE       MANGAMENT";
+            this.btn_revenue.Text = "       REVENUE      MANGAMENT";
             this.btn_revenue.Click += new System.EventHandler(this.guna2Button1_Click);
             // 
             // btn_exit

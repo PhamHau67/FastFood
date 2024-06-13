@@ -55,6 +55,11 @@ namespace DuAnMau
 
         private void btn_logout_Click(object sender, EventArgs e)
         {
+            // Lưu thời gian đăng xuất
+            Globals.LogoutTime = DateTime.Now;
+
+            // Đăng xuất người dùng
+            Globals.username = null;
             var result = MessageBox.Show("Are you sure you want to log out?", "Logout Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
@@ -95,7 +100,7 @@ namespace DuAnMau
 
         private void btn_history_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Frm_activityHistory());
+            OpenChildForm(new Frm_activityHistory(Globals.loginTime));
         }
 
         private void guna2Button1_Click_1(object sender, EventArgs e)

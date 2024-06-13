@@ -22,15 +22,13 @@ namespace DuAnMau
         public Frm_activityHistory()
         {
             InitializeComponent();
-            Load_dgv_activity();
             InitializeComboBoxes();
+            Load_dgv_activity();          
             dgv_LichSu.RowHeadersVisible = false;
-            
 
 
-            cbo_shift.SelectedIndexChanged += new EventHandler(FilterChanged);
-            cbo_counter.SelectedIndexChanged += new EventHandler(FilterChanged);
-            cbo_status.SelectedIndexChanged += new EventHandler(FilterChanged);
+
+
 
             dtp_start.Format = DateTimePickerFormat.Custom;
             dtp_start.CustomFormat = "dd/MM/yyyy";
@@ -40,10 +38,21 @@ namespace DuAnMau
 
         private void InitializeComboBoxes()
         {
-
+            cbo_shift.SelectedIndexChanged += new EventHandler(FilterChanged);
+            cbo_counter.SelectedIndexChanged += new EventHandler(FilterChanged);
+            cbo_status.SelectedIndexChanged += new EventHandler(FilterChanged);
             load_cbo_counter();
             load_cbo_shift();
             load_cbo_status();
+            //Refesh
+            txt_find.Clear();
+            cbo_shift.SelectedIndex = -1;
+            cbo_counter.SelectedIndex = -1;
+            cbo_status.SelectedIndex = -1;
+            dtp_start.Value = DateTime.Now;
+            dtp_end.Value = DateTime.Now;
+            FilterData();
+            Load_dgv_activity();
         }
 
         public void load_cbo_counter()
@@ -152,7 +161,10 @@ namespace DuAnMau
                 dgv_LichSu.DataSource = dt;
             }
         }
-
+        private void FilterChanged(object sender, EventArgs e)
+        {
+            FilterData();
+        }
         private void btn_refresh_Click_1(object sender, EventArgs e)
         {
             txt_find.Clear();
@@ -161,7 +173,7 @@ namespace DuAnMau
             cbo_status.SelectedIndex = -1;
             dtp_start.Value = DateTime.Now;
             dtp_end.Value = DateTime.Now;
-
+            FilterData();
             Load_dgv_activity();
         }
 
@@ -218,10 +230,7 @@ namespace DuAnMau
             }
         }
 
-        private void FilterChanged(object sender, EventArgs e)
-        {
-            FilterData();
-        }
+        
 
         private void FilterData()
         {

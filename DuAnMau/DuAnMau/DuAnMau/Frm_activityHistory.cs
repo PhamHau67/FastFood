@@ -28,11 +28,6 @@ namespace DuAnMau
             Load_dgv_activity();
             InitializeComboBoxes();
             dgv_LichSu.RowHeadersVisible = false;
-
-
-
-
-
             dtp_start.Format = DateTimePickerFormat.Custom;
             dtp_start.CustomFormat = "dd/MM/yyyy";
             dtp_end.Format = DateTimePickerFormat.Custom;
@@ -312,77 +307,8 @@ namespace DuAnMau
 
         
 
-        private void FilterData()
-        {
-            using (var db = new DataClasses1DataContext(clConn.conn))
-            {
-                var keyword = txt_find.Text.Trim();
-                var shiftFilter = cbo_shift.SelectedItem?.ToString();
-                var counterFilter = cbo_counter.SelectedItem?.ToString();
-                var statusFilter = cbo_status.SelectedItem?.ToString();
+        
 
-                bool isDateFilterUsed = dtp_start.Value.Date != DateTime.Now.Date || dtp_end.Value.Date != DateTime.Now.Date;
-
-                var startDateFilter = dtp_start.Value.Date;
-                var endDateFilter = dtp_end.Value.Date.AddDays(1).AddSeconds(-1);
-
-                var findnv = from nv in db.NHAN_VIENs
-                             join nvc in db.NHANVIEN_CAKIPs on nv.MaNhanVien equals nvc.MaNhanVien
-                             join ck in db.CAKIPs on nvc.MaCaKip equals ck.MaCaKip
-                             where (string.IsNullOrEmpty(keyword) || nv.MaNhanVien.Contains(keyword) || ck.MaCaKip.Contains(keyword) || nv.TenNhanVien.Contains(keyword) || nvc.Quay.Contains(keyword) || nvc.NgayLam.ToString().Contains(keyword))
-                                && (string.IsNullOrEmpty(shiftFilter) || nvc.MaCaKip == shiftFilter)
-                                && (string.IsNullOrEmpty(counterFilter) || nvc.Quay == counterFilter)
-                                && (string.IsNullOrEmpty(statusFilter) || (statusFilter == "Present" && nvc.TrangThai == true) || (statusFilter == "Absent" && nvc.TrangThai == false))
-                                && (!isDateFilterUsed || (nvc.NgayLam >= startDateFilter && nvc.NgayLam <= endDateFilter)) // Áp dụng bộ lọc ngày tháng nếu cần
-                                && nvc.NgayLam >= loginTime
-                             select new
-                             {
-                                 ck.MaCaKip,
-                                 ck.GioBatDau,
-                                 ck.GioKetThuc,
-                                 nv.MaNhanVien,
-                                 nv.TenNhanVien,
-                                 nvc.Quay,
-                                 nvc.NgayLam,
-                                 TrangThai = (bool)nvc.TrangThai ? "Present" : "Absent",
-                             };
-
-                DataTable dt = new DataTable();
-                dt.Columns.Add("ShiftCode");
-                dt.Columns.Add("StartTime");
-                dt.Columns.Add("EndTime");
-                dt.Columns.Add("EmployeeID");
-                dt.Columns.Add("EmployeeName");
-                dt.Columns.Add("Counter");
-                dt.Columns.Add("WorkDate");
-                dt.Columns.Add("Status");
-
-                foreach (var item in findnv)
-                {
-                    // Định dạng ngày và thời gian trước khi thêm vào DataTable
-                    string workDate = item.NgayLam.ToString("dd/MM/yyyy");
-                    string startTime = item.GioBatDau.ToString(@"hh\:mm");
-                    string endTime = item.GioKetThuc.ToString(@"hh\:mm");
-                    dt.Rows.Add(item.MaCaKip, startTime, endTime, item.MaNhanVien, item.TenNhanVien, item.Quay, workDate, item.TrangThai);
-                }
-
-                dgv_LichSu.DataSource = dt;
-            }
-        }
-
-        private void txt_find_TextChanged(object sender, EventArgs e)
-        {
-            FilterData();
-        }
-
-        private void dtp_end_ValueChanged(object sender, EventArgs e)
-        {
-            FilterData();
-        }
-
-        private void dtp_start_ValueChanged(object sender, EventArgs e)
-        {
-            FilterData();
-        }
+        
     }
 }

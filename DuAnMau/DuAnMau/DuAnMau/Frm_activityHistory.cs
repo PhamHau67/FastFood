@@ -24,11 +24,17 @@ namespace DuAnMau
             InitializeComponent();
             Load_dgv_activity();
             InitializeComboBoxes();
+            InitializeEditComboBoxes();
             dgv_LichSu.RowHeadersVisible = false;
             dtp_start.Format = DateTimePickerFormat.Custom;
             dtp_start.CustomFormat = "dd/MM/yyyy";
             dtp_end.Format = DateTimePickerFormat.Custom;
             dtp_end.CustomFormat = "dd/MM/yyyy";
+            dtp_dateWork.Format = DateTimePickerFormat.Custom;
+            dtp_dateWork.CustomFormat = "dd/MM/yyyy";
+
+            dgv_LichSu.CellClick += dgv_LichSu_CellClick;
+
         }
 
         private void InitializeComboBoxes()
@@ -48,6 +54,13 @@ namespace DuAnMau
             dtp_end.Value = DateTime.Now;
             FilterData();
             Load_dgv_activity();
+        }
+
+        private void InitializeEditComboBoxes()
+        {
+            load_cbo_IDShift_edit();
+            load_cbo_counter_edit();
+            load_cbo_IDStaff_edit();
         }
 
         public void load_cbo_counter()
@@ -116,6 +129,64 @@ namespace DuAnMau
                 MessageBox.Show("Error reading data from database: " + ex.Message);
             }
         }
+
+        public void load_cbo_IDShift_edit()
+        {
+            try
+            {
+                using (var db = new DataClasses1DataContext(clConn.conn))
+                {
+                    var shifts = (from ck in db.CAKIPs
+                                  select ck.MaCaKip).Distinct().ToList();
+
+                    cbo_IDShift_edit.Items.Clear();
+                    cbo_IDShift_edit.Items.AddRange(shifts.ToArray());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error reading data from database: " + ex.Message);
+            }
+        }
+
+        public void load_cbo_counter_edit()
+        {
+            try
+            {
+                using (var db = new DataClasses1DataContext(clConn.conn))
+                {
+                    var counters = (from nvc in db.NHANVIEN_CAKIPs
+                                    select nvc.Quay).Distinct().ToList();
+
+                    cbo_counter_edit.Items.Clear();
+                    cbo_counter_edit.Items.AddRange(counters.ToArray());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error reading data from database: " + ex.Message);
+            }
+        }
+
+        public void load_cbo_IDStaff_edit()
+        {
+            try
+            {
+                using (var db = new DataClasses1DataContext(clConn.conn))
+                {
+                    var staff = (from nv in db.NHAN_VIENs
+                                 select nv.MaNhanVien).Distinct().ToList();
+
+                    cbo_IDStaff_edit.Items.Clear();
+                    cbo_IDStaff_edit.Items.AddRange(staff.ToArray());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error reading data from database: " + ex.Message);
+            }
+        }
+
 
         public void Load_dgv_activity()
         {
@@ -297,10 +368,86 @@ namespace DuAnMau
             }
         }
 
-        
 
-        
 
-        
+        private void btn_add_Click(object sender, EventArgs e)
+        {
+            // Lấy dữ liệu từ các controls trên giao diện
+            string maNhanVien = cbo_IDStaff_edit.SelectedItem.ToString();
+            string maCaKip = cbo_IDShift_edit.SelectedItem.ToString();
+            string quay = cbo_counter_edit.SelectedItem.ToString();
+            DateTime ngayLam = dtp_dateWork.Value;
+            bool trangThai = chk_status.Checked;
+
+            // Thực hiện thêm dữ liệu vào cơ sở dữ liệu
+            try
+            {
+                using (var db = new DataClasses1DataContext(clConn.conn))
+                {
+                    NHANVIEN_CAKIP newRecord = new NHANVIEN_CAKIP
+                    {
+                        MaNhanVien = maNhanVien,
+                        MaCaKip = maCaKip,
+                        Quay = quay,
+                        NgayLam = ngayLam,
+                        TrangThai = trangThai
+                    };
+
+                    db.NHANVIEN_CAKIPs.InsertOnSubmit(newRecord);
+                    db.SubmitChanges();
+
+                    MessageBox.Show("Thêm mới thành công!");
+                    // Sau khi thêm mới thành công, làm mới DataGridView để hiển thị dữ liệu mới nhất
+                    Load_dgv_activity();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi thêm mới dữ liệu: " + ex.Message);
+            }
+        }
+
+        private void btn_update_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgv_LichSu_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                DataGridViewRow row = dgv_LichSu.Rows[e.RowIndex];
+
+                // Lấy giá trị của từng ô trong hàng được chọn
+                string shiftCode = row.Cells["ShiftCode"].Value?.ToString();
+                string counter = row.Cells["Counter"].Value?.ToString();
+                string employeeID = row.Cells["EmployeeID"].Value?.ToString();
+                DateTime workDate = Convert.ToDateTime(row.Cells["WorkDate"].Value);
+
+                // Xử lý giá trị của cột Status và checkbox chk_status tương ứng
+                string status = row.Cells["Status"].Value?.ToString();
+                if (status != null)
+                {
+                    if (status.Equals("Present", StringComparison.OrdinalIgnoreCase))
+                    {
+                        chk_status.Checked = true;
+                    }
+                    else if (status.Equals("Absent", StringComparison.OrdinalIgnoreCase))
+                    {
+                        chk_status.Checked = false;
+                    }
+                }
+                else
+                {
+                    chk_status.Checked = false; // Xử lý trường hợp giá trị null nếu cần
+                }
+
+                // Đặt các giá trị lấy được vào các ComboBox và DateTimePicker
+                cbo_IDShift_edit.SelectedItem = shiftCode;
+                cbo_counter_edit.SelectedItem = counter;
+                cbo_IDStaff_edit.SelectedItem = employeeID;
+                dtp_dateWork.Value = workDate;
+            }
+        }
     }
 }

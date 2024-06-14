@@ -124,8 +124,6 @@ namespace employeeManagement
                 txt_IDStaff.Text = row.Cells["Employee ID"].Value.ToString().Trim();
                 txt_NameStaff.Text = row.Cells["Employee Name"].Value.ToString().Trim();
                 txt_CCCD.Text = row.Cells["Identification Number"].Value.ToString().Trim();
-
-                // Sử dụng SelectedItem thay vì SelectedValue để đảm bảo giá trị được chọn đúng
                 cbo_department.SelectedItem = row.Cells["Department"].Value.ToString();
                 cbo_role.SelectedItem = row.Cells["Role"].Value.ToString();
 

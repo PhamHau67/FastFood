@@ -58,6 +58,7 @@
             this.lbl_status_edit = new System.Windows.Forms.Label();
             this.lbl_dateWork = new System.Windows.Forms.Label();
             this.chk_status = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.grp_shift = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_LichSu)).BeginInit();
             this.grp_find.SuspendLayout();
             this.SuspendLayout();
@@ -441,6 +442,15 @@
             this.chk_status.UncheckedState.BorderThickness = 0;
             this.chk_status.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             // 
+            // grp_shift
+            // 
+            this.grp_shift.Location = new System.Drawing.Point(2, 320);
+            this.grp_shift.Name = "grp_shift";
+            this.grp_shift.Size = new System.Drawing.Size(1241, 191);
+            this.grp_shift.TabIndex = 9;
+            this.grp_shift.TabStop = false;
+            this.grp_shift.Text = "Shift editing";
+            // 
             // Frm_activityHistory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -461,6 +471,7 @@
             this.Controls.Add(this.cbo_IDShift_edit);
             this.Controls.Add(this.cbo_IDStaff_edit);
             this.Controls.Add(this.btn_update);
+            this.Controls.Add(this.grp_shift);
             this.Name = "Frm_activityHistory";
             this.Text = "Frm_activityHistory";
             ((System.ComponentModel.ISupportInitialize)(this.dgv_LichSu)).EndInit();
@@ -499,5 +510,6 @@
         private System.Windows.Forms.Label lbl_status_edit;
         private System.Windows.Forms.Label lbl_dateWork;
         private Guna.UI2.WinForms.Guna2CheckBox chk_status;
+        private System.Windows.Forms.GroupBox grp_shift;
     }
 }

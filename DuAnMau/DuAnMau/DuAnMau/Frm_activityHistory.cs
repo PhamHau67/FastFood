@@ -33,8 +33,6 @@ namespace DuAnMau
             dtp_dateWork.Format = DateTimePickerFormat.Custom;
             dtp_dateWork.CustomFormat = "dd/MM/yyyy";
 
-            dgv_LichSu.CellClick += dgv_LichSu_CellClick;
-
         }
 
         private void InitializeComboBoxes()
@@ -309,8 +307,13 @@ namespace DuAnMau
             cbo_shift.SelectedIndex = -1;
             cbo_counter.SelectedIndex = -1;
             cbo_status.SelectedIndex = -1;
+            cbo_IDShift_edit.SelectedIndex = -1;
+            cbo_counter_edit.SelectedIndex = -1;
+            cbo_IDStaff_edit.SelectedIndex = -1;
             dtp_start.Value = DateTime.Now;
             dtp_end.Value = DateTime.Now;
+            dtp_dateWork.Value = DateTime.Now;
+            chk_status.Checked = false;
             FilterData();
             Load_dgv_activity();
         }
@@ -372,10 +375,6 @@ namespace DuAnMau
 
         private void btn_add_Click(object sender, EventArgs e)
         {
-            // Lấy dữ liệu từ các controls trên giao diện
-            string maNhanVien = cbo_IDStaff_edit.SelectedItem.ToString();
-            string maCaKip = cbo_IDShift_edit.SelectedItem.ToString();
-            string quay = cbo_counter_edit.SelectedItem.ToString();
             DateTime ngayLam = dtp_dateWork.Value;
             bool trangThai = chk_status.Checked;
 
@@ -384,11 +383,25 @@ namespace DuAnMau
             {
                 using (var db = new DataClasses1DataContext(clConn.conn))
                 {
+                    string maNhanVien = cbo_IDStaff_edit.SelectedItem.ToString();
+
+                    // Lấy mã ca kíp từ combobox cbo_IDShift_edit
+                    string maCaKip = cbo_IDShift_edit.SelectedItem.ToString();
+                    var ckQuery = (from ck in db.CAKIPs
+                                   where ck.MaCaKip == maCaKip
+                                   select ck).FirstOrDefault();
+                    if (ckQuery == null)
+                    {
+                        MessageBox.Show("Không tìm thấy ca kíp có mã này trong cơ sở dữ liệu.");
+                        return;
+                    }
+
+                    // Thêm mới bản ghi vào NHANVIEN_CAKIP
                     NHANVIEN_CAKIP newRecord = new NHANVIEN_CAKIP
                     {
                         MaNhanVien = maNhanVien,
                         MaCaKip = maCaKip,
-                        Quay = quay,
+                        Quay = cbo_counter_edit.SelectedItem.ToString(),
                         NgayLam = ngayLam,
                         TrangThai = trangThai
                     };

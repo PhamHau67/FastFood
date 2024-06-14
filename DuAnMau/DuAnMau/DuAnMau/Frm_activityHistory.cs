@@ -43,7 +43,6 @@ namespace DuAnMau
             load_cbo_counter();
             load_cbo_shift();
             load_cbo_status();
-            //Refesh
             txt_find.Clear();
             cbo_shift.SelectedIndex = -1;
             cbo_counter.SelectedIndex = -1;
@@ -203,6 +202,7 @@ namespace DuAnMau
                                 nvc.Quay,
                                 nvc.NgayLam,
                                 nvc.TrangThai
+                                
                             };
 
                 DataTable dt = new DataTable();
@@ -214,6 +214,7 @@ namespace DuAnMau
                 dt.Columns.Add("Counter");
                 dt.Columns.Add("WorkDate");
                 dt.Columns.Add("Status");
+                
 
                 foreach (var item in query)
                 {
@@ -308,7 +309,7 @@ namespace DuAnMau
             cbo_counter.SelectedIndex = -1;
             cbo_status.SelectedIndex = -1;
             cbo_IDShift_edit.SelectedIndex = -1;
-            cbo_counter_edit.SelectedIndex = -1;
+            txt_counter_edit.Clear();
             cbo_IDStaff_edit.SelectedIndex = -1;
             dtp_start.Value = DateTime.Now;
             dtp_end.Value = DateTime.Now;
@@ -377,29 +378,23 @@ namespace DuAnMau
         {
             DateTime ngayLam = dtp_dateWork.Value;
             bool trangThai = chk_status.Checked;
-
-            // Thực hiện thêm dữ liệu vào cơ sở dữ liệu
             try
             {
-                // Get selected values from ComboBoxes and DateTimePicker
                 string shiftCode = cbo_IDShift_edit.SelectedItem?.ToString();
-                string counter = cbo_counter_edit.Text.ToString();
+                string counter = txt_counter_edit.Text.ToString();
                 string employeeID = cbo_IDStaff_edit.SelectedItem?.ToString();
                 DateTime workDate = dtp_dateWork.Value;
                 bool status = chk_status.Checked;
-
-                // Validate inputs (ensure required fields are filled)
-
                 if (string.IsNullOrEmpty(shiftCode) || string.IsNullOrEmpty(counter) || string.IsNullOrEmpty(employeeID))
                 {
                     MessageBox.Show("Please fill in all required fields (Shift, Counter, Employee ID).", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                // Insert into database using LINQ to SQL
+
                 using (var db = new DataClasses1DataContext(clConn.conn))
                 {
-                    // Create a new NHANVIEN_CAKIP object and assign values
+
                     NHANVIEN_CAKIP newRecord = new NHANVIEN_CAKIP
                     {
                         MaCaKip = shiftCode,
@@ -408,16 +403,11 @@ namespace DuAnMau
                         NgayLam = workDate,
                         TrangThai = status
                     };
-
-                    // Add to DataContext and submit changes to database
                     db.NHANVIEN_CAKIPs.InsertOnSubmit(newRecord);
                     db.SubmitChanges();
-
                     MessageBox.Show("New record added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    // Refresh DataGridView and clear input fields
-                    Load_dgv_activity(); // Assuming this method reloads the DataGridView
-                    ClearAddFields(); // Custom method to clear input fields
+                    Load_dgv_activity(); 
+                    ClearAddFields();
                 }
             }
             catch (Exception ex)
@@ -429,7 +419,7 @@ namespace DuAnMau
         private void ClearAddFields()
         {
             cbo_IDShift_edit.SelectedIndex = -1;
-            cbo_counter_edit.Text = "";
+            txt_counter_edit.Text = "";
             cbo_IDStaff_edit.SelectedIndex = -1;
             dtp_dateWork.Value = DateTime.Now;
             chk_status.Checked = false;
@@ -438,7 +428,7 @@ namespace DuAnMau
 
         private void btn_update_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void dgv_LichSu_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -473,9 +463,81 @@ namespace DuAnMau
 
                 // Đặt các giá trị lấy được vào các ComboBox và DateTimePicker
                 cbo_IDShift_edit.SelectedItem = shiftCode;
-                cbo_counter_edit.Text = counter;
+                txt_counter_edit.Text = counter;
                 cbo_IDStaff_edit.SelectedItem = employeeID;
                 dtp_dateWork.Value = workDate;
+            }
+        }
+
+        private void btn_update1_Click(object sender, EventArgs e)
+        {
+            if (dgv_LichSu.SelectedRows.Count > 0) // Kiểm tra nếu có ít nhất một hàng được chọn
+            {
+                DataGridViewRow selectedRow = dgv_LichSu.SelectedRows[0];
+                string currentStatus = selectedRow.Cells["Status"].Value?.ToString();
+
+                // Kiểm tra nếu trạng thái hiện tại là "Absent" (Vắng mặt)
+                if (currentStatus == "Absent")
+                {
+                    // Lấy các giá trị nhập từ các điều khiển giao diện
+                    string shiftCode = cbo_IDShift_edit.SelectedItem?.ToString();
+                    string counter = txt_counter_edit.Text;
+                    string employeeID = cbo_IDStaff_edit.SelectedItem?.ToString();
+                    DateTime workDate = dtp_dateWork.Value;
+                    bool status = chk_status.Checked;
+
+                    try
+                    {
+                        using (var db = new DataClasses1DataContext(clConn.conn))
+                        {
+                            // Lấy ID hoạt động từ hàng được chọn
+                            int activityID = Convert.ToInt32(selectedRow.Cells["ActivityID"].Value);
+
+                            // Tìm bản ghi tương ứng trong cơ sở dữ liệu
+                            var query = from nvc in db.NHANVIEN_CAKIPs
+                                        where nvc.ID == activityID
+                                        select nvc;
+
+                            var activity = query.FirstOrDefault();
+
+                            if (activity != null)
+                            {
+                                // Cập nhật bản ghi với các giá trị mới
+                                activity.MaCaKip = shiftCode;
+                                activity.Quay = counter;
+                                activity.MaNhanVien = employeeID;
+                                activity.NgayLam = workDate;
+                                activity.TrangThai = status;
+
+                                // Gửi các thay đổi lên cơ sở dữ liệu
+                                db.SubmitChanges();
+
+                                // Thông báo cho người dùng về việc cập nhật thành công
+                                MessageBox.Show("Cập nhật thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                // Làm mới DataGridView và xóa các trường nhập liệu
+                                Load_dgv_activity();
+                                ClearAddFields();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Không tìm thấy hoạt động trong cơ sở dữ liệu!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Chỉ có thể cập nhật từ Vắng mặt sang Hiện diện!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn một hàng để cập nhật.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }

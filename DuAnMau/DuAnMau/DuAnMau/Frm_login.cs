@@ -56,7 +56,6 @@ namespace DuAnMau
                 if (user != null)
                 {
                     Globals.username = user.nv.TenNhanVien; // Lưu tên nhân viên vào biến toàn cục
-                    Globals.loginTime = DateTime.Now;// Lưu thời gian
 
                     // Truyền tên nhân viên sang form gọi món
                     Frm_Order orderForm = new Frm_Order(user.nv.TenNhanVien);

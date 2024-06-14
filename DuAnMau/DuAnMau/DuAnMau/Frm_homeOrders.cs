@@ -63,7 +63,7 @@ namespace DuAnMau
 
         private void btn_history_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Frm_activityHistory(Globals.loginTime));
+            OpenChildForm(new Frm_activityHistory());
         }
 
         private void btn_home_Click(object sender, EventArgs e)

@@ -55,8 +55,6 @@ namespace DuAnMau
 
         private void btn_logout_Click(object sender, EventArgs e)
         {
-            // Lưu thời gian đăng xuất
-            Globals.LogoutTime = DateTime.Now;
 
             // Đăng xuất người dùng
             Globals.username = null;
@@ -100,7 +98,7 @@ namespace DuAnMau
 
         private void btn_history_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Frm_activityHistory(Globals.loginTime));
+            OpenChildForm(new Frm_activityHistory());
         }
 
         private void guna2Button1_Click_1(object sender, EventArgs e)

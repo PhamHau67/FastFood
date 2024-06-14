@@ -87,26 +87,25 @@ namespace DuAnMau
                 txt_name.Text = row.Cells["Name Employee"].Value?.ToString();
                 txt_day.Text = row.Cells["Date Created"].Value?.ToString();
 
-                // Kiểm tra nếu ô "Total" không rỗng
-                if (row.Cells["Total"].Value != null)
+                if (row.Cells["Status"].Value?.ToString() == "Chưa thanh toán")
+                {
+                    txt_money.Text = "0";
+                }
+                else if (row.Cells["Total"].Value != null)
                 {
                     string totalValueString = row.Cells["Total"].Value.ToString();
-
                     try
                     {
-                        // Chuyển đổi giá trị thành decimal và định dạng
                         decimal totalValue = Convert.ToDecimal(totalValueString);
                         txt_money.Text = totalValue.ToString("N0");
                     }
                     catch (FormatException)
                     {
-                        // Xử lý khi không thể chuyển đổi giá trị thành số
-                        txt_money.Text = "Invalid format";
+                        txt_money.Text = "Định dạng không hợp lệ";
                     }
                     catch (InvalidCastException)
                     {
-                        // Xử lý khi không thể chuyển đổi giá trị thành số
-                        txt_money.Text = "Invalid cast";
+                        txt_money.Text = "Chuyển đổi không hợp lệ";
                     }
                 }
                 else
@@ -165,6 +164,25 @@ namespace DuAnMau
                         // Tự động điều chỉnh độ rộng của các cột trong bảng tính Excel để vừa với nội dung
                         worksheet.Columns.AutoFit();
 
+                        // Tính tổng doanh thu từ dữ liệu trong DataGridView
+                        decimal totalRevenue = 0;
+                        for (int i = 0; i < dgv_revenue.Rows.Count; i++)
+                        {
+                            string status = dgv_revenue.Rows[i].Cells["Status"].Value?.ToString();
+                            if (status == "Đã thanh toán")
+                            {
+                                if (decimal.TryParse(dgv_revenue.Rows[i].Cells["Total"].Value?.ToString(), out decimal result))
+                                {
+                                    totalRevenue += result;
+                                }
+                            }
+                        }
+
+                        // Thêm tổng doanh thu vào cuối bảng tính Excel
+                        int lastRow = dgv_revenue.Rows.Count + 2;
+                        worksheet.Cells[lastRow, 1] = "Tổng doanh thu:";
+                        worksheet.Cells[lastRow, dgv_revenue.Columns["Total"].Index + 1] = totalRevenue.ToString("N0");
+
                         // Lưu workbook vào vị trí và tên tệp mà người dùng đã chọn
                         workbook.SaveAs(saveFileDialog.FileName);
 
@@ -210,7 +228,7 @@ namespace DuAnMau
                                            nhanvien.TenNhanVien,
                                            hoadon.NgayTao,
                                            hoadon.TongTien,
-                                           hoadon.TrangThai
+                                           Status = hoadon.TrangThai.HasValue ? (hoadon.TrangThai.Value ? "Đã thanh toán" : "Chưa thanh toán") : "Chưa thanh toán"
                                        };
 
                     DataTable dt = new DataTable();
@@ -223,7 +241,7 @@ namespace DuAnMau
 
                     foreach (var item in searchResult)
                     {
-                        dt.Rows.Add(item.MaHoaDon, item.MaNhanVien, item.TenNhanVien, item.NgayTao, item.TrangThai);
+                        dt.Rows.Add(item.MaHoaDon, item.MaNhanVien, item.TenNhanVien, item.NgayTao, item.TongTien, item.Status);
                     }
 
                     dgv_revenue.DataSource = dt;
@@ -240,24 +258,21 @@ namespace DuAnMau
         {
             try
             {
-                // Trích xuất giá trị từ DateTimePicker cho ngày bắt đầu và kết thúc
                 DateTime startDate = dateTimePickerStartDate.Value.Date;
-                DateTime endDate = dateTimePickerEndDate.Value.Date.AddDays(1); // Bổ sung 1 ngày để bao gồm cả ngày kết thúc
+                DateTime endDate = dateTimePickerEndDate.Value.Date.AddDays(1);
 
                 using (var db = new DataClasses1DataContext(clConn.conn))
                 {
-                    // Truy vấn cơ sở dữ liệu để tính tổng tiền của các hóa đơn trong khoảng thời gian đã chọn
                     var totalRevenue = (from hoadon in db.HOADONs
-                                        where hoadon.NgayTao >= startDate && hoadon.NgayTao < endDate
+                                        where hoadon.NgayTao >= startDate && hoadon.NgayTao < endDate && hoadon.TrangThai == true
                                         select hoadon.TongTien).Sum();
 
-                    // Hiển thị tổng tiền tính được lên TextBox
-                    txt_totalAmount.Text = totalRevenue.ToString("N0"); // Format số với dấu phân cách ngàn
+                    txt_totalAmount.Text = totalRevenue.ToString("N0");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error calculating total revenue: " + ex.Message);
+                MessageBox.Show("Lỗi tính tổng doanh thu: " + ex.Message);
             }
         }
 

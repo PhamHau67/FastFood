@@ -19,30 +19,105 @@ namespace DuAnMau
     public partial class Frm_activityHistory : Form
     {
         private Cl_conn clConn = new Cl_conn();
+
+
         public Frm_activityHistory()
         {
             InitializeComponent();
             Load_dgv_activity();
+            InitializeComboBoxes();
             dgv_LichSu.RowHeadersVisible = false;
-            cbo_counter.Items.Add("A1");
-            cbo_counter.Items.Add("B2");
-            cbo_shift.Items.Add("CK001");
-            cbo_shift.Items.Add("CK002");
-            cbo_shift.Items.Add("CK003");
-            cbo_shift.Items.Add("CK004");
-            cbo_shift.Items.Add("CK005");
-            cbo_status.Items.Add("Present");
-            cbo_status.Items.Add("Absent");
-
-
-            cbo_shift.SelectedIndexChanged += new EventHandler(FilterChanged);
-            cbo_counter.SelectedIndexChanged += new EventHandler(FilterChanged);
-            cbo_status.SelectedIndexChanged += new EventHandler(FilterChanged);
-
             dtp_start.Format = DateTimePickerFormat.Custom;
             dtp_start.CustomFormat = "dd/MM/yyyy";
             dtp_end.Format = DateTimePickerFormat.Custom;
             dtp_end.CustomFormat = "dd/MM/yyyy";
+
+        }
+
+        private void InitializeComboBoxes()
+        {
+            cbo_shift.SelectedIndexChanged += new EventHandler(FilterChanged);
+            cbo_counter.SelectedIndexChanged += new EventHandler(FilterChanged);
+            cbo_status.SelectedIndexChanged += new EventHandler(FilterChanged);
+            load_cbo_counter();
+            load_cbo_shift();
+            load_cbo_status();
+            //Refesh
+            txt_find.Clear();
+            cbo_shift.SelectedIndex = -1;
+            cbo_counter.SelectedIndex = -1;
+            cbo_status.SelectedIndex = -1;
+            dtp_start.Value = DateTime.Now;
+            dtp_end.Value = DateTime.Now;
+            FilterData();
+            Load_dgv_activity();
+        }
+
+        public void load_cbo_counter()
+        {
+            try
+            {
+                using (var db = new DataClasses1DataContext(clConn.conn))
+                {
+                    var quay = (from nvc in db.NHANVIEN_CAKIPs
+                                select nvc.Quay).Distinct().ToList();
+
+                    cbo_counter.Items.Clear();
+                    cbo_counter.Items.AddRange(quay.ToArray());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error reading data from database: " + ex.Message);
+            }
+        }
+
+        public void load_cbo_shift()
+        {
+            try
+            {
+                using (var db = new DataClasses1DataContext(clConn.conn))
+                {
+                    var ck = (from nvc in db.NHANVIEN_CAKIPs
+                              select nvc.MaCaKip).Distinct().ToList();
+
+                    cbo_shift.Items.Clear();
+                    cbo_shift.Items.AddRange(ck.ToArray());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error reading data from database: " + ex.Message);
+            }
+        }
+
+        public void load_cbo_status()
+        {
+            try
+            {
+                using (var db = new DataClasses1DataContext(clConn.conn))
+                {
+                    var trangThai = (from nvc in db.NHANVIEN_CAKIPs
+                                     select nvc.TrangThai).Distinct().ToList();
+
+                    cbo_status.Items.Clear();
+                    foreach (var status in trangThai)
+                    {
+                        if ((bool)status)
+                        {
+                            cbo_status.Items.Add("Present");
+                        }
+                        else
+                        {
+                            cbo_status.Items.Add("Absent");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error reading data from database: " + ex.Message);
+            }
         }
 
         public void Load_dgv_activity()
@@ -77,7 +152,6 @@ namespace DuAnMau
                 foreach (var item in query)
                 {
                     string status = (bool)item.TrangThai ? "Present" : "Absent";
-                    // Định dạng ngày tháng sau khi lấy dữ liệu từ cơ sở dữ liệu
                     string workDate = item.NgayLam.ToString("dd/MM/yyyy");
                     dt.Rows.Add(item.MaCaKip, item.GioBatDau, item.GioKetThuc, item.MaNhanVien, item.TenNhanVien, item.Quay, workDate, status);
                 }
@@ -85,73 +159,24 @@ namespace DuAnMau
                 dgv_LichSu.DataSource = dt;
             }
         }
-
-        private void btn_refresh_Click_1(object sender, EventArgs e)
-        {
-            txt_find.Clear();
-            cbo_shift.SelectedIndex = -1;
-            cbo_counter.SelectedIndex = -1;
-            cbo_status.SelectedIndex = -1;
-            dtp_start.Value = DateTime.Now;
-            dtp_end.Value = DateTime.Now;
-
-            Load_dgv_activity();
-        }
-
-        private void btn_export_Click(object sender, EventArgs e)
-        {
-            if (dgv_LichSu.Rows.Count > 0)
-            {
-                SaveFileDialog saveFileDialog = new SaveFileDialog
-                {
-                    Filter = "Excel Files|*.xls;*.xlsx;*.xlsm",
-                    Title = "Save an Excel File"
-                };
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    Excel.Application excel = null;
-                    Excel.Workbook workbook = null;
-                    Excel.Worksheet worksheet = null;
-
-                    try
-                    {
-                        excel = new Excel.Application();
-                        workbook = excel.Workbooks.Add(Type.Missing);
-                        worksheet = (Excel.Worksheet)workbook.Sheets[1];
-                        for (int i = 1; i < dgv_LichSu.Columns.Count + 1; i++)
-                        {
-                            worksheet.Cells[1, i] = dgv_LichSu.Columns[i - 1].HeaderText;
-                        }
-                        for (int i = 0; i < dgv_LichSu.Rows.Count; i++)
-                        {
-                            for (int j = 0; j < dgv_LichSu.Columns.Count; j++)
-                            {
-                                worksheet.Cells[i + 2, j + 1] = dgv_LichSu.Rows[i].Cells[j].Value?.ToString() ?? string.Empty;
-                            }
-                        }
-                        worksheet.Columns.AutoFit();
-                        workbook.SaveAs(saveFileDialog.FileName);
-                        MessageBox.Show("Export successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error: " + ex.Message);
-                    }
-                    finally
-                    {
-                        if (worksheet != null) Marshal.ReleaseComObject(worksheet);
-                        if (workbook != null) Marshal.ReleaseComObject(workbook);
-                        if (excel != null) Marshal.ReleaseComObject(excel);
-                    }
-                }
-            }
-            else
-            {
-                MessageBox.Show("No data to export!");
-            }
-        }
-
         private void FilterChanged(object sender, EventArgs e)
+        {
+            FilterData();
+        }
+
+        
+
+        private void txt_find_TextChanged(object sender, EventArgs e)
+        {
+            FilterData();
+        }
+
+        private void dtp_end_ValueChanged(object sender, EventArgs e)
+        {
+            FilterData();
+        }
+
+        private void dtp_start_ValueChanged(object sender, EventArgs e)
         {
             FilterData();
         }
@@ -210,19 +235,75 @@ namespace DuAnMau
             }
         }
 
-        private void txt_find_TextChanged(object sender, EventArgs e)
+        private void btn_refresh_Click_1(object sender, EventArgs e)
         {
+            txt_find.Clear();
+            cbo_shift.SelectedIndex = -1;
+            cbo_counter.SelectedIndex = -1;
+            cbo_status.SelectedIndex = -1;
+            dtp_start.Value = DateTime.Now;
+            dtp_end.Value = DateTime.Now;
             FilterData();
+            Load_dgv_activity();
         }
 
-        private void dtp_end_ValueChanged(object sender, EventArgs e)
+        private void btn_export_Click(object sender, EventArgs e)
         {
-            FilterData();
+            if (dgv_LichSu.Rows.Count > 0)
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog
+                {
+                    Filter = "Excel Files|*.xls;*.xlsx;*.xlsm",
+                    Title = "Save an Excel File"
+                };
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    Excel.Application excel = null;
+                    Excel.Workbook workbook = null;
+                    Excel.Worksheet worksheet = null;
+
+                    try
+                    {
+                        excel = new Excel.Application();
+                        workbook = excel.Workbooks.Add(Type.Missing);
+                        worksheet = (Excel.Worksheet)workbook.Sheets[1];
+                        for (int i = 1; i < dgv_LichSu.Columns.Count + 1; i++)
+                        {
+                            worksheet.Cells[1, i] = dgv_LichSu.Columns[i - 1].HeaderText;
+                        }
+                        for (int i = 0; i < dgv_LichSu.Rows.Count; i++)
+                        {
+                            for (int j = 0; j < dgv_LichSu.Columns.Count; j++)
+                            {
+                                worksheet.Cells[i + 2, j + 1] = dgv_LichSu.Rows[i].Cells[j].Value?.ToString() ?? string.Empty;
+                            }
+                        }
+                        worksheet.Columns.AutoFit();
+                        workbook.SaveAs(saveFileDialog.FileName);
+                        MessageBox.Show("Export successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message);
+                    }
+                    finally
+                    {
+                        if (worksheet != null) Marshal.ReleaseComObject(worksheet);
+                        if (workbook != null) Marshal.ReleaseComObject(workbook);
+                        if (excel != null) Marshal.ReleaseComObject(excel);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("No data to export!");
+            }
         }
 
-        private void dtp_start_ValueChanged(object sender, EventArgs e)
-        {
-            FilterData();
-        }
+        
+
+        
+
+        
     }
 }

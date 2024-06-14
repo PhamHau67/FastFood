@@ -9,5 +9,6 @@ namespace DuAnMau
     static class Globals
     {
         public static string username {  get; set; }
+
     }
 }

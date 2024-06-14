@@ -1,4 +1,5 @@
 ﻿
+using employeeManagement;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +17,8 @@ namespace DuAnMau
         static void Main()
         {
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Frm_Product_Management());
+            Application.SetCompatibleTextRenderingDefault(false);   
+            Application.Run(new Frm_login());
         }
     }
 }

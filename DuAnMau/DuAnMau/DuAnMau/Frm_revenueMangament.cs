@@ -228,7 +228,7 @@ namespace DuAnMau
                                            nhanvien.TenNhanVien,
                                            hoadon.NgayTao,
                                            hoadon.TongTien,
-                                           hoadon.TrangThai
+                                           Status = hoadon.TrangThai.HasValue ? (hoadon.TrangThai.Value ? "Đã thanh toán" : "Chưa thanh toán") : "Chưa thanh toán"
                                        };
 
                     DataTable dt = new DataTable();
@@ -241,7 +241,7 @@ namespace DuAnMau
 
                     foreach (var item in searchResult)
                     {
-                        dt.Rows.Add(item.MaHoaDon, item.MaNhanVien, item.TenNhanVien, item.NgayTao, item.TrangThai);
+                        dt.Rows.Add(item.MaHoaDon, item.MaNhanVien, item.TenNhanVien, item.NgayTao, item.TongTien, item.Status);
                     }
 
                     dgv_revenue.DataSource = dt;

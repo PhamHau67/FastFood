@@ -34,7 +34,7 @@ namespace DuAnMau
         }
         public void LoadData_Dgv()
         {
-            try 
+            try
             {
                 using (var db = new DataClasses1DataContext(clConn.conn))
                 {
@@ -83,10 +83,10 @@ namespace DuAnMau
             }
 
         }
-            //Sự kiện để cho thay đổi cbx thì 
+        //Sự kiện để cho thay đổi cbx thì 
 
-            private void cbx_Supplier_ID_SelectedIndexChanged(object sender, EventArgs e)
-            {
+        private void cbx_Supplier_ID_SelectedIndexChanged(object sender, EventArgs e)
+        {
             if (cbx_Supplier_ID.SelectedValue != null)
             {
                 using (var db = new DataClasses1DataContext(clConn.conn))
@@ -145,7 +145,7 @@ namespace DuAnMau
                 txt_pr_Quantity_Remaining.Text = row.Cells["SoLuongConLai"].Value.ToString();
                 dtp_pr_DateOfManufacture.Value = Convert.ToDateTime(row.Cells["NSX"].Value);
                 dtp_Expiration_Date.Value = Convert.ToDateTime(row.Cells["HSD"].Value);
-                
+
                 cbx_Supplier_ID.SelectedValue = row.Cells["MaNhaCungCap"].Value.ToString();
             }
         }
@@ -207,7 +207,11 @@ namespace DuAnMau
                             MessageBox.Show("Please enter the correct number format for Amount, Amount and Remaining Amount! They must be positive numbers.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
-
+                        if (dt_sl < dt_slConLai)
+                        {
+                            MessageBox.Show("Quantity cannot be less than Remaining Quantity!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
                         //Thực thi werry thêm dữ liệu
                         var newProduct = new SANPHAM
                         {
@@ -257,7 +261,7 @@ namespace DuAnMau
                 txt_pr_Quantity.Text = string.Empty;
                 txt_pr_Quantity_Remaining.Text = string.Empty;
                 dtp_pr_DateOfManufacture.Value = DateTime.Now;
-                dtp_Expiration_Date.Value = DateTime.Now;              
+                dtp_Expiration_Date.Value = DateTime.Now;
                 cbx_Supplier_ID.SelectedIndex = -1;
 
 
@@ -280,9 +284,23 @@ namespace DuAnMau
 
                         if (product != null)
                         {
-
+                            // Kiểm tra xem có tồn tại chi tiết hóa đơn liên quan không
                             var relatedDetails = db.CHITIET_HOADONs.Where(ct => ct.MaSanPham == maSanPham).ToList();
+
+                            if (relatedDetails.Any())
+                            {
+                                // Nếu có chi tiết hóa đơn liên quan, yêu cầu xác nhận xóa
+                                result = MessageBox.Show("This product has related order details. Are you sure you want to delete this product and its related order details?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                if (result == DialogResult.No)
+                                {
+                                    return;
+                                }
+                            }
+
+                            // Xóa chi tiết hóa đơn liên quan (nếu có)
                             db.CHITIET_HOADONs.DeleteAllOnSubmit(relatedDetails);
+
+                            // Xóa sản phẩm
                             db.SANPHAMs.DeleteOnSubmit(product);
                             db.SubmitChanges();
 
@@ -316,27 +334,27 @@ namespace DuAnMau
                         var pr = db.SANPHAMs.FirstOrDefault(sp => sp.MaSanPham == maSanPham);
 
 
-                            string TenSP = txt_pr_Name.Text.Trim();
-                            string LoaiSP = txt_pr_Type.Text.Trim();
-                            string DonViSP = txt_pr_Unit.Text.Trim();
-                            string MoTaSP = txt_pr_Description.Text.Trim();
-                            string Tien = txt_pr_Money.Text.Trim();
-                            string SL_SP = txt_pr_Quantity.Text.Trim();
-                            string SLConLaiSP = txt_pr_Quantity_Remaining.Text.Trim();
-                            DateTime NSX = dtp_pr_DateOfManufacture.Value;
-                            DateTime HSD = dtp_Expiration_Date.Value;
-                            string MaNhaCC = cbx_Supplier_ID.SelectedValue?.ToString();
+                        string TenSP = txt_pr_Name.Text.Trim();
+                        string LoaiSP = txt_pr_Type.Text.Trim();
+                        string DonViSP = txt_pr_Unit.Text.Trim();
+                        string MoTaSP = txt_pr_Description.Text.Trim();
+                        string Tien = txt_pr_Money.Text.Trim();
+                        string SL_SP = txt_pr_Quantity.Text.Trim();
+                        string SLConLaiSP = txt_pr_Quantity_Remaining.Text.Trim();
+                        DateTime NSX = dtp_pr_DateOfManufacture.Value;
+                        DateTime HSD = dtp_Expiration_Date.Value;
+                        string MaNhaCC = cbx_Supplier_ID.SelectedValue?.ToString();
 
-                            // Kiểm tra xem có trống thông tin không
-                            if (string.IsNullOrEmpty(TenSP) || string.IsNullOrEmpty(LoaiSP) ||
-                                string.IsNullOrEmpty(DonViSP) || string.IsNullOrEmpty(MoTaSP) ||
-                                string.IsNullOrEmpty(Tien) || string.IsNullOrEmpty(SL_SP) ||
-                                string.IsNullOrEmpty(SLConLaiSP) || NSX == DateTime.MinValue ||
-                                HSD == DateTime.MinValue || string.IsNullOrEmpty(MaNhaCC))
-                            {
-                                MessageBox.Show("Please complete all information!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                return;
-                            }
+                        // Kiểm tra xem có trống thông tin không
+                        if (string.IsNullOrEmpty(TenSP) || string.IsNullOrEmpty(LoaiSP) ||
+                            string.IsNullOrEmpty(DonViSP) || string.IsNullOrEmpty(MoTaSP) ||
+                            string.IsNullOrEmpty(Tien) || string.IsNullOrEmpty(SL_SP) ||
+                            string.IsNullOrEmpty(SLConLaiSP) || NSX == DateTime.MinValue ||
+                            HSD == DateTime.MinValue || string.IsNullOrEmpty(MaNhaCC))
+                        {
+                            MessageBox.Show("Please complete all information!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
                         // kiểu tra ngày ngày sản xuất lúc thêm vào sẽ ko bị lớn hơn hạn sửa dụng
                         if (NSX > HSD)
                         {
@@ -354,24 +372,29 @@ namespace DuAnMau
                             MessageBox.Show("Please enter the correct number format for Amount, Amount and Remaining Amount! They must be positive numbers.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
+                        if (dt_sl < dt_slConLai)
+                        {
+                            MessageBox.Show("Quantity cannot be less than Remaining Quantity!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
 
                         // Cập nhật thông tin sản phẩm
                         pr.TenSanPham = TenSP;
-                            pr.LoaiSanPham = LoaiSP;
-                            pr.DonVi = DonViSP;
-                            pr.MoTaSanPham = MoTaSP;
-                            pr.Tien = dt_tien;
-                            pr.SoLuong = dt_sl;
-                            pr.SoLuongConLai = dt_slConLai;
-                            pr.NSX = NSX;
-                            pr.HSD = HSD;
-                            pr.MaNhaCungCap = MaNhaCC;
+                        pr.LoaiSanPham = LoaiSP;
+                        pr.DonVi = DonViSP;
+                        pr.MoTaSanPham = MoTaSP;
+                        pr.Tien = dt_tien;
+                        pr.SoLuong = dt_sl;
+                        pr.SoLuongConLai = dt_slConLai;
+                        pr.NSX = NSX;
+                        pr.HSD = HSD;
+                        pr.MaNhaCungCap = MaNhaCC;
 
-                            db.SubmitChanges();
+                        db.SubmitChanges();
 
-                            LoadData_Dgv();
-                            MessageBox.Show("Update product successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        
+                        LoadData_Dgv();
+                        MessageBox.Show("Update product successfully!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
 
                     }
                 }
@@ -430,7 +453,7 @@ namespace DuAnMau
             {
                 if (e.Value is DateTime date)
                 {
-                    e.Value = date.ToString("dd/MM/yyyy"); 
+                    e.Value = date.ToString("dd/MM/yyyy");
                     e.FormattingApplied = true;
                 }
             }

@@ -24,6 +24,7 @@ namespace DuAnMau
             { "Nhân viên", "VT002" },
             { "ADMIN", "VT003" }
         };
+
         public Frm_Account()
         {
 
@@ -259,6 +260,7 @@ namespace DuAnMau
                             return;
                         }
 
+
                         // Cập nhật thông tin nhân viên và vai trò
                         var upDateNV = db.NHAN_VIENs.FirstOrDefault(nv => nv.MaNhanVien == employeeID);
 
@@ -271,6 +273,7 @@ namespace DuAnMau
                             }
                             upDateNV.Gmail = gmail; // Luôn cập nhật Gmail
                         }
+
 
                         db.SubmitChanges();
 
@@ -302,6 +305,19 @@ namespace DuAnMau
                         if (accountToDelete == null)
                         {
                             MessageBox.Show("Account not found for deletion!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                        // Lấy mã nhân viên của tài khoản cần xóa
+                        string employeeID = accountToDelete.MaNhanVien;
+
+                        // Lấy số lượng tài khoản admin còn lại của nhân viên này
+                        var numberOfAdminAccounts = db.TAI_KHOANs
+                            .Count(tk => tk.MaNhanVien == employeeID && tk.MaTaiKhoan != accountID && db.NHAN_VIENs.Any(nv => nv.MaNhanVien == employeeID && nv.MaVaiTro == "VT003"));
+
+                        // Kiểm tra nếu chỉ còn một tài khoản admin thì không cho xóa
+                        if (numberOfAdminAccounts <= 1)
+                        {
+                            MessageBox.Show("Cannot delete the last admin account of this employee!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
 
@@ -405,5 +421,5 @@ namespace DuAnMau
             }
         }
     }
-        
+
 }

@@ -33,8 +33,6 @@ namespace DuAnMau
             dtp_dateWork.Format = DateTimePickerFormat.Custom;
             dtp_dateWork.CustomFormat = "dd/MM/yyyy";
 
-            dgv_LichSu.CellClick += dgv_LichSu_CellClick;
-
         }
 
         private void InitializeComboBoxes()
@@ -309,8 +307,13 @@ namespace DuAnMau
             cbo_shift.SelectedIndex = -1;
             cbo_counter.SelectedIndex = -1;
             cbo_status.SelectedIndex = -1;
+            cbo_IDShift_edit.SelectedIndex = -1;
+            cbo_counter_edit.SelectedIndex = -1;
+            cbo_IDStaff_edit.SelectedIndex = -1;
             dtp_start.Value = DateTime.Now;
             dtp_end.Value = DateTime.Now;
+            dtp_dateWork.Value = DateTime.Now;
+            chk_status.Checked = false;
             FilterData();
             Load_dgv_activity();
         }
@@ -372,6 +375,10 @@ namespace DuAnMau
 
         private void btn_add_Click(object sender, EventArgs e)
         {
+            DateTime ngayLam = dtp_dateWork.Value;
+            bool trangThai = chk_status.Checked;
+
+            // Thực hiện thêm dữ liệu vào cơ sở dữ liệu
             try
             {
                 // Get selected values from ComboBoxes and DateTimePicker

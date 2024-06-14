@@ -58,6 +58,7 @@
             this.lbl_dateWork = new System.Windows.Forms.Label();
             this.chk_status = new Guna.UI2.WinForms.Guna2CheckBox();
             this.cbo_counter_edit = new Guna.UI2.WinForms.Guna2TextBox();
+            this.grp_shift = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_LichSu)).BeginInit();
             this.grp_find.SuspendLayout();
             this.SuspendLayout();
@@ -466,6 +467,14 @@
             this.cbo_counter_edit.SelectedText = "";
             this.cbo_counter_edit.Size = new System.Drawing.Size(108, 35);
             this.cbo_counter_edit.TabIndex = 9;
+            // grp_shift
+            // 
+            this.grp_shift.Location = new System.Drawing.Point(2, 320);
+            this.grp_shift.Name = "grp_shift";
+            this.grp_shift.Size = new System.Drawing.Size(1241, 191);
+            this.grp_shift.TabIndex = 9;
+            this.grp_shift.TabStop = false;
+            this.grp_shift.Text = "Shift editing";
             // 
             // Frm_activityHistory
             // 
@@ -488,6 +497,7 @@
             this.Controls.Add(this.cbo_IDStaff_edit);
             this.Controls.Add(this.btn_update);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Controls.Add(this.grp_shift);
             this.Name = "Frm_activityHistory";
             this.Text = "Frm_activityHistory";
             ((System.ComponentModel.ISupportInitialize)(this.dgv_LichSu)).EndInit();
@@ -526,5 +536,6 @@
         private System.Windows.Forms.Label lbl_dateWork;
         private Guna.UI2.WinForms.Guna2CheckBox chk_status;
         private Guna.UI2.WinForms.Guna2TextBox cbo_counter_edit;
+        private System.Windows.Forms.GroupBox grp_shift;
     }
 }

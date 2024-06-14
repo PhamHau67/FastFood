@@ -26,9 +26,10 @@ namespace DuAnMau
             InitializeComponent();
         }
 
+
         private void btn_send_Click(object sender, EventArgs e)
         {
-            string userEmail = txt_nhap.Text;
+            string userEmail = txt_nhap.Text.Trim();
             // Kiểm tra định dạng Gmail bằng Regex
             string emailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
             if (!Regex.IsMatch(userEmail, emailPattern))
@@ -39,71 +40,81 @@ namespace DuAnMau
 
             using (var db = new DataClasses1DataContext(clConn.conn))
             {
-                // Kiểm tra sự tồn tại của Gmail
-                var user = (from nv in db.NHAN_VIENs
-                            
-                            where nv.Gmail == userEmail
-                            select new
-                            {
-                                nv.Gmail
-                            }).FirstOrDefault();
-                if (string.IsNullOrEmpty(txt_nhap.Text))
-                {
-                    MessageBox.Show("Please complete all information!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+
+                var user = db.NHAN_VIENs.FirstOrDefault(a => a.Gmail == userEmail);
 
                 if (user != null)
                 {
-                    try
+                    var existingAccount = db.TAI_KHOANs.FirstOrDefault(tk => tk.MaNhanVien == user.MaNhanVien);
+                    if (existingAccount == null)
                     {
-                        // Tạo OTP
-                        otp = rand.Next(100000, 1000000);
-                        var fromAddress = new MailAddress("fastfood.hethongxacminh@gmail.com", "Fast food");
-                        var toAddress = new MailAddress(userEmail); // Lấy email từ TextBox
-                        const string fromPass = "dxve duab mfyd nryc"; // Mật khẩu ứng dụng
-                        const string subject = "OTP Code"; // Tiêu đề email
 
-                        // Nội dung email tùy chỉnh
-                        string body = $"Chào bạn,\n\nĐây là hệ thống xác minh Fast Food.\n\nMã OTP của bạn là: {otp}\n\nVui lòng sử dụng mã này để xác minh. Lưu ý không cung cấp OTP cho người khác.\n\nCảm ơn,\nCửa hàng Fast Food";
+                        MessageBox.Show("User don't have account.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                    if (existingAccount != null)
+                    {
+                        try
+                        {
+                            // Tạo OTP
+                            otp = rand.Next(100000, 1000000);
+                            var fromAddress = new MailAddress("fastfood.hethongxacminh@gmail.com", "Fast food");
+                            var toAddress = new MailAddress(userEmail); // Lấy email từ TextBox
+                            const string fromPass = "dxve duab mfyd nryc"; // Mật khẩu ứng dụng
+                            const string subject = "OTP Code"; // Tiêu đề email
 
-                        var smtp = new SmtpClient
-                        {
-                            Host = "smtp.gmail.com",
-                            Port = 587,
-                            EnableSsl = true,
-                            DeliveryMethod = SmtpDeliveryMethod.Network,
-                            UseDefaultCredentials = false,
-                            Credentials = new NetworkCredential(fromAddress.Address, fromPass),
-                            Timeout = 200000
-                        };
-                        using (var message = new MailMessage(fromAddress, toAddress)
-                        {
-                            Subject = subject,
-                            Body = body,
-                        })
-                        {
-                            smtp.Send(message);
+                            // Nội dung email tùy chỉnh
+                            string body = $"Chào bạn,\n\nĐây là hệ thống xác minh Fast Food.\n\nMã OTP của bạn là: {otp}\n\nVui lòng sử dụng mã này để xác minh. Lưu ý không cung cấp OTP cho người khác.\n\nCảm ơn,\nCửa hàng Fast Food";
+
+                            var smtp = new SmtpClient
+                            {
+                                Host = "smtp.gmail.com",
+                                Port = 587,
+                                EnableSsl = true,
+                                DeliveryMethod = SmtpDeliveryMethod.Network,
+                                UseDefaultCredentials = false,
+                                Credentials = new NetworkCredential(fromAddress.Address, fromPass),
+                                Timeout = 200000
+                            };
+                            using (var message = new MailMessage(fromAddress, toAddress)
+                            {
+                                Subject = subject,
+                                Body = body,
+                            })
+                            {
+                                smtp.Send(message);
+                            }
+                            MessageBox.Show("OTP sent successfully.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            Frm_forgotPassword2 frm_ForgotPassword2 = new Frm_forgotPassword2(); //mở form khác
+
+                            frm_ForgotPassword2.ReceivedOtp = otp.ToString();
+                            frm_ForgotPassword2.ReceivedGmail = userEmail.ToString();
+                            frm_ForgotPassword2.Show();
+                            this.Hide();
+
                         }
-                        MessageBox.Show("OTP sent successfully.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        Frm_forgotPassword2 frm_ForgotPassword2 = new Frm_forgotPassword2(); //mở form khác
-                        
-                        frm_ForgotPassword2.ReceivedOtp = otp.ToString();
-                        frm_ForgotPassword2.ReceivedGmail=userEmail.ToString();
-                        frm_ForgotPassword2.Show();
-                        this.Hide();
-
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error: " + ex.Message);
+                        }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        MessageBox.Show("Error: " + ex.Message);
+                        MessageBox.Show("User hasn't been register", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
+
                 }
                 else
                 {
                     MessageBox.Show("No account found with this Gmail. Please check again.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
+        }
+        private bool IsAccountExist(TAI_KHOAN user)
+        {
+            // Thay đổi logic này để kiểm tra xem tài khoản có tồn tại không
+            // Ví dụ:
+            return user.MaTaiKhoan != null; // Thay thế bằng logic thực tế của bạn
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)
@@ -123,6 +134,11 @@ namespace DuAnMau
             Frm_login frm_login = new Frm_login();
             frm_login.Show();
             this.Hide();
+        }
+
+        private void txt_nhap_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

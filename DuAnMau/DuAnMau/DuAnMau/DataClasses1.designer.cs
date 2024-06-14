@@ -48,6 +48,9 @@ namespace DuAnMau
     partial void InsertNHAN_VIEN(NHAN_VIEN instance);
     partial void UpdateNHAN_VIEN(NHAN_VIEN instance);
     partial void DeleteNHAN_VIEN(NHAN_VIEN instance);
+    partial void InsertNHANVIEN_CAKIP(NHANVIEN_CAKIP instance);
+    partial void UpdateNHANVIEN_CAKIP(NHANVIEN_CAKIP instance);
+    partial void DeleteNHANVIEN_CAKIP(NHANVIEN_CAKIP instance);
     partial void InsertPHIEUNHAP(PHIEUNHAP instance);
     partial void UpdatePHIEUNHAP(PHIEUNHAP instance);
     partial void DeletePHIEUNHAP(PHIEUNHAP instance);
@@ -339,6 +342,8 @@ namespace DuAnMau
 		
 		private System.TimeSpan _GioKetThuc;
 		
+		private EntitySet<NHANVIEN_CAKIP> _NHANVIEN_CAKIPs;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -353,6 +358,7 @@ namespace DuAnMau
 		
 		public CAKIP()
 		{
+			this._NHANVIEN_CAKIPs = new EntitySet<NHANVIEN_CAKIP>(new Action<NHANVIEN_CAKIP>(this.attach_NHANVIEN_CAKIPs), new Action<NHANVIEN_CAKIP>(this.detach_NHANVIEN_CAKIPs));
 			OnCreated();
 		}
 		
@@ -416,6 +422,19 @@ namespace DuAnMau
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CAKIP_NHANVIEN_CAKIP", Storage="_NHANVIEN_CAKIPs", ThisKey="MaCaKip", OtherKey="MaCaKip")]
+		public EntitySet<NHANVIEN_CAKIP> NHANVIEN_CAKIPs
+		{
+			get
+			{
+				return this._NHANVIEN_CAKIPs;
+			}
+			set
+			{
+				this._NHANVIEN_CAKIPs.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -434,6 +453,18 @@ namespace DuAnMau
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_NHANVIEN_CAKIPs(NHANVIEN_CAKIP entity)
+		{
+			this.SendPropertyChanging();
+			entity.CAKIP = this;
+		}
+		
+		private void detach_NHANVIEN_CAKIPs(NHANVIEN_CAKIP entity)
+		{
+			this.SendPropertyChanging();
+			entity.CAKIP = null;
 		}
 	}
 	
@@ -1325,6 +1356,8 @@ namespace DuAnMau
 		
 		private EntitySet<HOADON> _HOADONs;
 		
+		private EntitySet<NHANVIEN_CAKIP> _NHANVIEN_CAKIPs;
+		
 		private EntitySet<PHIEUNHAP> _PHIEUNHAPs;
 		
 		private EntitySet<TAI_KHOAN> _TAI_KHOANs;
@@ -1364,6 +1397,7 @@ namespace DuAnMau
 		public NHAN_VIEN()
 		{
 			this._HOADONs = new EntitySet<HOADON>(new Action<HOADON>(this.attach_HOADONs), new Action<HOADON>(this.detach_HOADONs));
+			this._NHANVIEN_CAKIPs = new EntitySet<NHANVIEN_CAKIP>(new Action<NHANVIEN_CAKIP>(this.attach_NHANVIEN_CAKIPs), new Action<NHANVIEN_CAKIP>(this.detach_NHANVIEN_CAKIPs));
 			this._PHIEUNHAPs = new EntitySet<PHIEUNHAP>(new Action<PHIEUNHAP>(this.attach_PHIEUNHAPs), new Action<PHIEUNHAP>(this.detach_PHIEUNHAPs));
 			this._TAI_KHOANs = new EntitySet<TAI_KHOAN>(new Action<TAI_KHOAN>(this.attach_TAI_KHOANs), new Action<TAI_KHOAN>(this.detach_TAI_KHOANs));
 			this._BOPHAN = default(EntityRef<BOPHAN>);
@@ -1612,6 +1646,19 @@ namespace DuAnMau
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="NHAN_VIEN_NHANVIEN_CAKIP", Storage="_NHANVIEN_CAKIPs", ThisKey="MaNhanVien", OtherKey="MaNhanVien")]
+		public EntitySet<NHANVIEN_CAKIP> NHANVIEN_CAKIPs
+		{
+			get
+			{
+				return this._NHANVIEN_CAKIPs;
+			}
+			set
+			{
+				this._NHANVIEN_CAKIPs.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="NHAN_VIEN_PHIEUNHAP", Storage="_PHIEUNHAPs", ThisKey="MaNhanVien", OtherKey="MaNhanVien")]
 		public EntitySet<PHIEUNHAP> PHIEUNHAPs
 		{
@@ -1738,6 +1785,18 @@ namespace DuAnMau
 			entity.NHAN_VIEN = null;
 		}
 		
+		private void attach_NHANVIEN_CAKIPs(NHANVIEN_CAKIP entity)
+		{
+			this.SendPropertyChanging();
+			entity.NHAN_VIEN = this;
+		}
+		
+		private void detach_NHANVIEN_CAKIPs(NHANVIEN_CAKIP entity)
+		{
+			this.SendPropertyChanging();
+			entity.NHAN_VIEN = null;
+		}
+		
 		private void attach_PHIEUNHAPs(PHIEUNHAP entity)
 		{
 			this.SendPropertyChanging();
@@ -1764,8 +1823,10 @@ namespace DuAnMau
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.NHANVIEN_CAKIP")]
-	public partial class NHANVIEN_CAKIP
+	public partial class NHANVIEN_CAKIP : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private string _MaCaKip;
 		
@@ -1777,8 +1838,35 @@ namespace DuAnMau
 		
 		private System.Nullable<bool> _TrangThai;
 		
+		private int _ID;
+		
+		private EntityRef<CAKIP> _CAKIP;
+		
+		private EntityRef<NHAN_VIEN> _NHAN_VIEN;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnMaCaKipChanging(string value);
+    partial void OnMaCaKipChanged();
+    partial void OnMaNhanVienChanging(string value);
+    partial void OnMaNhanVienChanged();
+    partial void OnQuayChanging(string value);
+    partial void OnQuayChanged();
+    partial void OnNgayLamChanging(System.DateTime value);
+    partial void OnNgayLamChanged();
+    partial void OnTrangThaiChanging(System.Nullable<bool> value);
+    partial void OnTrangThaiChanged();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    #endregion
+		
 		public NHANVIEN_CAKIP()
 		{
+			this._CAKIP = default(EntityRef<CAKIP>);
+			this._NHAN_VIEN = default(EntityRef<NHAN_VIEN>);
+			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaCaKip", DbType="Char(5) NOT NULL", CanBeNull=false)]
@@ -1792,7 +1880,15 @@ namespace DuAnMau
 			{
 				if ((this._MaCaKip != value))
 				{
+					if (this._CAKIP.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnMaCaKipChanging(value);
+					this.SendPropertyChanging();
 					this._MaCaKip = value;
+					this.SendPropertyChanged("MaCaKip");
+					this.OnMaCaKipChanged();
 				}
 			}
 		}
@@ -1808,7 +1904,15 @@ namespace DuAnMau
 			{
 				if ((this._MaNhanVien != value))
 				{
+					if (this._NHAN_VIEN.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnMaNhanVienChanging(value);
+					this.SendPropertyChanging();
 					this._MaNhanVien = value;
+					this.SendPropertyChanged("MaNhanVien");
+					this.OnMaNhanVienChanged();
 				}
 			}
 		}
@@ -1824,7 +1928,11 @@ namespace DuAnMau
 			{
 				if ((this._Quay != value))
 				{
+					this.OnQuayChanging(value);
+					this.SendPropertyChanging();
 					this._Quay = value;
+					this.SendPropertyChanged("Quay");
+					this.OnQuayChanged();
 				}
 			}
 		}
@@ -1840,7 +1948,11 @@ namespace DuAnMau
 			{
 				if ((this._NgayLam != value))
 				{
+					this.OnNgayLamChanging(value);
+					this.SendPropertyChanging();
 					this._NgayLam = value;
+					this.SendPropertyChanged("NgayLam");
+					this.OnNgayLamChanged();
 				}
 			}
 		}
@@ -1856,8 +1968,120 @@ namespace DuAnMau
 			{
 				if ((this._TrangThai != value))
 				{
+					this.OnTrangThaiChanging(value);
+					this.SendPropertyChanging();
 					this._TrangThai = value;
+					this.SendPropertyChanged("TrangThai");
+					this.OnTrangThaiChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CAKIP_NHANVIEN_CAKIP", Storage="_CAKIP", ThisKey="MaCaKip", OtherKey="MaCaKip", IsForeignKey=true)]
+		public CAKIP CAKIP
+		{
+			get
+			{
+				return this._CAKIP.Entity;
+			}
+			set
+			{
+				CAKIP previousValue = this._CAKIP.Entity;
+				if (((previousValue != value) 
+							|| (this._CAKIP.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._CAKIP.Entity = null;
+						previousValue.NHANVIEN_CAKIPs.Remove(this);
+					}
+					this._CAKIP.Entity = value;
+					if ((value != null))
+					{
+						value.NHANVIEN_CAKIPs.Add(this);
+						this._MaCaKip = value.MaCaKip;
+					}
+					else
+					{
+						this._MaCaKip = default(string);
+					}
+					this.SendPropertyChanged("CAKIP");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="NHAN_VIEN_NHANVIEN_CAKIP", Storage="_NHAN_VIEN", ThisKey="MaNhanVien", OtherKey="MaNhanVien", IsForeignKey=true)]
+		public NHAN_VIEN NHAN_VIEN
+		{
+			get
+			{
+				return this._NHAN_VIEN.Entity;
+			}
+			set
+			{
+				NHAN_VIEN previousValue = this._NHAN_VIEN.Entity;
+				if (((previousValue != value) 
+							|| (this._NHAN_VIEN.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._NHAN_VIEN.Entity = null;
+						previousValue.NHANVIEN_CAKIPs.Remove(this);
+					}
+					this._NHAN_VIEN.Entity = value;
+					if ((value != null))
+					{
+						value.NHANVIEN_CAKIPs.Add(this);
+						this._MaNhanVien = value.MaNhanVien;
+					}
+					else
+					{
+						this._MaNhanVien = default(string);
+					}
+					this.SendPropertyChanged("NHAN_VIEN");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

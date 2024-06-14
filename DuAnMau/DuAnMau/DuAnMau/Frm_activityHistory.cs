@@ -59,7 +59,7 @@ namespace DuAnMau
         private void InitializeEditComboBoxes()
         {
             load_cbo_IDShift_edit();
-            load_cbo_counter_edit();
+            //load_cbo_counter_edit();
             load_cbo_IDStaff_edit();
         }
 
@@ -158,8 +158,8 @@ namespace DuAnMau
                     var counters = (from nvc in db.NHANVIEN_CAKIPs
                                     select nvc.Quay).Distinct().ToList();
 
-                    cbo_counter_edit.Items.Clear();
-                    cbo_counter_edit.Items.AddRange(counters.ToArray());
+                    cbo_counter.Items.Clear();
+                    cbo_counter.Items.AddRange(counters.ToArray());
                 }
             }
             catch (Exception ex)
@@ -372,40 +372,62 @@ namespace DuAnMau
 
         private void btn_add_Click(object sender, EventArgs e)
         {
-            // Lấy dữ liệu từ các controls trên giao diện
-            string maNhanVien = cbo_IDStaff_edit.SelectedItem.ToString();
-            string maCaKip = cbo_IDShift_edit.SelectedItem.ToString();
-            string quay = cbo_counter_edit.SelectedItem.ToString();
-            DateTime ngayLam = dtp_dateWork.Value;
-            bool trangThai = chk_status.Checked;
-
-            // Thực hiện thêm dữ liệu vào cơ sở dữ liệu
             try
             {
+                // Get selected values from ComboBoxes and DateTimePicker
+                string shiftCode = cbo_IDShift_edit.SelectedItem?.ToString();
+                string counter = cbo_counter_edit.Text.ToString();
+                string employeeID = cbo_IDStaff_edit.SelectedItem?.ToString();
+                DateTime workDate = dtp_dateWork.Value;
+                bool status = chk_status.Checked;
+
+                // Validate inputs (ensure required fields are filled)
+
+                if (string.IsNullOrEmpty(shiftCode) || string.IsNullOrEmpty(counter) || string.IsNullOrEmpty(employeeID))
+                {
+                    MessageBox.Show("Please fill in all required fields (Shift, Counter, Employee ID).", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Insert into database using LINQ to SQL
                 using (var db = new DataClasses1DataContext(clConn.conn))
                 {
+                    // Create a new NHANVIEN_CAKIP object and assign values
                     NHANVIEN_CAKIP newRecord = new NHANVIEN_CAKIP
                     {
-                        MaNhanVien = maNhanVien,
-                        MaCaKip = maCaKip,
-                        Quay = quay,
-                        NgayLam = ngayLam,
-                        TrangThai = trangThai
+                        MaCaKip = shiftCode,
+                        Quay = counter,
+                        MaNhanVien = employeeID,
+                        NgayLam = workDate,
+                        TrangThai = status
                     };
 
+                    // Add to DataContext and submit changes to database
                     db.NHANVIEN_CAKIPs.InsertOnSubmit(newRecord);
                     db.SubmitChanges();
 
-                    MessageBox.Show("Thêm mới thành công!");
-                    // Sau khi thêm mới thành công, làm mới DataGridView để hiển thị dữ liệu mới nhất
-                    Load_dgv_activity();
+                    MessageBox.Show("New record added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Refresh DataGridView and clear input fields
+                    Load_dgv_activity(); // Assuming this method reloads the DataGridView
+                    ClearAddFields(); // Custom method to clear input fields
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi thêm mới dữ liệu: " + ex.Message);
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void ClearAddFields()
+        {
+            cbo_IDShift_edit.SelectedIndex = -1;
+            cbo_counter_edit.Text = "";
+            cbo_IDStaff_edit.SelectedIndex = -1;
+            dtp_dateWork.Value = DateTime.Now;
+            chk_status.Checked = false;
+        }
+
 
         private void btn_update_Click(object sender, EventArgs e)
         {
@@ -444,7 +466,7 @@ namespace DuAnMau
 
                 // Đặt các giá trị lấy được vào các ComboBox và DateTimePicker
                 cbo_IDShift_edit.SelectedItem = shiftCode;
-                cbo_counter_edit.SelectedItem = counter;
+                cbo_counter_edit.Text = counter;
                 cbo_IDStaff_edit.SelectedItem = employeeID;
                 dtp_dateWork.Value = workDate;
             }

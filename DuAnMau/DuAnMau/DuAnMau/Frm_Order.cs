@@ -90,7 +90,7 @@ namespace DuAnMau
                 // Lấy dữ liệu đã chọn từ ComboBox và Guna2NumericUpDown
                 string selectedDish = Cbo_dish.SelectedItem?.ToString();
                 int quantity = (int)Nud_quantity.Value;
-                int tableNumber = int.Parse(txt_TableNumber.Text); 
+                int tableNumber = int.Parse(cbo_Number.Text);
 
                 if (string.IsNullOrEmpty(selectedDish) || quantity == 0)
                 {
@@ -98,44 +98,50 @@ namespace DuAnMau
                     return;
                 }
 
-                // Kiểm tra xem sản phẩm đã tồn tại trong đơn hàng chưa
-                bool isExisting = false;
-                foreach (ListViewItem item in lstv_HoaDon.Items)
+                using (var db = new DataClasses1DataContext(clConn.conn))
                 {
-                    if (item.SubItems[1].Text == selectedDish)
+                    var selectedProduct = db.SANPHAMs.FirstOrDefault(sp => sp.TenSanPham == selectedDish);
+
+                    if (selectedProduct != null)
                     {
-                        // Nếu sản phẩm đã tồn tại, cập nhật số lượng và tính lại giá
-                        int currentQuantity = int.Parse(item.SubItems[2].Text);
-                        int newQuantity = currentQuantity + quantity;
-
-                        // Nếu số lượng mới <= 0, xóa mục đó khỏi ListView
-                        if (newQuantity <= 0)
+                        if (selectedProduct.SoLuongConLai < quantity)
                         {
-                            lstv_HoaDon.Items.Remove(item);
+                            MessageBox.Show($"Not enough stock for {selectedDish}. Available stock: {selectedProduct.SoLuongConLai}");
+                            return; // Không thực hiện thêm vào đơn hàng nếu số lượng không đủ
                         }
-                        else
+
+                        // Kiểm tra xem sản phẩm đã tồn tại trong đơn hàng chưa
+                        bool isExisting = false;
+                        foreach (ListViewItem item in lstv_HoaDon.Items)
                         {
-                            item.SubItems[2].Text = newQuantity.ToString();
+                            if (item.SubItems[1].Text == selectedDish)
+                            {
+                                // Nếu sản phẩm đã tồn tại, cập nhật số lượng và tính lại giá
+                                int currentQuantity = int.Parse(item.SubItems[2].Text);
+                                int newQuantity = currentQuantity + quantity;
 
-                            // Tính toán lại giá
-                            decimal pricePerItem = decimal.Parse(item.SubItems[3].Text.Replace(",", "")) / currentQuantity;
-                            decimal totalPrice = pricePerItem * newQuantity;
-                            item.SubItems[3].Text = totalPrice.ToString("N0");
+                                // Nếu số lượng mới <= 0, xóa mục đó khỏi ListView
+                                if (newQuantity <= 0)
+                                {
+                                    lstv_HoaDon.Items.Remove(item);
+                                }
+                                else
+                                {
+                                    item.SubItems[2].Text = newQuantity.ToString();
+
+                                    // Tính toán lại giá
+                                    decimal pricePerItem = decimal.Parse(item.SubItems[3].Text.Replace(",", "")) / currentQuantity;
+                                    decimal totalPrice = pricePerItem * newQuantity;
+                                    item.SubItems[3].Text = totalPrice.ToString("N0");
+                                }
+                                CalculateSum(); // cập nhật lại tổng tiền 
+                                isExisting = true;
+                                break;
+                            }
                         }
-                        CalculateSum(); // cập nhật lại tổng tiền 
-                        isExisting = true;
-                        break;
-                    }
-                }
 
-                // Nếu sản phẩm không tồn tại và quantity > 0, thêm một mục mới vào ListView
-                if (!isExisting && quantity > 0)
-                {
-                    using (var db = new DataClasses1DataContext(clConn.conn))
-                    {
-                        // sp và trả về true nếu thuộc tính TenSanPham của sp bằng với selectedDish, ngược lại trả về false.
-                        var selectedProduct = db.SANPHAMs.FirstOrDefault(sp => sp.TenSanPham == selectedDish);
-                        if (selectedProduct != null)
+                        // Nếu sản phẩm không tồn tại và quantity > 0, thêm một mục mới vào ListView
+                        if (!isExisting && quantity > 0)
                         {
                             decimal gia = selectedProduct.Tien;
                             decimal tongGia = gia * quantity; // Tính tổng giá
@@ -147,13 +153,18 @@ namespace DuAnMau
                             listViewItem.SubItems.Add(tongGia.ToString("N0")); // Thêm tổng giá.
                             lstv_HoaDon.Items.Add(listViewItem);
                             CalculateSum(); // Tính tổng sau khi thêm món
-                        }
-                        else
-                        {
-                            MessageBox.Show("Không tìm thấy giá của món được chọn.");
+
+                            // Giảm số lượng tồn kho của sản phẩm
+                            selectedProduct.SoLuongConLai -= quantity;
+                            db.SubmitChanges(); // Lưu thay đổi vào cơ sở dữ liệu
                         }
                     }
+                    else
+                    {
+                        MessageBox.Show("Không tìm thấy giá của món được chọn.");
+                    }
                 }
+
                 // Clear các ComboBox sau khi đã thêm dữ liệu vào ListView
                 Cbo_dish.SelectedIndex = -1;
                 Nud_quantity.Value = 1; // Reset số lượng về 1
@@ -163,6 +174,7 @@ namespace DuAnMau
                 MessageBox.Show("Error when adding data to order: " + ex.Message);
             }
         }
+
         public static class InputBox
         {
             public static string Show(string prompt, string title, string defaultValue = "")
@@ -191,11 +203,14 @@ namespace DuAnMau
                     int newQuantity;
                     if (int.TryParse(input, out newQuantity))
                     {
+                        // Chuyển đổi newQuantity thành giá trị tuyệt đối nếu là số âm
+                        newQuantity = Math.Abs(newQuantity);
+
                         // Lấy giá trị của món ăn và số lượng hiện tại
                         decimal oldPrice = decimal.Parse(selectedItem.SubItems[3].Text.Replace(",", ""));
                         int oldQuantity = int.Parse(selectedItem.SubItems[2].Text);
 
-                        // Cập nhật số lượng mới
+                        // Cập nhật số lượng mới (đã chuyển thành giá trị tuyệt đối nếu là số âm)
                         selectedItem.SubItems[2].Text = newQuantity.ToString();
 
                         // Tính lại giá dựa trên số lượng mới và cập nhật lại giá trong ListView
@@ -278,6 +293,9 @@ namespace DuAnMau
         {
             lstv_HoaDon.Items.Clear(); // Xóa tất cả các mục trong ListView
             CalculateSum(); // Tính lại tổng sau khi xóa
+            txt_Summ.Text = "";
+            txt_price.Text = "";
+            txt_change.Text = "";
         }
 
         string maNhanVienDangNhap = Globals.username;
@@ -362,7 +380,9 @@ namespace DuAnMau
 
                             // Xóa ListView và thiết lập lại form
                             lstv_HoaDon.Items.Clear();
-                            txt_Summ.Text = "0";
+                            txt_Summ.Text = "";
+                            txt_price.Text = "";
+                            txt_change.Text = "";
                             MessageBox.Show("Payment success!");
                         }
                         else
@@ -406,9 +426,9 @@ namespace DuAnMau
             string storeName = "Fast Food GS";
             string employeeNamee = "Name: " + employeeName;
             string currentTime = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-            string numBer = txt_TableNumber.Text;
+            string numBer = cbo_Number.Text;
             // Vẽ nội dung hóa đơn
-            Font titleFont = new Font("Arial", 16, FontStyle.Bold);
+            Font titleFont = new Font("Arial", 20, FontStyle.Bold);
             Font titleFontS = new Font("Arial", 30, FontStyle.Bold);
             Font contentFont = new Font("Arial", 12);
             Font contentFontB = new Font("Arial", 12,FontStyle.Bold);
@@ -456,10 +476,9 @@ namespace DuAnMau
                 e.Graphics.DrawString(item.SubItems[3].Text, contentFont, Brushes.Black, tableX + 2 * columnWidth, tableY);
                 tableY += lineHeight ;
             }
-            tableY += lineHeight;
             // In tổng tiền
-            float totalY = tableX +lineHeight * 20; // Đặt vị trí in tổng tiền ở dưới cùng của các mục
-            e.Graphics.DrawString("Total Amount: " + txt_Summ.Text, contentFontB, Brushes.Red, totalY,centerX);
+            tableY += lineHeight ; // Dịch chuyển lên trước khi in tổng tiền
+            e.Graphics.DrawString("Total Amount: " + txt_Summ.Text, contentFontB, Brushes.Red, tableY,centerX);
         }
 
         private string GenerateNewId(string tableName, string columnName, string prefix)

@@ -39,7 +39,6 @@
             this.lbl_time = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lbl_odernow = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.txt_TableNumber = new Guna.UI2.WinForms.Guna2TextBox();
             this.Nud_quantity = new Guna.UI2.WinForms.Guna2NumericUpDown();
             this.Cbo_dish = new Guna.UI2.WinForms.Guna2ComboBox();
             this.Cbo_Type = new Guna.UI2.WinForms.Guna2ComboBox();
@@ -59,6 +58,7 @@
             this.btn_Pay = new Guna.UI2.WinForms.Guna2Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
+            this.cbo_Number = new Guna.UI2.WinForms.Guna2ComboBox();
             this.pn_Menu.SuspendLayout();
             this.guna2Panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Nud_quantity)).BeginInit();
@@ -70,6 +70,7 @@
             this.pn_Menu.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.pn_Menu.BorderRadius = 20;
             this.pn_Menu.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+            this.pn_Menu.Controls.Add(this.cbo_Number);
             this.pn_Menu.Controls.Add(this.lbl_EmployeeName);
             this.pn_Menu.Controls.Add(this.guna2Panel5);
             this.pn_Menu.Controls.Add(this.guna2HtmlLabel6);
@@ -77,7 +78,6 @@
             this.pn_Menu.Controls.Add(this.guna2HtmlLabel4);
             this.pn_Menu.Controls.Add(this.guna2Panel3);
             this.pn_Menu.Controls.Add(this.guna2HtmlLabel1);
-            this.pn_Menu.Controls.Add(this.txt_TableNumber);
             this.pn_Menu.Controls.Add(this.Nud_quantity);
             this.pn_Menu.Controls.Add(this.Cbo_dish);
             this.pn_Menu.Controls.Add(this.Cbo_Type);
@@ -180,27 +180,6 @@
             this.guna2HtmlLabel1.TabIndex = 5;
             this.guna2HtmlLabel1.Text = "Number";
             // 
-            // txt_TableNumber
-            // 
-            this.txt_TableNumber.BorderRadius = 15;
-            this.txt_TableNumber.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txt_TableNumber.DefaultText = "";
-            this.txt_TableNumber.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.txt_TableNumber.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.txt_TableNumber.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txt_TableNumber.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txt_TableNumber.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txt_TableNumber.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_TableNumber.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txt_TableNumber.Location = new System.Drawing.Point(191, 132);
-            this.txt_TableNumber.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.txt_TableNumber.Name = "txt_TableNumber";
-            this.txt_TableNumber.PasswordChar = '\0';
-            this.txt_TableNumber.PlaceholderText = "";
-            this.txt_TableNumber.SelectedText = "";
-            this.txt_TableNumber.Size = new System.Drawing.Size(260, 36);
-            this.txt_TableNumber.TabIndex = 4;
-            // 
             // Nud_quantity
             // 
             this.Nud_quantity.BackColor = System.Drawing.Color.Transparent;
@@ -210,7 +189,7 @@
             this.Nud_quantity.Location = new System.Drawing.Point(191, 365);
             this.Nud_quantity.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Nud_quantity.Maximum = new decimal(new int[] {
-            200,
+            500,
             0,
             0,
             0});
@@ -498,6 +477,43 @@
             this.guna2Panel4.Size = new System.Drawing.Size(15, 814);
             this.guna2Panel4.TabIndex = 4;
             // 
+            // cbo_Number
+            // 
+            this.cbo_Number.BackColor = System.Drawing.Color.Transparent;
+            this.cbo_Number.BorderRadius = 15;
+            this.cbo_Number.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cbo_Number.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbo_Number.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cbo_Number.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cbo_Number.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbo_Number.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.cbo_Number.ItemHeight = 30;
+            this.cbo_Number.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20"});
+            this.cbo_Number.Location = new System.Drawing.Point(191, 132);
+            this.cbo_Number.Name = "cbo_Number";
+            this.cbo_Number.Size = new System.Drawing.Size(260, 36);
+            this.cbo_Number.TabIndex = 11;
+            // 
             // Frm_Order
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -530,7 +546,6 @@
         private Guna.UI2.WinForms.Guna2Button btn_Remove;
         private Guna.UI2.WinForms.Guna2Button btn_Clear;
         private Guna.UI2.WinForms.Guna2TextBox txt_Sum;
-        private Guna.UI2.WinForms.Guna2TextBox txt_TableNumber;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
         private Guna.UI2.WinForms.Guna2TextBox txt_Summ;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel2;
@@ -553,5 +568,6 @@
         private Guna.UI2.WinForms.Guna2ComboBox Cbo_dish;
         private Guna.UI2.WinForms.Guna2Button btn_add;
         private System.Windows.Forms.Label lbl_EmployeeName;
+        private Guna.UI2.WinForms.Guna2ComboBox cbo_Number;
     }
 }

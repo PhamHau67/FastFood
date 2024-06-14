@@ -201,6 +201,8 @@
             // 
             // dateTimePickerEndDate
             // 
+            this.dateTimePickerEndDate.CustomFormat = "dd/MM/yyyy";
+            this.dateTimePickerEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePickerEndDate.Location = new System.Drawing.Point(144, 415);
             this.dateTimePickerEndDate.Name = "dateTimePickerEndDate";
             this.dateTimePickerEndDate.Size = new System.Drawing.Size(200, 27);
@@ -209,6 +211,8 @@
             // 
             // dateTimePickerStartDate
             // 
+            this.dateTimePickerStartDate.CustomFormat = "dd/MM/yyyy";
+            this.dateTimePickerStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePickerStartDate.Location = new System.Drawing.Point(144, 367);
             this.dateTimePickerStartDate.Name = "dateTimePickerStartDate";
             this.dateTimePickerStartDate.Size = new System.Drawing.Size(200, 27);

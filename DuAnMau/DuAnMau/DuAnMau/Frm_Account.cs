@@ -36,6 +36,9 @@ namespace DuAnMau
 
             // liên kết selected IndexChanged
             cbx_EmployeeID.SelectedIndexChanged += cbx_EmployeeID_SelectedIndexChanged;
+            cbx_EmployeeID.SelectedIndex = 0;
+            cbx_EmployeeID.SelectedIndex = -1;
+            cbx_Role.SelectedIndex = -1;
         }
         private void LoadEmployeeIDs()
         {
@@ -350,10 +353,11 @@ namespace DuAnMau
             {
                 txt_AccountID.Text = string.Empty;
                 txt_Username.Text = string.Empty;
-                cbx_Role.Text = string.Empty;
                 txt_Password.Text = string.Empty;
-                cbx_EmployeeID.Text = string.Empty;
                 txt_Gmail.Text = string.Empty;
+                cbx_EmployeeID.SelectedIndex = 0;
+                cbx_EmployeeID.SelectedIndex = -1;
+                cbx_Role.SelectedIndex = -1;
                 LoadData_Dgv();
             }
         }

@@ -29,10 +29,11 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_Account));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.grp_product_Information = new Guna.UI2.WinForms.Guna2GroupBox();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
+            this.cbx_EmployeeID = new Guna.UI2.WinForms.Guna2ComboBox();
             this.cbx_Role = new Guna.UI2.WinForms.Guna2ComboBox();
             this.txt_Password = new Guna.UI2.WinForms.Guna2TextBox();
             this.txt_AccountID = new Guna.UI2.WinForms.Guna2TextBox();
@@ -54,7 +55,6 @@
             this.btn_add = new Guna.UI2.WinForms.Guna2Button();
             this.btn_repair = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
-            this.cbx_EmployeeID = new Guna.UI2.WinForms.Guna2ComboBox();
             this.grp_product_Information.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Account)).BeginInit();
             this.guna2Panel2.SuspendLayout();
@@ -105,6 +105,27 @@
             this.guna2Button1.Size = new System.Drawing.Size(65, 51);
             this.guna2Button1.TabIndex = 18;
             this.guna2Button1.Click += new System.EventHandler(this.guna2Button1_Click);
+            // 
+            // cbx_EmployeeID
+            // 
+            this.cbx_EmployeeID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbx_EmployeeID.AutoRoundedCorners = true;
+            this.cbx_EmployeeID.BackColor = System.Drawing.Color.Transparent;
+            this.cbx_EmployeeID.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(218)))), ((int)(((byte)(223)))));
+            this.cbx_EmployeeID.BorderRadius = 17;
+            this.cbx_EmployeeID.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cbx_EmployeeID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbx_EmployeeID.FillColor = System.Drawing.Color.WhiteSmoke;
+            this.cbx_EmployeeID.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cbx_EmployeeID.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cbx_EmployeeID.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            this.cbx_EmployeeID.ForeColor = System.Drawing.Color.Black;
+            this.cbx_EmployeeID.ItemHeight = 30;
+            this.cbx_EmployeeID.Location = new System.Drawing.Point(399, 192);
+            this.cbx_EmployeeID.Name = "cbx_EmployeeID";
+            this.cbx_EmployeeID.Size = new System.Drawing.Size(176, 36);
+            this.cbx_EmployeeID.TabIndex = 17;
+            this.cbx_EmployeeID.SelectedIndexChanged += new System.EventHandler(this.cbx_EmployeeID_SelectedIndexChanged);
             // 
             // cbx_Role
             // 
@@ -300,23 +321,23 @@
             this.dgv_Account.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgv_Account.BackgroundColor = System.Drawing.Color.White;
             this.dgv_Account.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_Account.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_Account.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgv_Account.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle16.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv_Account.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv_Account.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgv_Account.GridColor = System.Drawing.Color.White;
             this.dgv_Account.Location = new System.Drawing.Point(-3, 3);
             this.dgv_Account.Name = "dgv_Account";
@@ -418,8 +439,8 @@
             this.btn_del.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btn_del.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btn_del.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btn_del.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(135)))), ((int)(((byte)(67)))));
-            this.btn_del.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_del.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
+            this.btn_del.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Bold);
             this.btn_del.ForeColor = System.Drawing.Color.Black;
             this.btn_del.Location = new System.Drawing.Point(289, 46);
             this.btn_del.Name = "btn_del";
@@ -436,8 +457,8 @@
             this.btn_refesh.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btn_refesh.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btn_refesh.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btn_refesh.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(135)))), ((int)(((byte)(67)))));
-            this.btn_refesh.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_refesh.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
+            this.btn_refesh.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Bold);
             this.btn_refesh.ForeColor = System.Drawing.Color.Black;
             this.btn_refesh.Location = new System.Drawing.Point(422, 46);
             this.btn_refesh.Name = "btn_refesh";
@@ -456,8 +477,8 @@
             this.btn_add.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btn_add.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btn_add.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btn_add.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(135)))), ((int)(((byte)(67)))));
-            this.btn_add.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_add.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
+            this.btn_add.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Bold);
             this.btn_add.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btn_add.Location = new System.Drawing.Point(16, 46);
             this.btn_add.Name = "btn_add";
@@ -474,8 +495,8 @@
             this.btn_repair.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btn_repair.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btn_repair.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btn_repair.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(135)))), ((int)(((byte)(67)))));
-            this.btn_repair.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_repair.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
+            this.btn_repair.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Bold);
             this.btn_repair.ForeColor = System.Drawing.Color.Black;
             this.btn_repair.Location = new System.Drawing.Point(156, 46);
             this.btn_repair.Name = "btn_repair";
@@ -493,27 +514,6 @@
             this.guna2Panel4.Name = "guna2Panel4";
             this.guna2Panel4.Size = new System.Drawing.Size(1123, 144);
             this.guna2Panel4.TabIndex = 21;
-            // 
-            // cbx_EmployeeID
-            // 
-            this.cbx_EmployeeID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbx_EmployeeID.AutoRoundedCorners = true;
-            this.cbx_EmployeeID.BackColor = System.Drawing.Color.Transparent;
-            this.cbx_EmployeeID.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(218)))), ((int)(((byte)(223)))));
-            this.cbx_EmployeeID.BorderRadius = 17;
-            this.cbx_EmployeeID.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cbx_EmployeeID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbx_EmployeeID.FillColor = System.Drawing.Color.WhiteSmoke;
-            this.cbx_EmployeeID.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cbx_EmployeeID.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cbx_EmployeeID.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
-            this.cbx_EmployeeID.ForeColor = System.Drawing.Color.Black;
-            this.cbx_EmployeeID.ItemHeight = 30;
-            this.cbx_EmployeeID.Location = new System.Drawing.Point(399, 192);
-            this.cbx_EmployeeID.Name = "cbx_EmployeeID";
-            this.cbx_EmployeeID.Size = new System.Drawing.Size(176, 36);
-            this.cbx_EmployeeID.TabIndex = 17;
-            this.cbx_EmployeeID.SelectedIndexChanged += new System.EventHandler(this.cbx_EmployeeID_SelectedIndexChanged);
             // 
             // Frm_Account
             // 

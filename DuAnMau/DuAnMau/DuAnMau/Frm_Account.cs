@@ -24,6 +24,7 @@ namespace DuAnMau
             { "Nhân viên", "VT002" },
             { "ADMIN", "VT003" }
         };
+
         public Frm_Account()
         {
 
@@ -259,6 +260,7 @@ namespace DuAnMau
                             return;
                         }
 
+
                         // Cập nhật thông tin nhân viên và vai trò
                         var upDateNV = db.NHAN_VIENs.FirstOrDefault(nv => nv.MaNhanVien == employeeID);
 
@@ -271,6 +273,7 @@ namespace DuAnMau
                             }
                             upDateNV.Gmail = gmail; // Luôn cập nhật Gmail
                         }
+
 
                         db.SubmitChanges();
 
@@ -405,5 +408,5 @@ namespace DuAnMau
             }
         }
     }
-        
+
 }

@@ -19,6 +19,8 @@ namespace DuAnMau
     public partial class Frm_activityHistory : Form
     {
         private Cl_conn clConn = new Cl_conn();
+
+
         public Frm_activityHistory()
         {
             InitializeComponent();

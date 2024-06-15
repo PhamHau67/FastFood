@@ -94,14 +94,20 @@ namespace DuAnMau
                         MessageBox.Show("Please complete all information!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
+                    // kiểm tra xem có khoản trắng trên mk không
+                    if (string.IsNullOrWhiteSpace(txt_newPass.Text) || string.IsNullOrWhiteSpace(txt_rePass.Text))
+                    {
+                        MessageBox.Show("Password cannot be empty or whitespace.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
                     // So sánh OTP
                     if (txt_enter.Text == ReceivedOtp)
                     {
                         // Kiểm tra mật khẩu mới và nhập lại mật khẩu
-                        if (txt_newPass.Text == txt_rePass.Text)
+                        if (txt_newPass.Text.Trim() == txt_rePass.Text.Trim())
                         {
                             // Cập nhật mật khẩu mới
-                            taikhoan.MatKhau = txt_newPass.Text;
+                            taikhoan.MatKhau = txt_newPass.Text.Trim();
                             db.SubmitChanges();
 
                             MessageBox.Show("Password changed successfully.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);

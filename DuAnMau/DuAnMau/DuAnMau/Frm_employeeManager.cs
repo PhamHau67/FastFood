@@ -33,7 +33,24 @@ namespace employeeManagement
             load_cbo_department();
             load_cbo_role();
         }
-        
+        public void load_cbo_department()
+        {
+            try
+            {
+                using (var db = new DataClasses1DataContext(clConn.conn))
+                {
+                    var tenBoPhan = (from bp in db.BOPHANs
+                                  select bp.TenBoPhan).Distinct().ToList();
+
+                    cbo_department.Items.Clear();
+                    cbo_department.Items.AddRange(tenBoPhan.ToArray());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error reading data from database: " + ex.Message);
+            }
+        }
         public void load_cbo_role()
         {
             try
@@ -45,25 +62,6 @@ namespace employeeManagement
 
                     cbo_role.Items.Clear();
                     cbo_role.Items.AddRange(tenVaiTro.ToArray());
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error reading data from database: " + ex.Message);
-            }
-        }
-
-        public void load_cbo_department()
-        {
-            try
-            {
-                using (var db = new DataClasses1DataContext(clConn.conn))
-                {
-                    var tenBoPhan = (from bp in db.BOPHANs
-                                     select bp.TenBoPhan).Distinct().ToList();
-
-                    cbo_department.Items.Clear();
-                    cbo_department.Items.AddRange(tenBoPhan.ToArray());
                 }
             }
             catch (Exception ex)

@@ -328,7 +328,29 @@ namespace DuAnMau
                             MessageBox.Show("Account not found for deletion!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
+                        // Lấy nhân viên liên quan đến tài khoản
+                        var employeeToDelete = db.NHAN_VIENs.FirstOrDefault(nv => nv.MaNhanVien == accountToDelete.MaNhanVien);
+                        if (employeeToDelete != null)
+                        {
+                            // Kiểm tra xem vai trò của nhân viên có phải là ADMIN (VT003) không
+                            if (employeeToDelete.MaVaiTro == "VT003")
+                            {
+                                // Đếm số lượng tài khoản có vai trò ADMIN
+                                var adminAccounts = from tk in db.TAI_KHOANs
+                                                    join nv in db.NHAN_VIENs on tk.MaNhanVien equals nv.MaNhanVien
+                                                    where nv.MaVaiTro == "VT003"
+                                                    select tk;
 
+                                int adminCount = adminAccounts.Count();
+
+                                // Nếu chỉ có một tài khoản ADMIN, ngăn chặn việc xóa
+                                if (adminCount == 1)
+                                {
+                                    MessageBox.Show("Cannot delete the last remaining ADMIN account!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    return;
+                                }
+                            }
+                        }
 
                         db.TAI_KHOANs.DeleteOnSubmit(accountToDelete);
                         db.SubmitChanges();

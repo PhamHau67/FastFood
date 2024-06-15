@@ -91,6 +91,7 @@
       <Column Name="Quay" Type="System.String" DbType="Char(2)" CanBeNull="true" />
       <Column Name="NgayLam" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
       <Column Name="TrangThai" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Association Name="CAKIP_NHANVIEN_CAKIP" Member="CAKIP" ThisKey="MaCaKip" OtherKey="MaCaKip" Type="CAKIP" IsForeignKey="true" />
       <Association Name="NHAN_VIEN_NHANVIEN_CAKIP" Member="NHAN_VIEN" ThisKey="MaNhanVien" OtherKey="MaNhanVien" Type="NHAN_VIEN" IsForeignKey="true" />
     </Type>

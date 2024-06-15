@@ -122,8 +122,6 @@ namespace employeeManagement
                 txt_IDStaff.Text = row.Cells["Employee ID"].Value.ToString().Trim();
                 txt_NameStaff.Text = row.Cells["Employee Name"].Value.ToString().Trim();
                 txt_CCCD.Text = row.Cells["Identification Number"].Value.ToString().Trim();
-
-                // Sử dụng SelectedItem thay vì SelectedValue để đảm bảo giá trị được chọn đúng
                 cbo_department.SelectedItem = row.Cells["Department"].Value.ToString();
                 cbo_role.SelectedItem = row.Cells["Role"].Value.ToString();
 
@@ -490,12 +488,26 @@ namespace employeeManagement
 
         private bool ValidateCCCD(string cccd)
         {
-            return !cccd.Any(char.IsLetter) && long.TryParse(cccd, out _);
+            return !cccd.Any(char.IsLetter) &&
+           long.TryParse(cccd, out long cccdNumber) &&
+           cccdNumber > 0 &&
+           cccd.Length <= 12;
         }
 
         private bool ValidatePhoneNumber(string phoneNumber)
         {
-            return !phoneNumber.Any(char.IsLetter) && long.TryParse(phoneNumber, out _);
+            if (phoneNumber.Any(char.IsLetter) || !long.TryParse(phoneNumber, out _))
+            {
+                return false;
+            }
+
+            // Kiểm tra độ dài số điện thoại không quá 11 số và không âm
+            if (phoneNumber.Length > 11 || phoneNumber.StartsWith("-"))
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private bool ValidateGenderAndStatus()

@@ -247,6 +247,24 @@ namespace DuAnMau
                             MessageBox.Show("Invalid Gmail format!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
+                        // Kiểm tra tên đăng nhập tồn tại chưa
+                        var ck_user = db.TAI_KHOANs.FirstOrDefault(tk => tk.TenTaiKhoan == username && tk.MaTaiKhoan != accountID);
+                        if (ck_user != null)
+                        {
+                            MessageBox.Show("This username already exists!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        // Kiểm tra Gmail tồn tại chưa
+                        var ck_gmail = db.NHAN_VIENs.FirstOrDefault(nv => nv.Gmail == gmail && nv.MaNhanVien != employeeID);
+                        if (ck_gmail != null)
+                        {
+                            MessageBox.Show("This Gmail is already in use!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+
+
                         // Cập nhật thông tin tài khoản
                         upDateAC.TenTaiKhoan = username;
                         upDateAC.MatKhau = password;
@@ -307,6 +325,7 @@ namespace DuAnMau
                             MessageBox.Show("Account not found for deletion!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
+
 
                         db.TAI_KHOANs.DeleteOnSubmit(accountToDelete);
                         db.SubmitChanges();

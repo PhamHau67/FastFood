@@ -58,7 +58,6 @@ namespace DuAnMau
         private void InitializeEditComboBoxes()
         {
             load_cbo_IDShift_edit();
-            //load_cbo_counter_edit();
             load_cbo_IDStaff_edit();
         }
 
@@ -148,24 +147,7 @@ namespace DuAnMau
             }
         }
 
-        public void load_cbo_counter_edit()
-        {
-            try
-            {
-                using (var db = new DataClasses1DataContext(clConn.conn))
-                {
-                    var counters = (from nvc in db.NHANVIEN_CAKIPs
-                                    select nvc.Quay).Distinct().ToList();
-
-                    cbo_counter.Items.Clear();
-                    cbo_counter.Items.AddRange(counters.ToArray());
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error reading data from database: " + ex.Message);
-            }
-        }
+        
 
         public void load_cbo_IDStaff_edit()
         {

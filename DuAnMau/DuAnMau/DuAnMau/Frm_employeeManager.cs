@@ -171,15 +171,27 @@ namespace employeeManagement
                     MessageBox.Show("Phone number already exists! Please enter another phone number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+
                 using (var db = new DataClasses1DataContext(clConn.conn))
                 {
+                    // Retrieve MaBoPhan and MaVaiTro from TenBoPhan and TenVaiTro
+                    var selectedDepartment = cbo_department.SelectedItem.ToString();
+                    var selectedRole = cbo_role.SelectedItem.ToString();
+
+                    var maBoPhan = db.BOPHANs.Where(bp => bp.TenBoPhan == selectedDepartment)
+                                              .Select(bp => bp.MaBoPhan)
+                                              .FirstOrDefault();
+                    var maVaiTro = db.VAITROs.Where(vt => vt.TenVaiTro == selectedRole)
+                                             .Select(vt => vt.MaVaiTro)
+                                             .FirstOrDefault();
+
                     NHAN_VIEN newEmployee = new NHAN_VIEN
                     {
                         MaNhanVien = txt_IDStaff.Text,
                         TenNhanVien = txt_NameStaff.Text,
                         CCCD = txt_CCCD.Text,
-                        MaBoPhan = cbo_department.SelectedValue.ToString(),
-                        MaVaiTro = cbo_role.SelectedValue.ToString(),
+                        MaBoPhan = maBoPhan,
+                        MaVaiTro = maVaiTro,
                         NgaySinh = dtp_Birthday.Value,
                         GioiTinh = rdo_Male.Checked,
                         SDT = txt_PhoneNumber.Text,
@@ -207,18 +219,6 @@ namespace employeeManagement
                 if (!ValidateFields())
                     return;
 
-                if (IsGmailDuplicate(txt_Gmail.Text.Trim()))
-                {
-                    MessageBox.Show("Gmail already exists! please enter another gmail.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                if (IsPhoneNumberDuplicate(txt_PhoneNumber.Text.Trim()))
-                {
-                    MessageBox.Show("Phone number already exists! Please enter another phone number.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
                 using (var db = new DataClasses1DataContext(clConn.conn))
                 {
                     var query = from nv in db.NHAN_VIENs
@@ -229,10 +229,20 @@ namespace employeeManagement
 
                     if (nvToUpdate != null)
                     {
+                        var selectedDepartment = cbo_department.SelectedItem.ToString();
+                        var selectedRole = cbo_role.SelectedItem.ToString();
+
+                        var maBoPhan = db.BOPHANs.Where(bp => bp.TenBoPhan == selectedDepartment)
+                                                  .Select(bp => bp.MaBoPhan)
+                                                  .FirstOrDefault();
+                        var maVaiTro = db.VAITROs.Where(vt => vt.TenVaiTro == selectedRole)
+                                                 .Select(vt => vt.MaVaiTro)
+                                                 .FirstOrDefault();
+
                         nvToUpdate.TenNhanVien = txt_NameStaff.Text;
                         nvToUpdate.CCCD = txt_CCCD.Text;
-                        nvToUpdate.MaBoPhan = cbo_department.SelectedValue.ToString();
-                        nvToUpdate.MaVaiTro = cbo_role.SelectedValue.ToString();
+                        nvToUpdate.MaBoPhan = maBoPhan;
+                        nvToUpdate.MaVaiTro = maVaiTro;
                         nvToUpdate.NgaySinh = dtp_Birthday.Value;
                         nvToUpdate.GioiTinh = rdo_Male.Checked;
                         nvToUpdate.SDT = txt_PhoneNumber.Text;

@@ -217,16 +217,12 @@ namespace DuAnMau
 
         private void btn_repair_Click(object sender, EventArgs e)
         {
-
-
             DialogResult result = MessageBox.Show("Are you sure you want to update this Account?", "Confirm Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
             {
-                // chức năng sửa dữ liệu
                 using (var db = new DataClasses1DataContext(clConn.conn))
                 {
-
                     try
                     {
                         string accountID = txt_AccountID.Text.Trim();
@@ -266,13 +262,6 @@ namespace DuAnMau
                             return;
                         }
 
-
-
-                        // Cập nhật thông tin tài khoản
-                        upDateAC.TenTaiKhoan = username;
-                        upDateAC.MatKhau = password;
-                        upDateAC.MaNhanVien = employeeID;
-
                         // Lấy mã vai trò từ dictionary
                         string roleID;
                         if (!roleMapping.TryGetValue(roleName, out roleID))
@@ -281,20 +270,41 @@ namespace DuAnMau
                             return;
                         }
 
-
-                        // Cập nhật thông tin nhân viên và vai trò
-                        var upDateNV = db.NHAN_VIENs.FirstOrDefault(nv => nv.MaNhanVien == employeeID);
-
+                        // Lấy nhân viên liên quan đến tài khoản
+                        var upDateNV = db.NHAN_VIENs.FirstOrDefault(nv => nv.MaNhanVien == upDateAC.MaNhanVien);
                         if (upDateNV != null)
                         {
-                            // Chỉ cập nhật mã vai trò nếu vai trò mới khác với vai trò hiện tại
+                            // Kiểm tra xem vai trò hiện tại của nhân viên có phải là ADMIN (VT003) không
+                            if (upDateNV.MaVaiTro == "VT003")
+                            {
+                                // Đếm số lượng tài khoản có vai trò ADMIN
+                                var adminAccounts = from tk in db.TAI_KHOANs
+                                                    join nv in db.NHAN_VIENs on tk.MaNhanVien equals nv.MaNhanVien
+                                                    where nv.MaVaiTro == "VT003"
+                                                    select tk;
+
+                                int adminCount = adminAccounts.Count();
+
+                                // Nếu chỉ có một tài khoản ADMIN và vai trò mới không phải là ADMIN, ngăn chặn việc cập nhật
+                                if (adminCount == 1 && roleID != "VT003")
+                                {
+                                    MessageBox.Show("Cannot change the role of the last remaining ADMIN account!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    return;
+                                }
+                            }
+
+                            // Cập nhật thông tin tài khoản
+                            upDateAC.TenTaiKhoan = username;
+                            upDateAC.MatKhau = password;
+                            upDateAC.MaNhanVien = employeeID;
+
+                            // Cập nhật thông tin nhân viên và vai trò
                             if (upDateNV.MaVaiTro != roleID)
                             {
                                 upDateNV.MaVaiTro = roleID; // Cập nhật mã vai trò cho nhân viên
                             }
                             upDateNV.Gmail = gmail; // Luôn cập nhật Gmail
                         }
-
 
                         db.SubmitChanges();
 

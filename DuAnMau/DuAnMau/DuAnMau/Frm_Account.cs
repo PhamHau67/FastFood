@@ -36,6 +36,9 @@ namespace DuAnMau
 
             // liên kết selected IndexChanged
             cbx_EmployeeID.SelectedIndexChanged += cbx_EmployeeID_SelectedIndexChanged;
+            cbx_EmployeeID.SelectedIndex = 0;
+            cbx_EmployeeID.SelectedIndex = -1;
+            cbx_Role.SelectedIndex = -1;
         }
         private void LoadEmployeeIDs()
         {
@@ -247,6 +250,24 @@ namespace DuAnMau
                             MessageBox.Show("Invalid Gmail format!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
+                        // Kiểm tra tên đăng nhập tồn tại chưa
+                        var ck_user = db.TAI_KHOANs.FirstOrDefault(tk => tk.TenTaiKhoan == username && tk.MaTaiKhoan != accountID);
+                        if (ck_user != null)
+                        {
+                            MessageBox.Show("This username already exists!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        // Kiểm tra Gmail tồn tại chưa
+                        var ck_gmail = db.NHAN_VIENs.FirstOrDefault(nv => nv.Gmail == gmail && nv.MaNhanVien != employeeID);
+                        if (ck_gmail != null)
+                        {
+                            MessageBox.Show("This Gmail is already in use!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+
+
                         // Cập nhật thông tin tài khoản
                         upDateAC.TenTaiKhoan = username;
                         upDateAC.MatKhau = password;
@@ -307,6 +328,29 @@ namespace DuAnMau
                             MessageBox.Show("Account not found for deletion!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
+                        // Lấy nhân viên liên quan đến tài khoản
+                        var employeeToDelete = db.NHAN_VIENs.FirstOrDefault(nv => nv.MaNhanVien == accountToDelete.MaNhanVien);
+                        if (employeeToDelete != null)
+                        {
+                            // Kiểm tra xem vai trò của nhân viên có phải là ADMIN (VT003) không
+                            if (employeeToDelete.MaVaiTro == "VT003")
+                            {
+                                // Đếm số lượng tài khoản có vai trò ADMIN
+                                var adminAccounts = from tk in db.TAI_KHOANs
+                                                    join nv in db.NHAN_VIENs on tk.MaNhanVien equals nv.MaNhanVien
+                                                    where nv.MaVaiTro == "VT003"
+                                                    select tk;
+
+                                int adminCount = adminAccounts.Count();
+
+                                // Nếu chỉ có một tài khoản ADMIN, ngăn chặn việc xóa
+                                if (adminCount == 1)
+                                {
+                                    MessageBox.Show("Cannot delete the last remaining ADMIN account!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    return;
+                                }
+                            }
+                        }
 
                         db.TAI_KHOANs.DeleteOnSubmit(accountToDelete);
                         db.SubmitChanges();
@@ -331,10 +375,11 @@ namespace DuAnMau
             {
                 txt_AccountID.Text = string.Empty;
                 txt_Username.Text = string.Empty;
-                cbx_Role.Text = string.Empty;
                 txt_Password.Text = string.Empty;
-                cbx_EmployeeID.Text = string.Empty;
                 txt_Gmail.Text = string.Empty;
+                cbx_EmployeeID.SelectedIndex = 0;
+                cbx_EmployeeID.SelectedIndex = -1;
+                cbx_Role.SelectedIndex = -1;
                 LoadData_Dgv();
             }
         }

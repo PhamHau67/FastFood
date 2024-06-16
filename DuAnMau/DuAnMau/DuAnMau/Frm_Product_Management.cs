@@ -262,9 +262,8 @@ namespace DuAnMau
                 txt_pr_Quantity_Remaining.Text = string.Empty;
                 dtp_pr_DateOfManufacture.Value = DateTime.Now;
                 dtp_Expiration_Date.Value = DateTime.Now;
+                cbx_Supplier_ID.SelectedIndex = 0;
                 cbx_Supplier_ID.SelectedIndex = -1;
-
-
                 LoadData_Dgv();
             }
         }

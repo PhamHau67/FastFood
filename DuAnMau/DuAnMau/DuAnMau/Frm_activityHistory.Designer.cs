@@ -57,10 +57,10 @@
             this.lbl_dateWork = new System.Windows.Forms.Label();
             this.chk_status = new Guna.UI2.WinForms.Guna2CheckBox();
             this.grp_shift = new System.Windows.Forms.GroupBox();
+            this.cbo_counter_edit = new System.Windows.Forms.ComboBox();
             this.lbl_ID = new System.Windows.Forms.Label();
             this.txt_ID = new Guna.UI2.WinForms.Guna2TextBox();
             this.btn_update1 = new Guna.UI2.WinForms.Guna2Button();
-            this.cbo_counter_edit = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_LichSu)).BeginInit();
             this.grp_find.SuspendLayout();
             this.grp_shift.SuspendLayout();
@@ -86,7 +86,7 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgv_LichSu.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgv_LichSu.Location = new System.Drawing.Point(2, 583);
+            this.dgv_LichSu.Location = new System.Drawing.Point(8, 595);
             this.dgv_LichSu.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgv_LichSu.Name = "dgv_LichSu";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -99,7 +99,7 @@
             this.dgv_LichSu.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgv_LichSu.RowHeadersWidth = 62;
             this.dgv_LichSu.RowTemplate.Height = 28;
-            this.dgv_LichSu.Size = new System.Drawing.Size(1241, 460);
+            this.dgv_LichSu.Size = new System.Drawing.Size(1235, 450);
             this.dgv_LichSu.TabIndex = 0;
             this.dgv_LichSu.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_LichSu_CellClick);
             // 
@@ -316,7 +316,7 @@
             this.btn_add.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
             this.btn_add.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btn_add.ForeColor = System.Drawing.Color.Black;
-            this.btn_add.Location = new System.Drawing.Point(1005, 75);
+            this.btn_add.Location = new System.Drawing.Point(1005, 56);
             this.btn_add.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_add.Name = "btn_add";
             this.btn_add.Size = new System.Drawing.Size(180, 58);
@@ -329,7 +329,7 @@
             this.cbo_IDShift_edit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbo_IDShift_edit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbo_IDShift_edit.FormattingEnabled = true;
-            this.cbo_IDShift_edit.Location = new System.Drawing.Point(118, 105);
+            this.cbo_IDShift_edit.Location = new System.Drawing.Point(133, 131);
             this.cbo_IDShift_edit.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbo_IDShift_edit.Name = "cbo_IDShift_edit";
             this.cbo_IDShift_edit.Size = new System.Drawing.Size(121, 33);
@@ -340,7 +340,7 @@
             this.cbo_IDStaff_edit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbo_IDStaff_edit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbo_IDStaff_edit.FormattingEnabled = true;
-            this.cbo_IDStaff_edit.Location = new System.Drawing.Point(341, 105);
+            this.cbo_IDStaff_edit.Location = new System.Drawing.Point(384, 131);
             this.cbo_IDStaff_edit.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbo_IDStaff_edit.Name = "cbo_IDStaff_edit";
             this.cbo_IDStaff_edit.Size = new System.Drawing.Size(121, 33);
@@ -354,7 +354,7 @@
             this.dtp_dateWork.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.dtp_dateWork.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.dtp_dateWork.Format = System.Windows.Forms.DateTimePickerFormat.Long;
-            this.dtp_dateWork.Location = new System.Drawing.Point(648, 105);
+            this.dtp_dateWork.Location = new System.Drawing.Point(729, 131);
             this.dtp_dateWork.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dtp_dateWork.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
             this.dtp_dateWork.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
@@ -368,7 +368,7 @@
             // 
             this.lbl_IDShift_edit.AutoSize = true;
             this.lbl_IDShift_edit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_IDShift_edit.Location = new System.Drawing.Point(37, 108);
+            this.lbl_IDShift_edit.Location = new System.Drawing.Point(42, 135);
             this.lbl_IDShift_edit.Name = "lbl_IDShift_edit";
             this.lbl_IDShift_edit.Size = new System.Drawing.Size(75, 25);
             this.lbl_IDShift_edit.TabIndex = 7;
@@ -378,7 +378,7 @@
             // 
             this.lbl_counter_edit.AutoSize = true;
             this.lbl_counter_edit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_counter_edit.Location = new System.Drawing.Point(30, 168);
+            this.lbl_counter_edit.Location = new System.Drawing.Point(34, 210);
             this.lbl_counter_edit.Name = "lbl_counter_edit";
             this.lbl_counter_edit.Size = new System.Drawing.Size(82, 25);
             this.lbl_counter_edit.TabIndex = 7;
@@ -388,7 +388,7 @@
             // 
             this.lbl_IDStaff_edit.AutoSize = true;
             this.lbl_IDStaff_edit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_IDStaff_edit.Location = new System.Drawing.Point(259, 108);
+            this.lbl_IDStaff_edit.Location = new System.Drawing.Point(291, 135);
             this.lbl_IDStaff_edit.Name = "lbl_IDStaff_edit";
             this.lbl_IDStaff_edit.Size = new System.Drawing.Size(76, 25);
             this.lbl_IDStaff_edit.TabIndex = 7;
@@ -398,7 +398,7 @@
             // 
             this.lbl_status_edit.AutoSize = true;
             this.lbl_status_edit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_status_edit.Location = new System.Drawing.Point(259, 168);
+            this.lbl_status_edit.Location = new System.Drawing.Point(291, 210);
             this.lbl_status_edit.Name = "lbl_status_edit";
             this.lbl_status_edit.Size = new System.Drawing.Size(68, 25);
             this.lbl_status_edit.TabIndex = 7;
@@ -408,7 +408,7 @@
             // 
             this.lbl_dateWork.AutoSize = true;
             this.lbl_dateWork.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_dateWork.Location = new System.Drawing.Point(527, 117);
+            this.lbl_dateWork.Location = new System.Drawing.Point(593, 146);
             this.lbl_dateWork.Name = "lbl_dateWork";
             this.lbl_dateWork.Size = new System.Drawing.Size(105, 25);
             this.lbl_dateWork.TabIndex = 7;
@@ -422,7 +422,7 @@
             this.chk_status.CheckedState.BorderThickness = 0;
             this.chk_status.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.chk_status.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.chk_status.Location = new System.Drawing.Point(341, 168);
+            this.chk_status.Location = new System.Drawing.Point(384, 210);
             this.chk_status.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.chk_status.Name = "chk_status";
             this.chk_status.Size = new System.Drawing.Size(105, 29);
@@ -449,20 +449,29 @@
             this.grp_shift.Controls.Add(this.lbl_counter_edit);
             this.grp_shift.Controls.Add(this.lbl_IDShift_edit);
             this.grp_shift.Controls.Add(this.cbo_IDShift_edit);
-            this.grp_shift.Location = new System.Drawing.Point(2, 320);
-            this.grp_shift.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.grp_shift.Location = new System.Drawing.Point(2, 321);
+            this.grp_shift.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.grp_shift.Name = "grp_shift";
-            this.grp_shift.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.grp_shift.Size = new System.Drawing.Size(1241, 270);
+            this.grp_shift.Padding = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.grp_shift.Size = new System.Drawing.Size(1241, 267);
             this.grp_shift.TabIndex = 9;
             this.grp_shift.TabStop = false;
             this.grp_shift.Text = "Shift editing";
+            // 
+            // cbo_counter_edit
+            // 
+            this.cbo_counter_edit.FormattingEnabled = true;
+            this.cbo_counter_edit.Location = new System.Drawing.Point(133, 210);
+            this.cbo_counter_edit.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cbo_counter_edit.Name = "cbo_counter_edit";
+            this.cbo_counter_edit.Size = new System.Drawing.Size(136, 28);
+            this.cbo_counter_edit.TabIndex = 11;
             // 
             // lbl_ID
             // 
             this.lbl_ID.AutoSize = true;
             this.lbl_ID.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_ID.Location = new System.Drawing.Point(80, 57);
+            this.lbl_ID.Location = new System.Drawing.Point(90, 71);
             this.lbl_ID.Name = "lbl_ID";
             this.lbl_ID.Size = new System.Drawing.Size(31, 25);
             this.lbl_ID.TabIndex = 10;
@@ -480,14 +489,14 @@
             this.txt_ID.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txt_ID.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txt_ID.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txt_ID.Location = new System.Drawing.Point(118, 45);
-            this.txt_ID.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txt_ID.Location = new System.Drawing.Point(133, 56);
+            this.txt_ID.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.txt_ID.Name = "txt_ID";
             this.txt_ID.PasswordChar = '\0';
             this.txt_ID.PlaceholderText = "";
             this.txt_ID.ReadOnly = true;
             this.txt_ID.SelectedText = "";
-            this.txt_ID.Size = new System.Drawing.Size(49, 37);
+            this.txt_ID.Size = new System.Drawing.Size(55, 46);
             this.txt_ID.TabIndex = 7;
             // 
             // btn_update1
@@ -500,7 +509,7 @@
             this.btn_update1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(194)))), ((int)(((byte)(153)))));
             this.btn_update1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btn_update1.ForeColor = System.Drawing.Color.Black;
-            this.btn_update1.Location = new System.Drawing.Point(1005, 160);
+            this.btn_update1.Location = new System.Drawing.Point(1005, 181);
             this.btn_update1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_update1.Name = "btn_update1";
             this.btn_update1.Size = new System.Drawing.Size(180, 58);
@@ -508,20 +517,12 @@
             this.btn_update1.Text = "Update";
             this.btn_update1.Click += new System.EventHandler(this.btn_update1_Click);
             // 
-            // cbo_counter_edit
-            // 
-            this.cbo_counter_edit.FormattingEnabled = true;
-            this.cbo_counter_edit.Location = new System.Drawing.Point(118, 168);
-            this.cbo_counter_edit.Name = "cbo_counter_edit";
-            this.cbo_counter_edit.Size = new System.Drawing.Size(121, 28);
-            this.cbo_counter_edit.TabIndex = 11;
-            // 
             // Frm_activityHistory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(232)))), ((int)(((byte)(209)))));
-            this.ClientSize = new System.Drawing.Size(1244, 1042);
+            this.ClientSize = new System.Drawing.Size(1248, 1059);
             this.Controls.Add(this.grp_find);
             this.Controls.Add(this.dgv_LichSu);
             this.Controls.Add(this.grp_shift);

@@ -209,11 +209,11 @@ namespace DuAnMau
                                 nv.TenNhanVien,
                                 nvc.Quay,
                                 nvc.NgayLam,
-                                nvc.TrangThai,
+                                nvc.TrangThai
                             };
 
                 DataTable dt = new DataTable();
-                dt.Columns.Add("ID");
+                dt.Columns.Add("ID");  // Add ID column
                 dt.Columns.Add("ShiftCode");
                 dt.Columns.Add("StartTime");
                 dt.Columns.Add("EndTime");
@@ -456,27 +456,19 @@ namespace DuAnMau
                 string employeeID = row.Cells["EmployeeID"].Value.ToString();
                 DateTime workDate = Convert.ToDateTime(row.Cells["WorkDate"].Value);
                 string status = row.Cells["Status"].Value.ToString();
+                txt_ID.Text = ID;
+                cbo_IDShift_edit.SelectedItem = shiftCode;
+                cbo_counter_edit.SelectedItem = counter;
+                cbo_IDStaff_edit.SelectedItem = employeeID;
+
                 if (status != null)
                 {
-                    if (status.Equals("Present", StringComparison.OrdinalIgnoreCase))
-                    {
-                        chk_status.Checked = true;
-                    }
-                    else if (status.Equals("Absent", StringComparison.OrdinalIgnoreCase))
-                    {
-                        chk_status.Checked = false;
-                    }
+                    chk_status.Checked = status.Equals("Present", StringComparison.OrdinalIgnoreCase);
                 }
                 else
                 {
                     chk_status.Checked = false;
                 }
-
-                txt_ID.Text = ID;
-                cbo_IDShift_edit.SelectedItem = shiftCode;
-                cbo_counter_edit.SelectedItem = counter;
-                cbo_IDStaff_edit.SelectedItem = employeeID;
-                dtp_dateWork.Value = workDate;
             }
         }
         private void ClearEditFields()
@@ -488,74 +480,78 @@ namespace DuAnMau
             chk_status.Checked = false;
         }
 
+
+
         private void btn_update1_Click(object sender, EventArgs e)
+{
+    if (dgv_LichSu.SelectedRows.Count > 0)
+    {
+        DataGridViewRow selectedRow = dgv_LichSu.SelectedRows[0];
+        string currentStatus = selectedRow.Cells["Status"].Value?.ToString();
+
+        // Check if the current status is "Absent" to proceed with update
+        if (currentStatus == "Absent")
         {
-            if (dgv_LichSu.SelectedRows.Count > 0)
+            try
             {
-                DataGridViewRow selectedRow = dgv_LichSu.SelectedRows[0];
-                string currentStatus = selectedRow.Cells["Status"].Value?.ToString();
+                string shiftCode = cbo_IDShift_edit.SelectedItem?.ToString();
+                string counter = cbo_counter_edit.Text;
+                string employeeID = cbo_IDStaff_edit.SelectedItem?.ToString();
+                DateTime workDate = dtp_dateWork.Value;
+                bool status = chk_status.Checked;
 
-                // Check if the current status is "Absent" to proceed with update
-                if (currentStatus == "Absent")
+                // Ensure required fields are filled
+                if (string.IsNullOrEmpty(shiftCode) || string.IsNullOrEmpty(counter) || string.IsNullOrEmpty(employeeID))
                 {
-                    try
-                    {
-                        string shiftCode = cbo_IDShift_edit.SelectedItem.ToString();
-                        string counter = cbo_counter_edit.SelectedItem.ToString();
-                        string employeeID = cbo_IDStaff_edit.SelectedItem.ToString();
-                        DateTime workDate = dtp_dateWork.Value;
-                        bool status = chk_status.Checked;
-
-                        // Ensure required fields are filled
-                        if (string.IsNullOrEmpty(shiftCode) || string.IsNullOrEmpty(counter) || string.IsNullOrEmpty(employeeID))
-                        {
-                            MessageBox.Show("Please fill in all required fields (Shift, Counter, Employee ID).", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            return;
-                        }
-
-                        int activityID = Convert.ToInt32(selectedRow.Cells["ID"].Value);
-
-                        using (var db = new DataClasses1DataContext(clConn.conn))
-                        {
-                            var activity = db.NHANVIEN_CAKIPs.FirstOrDefault(nvc => nvc.ID == activityID);
-
-                            if (activity != null)
-                            {
-                                // Update the activity record with new values
-                                activity.MaCaKip = shiftCode;
-                                activity.Quay = counter;
-                                activity.MaNhanVien = employeeID;
-                                activity.NgayLam = workDate;
-                                activity.TrangThai = status;
-
-                                db.SubmitChanges();
-
-                                MessageBox.Show("Update successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                                // Reload DataGridView and clear edit fields
-                                Load_dgv_activity();
-                                ClearEditFields();
-                            }
-                            else
-                            {
-                                MessageBox.Show("Activity not found in database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    MessageBox.Show("Please fill in all required fields (Shift, Counter, Employee ID).", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
-                else
+
+                int activityID = Convert.ToInt32(selectedRow.Cells["ID"].Value);
+
+                using (var db = new DataClasses1DataContext(clConn.conn))
                 {
-                    MessageBox.Show("You can only update from Absent to Present status.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    var activity = db.NHANVIEN_CAKIPs.FirstOrDefault(nvc => nvc.ID == activityID);
+
+                    if (activity != null)
+                    {
+                        // Update the activity record with new values
+                        activity.MaCaKip = shiftCode;
+                        activity.Quay = counter;
+                        activity.MaNhanVien = employeeID;
+                        activity.NgayLam = workDate;
+                        activity.TrangThai = status;
+
+                        db.SubmitChanges();
+
+                        MessageBox.Show("Update successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // Reload DataGridView and clear edit fields
+                        Load_dgv_activity();
+                        ClearEditFields();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Activity not found in database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Please select a row to update.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        else
+        {
+            MessageBox.Show("You can only update from Absent to Present status.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+    }
+    else
+    {
+        MessageBox.Show("Please select a row to update.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+    }
+}
+
+
     }
 }

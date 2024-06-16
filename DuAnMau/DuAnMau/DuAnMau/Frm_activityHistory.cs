@@ -180,7 +180,7 @@ namespace DuAnMau
                 using (var db = new DataClasses1DataContext(clConn.conn))
                 {
                     var counter = (from nvc in db.NHANVIEN_CAKIPs
-                                 select nvc.Quay).Distinct().ToList();
+                                   select nvc.Quay).Distinct().ToList();
 
                     cbo_counter_edit.Items.Clear();
                     cbo_counter_edit.Items.AddRange(counter.ToArray());
@@ -419,7 +419,7 @@ namespace DuAnMau
                     db.NHANVIEN_CAKIPs.InsertOnSubmit(newRecord);
                     db.SubmitChanges();
                     MessageBox.Show("New record added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Load_dgv_activity(); 
+                    Load_dgv_activity();
                     ClearAddFields();
                 }
             }
@@ -441,7 +441,7 @@ namespace DuAnMau
 
         private void btn_update_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void dgv_LichSu_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -483,75 +483,74 @@ namespace DuAnMau
 
 
         private void btn_update1_Click(object sender, EventArgs e)
-{
-    if (dgv_LichSu.SelectedRows.Count > 0)
-    {
-        DataGridViewRow selectedRow = dgv_LichSu.SelectedRows[0];
-        string currentStatus = selectedRow.Cells["Status"].Value?.ToString();
-
-        // Check if the current status is "Absent" to proceed with update
-        if (currentStatus == "Absent")
         {
-            try
+            if (dgv_LichSu.SelectedRows.Count > 0)
             {
-                string shiftCode = cbo_IDShift_edit.SelectedItem?.ToString();
-                string counter = cbo_counter_edit.Text;
-                string employeeID = cbo_IDStaff_edit.SelectedItem?.ToString();
-                DateTime workDate = dtp_dateWork.Value;
-                bool status = chk_status.Checked;
+                DataGridViewRow selectedRow = dgv_LichSu.SelectedRows[0];
+                string currentStatus = selectedRow.Cells["Status"].Value?.ToString();
 
-                // Ensure required fields are filled
-                if (string.IsNullOrEmpty(shiftCode) || string.IsNullOrEmpty(counter) || string.IsNullOrEmpty(employeeID))
+                // Check if the current status is "Present" to allow change to "Absent"
+                if (currentStatus == "Present")
                 {
-                    MessageBox.Show("Please fill in all required fields (Shift, Counter, Employee ID).", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
+                    try
+                    {
+                        string shiftCode = cbo_IDShift_edit.SelectedItem?.ToString();
+                        string counter = cbo_counter_edit.Text;
+                        string employeeID = cbo_IDStaff_edit.SelectedItem?.ToString();
+                        DateTime workDate = dtp_dateWork.Value;
+                        bool status = chk_status.Checked;
+
+                        // Ensure required fields are filled
+                        if (string.IsNullOrEmpty(shiftCode) || string.IsNullOrEmpty(counter) || string.IsNullOrEmpty(employeeID))
+                        {
+                            MessageBox.Show("Please fill in all required fields (Shift, Counter, Employee ID).", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        int activityID = Convert.ToInt32(selectedRow.Cells["ID"].Value);
+
+                        using (var db = new DataClasses1DataContext(clConn.conn))
+                        {
+                            var activity = db.NHANVIEN_CAKIPs.FirstOrDefault(nvc => nvc.ID == activityID);
+
+                            if (activity != null)
+                            {
+                                
+                                activity.MaCaKip = shiftCode;
+                                activity.Quay = counter;
+                                activity.MaNhanVien = employeeID;
+                                activity.NgayLam = workDate;
+                                activity.TrangThai = status;
+
+                                db.SubmitChanges();
+
+                                MessageBox.Show("Update successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                // Reload DataGridView and clear edit fields
+                                Load_dgv_activity();
+                                ClearEditFields();
+
+                            }
+                            else
+                            {
+                                MessageBox.Show("Activity not found in the database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-
-                int activityID = Convert.ToInt32(selectedRow.Cells["ID"].Value);
-
-                using (var db = new DataClasses1DataContext(clConn.conn))
+                else
                 {
-                    var activity = db.NHANVIEN_CAKIPs.FirstOrDefault(nvc => nvc.ID == activityID);
-
-                    if (activity != null)
-                    {
-                        // Update the activity record with new values
-                        activity.MaCaKip = shiftCode;
-                        activity.Quay = counter;
-                        activity.MaNhanVien = employeeID;
-                        activity.NgayLam = workDate;
-                        activity.TrangThai = status;
-
-                        db.SubmitChanges();
-
-                        MessageBox.Show("Update successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                        // Reload DataGridView and clear edit fields
-                        Load_dgv_activity();
-                        ClearEditFields();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Activity not found in database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    MessageBox.Show("Cannot change status from Absent to Present.", "Update Not Allowed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please select a row to update.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-        else
-        {
-            MessageBox.Show("You can only update from Absent to Present status.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        }
-    }
-    else
-    {
-        MessageBox.Show("Please select a row to update.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-    }
-}
-
-
     }
 }

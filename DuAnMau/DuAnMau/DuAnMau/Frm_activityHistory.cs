@@ -389,25 +389,22 @@ namespace DuAnMau
 
         private void btn_add_Click(object sender, EventArgs e)
         {
-            DateTime ngayLam = dtp_dateWork.Value;
-            bool trangThai = chk_status.Checked;
             try
             {
-                string shiftCode = cbo_IDShift_edit.SelectedItem.ToString();
-                string counter = cbo_counter_edit.SelectedItem.ToString();
-                string employeeID = cbo_IDStaff_edit.SelectedItem.ToString();
+                string shiftCode = cbo_IDShift_edit.SelectedItem?.ToString();
+                string counter = cbo_counter_edit.SelectedItem?.ToString();
+                string employeeID = cbo_IDStaff_edit.SelectedItem?.ToString();
                 DateTime workDate = dtp_dateWork.Value;
                 bool status = chk_status.Checked;
+
                 if (string.IsNullOrEmpty(shiftCode) || string.IsNullOrEmpty(counter) || string.IsNullOrEmpty(employeeID))
                 {
-                    MessageBox.Show("Please fill in all required fields (Shift, Counter, Employee ID).", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Vui lòng điền tất cả các trường bắt buộc (Ca, Quầy, Mã nhân viên).", "Lỗi xác thực", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-
                 using (var db = new DataClasses1DataContext(clConn.conn))
                 {
-
                     NHANVIEN_CAKIP newRecord = new NHANVIEN_CAKIP
                     {
                         MaCaKip = shiftCode,
@@ -418,14 +415,14 @@ namespace DuAnMau
                     };
                     db.NHANVIEN_CAKIPs.InsertOnSubmit(newRecord);
                     db.SubmitChanges();
-                    MessageBox.Show("New record added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Thêm bản ghi mới thành công.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Load_dgv_activity();
                     ClearAddFields();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -437,6 +434,7 @@ namespace DuAnMau
             dtp_dateWork.Value = DateTime.Now;
             chk_status.Checked = false;
         }
+
 
 
         private void btn_update_Click(object sender, EventArgs e)
@@ -471,17 +469,6 @@ namespace DuAnMau
                 }
             }
         }
-        private void ClearEditFields()
-        {
-            cbo_IDShift_edit.SelectedIndex = -1;
-            cbo_counter_edit.SelectedItem = -1;
-            cbo_IDStaff_edit.SelectedIndex = -1;
-            dtp_dateWork.Value = DateTime.Now;
-            chk_status.Checked = false;
-        }
-
-
-
         private void btn_update1_Click(object sender, EventArgs e)
         {
             if (dgv_LichSu.SelectedRows.Count > 0)
@@ -489,21 +476,19 @@ namespace DuAnMau
                 DataGridViewRow selectedRow = dgv_LichSu.SelectedRows[0];
                 string currentStatus = selectedRow.Cells["Status"].Value?.ToString();
 
-                // Check if the current status is "Present" to allow change to "Absent"
                 if (currentStatus == "Present")
                 {
                     try
                     {
                         string shiftCode = cbo_IDShift_edit.SelectedItem?.ToString();
-                        string counter = cbo_counter_edit.Text;
+                        string counter = cbo_counter_edit.SelectedItem?.ToString();
                         string employeeID = cbo_IDStaff_edit.SelectedItem?.ToString();
                         DateTime workDate = dtp_dateWork.Value;
                         bool status = chk_status.Checked;
 
-                        // Ensure required fields are filled
                         if (string.IsNullOrEmpty(shiftCode) || string.IsNullOrEmpty(counter) || string.IsNullOrEmpty(employeeID))
                         {
-                            MessageBox.Show("Please fill in all required fields (Shift, Counter, Employee ID).", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show("Vui lòng điền tất cả các trường bắt buộc (Ca, Quầy, Mã nhân viên).", "Lỗi xác thực", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
 
@@ -515,7 +500,6 @@ namespace DuAnMau
 
                             if (activity != null)
                             {
-                                
                                 activity.MaCaKip = shiftCode;
                                 activity.Quay = counter;
                                 activity.MaNhanVien = employeeID;
@@ -524,33 +508,41 @@ namespace DuAnMau
 
                                 db.SubmitChanges();
 
-                                MessageBox.Show("Update successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show("Cập nhật thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                // Reload DataGridView and clear edit fields
                                 Load_dgv_activity();
                                 ClearEditFields();
-
                             }
                             else
                             {
-                                MessageBox.Show("Activity not found in the database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("Không tìm thấy hoạt động trong cơ sở dữ liệu.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                         }
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Cannot change status from Absent to Present.", "Update Not Allowed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Không thể thay đổi trạng thái từ Vắng mặt thành Có mặt.", "Không được phép cập nhật", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             else
             {
-                MessageBox.Show("Please select a row to update.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Vui lòng chọn một dòng để cập nhật.", "Thông tin", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+
+        private void ClearEditFields()
+        {
+            cbo_IDShift_edit.SelectedIndex = -1;
+            cbo_counter_edit.SelectedIndex = -1;
+            cbo_IDStaff_edit.SelectedIndex = -1;
+            dtp_dateWork.Value = DateTime.Now;
+            chk_status.Checked = false;
+        }
+
     }
 }

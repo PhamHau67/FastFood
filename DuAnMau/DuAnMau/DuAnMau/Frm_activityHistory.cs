@@ -25,6 +25,7 @@ namespace DuAnMau
         {
             InitializeComponent();
             Load_dgv_activity();
+            dgv_LichSu.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             InitializeComboBoxes();
             InitializeEditComboBoxes();
             dgv_LichSu.RowHeadersVisible = false;
@@ -59,6 +60,12 @@ namespace DuAnMau
         {
             load_cbo_IDShift_edit();
             load_cbo_IDStaff_edit();
+            load_cbo_counter_edit();
+            cbo_IDShift_edit.SelectedIndex = -1;
+            cbo_IDStaff_edit.SelectedIndex = -1;
+            cbo_counter_edit.SelectedIndex = -1;
+            chk_status.Checked = false;
+            dtp_dateWork.Value = DateTime.Now;
         }
 
         public void load_cbo_counter()
@@ -147,8 +154,6 @@ namespace DuAnMau
             }
         }
 
-        
-
         public void load_cbo_IDStaff_edit()
         {
             try
@@ -168,6 +173,24 @@ namespace DuAnMau
             }
         }
 
+        public void load_cbo_counter_edit()
+        {
+            try
+            {
+                using (var db = new DataClasses1DataContext(clConn.conn))
+                {
+                    var counter = (from nvc in db.NHANVIEN_CAKIPs
+                                   select nvc.Quay).Distinct().ToList();
+
+                    cbo_counter_edit.Items.Clear();
+                    cbo_counter_edit.Items.AddRange(counter.ToArray());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error reading data from database: " + ex.Message);
+            }
+        }
 
         public void Load_dgv_activity()
         {
@@ -178,11 +201,11 @@ namespace DuAnMau
                             join ck in db.CAKIPs on nvc.MaCaKip equals ck.MaCaKip
                             select new
                             {
-                                nvc.ID,  // Include ID here
-                                nvc.MaCaKip,
+                                nvc.ID,
+                                ck.MaCaKip,
                                 ck.GioBatDau,
                                 ck.GioKetThuc,
-                                nvc.MaNhanVien,
+                                nv.MaNhanVien,
                                 nv.TenNhanVien,
                                 nvc.Quay,
                                 nvc.NgayLam,
@@ -208,6 +231,11 @@ namespace DuAnMau
                 }
 
                 dgv_LichSu.DataSource = dt;
+                dgv_LichSu.Refresh();
+                foreach (DataGridViewColumn column in dgv_LichSu.Columns)
+                {
+                    column.Visible = true; // Đảm bảo cột được hiển thị
+                }
             }
         }
 
@@ -215,8 +243,6 @@ namespace DuAnMau
         {
             FilterData();
         }
-
-        
 
         private void txt_find_TextChanged(object sender, EventArgs e)
         {
@@ -257,6 +283,7 @@ namespace DuAnMau
                                 && (!isDateFilterUsed || (nvc.NgayLam >= startDateFilter && nvc.NgayLam <= endDateFilter)) // Áp dụng bộ lọc ngày tháng nếu cần
                              select new
                              {
+                                 nvc.ID,
                                  ck.MaCaKip,
                                  ck.GioBatDau,
                                  ck.GioKetThuc,
@@ -268,6 +295,7 @@ namespace DuAnMau
                              };
 
                 DataTable dt = new DataTable();
+                dt.Columns.Add("ID");
                 dt.Columns.Add("ShiftCode");
                 dt.Columns.Add("StartTime");
                 dt.Columns.Add("EndTime");
@@ -280,7 +308,7 @@ namespace DuAnMau
                 foreach (var item in findnv)
                 {
                     string workDate = isDateFilterUsed ? item.NgayLam.ToString("dd/MM/yyyy") : item.NgayLam.ToShortDateString(); // Định dạng ngày nếu sử dụng bộ lọc
-                    dt.Rows.Add(item.MaCaKip, item.GioBatDau, item.GioKetThuc, item.MaNhanVien, item.TenNhanVien, item.Quay, workDate, item.TrangThai);
+                    dt.Rows.Add(item.ID, item.MaCaKip, item.GioBatDau, item.GioKetThuc, item.MaNhanVien, item.TenNhanVien, item.Quay, workDate, item.TrangThai);
                 }
 
                 dgv_LichSu.DataSource = dt;
@@ -294,7 +322,7 @@ namespace DuAnMau
             cbo_counter.SelectedIndex = -1;
             cbo_status.SelectedIndex = -1;
             cbo_IDShift_edit.SelectedIndex = -1;
-            txt_counter_edit.Clear();
+            cbo_counter_edit.SelectedIndex = -1;
             cbo_IDStaff_edit.SelectedIndex = -1;
             dtp_start.Value = DateTime.Now;
             dtp_end.Value = DateTime.Now;
@@ -365,9 +393,9 @@ namespace DuAnMau
             bool trangThai = chk_status.Checked;
             try
             {
-                string shiftCode = cbo_IDShift_edit.SelectedItem?.ToString();
-                string counter = txt_counter_edit.Text.ToString();
-                string employeeID = cbo_IDStaff_edit.SelectedItem?.ToString();
+                string shiftCode = cbo_IDShift_edit.SelectedItem.ToString();
+                string counter = cbo_counter_edit.SelectedItem.ToString();
+                string employeeID = cbo_IDStaff_edit.SelectedItem.ToString();
                 DateTime workDate = dtp_dateWork.Value;
                 bool status = chk_status.Checked;
                 if (string.IsNullOrEmpty(shiftCode) || string.IsNullOrEmpty(counter) || string.IsNullOrEmpty(employeeID))
@@ -391,7 +419,7 @@ namespace DuAnMau
                     db.NHANVIEN_CAKIPs.InsertOnSubmit(newRecord);
                     db.SubmitChanges();
                     MessageBox.Show("New record added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Load_dgv_activity(); 
+                    Load_dgv_activity();
                     ClearAddFields();
                 }
             }
@@ -404,7 +432,7 @@ namespace DuAnMau
         private void ClearAddFields()
         {
             cbo_IDShift_edit.SelectedIndex = -1;
-            txt_counter_edit.Text = "";
+            cbo_counter_edit.SelectedIndex = -1;
             cbo_IDStaff_edit.SelectedIndex = -1;
             dtp_dateWork.Value = DateTime.Now;
             chk_status.Checked = false;
@@ -413,7 +441,7 @@ namespace DuAnMau
 
         private void btn_update_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void dgv_LichSu_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -422,98 +450,107 @@ namespace DuAnMau
             {
                 DataGridViewRow row = dgv_LichSu.Rows[e.RowIndex];
 
-                // Lấy giá trị của từng ô trong hàng được chọn
-                string shiftCode = row.Cells["ShiftCode"].Value?.ToString();
-                string counter = row.Cells["Counter"].Value?.ToString();
-                string employeeID = row.Cells["EmployeeID"].Value?.ToString();
-                int activityID = Convert.ToInt32(row.Cells["ID"].Value);  // Fetch ID here
+                string ID = row.Cells["ID"].Value.ToString();
+                string shiftCode = row.Cells["ShiftCode"].Value.ToString();
+                string counter = row.Cells["Counter"].Value.ToString();
+                string employeeID = row.Cells["EmployeeID"].Value.ToString();
+                DateTime workDate = Convert.ToDateTime(row.Cells["WorkDate"].Value);
+                string status = row.Cells["Status"].Value.ToString();
+                txt_ID.Text = ID;
+                cbo_IDShift_edit.SelectedItem = shiftCode;
+                cbo_counter_edit.SelectedItem = counter;
+                cbo_IDStaff_edit.SelectedItem = employeeID;
 
-                // Xử lý giá trị của cột Status và checkbox chk_status tương ứng
-                string status = row.Cells["Status"].Value?.ToString();
                 if (status != null)
                 {
-                    if (status.Equals("Present", StringComparison.OrdinalIgnoreCase))
-                    {
-                        chk_status.Checked = true;
-                    }
-                    else if (status.Equals("Absent", StringComparison.OrdinalIgnoreCase))
-                    {
-                        chk_status.Checked = false;
-                    }
+                    chk_status.Checked = status.Equals("Present", StringComparison.OrdinalIgnoreCase);
                 }
                 else
                 {
-                    chk_status.Checked = false; // Xử lý trường hợp giá trị null nếu cần
+                    chk_status.Checked = false;
                 }
-
-                // Đặt các giá trị lấy được vào các ComboBox và DateTimePicker
-                cbo_IDShift_edit.SelectedItem = shiftCode;
-                txt_counter_edit.Text = counter;
-                cbo_IDStaff_edit.SelectedItem = employeeID;
-
-                // Đặt giá trị ID vào Tag của button Update để sử dụng sau này
-                btn_update1.Tag = activityID;
             }
+        }
+        private void ClearEditFields()
+        {
+            cbo_IDShift_edit.SelectedIndex = -1;
+            cbo_counter_edit.SelectedItem = -1;
+            cbo_IDStaff_edit.SelectedIndex = -1;
+            dtp_dateWork.Value = DateTime.Now;
+            chk_status.Checked = false;
         }
 
 
 
         private void btn_update1_Click(object sender, EventArgs e)
         {
-            if (btn_update1.Tag != null) // Kiểm tra nếu có ID được lưu trong Tag
+            if (dgv_LichSu.SelectedRows.Count > 0)
             {
-                int activityID = (int)btn_update1.Tag;
+                DataGridViewRow selectedRow = dgv_LichSu.SelectedRows[0];
+                string currentStatus = selectedRow.Cells["Status"].Value?.ToString();
 
-                try
+                // Check if the current status is "Present" to allow change to "Absent"
+                if (currentStatus == "Present")
                 {
-                    using (var db = new DataClasses1DataContext(clConn.conn))
+                    try
                     {
-                        // Tìm bản ghi cần cập nhật
-                        var activity = db.NHANVIEN_CAKIPs.FirstOrDefault(nvc => nvc.ID == activityID);
+                        string shiftCode = cbo_IDShift_edit.SelectedItem?.ToString();
+                        string counter = cbo_counter_edit.Text;
+                        string employeeID = cbo_IDStaff_edit.SelectedItem?.ToString();
+                        DateTime workDate = dtp_dateWork.Value;
+                        bool status = chk_status.Checked;
 
-                        if (activity != null)
+                        // Ensure required fields are filled
+                        if (string.IsNullOrEmpty(shiftCode) || string.IsNullOrEmpty(counter) || string.IsNullOrEmpty(employeeID))
                         {
-                            // Lấy các giá trị nhập từ các điều khiển giao diện
-                            string shiftCode = cbo_IDShift_edit.SelectedItem?.ToString();
-                            string counter = txt_counter_edit.Text;
-                            string employeeID = cbo_IDStaff_edit.SelectedItem?.ToString();
-                            DateTime workDate = dtp_dateWork.Value;
-                            bool status = chk_status.Checked;
-
-                            // Cập nhật các trường của bản ghi
-                            activity.MaCaKip = shiftCode;
-                            activity.Quay = counter;
-                            activity.MaNhanVien = employeeID;
-                            activity.NgayLam = workDate;
-                            activity.TrangThai = status;
-
-                            // Gửi các thay đổi lên cơ sở dữ liệu
-                            db.SubmitChanges();
-
-                            // Thông báo cho người dùng về việc cập nhật thành công
-                            MessageBox.Show("Cập nhật thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                            // Làm mới DataGridView và xóa các trường nhập liệu
-                            Load_dgv_activity();
-                            ClearAddFields();
+                            MessageBox.Show("Please fill in all required fields (Shift, Counter, Employee ID).", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
                         }
-                        else
+
+                        int activityID = Convert.ToInt32(selectedRow.Cells["ID"].Value);
+
+                        using (var db = new DataClasses1DataContext(clConn.conn))
                         {
-                            MessageBox.Show("Không tìm thấy hoạt động trong cơ sở dữ liệu!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            var activity = db.NHANVIEN_CAKIPs.FirstOrDefault(nvc => nvc.ID == activityID);
+
+                            if (activity != null)
+                            {
+                                
+                                activity.MaCaKip = shiftCode;
+                                activity.Quay = counter;
+                                activity.MaNhanVien = employeeID;
+                                activity.NgayLam = workDate;
+                                activity.TrangThai = status;
+
+                                db.SubmitChanges();
+
+                                MessageBox.Show("Update successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                // Reload DataGridView and clear edit fields
+                                Load_dgv_activity();
+                                ClearEditFields();
+
+                            }
+                            else
+                            {
+                                MessageBox.Show("Activity not found in the database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
                     }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Cannot change status from Absent to Present.", "Update Not Allowed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             else
             {
-                MessageBox.Show("Vui lòng chọn một hàng để cập nhật.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please select a row to update.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
-
     }
 }

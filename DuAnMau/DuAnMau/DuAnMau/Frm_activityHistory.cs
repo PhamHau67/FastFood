@@ -399,7 +399,7 @@ namespace DuAnMau
 
                 if (string.IsNullOrEmpty(shiftCode) || string.IsNullOrEmpty(counter) || string.IsNullOrEmpty(employeeID))
                 {
-                    MessageBox.Show("Vui lòng điền tất cả các trường bắt buộc (Ca, Quầy, Mã nhân viên).", "Lỗi xác thực", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Please fill in all required fields (Shift, Counter, Employee Code).", "Authentication error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -415,14 +415,14 @@ namespace DuAnMau
                     };
                     db.NHANVIEN_CAKIPs.InsertOnSubmit(newRecord);
                     db.SubmitChanges();
-                    MessageBox.Show("Thêm bản ghi mới thành công.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("New record added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Load_dgv_activity();
                     ClearAddFields();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
